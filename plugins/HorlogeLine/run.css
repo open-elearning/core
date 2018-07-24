@@ -1,0 +1,20 @@
+
+.avatarJaugeBox{
+	position: absolute;
+	border: 0px solid #c2e1f5;
+	cursor:pointer;
+	z-index : 4;
+	overflow:hidden;
+}
+
+.avatarJaugeBloc{
+	float:left;
+	position: relative;
+	overflow:hidden;
+	border: 0px solid red;
+	z-index : 4;
+}
+
+.avatarJaugeBloc img{
+	position: absolute;
+}

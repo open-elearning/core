@@ -1,0 +1,6 @@
+
+.hero2D {
+	position: absolute;
+	border: 0px solid gray;
+	z-index : 2;
+}

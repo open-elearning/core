@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	<properties>
+		<type>objet</type>
+		<id>HorlogeLine</id>
+		<title>Horloge Line</title>
+		<category>Parcours</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>jquery.flipcountdown.css</file>
+		<file>jquery.flipcountdown.js</file>
+		<file>digit-lg.png</file>
+		<file>digit-md.png</file>
+		<file>digit-sm.png</file>
+		<file>digit-xs.png</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>counter.png</screenImage>
+		<defaultText></defaultText>
+		<width>260</width>
+		<height>60</height>
+		<sizeText>30</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+	<fields>
+		<field>
+			<label>Fonctionnement :</label>
+			<type>list</type>
+			<value>hour;fixe;fixemove;de-count;</value>
+		</field>
+		<field>
+			<label>value :(ex:'00:30:00')</label>
+			<type>text</type>
+		</field>
+	</fields>
+	<actions>
+		<action>
+			<label>Add 30 min clock</label>
+			<script>add30MinClock();</script>
+		</action>
+	</actions>
+	
+</plugin>

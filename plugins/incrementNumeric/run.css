@@ -1,0 +1,48 @@
+
+.incrementNumeric{
+	position:absolute;
+	text-align:center;
+	box-sizing: border-box;
+	border: 0px solid red;
+	-webkit-transform-origin: 0px 0px;
+    -moz-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    -o-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+}
+
+.incrementNumericinput::-ms-clear {
+    display: none;
+}
+
+.incrementNumericinput{
+	width: 90%;
+    margin-bottom: 0;
+	border: 1px solid #ccc!important;
+	border-radius:3px;
+	z-index:2;
+    -webkit-appearance: textfield;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    cursor: auto;
+    padding: 1%;
+    border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+	text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+	text-align:center;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font: 400 18px Arial;
+	-webkit-writing-mode: horizontal-tb;
+	border-collapse: separate;
+	outline:none;
+}

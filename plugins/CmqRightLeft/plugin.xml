@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<version>1.0</version>
+	<properties>	
+		<type>objet</type>
+		<id>CmqRightLeft</id>
+		<title>Cmq Right Left</title>
+		<category>Content</category>
+	</properties>
+	<display>
+		<screenImage>screencmqrightleft.png</screenImage>
+		<screenTextMapping>
+			<svg width="450" height="225" >
+				<rect ref="0" x="5" y="2" width="440" height="48" ></rect>
+				<rect ref="1" x="10" y="56" width="180" height="40" ></rect>
+				<rect ref="2" x="275" y="56" width="170" height="40" ></rect>
+				<rect ref="3" x="10" y="114" width="180" height="40" ></rect>
+				<rect ref="4" x="275" y="114" width="170" height="40" ></rect>
+				<rect ref="5" x="10" y="176" width="180" height="40" ></rect>
+				<rect ref="6" x="275" y="176" width="170" height="40" ></rect>
+				<rect ref="7" x="10" y="234" width="180" height="40" ></rect>
+				<rect ref="8" x="275" y="234" width="170" height="40" ></rect>
+			</svg>
+		</screenTextMapping>
+		<defaultText>Question|Answer Bad|Answer OK|Answer Bad|Answer OK|Answer Bad|Answer OK</defaultText>
+		<width>450</width>
+		<height>300</height>
+		<sizeText>16</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>1</conditionalObject>
+		<haveScore>1</haveScore>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+</plugin>

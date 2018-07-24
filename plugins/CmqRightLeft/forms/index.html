@@ -1,0 +1,151 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Forms</title>
+	<link rel="stylesheet" href="bootstrap.min.css" />
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="row">
+		
+		  <div class="col-sm-12" >
+			<form>
+				<div class="form-group">
+					<label for="quest1">Question</label>
+					<input type="text" class="form-control" id="quest1">
+				</div>
+			</form>
+		  </div>
+		  
+		  <div class="col-sm-6" >
+			<form>
+				<div class="form-group">
+					<label for="d1" style="color:red;" >Réponse Fausse</label>
+					<input type="text" class="form-control" id="d1" >
+					<label for="d2" style="color:red;" >Réponse Fausse</label>
+					<input type="text" class="form-control" id="d2" >
+					<label for="d3" style="color:red;" >Réponse Fausse</label>
+					<input type="text" class="form-control" id="d3" >
+				</div>
+				<div id="line4" class="form-group" style="display:none;" >
+					<label for="d4" style="color:red;" >Réponse Fausse</label>
+					<input type="text" class="form-control" id="d4" >
+					<label for="d5" style="color:red;" >Réponse Fausse</label>
+					<input type="text" class="form-control" id="d5" >
+				</div>
+				<div id="lineAdd" class="form-group" >
+					Ajouter <img onclick="addLines()" style="cursor:pointer;" src="add.png" />
+				</div>
+			</form>
+		  </div>
+		  
+		  <div class="col-sm-6">
+			<form>
+				<div class="form-group">
+					<label for="g1" style="color:#2E2EFE;">Réponse Bonne</label>
+					<input type="text" class="form-control" id="g1" >
+					<label for="g2" style="color:#2E2EFE;">Réponse Bonne</label>
+					<input type="text" class="form-control" id="g2" >
+					<label for="g3" style="color:#2E2EFE;">Réponse Bonne</label>
+					<input type="text" class="form-control" id="g3" >
+				</div>
+				<div id="lineb4" class="form-group" style="display:none;" >
+					<label for="g4" style="color:#2E2EFE;">Réponse Bonne</label>
+					<input type="text" class="form-control" id="g4" >
+					<label for="g5" style="color:#2E2EFE;">Réponse Bonne</label>
+					<input type="text" class="form-control" id="g5" >
+				</div>
+			</form>
+		  </div>
+		
+		</div>
+		
+	</div>
+
+	<textarea id="finalcode" style="display:none;" ></textarea>
+	
+<script>
+
+	var out = document.getElementById("finalcode");
+	
+	function init(){
+		
+		var str = '';
+		if(str==''&&out.value!=''){
+			str=out.value + '||||||||||';
+		}else{
+			setTimeout(function(){init();},300);
+			return false;
+		}
+		
+		var r = str.split('|');
+		
+		if(r.length>9){
+			document.getElementById("quest1").value = r[0];
+			document.getElementById("d1").value = r[1];
+			document.getElementById("g1").value = r[2];
+			document.getElementById("d2").value = r[3];
+			document.getElementById("g2").value = r[4];
+			document.getElementById("d3").value = r[5];
+			document.getElementById("g3").value = r[6];
+			document.getElementById("d4").value = r[7];
+			document.getElementById("g4").value = r[8];
+			document.getElementById("d5").value = r[9];
+			document.getElementById("g5").value = r[10];
+			
+			var d4 = document.getElementById("d4").value;
+			
+			if(d4!=''){addLines();}
+			
+		}
+		
+		main();
+		
+	}
+	
+	function main(){
+		
+		var q1 = document.getElementById("quest1").value;
+		
+		var d1 = document.getElementById("d1").value;
+		var d2 = document.getElementById("d2").value;
+		var d3 = document.getElementById("d3").value;
+		var d4 = document.getElementById("d4").value;
+		var d5 = document.getElementById("d5").value;
+		
+		var g1 = document.getElementById("g1").value;
+		var g2 = document.getElementById("g2").value;
+		var g3 = document.getElementById("g3").value;
+		var g4 = document.getElementById("g4").value;
+		var g5 = document.getElementById("g5").value;
+		
+		var f = q1 + '|' + d1 + '|' + g1  + '|' + d2 + '|';
+		f += g2 + '|' + d3 + '|' + g3;
+		f += '|' + d4 + '|' + g4;
+		f += '|' + d5 + '|' + g5;
+		
+		out.value = f;
+		
+
+		
+		setTimeout(function(){main();},200);
+	
+	}
+	
+	setTimeout(function(){
+		init();
+	},300);
+	
+	function addLines(){
+		document.getElementById("lineAdd").style.display = 'none';
+		document.getElementById("line4").style.display = 'block';
+		document.getElementById("lineb4").style.display = 'block';		
+	}
+		
+</script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	
+	<properties>
+		<type>objet</type>
+		<id>LetterGameLostLetter</id>
+		<title>Lost-Letter</title>
+		<category>Games</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>passlettrebravo.png</file>
+		<file>passlettresnif.png</file>
+		<file>electTrans.png</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>screenover.png</screenImage>
+		<defaultText></defaultText>
+		<width>450</width>
+		<height>350</height>
+		<sizeText>50</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>1</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+	<fields>
+		<field>
+			<label>>Mot :</label>
+			<type>text</type>
+			<defaut>_eux</defaut>
+		</field>
+		<field>
+			<label>Choix :</label>
+			<type>text</type>
+			<defaut>F;V;H</defaut>
+		</field>
+		<field>
+		<label>Variable :</label>
+			<type>text</type>
+			<defaut></defaut>
+		</field>
+	</fields>
+	
+</plugin>

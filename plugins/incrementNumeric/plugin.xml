@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	
+	<properties>	
+		<type>objet</type>
+		<id>incrementNumeric</id>
+		<title>increment Numeric</title>
+		<category>Questions</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>plusincrement.png</file>
+		<file>minincrement.png</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>incrementNumericScreen.png</screenImage>
+		<screenTextMapping>
+			<svg width="100" height="90" >
+				<rect ref="10" x="1" y="1" width="60" height="50" ></rect>
+			</svg>
+		</screenTextMapping>
+		<defaultText>Grams|0|100|0|1|1|numericincrent</defaultText>
+		<width>100</width>
+		<height>90</height>
+		<sizeText>18</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>1</conditionalObject>
+		<haveScore>1</haveScore>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+</plugin>

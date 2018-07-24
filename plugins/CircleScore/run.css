@@ -1,0 +1,52 @@
+.arrow_box {
+	position: absolute;
+	background: #88b7d5;
+	border: 2px solid #c2e1f5;
+	cursor:pointer;
+	z-index : 5;
+	text-align:center;
+	padding-top:4px;
+}
+
+.abox {
+	position: relative;
+	padding:5px;
+	margin:5px;
+	margin-left:1px;
+	margin-right:1px;
+	padding-left:2px;
+	padding-right:2px;
+	font-size : 27px;
+	text-decoration : none;
+	color : black;
+	cursor:pointer;
+	z-index : 6;
+}
+
+.abox:hover {
+	color : red;
+}
+
+.arrow_box:after, .arrow_box:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #88b7d5;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.arrow_box:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #c2e1f5;
+	border-width: 18px;
+	margin-left: -18px;
+}

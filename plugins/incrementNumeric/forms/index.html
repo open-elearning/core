@@ -1,0 +1,106 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Forms</title>
+	<link rel="stylesheet" href="bootstrap.min.css" />
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="row">
+		  
+		  <div class="col-sm-6" >
+			<form>
+				<div class="form-group">
+					<label for="f1" >Unit label :</label>
+					<input type="text" class="form-control" id="f1" >
+					<label for="f2" >Min Value :</label>
+					<input type="text" class="form-control" id="f2" >
+					<label for="f3" >Max Value :</label>
+					<input type="text" class="form-control" id="f3" >
+					<label for="f4" >Decimal Value :</label>
+					<input type="numeric" class="form-control" id="f4" >
+				</div>
+			</form>
+		  </div>
+		  
+		  <div class="col-sm-6" >
+			<form>
+				<div class="form-group">
+					<label for="f5" >Unit increment :</label>
+					<input type="text" class="form-control" id="f5" >
+				</div>
+				<div class="form-group">
+					<label for="f6" color="green" >Answers :</label>
+					<input type="text" class="form-control" id="f6" >
+				</div>
+				<div class="form-group">
+					<label for="f7" color="green" >ID getValue :</label>
+					<input type="text" class="form-control" id="f7" >
+				</div>
+			</form>
+		  </div>
+		
+		</div>
+		
+	</div>
+
+	<textarea id="finalcode" style="display:none;" ></textarea>
+	
+<script>
+
+	var out = document.getElementById("finalcode");
+	
+	function init(){
+		
+		var str = '';
+		if(str==''&&out.value!=''){
+			str=out.value + '||||||||||';
+		}else{
+			setTimeout(function(){init();},300);
+			return false;
+		}
+		
+		var r = str.split('|');
+
+		if(r.length>3){
+			document.getElementById("f1").value = r[0];
+			document.getElementById("f2").value = r[1];
+			document.getElementById("f3").value = r[2];
+			document.getElementById("f4").value = r[3];
+			document.getElementById("f5").value = r[4];
+			document.getElementById("f6").value = r[5];
+			document.getElementById("f7").value = r[6];
+		}
+		
+		main();
+		
+	}
+	
+	function main(){
+				
+		var f1 = document.getElementById("f1").value;
+		var f2 = document.getElementById("f2").value;
+		var f3 = document.getElementById("f3").value;
+		var f4 = document.getElementById("f4").value;
+		var f5 = document.getElementById("f5").value;
+		var f6 = document.getElementById("f6").value;
+		var f7 = document.getElementById("f7").value;
+		var f = f1 + '|' + f2 + '|' + f3  + '|' + f4 + '|' + f5 + '|' + f6 + '|' + f7 + '|';
+		
+		out.value = f;
+		
+		setTimeout(function(){main();},200);
+	
+	}
+	
+	setTimeout(function(){
+		init();
+	},300);
+		
+</script>
+
+</body>
+</html>

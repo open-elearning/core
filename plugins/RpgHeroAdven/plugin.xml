@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	
+	<properties>
+		<type>objet</type>
+		<id>RpgHeroAdven</id>
+		<title>Rpg Hero Adven</title>
+		<category>Games</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>poseleft.gif</file>
+		<file>poseright.gif</file>
+		<file>moveleft.gif</file>
+		<file>moveright.gif</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>poseleft.gif</screenImage>
+		<defaultText></defaultText>
+		<width>133</width>
+		<height>168</height>
+		<sizeText>18</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+	<fields>
+		<field>
+			<label>Image :</label>
+			<type>file</type>
+			<value></value>
+		</field>
+	</fields>
+	
+</plugin>

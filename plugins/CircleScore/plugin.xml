@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<version>1.0</version>	
+	<properties>	
+		<type>objet</type>
+		<id>CircleScore</id>
+		<title>Circle Score</title>
+		<category>Content</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>circlescore.css</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>screencirclescore.png</screenImage>
+		<defaultText></defaultText>
+		<width>150</width>
+		<height>150</height>
+		<sizeText>30</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>1</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+	<fields>
+		<field>
+			<label>Image :</label>
+			<type>file</type>
+			<value></value>
+		</field>
+	</fields>
+	
+	<actions>
+		<action>
+			<label>Ajouter une carte indice</label>
+			<script>addCardIndice();</script>
+		</action>
+	</actions>
+	
+</plugin>
