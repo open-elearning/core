@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3884"
+   sodipodi:docname="bullebase.svg"
+   viewBox="0 0 300 220"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="300"
+   height="220"
+   inkscape:export-filename="C:\Users\Damien\Desktop\bullebase.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs3886" />
+  <sodipodi:namedview
+     id="base"
+     bordercolor="#666666"
+     inkscape:pageshadow="2"
+     inkscape:window-y="-8"
+     pagecolor="#ffffff"
+     inkscape:window-height="837"
+     inkscape:window-maximized="1"
+     inkscape:zoom="1.979899"
+     inkscape:window-x="-8"
+     showgrid="false"
+     borderopacity="1.0"
+     inkscape:current-layer="layer1"
+     inkscape:cx="158.10037"
+     inkscape:cy="109.11611"
+     inkscape:window-width="1600"
+     inkscape:pageopacity="0.0"
+     inkscape:document-units="px" />
+  <g
+     id="layer1"
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     transform="translate(-249.29,-318.67)">
+    <path
+       inkscape:connector-curvature="0"
+       d="m 484.88064,501.63723 c -19.07961,-0.39492 -42.30566,-0.0367 -62.8196,-0.0367 L 277.83463,500.2904 c -20.41625,-2.62031 -24.32242,-12.69155 -24.32242,-30.2353 l 0,-83.3976 c 0.42674,-15.59406 -1.18249,-30.08545 26.898,-31.54546 l 237.46191,0 c 27.62788,0.87344 28.44332,14.00169 28.44332,31.54546 l 0,95.18895 c -0.51512,17.7844 -16.22578,20.37505 -37.35736,19.6183 4.00899,9.97439 23.39245,24.70135 36.78271,35.87468 -24.97615,-11.47841 -45.08101,-20.82546 -61.80659,-36.13892"
+       style="fill:#ffffff;stroke:#000000;stroke-width:2.15092063;stroke-linecap:round;stroke-linejoin:round"
+       sodipodi:nodetypes="cccccccccccc"
+       id="path4042" />
+  </g>
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title></dc:title>
+        <dc:date>2010-04-06T21:03:01</dc:date>
+        <dc:description>Speech bubble</dc:description>
+        <dc:source>https://openclipart.org/detail/38635/speech-bubble-by-pascallapalme-38635</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>pascallapalme</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>cartoon</rdf:li>
+            <rdf:li>speech bubble</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
