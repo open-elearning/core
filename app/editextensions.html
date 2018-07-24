@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning exports</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<script>
+		const electron = require('electron');
+		if (typeof module === 'object') {
+		window.module = module; module = undefined;}
+	</script>
+	
+	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+	<script src="js/editextensions.js" ></script>
+	
+</head>
+<body>
+	
+	<div id="etape1" class="windowsexports" >
+		
+		<div class="title-exports" >List of extensions</div>
+
+		<div class="zone-exports" >
+			<div id="folderadd" class="folderadd" ></div>
+		</div>
+		
+		<a id="returnpage"
+		style="position:absolute;right:55px;bottom:30px;"
+		class="ludibtn" >Close</a>
+		
+	</div>
+		
+</body>
+	
+	<script>
+		require('../app/rendererEditExtensions.js')
+	</script>
+	
+	<script>
+		loadPlugins();
+	</script>
+	
+</html>

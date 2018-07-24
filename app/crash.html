@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning error</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<script>
+		const electron = require('electron');
+		if (typeof module === 'object') {
+		window.module = module; module = undefined;}
+	</script>
+	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+</head>
+<body>
+	
+	<div id="etape1" class="windowsexports" >
+		
+		<div class="title-exports" >Little error ...</div>
+
+		<div class="zone-exports" >		
+			<p>a problem has been detected&nbsp;:</p>
+			<img class="loadimg2" src="images/openelearning.gif" />
+			<a id="extensions-logs" class="ludibtn" >Logs</a>
+		</div>
+		
+	</div>
+	
+	
+</body>
+	<script>
+		setTimeout(function(){
+			$('.loadimg2').css("display","none");
+		},3000);
+	</script>
+  
+    <script>
+		require('../app/rendererCrash.js')
+	</script>
+  
+</html>

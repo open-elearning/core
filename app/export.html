@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning exports</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<script>
+		const electron = require('electron');
+		if (typeof module === 'object') {
+		window.module = module; module = undefined;}
+	</script>
+	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+</head>
+<body>
+	
+	<div id="etape1" class="windowsexports" >
+		
+		<div class="title-exports" >Exports SCORM</div>
+
+		<div class="zone-exports" >
+
+			<p>Interface&nbsp;:</p>
+			<div class="pure-css-select-style theme-default" >
+				<select>
+					<option value="chamilo">interface for Chamilo</option>
+					<option value="moodle">interface for Moodle</option>
+				</select>
+			</div>
+			
+		</div>
+
+		<a id="extensions-graphic"
+		style="position:absolute;right:55px;bottom:30px;"
+		onMouseUp="loadProg();"
+		class="ludibtn" >Execute</a>
+		
+	</div>
+	
+	<div id="etape2" class="windowsexports" style="display:none;" >
+		<div class="title-exports" >Progress</div>
+		<img class="loadimg" src="images/openelearning.gif" />
+	</div>
+	
+</body>
+	<script>
+		function loadProg(){
+			setTimeout(function(){
+				$('#etape1').css('display','none');
+				$('#etape2').css('display','block');
+				$('.loadimg').css('display','block');
+				setTimeout(function(){
+					$('.loadimg').css('display','none');
+				},8000);
+			
+			},2000);
+		}
+	</script>
+	<script>
+		require('../app/rendererExports.js')
+	</script>
+  
+</html>

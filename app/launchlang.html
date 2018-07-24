@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<!-- electron declaration -->
+	<script>
+		const electron = require('electron');
+	</script>
+  </head>
+  <body>
+		
+	<div id="windowschoice" class="windowsbaselang" >
+
+		<div class="control-title" >Choose a language</div>
+		
+		<a id="lang-de" style="position:absolute;left:320px;top:230px;" class="ludibtn" >Deutsch</a>
+		<a id="lang-es" style="position:absolute;left:320px;top:280px;" class="ludibtn" >Espagnol</a>
+		<a id="lang-en" style="position:absolute;left:320px;top:330px;" class="ludibtn" >English</a>
+		<a id="lang-fr" style="position:absolute;left:320px;top:380px;" class="ludibtn" >Francais</a>
+		
+	</div>
+	
+  </body>
+
+  <script>
+    require('../app/rendererLang.js')
+  </script>
+  
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	
+	<meta charset="utf-8" />
+	<title>OPEN ELEARNING</title>
+	
+	<script>
+	if (typeof module === 'object') {
+	window.module = module; module = undefined;}</script>
+	
+	<link rel="stylesheet" href="editor/css/main.css" />
+	<link rel="stylesheet" href="editor/css/menu.css" />
+	<link rel="stylesheet" href="editor/css/windows.css" />
+	<link rel="stylesheet" href="editor/css/editor.css" />
+	<link rel="stylesheet" href="editor/css/listpage.css" />
+	<link rel="stylesheet" href="editor/css/images-gestion.css" />
+	<link rel="stylesheet" href="editor/css/wy/stylesheet.css" />
+	<link rel="stylesheet" href="editor/css/jquery.contextmenu.css" />
+	<link rel="stylesheet" href="editor/css/checkbox.css" />
+
+	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+	<script src="editor/js/libs/jquery-sortable.js" ></script>
+	<script src="editor/js/xing-wysihtml5/parser_rules/advanced.js" ></script>
+	<script src="editor/js/xing-wysihtml5/dist/wysihtml5-0.3.0.min.js" ></script>
+	<script src="editor/js/libs/amplify.min.js" ></script>
+	<script src="editor/js/libs/jquery.contextmenu.js"></script>
+	<script src="editor/openelearning/dist/fabric.js" ></script>
+	<script src="editor/js/FileSaver.js"></script>
+
+	<script src="editor/js/libs/a-table.min.js"></script>
+	<link rel="stylesheet" href="editor/css/a-table.css" />
+	
+</head>
+	
+<body>
+	
+	<div class="menu-ecran" ></div>
+	
+	<div id="opacedit" onClick="closeEdit();" class="opacedit pan" ></div>
+	
+	<ul class="menu-vertical pan" >
+		
+		<li class="mv-item">
+		<a id="saveBtnProject" 
+		onMouseUp="saveCommand();" >Save</a>
+		</li>
+	
+		<li class="mv-item">
+		<a id="exportBtnProject" 
+		onMouseUp="closePan();launchRapidRender(-2);" >Export to SCORM</a>
+		</li>
+		
+		<li class="mv-item">
+		<a id="exportBtnProject" 
+		onMouseUp="closePan();launchCodeEditZone();" >Extra Code</a>
+		</li>
+		
+		<li class="mv-item">
+		<a id="quitBtnProject" 
+		onMouseUp="createRenderJSON();closePan();" >Quit</a>
+		</li>
+		
+	</ul>
+	
+	<canvas id="ecran" class="ecran" width="960" height="720" ></canvas>
+	
+<div id="editzone" class="editZoneTexte pan" >
+
+	<form class="formzone" >
+		<textarea id="textarea" col=45 line=24 class="textzone" style="font-size:18px;" placeholder="Enter text ..." ></textarea>	
+	</form>
+	
+	<div id="wysihtml5-editor-toolbar">
+		
+		<header>
+			
+			<ul class="commands">
+			  <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command"></li>
+			  <li data-wysihtml5-command="italic" title="Make text italic (CTRL + I)" class="command"></li>
+			  <li data-wysihtml5-command="insertUnorderedList" title="Insert an unordered list" class="command"></li>
+			  <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command"></li>
+			  <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command">
+				<ul class="foreColorliste" >
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy"></li>
+				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue"></li>
+				</ul>
+			  </li>
+			  <li data-wysihtml5-command="insertSpeech" title="Insert speech" class="command"></li>
+			  <li data-wysihtml5-action="change_view" title="Show HTML" class="action"></li>
+			</ul>
+		
+		</header>
+		
+	</div>
+	
+	<div class="toolBasRight" >
+		<a onclick="switchTextBack(0);" 
+		class="toolCube styl0" 
+		style='background-image: url("img/text-white.png");' ></a>
+		<a onclick="switchTextBack(1);" 
+		class="toolCube styl1" 
+		style='background-image: url("img/text-black.png");' ></a>
+	</div>
+	
+	<div class="toolBas2" >
+
+		<a style="float:right;margin-right:5px;margin-top:10px;"
+		onclick="setSourceText();"
+		class="btnSave" >Save</a>
+	
+	</div>
+	
+</div>
+	
+	<div id="editscript" class="editzoneTablet pan" >
+		
+		<form class="formzone" >
+			<textarea id="textareascript" col=45 line=24 class="textzone" style="font-size:18px;" placeholder="Enter script ..." ></textarea>	
+		</form>
+		
+		<div class="toolBas2" >
+			<a onclick="setSourceScript();" 
+			style='background-image: url("img/save.png");' 
+			class="toolCube" ></a>
+		</div>
+		
+	</div>
+	
+	<div id="editgeneration" style="height:130px;" class="editnote pan" >
+	
+		<div class="toolbar toolbar-header">
+			<h1 class="titlehead">Prepare files ...</h1>
+		</div>
+	  
+		<center>
+			<p style="padding:2px;margin:2px;" >
+				<br/>
+				<b><span id="progressrendering" >...</span></b>
+			</p>
+			<img src="img/progress.gif" />
+			<a style="display:none;" onClick="closeEdit();" class="validation">Cancel</a>
+		</center>
+	</div>
+	
+	<div id="initgeneration" style="height:130px;" class="editnote pan" >
+		<center>
+			<p style="padding:2px;margin:2px;" >
+				<br/>
+				<b>Load ...</b>
+			</p>
+			<img src="img/progress.gif" />
+		</center>
+	</div>
+	
+	<div id="voirleslogs" onClick="$('#voirleslogs').css('display','none');" style="height:130px;" >
+	</div>
+	
+	<script src="editor/js/oel-interface.js"></script>
+	<script src="editor/js/oel-aaa-openelearning2017.js"></script>
+	<script src="editor/js/oel-color-select.js"></script>
+	<script src="editor/js/oel-ajout-helpers.js"></script>
+	<script src="editor/js/oel-fonctions.js" ></script>
+	<script src="editor/js/oel-app.js" ></script>
+	<script src="editor/js/oel-svghelper.js" ></script>
+	<script src="editor/js/oel-page.js" ></script>
+	<script src="editor/js/oel-ludi.js" ></script>
+	<script src="editor/js/oel-mp4-gestion.js" ></script>
+	<script src="editor/js/oel-windows.js" ></script>
+	<script src="editor/js/oel-images-gestion.js" ></script>
+	<script src="editor/js/oel-extracode.js" ></script>
+	
+	<script src="editor/js/oel-animaformat.js" ></script>
+	<script src="editor/js/oel-buttonformat.js" ></script>
+	<script src="editor/js/oel-database.js" ></script>
+	<script src="editor/js/oel-actionsperso.js" ></script>
+	<script src="editor/js/oel-menu.js" ></script>
+	<script src="editor/js/oel-placeeditzones.js" ></script>
+
+	<script src="editor/js/oel-showWizi.js" ></script>
+	<script src="editor/js/oel-saveeditzones.js" ></script>
+	<script src="editor/js/oel-ajout-ludi.js" ></script>
+	<script src="editor/js/oel-zjson-save-render.js" ></script>
+	<script src="editor/js/oel-init.js" ></script>
+	<script src="editor/js/oel-plugme.js" ></script>
+	<script src="editor/js/oel-plugedit.js" ></script>
+	
+</body>
+  	
+	<script>
+		require('../app/rendererEditor.js');
+	</script>
+	
+</html>

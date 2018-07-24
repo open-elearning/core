@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning error</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<script>
+		const electron = require('electron');
+		if (typeof module === 'object') {
+		window.module = module; module = undefined;}
+	</script>
+	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+</head>
+<body>
+	
+	<div id="etape1" class="windowsexports" >
+		
+		<div class="title-exports" >Logs ...</div>
+
+		<div class="zone-exports" >		
+		
+		<div id="logparams" >
+		
+		</div>
+		</div>
+		
+		
+	</div>
+	
+	
+</body>
+
+	<script>
+		setTimeout(function(){
+			var remote = require('electron').remote;
+			var sharedLogs = remote.getGlobal('sharedLogs').logs;
+			$("#logparams").html(sharedLogs);
+		},1000);
+	</script>
+  
+</html>

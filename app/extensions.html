@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<script>
+		const electron = require('electron');
+	</script>
+  </head>
+  <body>
+		
+	<div id="windowschoice" class="windowsbaseextensions" >
+		
+		<div class="control-title" >Load and edit extensions</div>
+		
+		<a id="extensions-elearni" 
+		style="position:absolute;left:320px;top:230px;" 
+		class="ludibtn" >Elearning-Plugins</a>
+		<a id="extensions-interfa" 
+		style="position:absolute;left:320px;top:280px;" 
+		class="ludibtn" >Interface LMS Plugins</a>
+		<a id="extensions-logs" 
+		style="position:absolute;left:320px;top:330px;" 
+		class="ludibtn" >Logs</a>
+		
+		<a id="extensions-cancel" 
+		style="position:absolute;left:320px;top:380px;" 
+		class="ludibtn" >Cancel</a>
+		
+	</div>
+	
+  </body>
+
+  <script>
+    require('../app/rendererExtensions.js')
+  </script>
+  
+</html>

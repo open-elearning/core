@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Open-eLearning</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>Open-eLearning</title>
+		<link href="css/default.css" rel="stylesheet" />
+		<link rel="icon" href="images/favicon.ico" />
+		<script>
+			const electron = require('electron');
+			if (typeof module === 'object') {
+			window.module = module; module = undefined;}
+		</script>
+		<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+		<script src="js/launch.js" ></script>
+	</head>
+	<body>
+		
+		<div id="windowschoice" class="windowsbase" >
+	
+			<div id="ctr-title" class="control-title" >Open-Source Course Editor</div>
+			
+			<a id="newProject" 
+			style="position:absolute;left:390px;top:260px;" 
+			class="ludibtn pleasewait" >New Project</a>
+			<a id="openProject" 
+			style="position:absolute;left:390px;top:310px;" 
+			class="ludibtn pleasewait" >Open a project</a>
+			
+			<a id="extensions" 
+			style="position:absolute;left:390px;top:360px;font-weight:normal;" 
+			class="ludibtn pleasewait" >Extensions</a>
+			
+			<div id="divrecent" class="pleasewait" >
+				<div onclick="launchRecent(1);" id="linerecent1" class="linerecent" ><span>Test1</span></div>
+				<div onclick="launchRecent(2);" id="linerecent2" class="linerecent" ><span>Test2</span></div>
+			</div>
+			
+			<img class="loadimg" src="images/openelearning.gif" />
+			
+			<a id="choicelang" ></a>
+			
+			<div id="openelearningversion" >Beta Version 1.0.7</div>
+			<a target="_blank" id="openelearninglink" 
+			 >http://www.openelearning.org/</a>
+			
+		</div>
+	
+	</body>
+	
+	<script>
+		require('../app/rendererLaunch.js');
+	</script>
+ 
+  <script src="../lang/trad.js" ></script>
+  
+</html>
