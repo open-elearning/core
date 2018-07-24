@@ -1,0 +1,22 @@
+﻿<bloc>
+<type>plugin-lependuanimate</type>
+<fontsize>30</fontsize>
+<ids></ids><st></st>
+<x>posx</x><y>posy</y>
+<w>450</w><h>450</h>
+<o>0</o><o2>0</o2>
+<acl>0</acl><an>1</an><de>0</de>
+<di>0</di><dedi>0</dedi>
+<domaine>0</domaine>
+<text><![CDATA[]]></text>
+<src></src><data></data>
+<color>#000000</color>
+<align>Center</align>
+<css>border: solid 0px #808080;</css>
+<ind>1</ind>
+<field1><![CDATA[valfield1]]></field1>
+<field2><![CDATA[valfield2]]></field2>
+<contenu2></contenu2>
+<contenu6>True</contenu6>
+<page>2</page>
+</bloc>

@@ -1,0 +1,24 @@
+﻿<bloc>
+<type>img</type>
+<ids>objIds</ids>
+<src>images/bulles/bullebase{typespeech}.png</src>
+<x>posx</x><y>posy</y>
+<w>posw</w><h>220</h>
+<an>1</an>
+<ind>1</ind>
+<page>2</page>
+</bloc>
+<bloc>
+<type>text</type>
+<ids>objIds</ids>
+<fontsize>16</fontsize>
+<x>posx+15</x><y>posy+47</y>
+<w>txtw</w><h>122</h>
+<an>1</an>
+<text><![CDATA[<p>valfieldtext</p>]]></text>
+<color>Black</color>
+<align>Fit</align>
+<css>border: solid 0px Gray;</css>
+<ind>1</ind>
+<page>2</page>
+</bloc>

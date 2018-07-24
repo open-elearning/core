@@ -1,0 +1,13 @@
+﻿<bloc>
+<type>gamelife</type>
+<ids>system-life</ids>
+<x>posx</x><y>posy</y>
+<w>114</w><h>38</h>
+<an>1</an>
+<text><![CDATA[images/lifeeart.png]]></text>
+<data><![CDATA[3]]></data>
+<src>1</src>
+<css></css>
+<ind>1</ind>
+<page>2</page>
+</bloc>
