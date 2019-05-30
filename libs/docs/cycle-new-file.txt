@@ -1,0 +1,17 @@
+
+launch.html => rendererLaunch.js
+
+ipc.send('ShowModelsWindow');
+
+***
+
+launchmodel.html => rendererModels.js
+
+ipc.send('message',{key:'activeFile',val:'1'})
+ipc.send('ShowEditorWindow');
+
+
+***
+cls-ludi.js => function ludisInitCreation()
+
+function loadRenderJSON(){

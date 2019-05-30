@@ -18,6 +18,7 @@ function renderBarre(ob,p){
 		fxml += "<color><![CDATA[white]]></color>";
 		fxml += "<page>" + p + "</page>";
 		fxml += "<ind>1</ind>";
+		fxml += "<an>1</an>";
 		fxml += "<css>background-color:" + ob.val + ";</css>";
 		fxml += "</bloc>";
 	}
@@ -26,6 +27,155 @@ function renderBarre(ob,p){
 	
 }
 exports.renderBarre = renderBarre;
+
+function renderVariable(ob,p){
+	var fxml = '';
+	if(ob.type=='variable'){
+
+		var namvar = rJtext(ob.text);
+		var minv = parseInteger(ob.text2);
+		var maxv = parseInteger(ob.text3);
+		fxml += '<scriptloop><data>';
+		fxml += '<![CDATA[';
+		
+		fxml += "if(" + namvar + "==\"-\"){";
+		fxml += namvar + ' = Math.floor(Math.random()*(';
+		fxml += maxv + '-' + minv + '+1)+' + minv + ')';
+		fxml += '}';
+		fxml += "processVarsIntoTexte(\"" + namvar + "\"," + namvar + ");";
+		fxml += ']]>';
+		fxml += '</data></scriptloop>';
+	}
+	return fxml;
+}
+exports.renderVariable = renderVariable;
+
+function renderInput(ob,p){
+	
+	var fxml = '';
+	
+	if(ob.type=='input'){
+
+		fxml += '<bloc>';
+		fxml += '<type>input</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+		fxml += "<text><![CDATA[" + ob.text + "]]></text>";
+		fxml += "<align>LeftTop</align>";
+		fxml += "<fontsize>18</fontsize>";
+		fxml += "<color>Black</color>";
+		fxml += "<page>" + p + "</page>";
+		
+		fxml += '<note>' + ob.note + '</note>';
+		fxml += '<remarque><![CDATA[' + rJtext(ob.remarque) + ']]></remarque>';
+		fxml += "<negnote>0</negnote>";
+
+		fxml += "<remarque></remarque>";
+		fxml += "<contenu5></contenu5>";
+		fxml += "<ind>1</ind>";
+		fxml += "<css>border:solid 2px Gray;background-color:White;</css>";
+		fxml += "</bloc>";
+	}
+	
+	return fxml;
+	
+}
+exports.renderInput = renderInput;
+
+function renderDom(ob,p){
+
+	var fxml = '';
+
+	if(ob.type=='dom'){
+		fxml += '<bloc>';
+		fxml += '<type>texthtml</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+		
+		if(ob.fontSize){
+			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
+		}else{
+			fxml += "<fontsize>18</fontsize>";
+		}
+
+		var actJs = "";
+		if(ob.data=="DS"){
+			actJs = ' onClick="LUDI.nextPage()" ';
+		}
+		if(ob.data=="DP"&&p>0){
+			actJs = ' onClick="LUDI.prevPage()" ';
+		}
+		if(ob.data=="DK"){
+			actJs = ' onClick="LUDI.nextPageIsOK()" ';
+		}
+		if(ob.data=="GO"){
+			actJs = ' onClick="LUDI.goPage(' + parseInt(ob.val) + ')" ';
+		}
+		if(ob.data=="AP"){
+			actJs = ' onClick="eval(' + parseInt(ob.text4) + ')" ';
+		}
+		
+		fxml += '<text><![CDATA[<div ' + actJs;
+		fxml += 'style="position:absolute;top:50%;margin-top:-15px;';
+		fxml += 'line-height:30px;height:30px;left:0%;right:0%;" ';
+		fxml += ' >';
+		fxml += rJtext(ob.text);
+		fxml += '</div>]]></text>';
+		fxml += "<align>center</align>";
+
+		fxml += "<color><![CDATA[black]]></color>";
+		
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
+		fxml += "<page>" + p + "</page>";
+
+		var cssExtra = rJtext(ob.text6);
+		cssExtra = cssExtra.replace(/(\r\n|\n|\r)/gm,"");
+		
+		fxml += "<css><![CDATA[" + cssExtra + "]]></css>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+	}
+	
+	if(ob.type=='label'){
+		fxml += '<bloc>';
+		fxml += '<type>texthtml</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+		
+		if(ob.fontSize){
+			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
+		}else{
+			fxml += "<fontsize>18</fontsize>";
+		}
+
+		fxml += '<text><![CDATA[<div ';
+		fxml += 'style="position:absolute;top:50%;margin-top:-15px;';
+		fxml += 'line-height:30px;height:30px;left:0%;right:0%;" ';
+		fxml += ' >';
+		fxml += rJtext(ob.text);
+		fxml += '</div>]]></text>';
+		fxml += "<align>center</align>";
+
+		fxml += "<color><![CDATA[black]]></color>";
+		
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
+		fxml += "<page>" + p + "</page>";
+
+		fxml += "<css><![CDATA[border:solid 1px black;border-radius:5px;text-align:center;]]></css>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+	}
+	return fxml;
+
+}
+exports.renderDom = renderDom;
 
 function renderText(ob,p){
 	
@@ -42,7 +192,9 @@ function renderText(ob,p){
 		fxml += '<text><![CDATA[' + rJtext(ob.text) +']]></text>';
 		fxml += "<align>LeftTop</align>";
 		if(ob.fontSize){
-			fxml += "<fontsize>" + ob.fontSize + "</fontsize>";
+			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
+		}else{
+			fxml += "<fontsize>18</fontsize>";
 		}
 		if(ob.val==''||ob.val==0){
 			fxml += "<color><![CDATA[black]]></color>";
@@ -50,7 +202,9 @@ function renderText(ob,p){
 		if(ob.val=='1'||ob.val==1){
 			fxml += "<color><![CDATA[white]]></color>";
 		}
-		fxml += "<an>" + ob.anim + "</an><de>0</de>";
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
 		fxml += "<page>" + p + "</page>";
 		fxml += "<ind>2</ind>";
 		fxml += "</bloc>";
@@ -117,7 +271,7 @@ function renderText(ob,p){
 }
 exports.renderText = renderText;
 
-function renderQcm(ob,p){
+function renderQcm(ob,p,typePage){
 	
 	var fxml = '';
 	
@@ -127,9 +281,11 @@ function renderQcm(ob,p){
 		fxml += '<type>qcm</type>';
 		fxml += '<theme>barre</theme>';
 		fxml += "<fontsize>18</fontsize>";
-		fxml += '<note>1</note>';
+		
+		fxml += '<note>' + ob.note + '</note>';
+		fxml += '<remarque><![CDATA[' + rJtext(ob.remarque) + ']]></remarque>';
 		fxml += '<negnote>0</negnote>';
-		fxml += '<remarque></remarque>';
+
 		fxml += '<id></id><ids></ids>';
 		fxml += "<x>" + ob.x + "</x>";
 		fxml += "<y>" + ob.y + "</y>";
@@ -193,7 +349,13 @@ function renderQcm(ob,p){
 		fxml += "<domaine>0</domaine>";
 		fxml += "<color><![CDATA[black]]></color>";
 		fxml += "<page>" + p + "</page>";
-		fxml += "<ind>2</ind>";
+		
+		if(typePage==0){
+			fxml += "<ind>2</ind>";
+		}else{
+			fxml += "<ind>4</ind>";
+		}
+		
 		fxml += "<contenu2>47</contenu2>";
 		fxml += "<contenu3><![CDATA[]]></contenu3>";
 		fxml += "<contenu4><![CDATA[33]]></contenu4>";
@@ -247,31 +409,86 @@ function renderImages(ob,p){
 }
 exports.renderImages = renderImages;
 
-function renderButton(ob,p){
+function renderOverLaw(typePage,p){
+	
+	var fxml = '';
+	
+	fxml += '<bloc>';
+	fxml += '<type>img</type>';
+	fxml += '<id></id>';
+
+	fxml += '<ids>' + 'a01' + '</ids>';
+
+	fxml += "<x>-1</x>";
+	fxml += "<y>-1</y>";
+	fxml += "<w>962</w>";
+	fxml += "<h>722</h>";
+	fxml += '<text>';
+	fxml += '<![CDATA[]]>';
+	fxml += '</text>';
+	fxml += "<align>LeftCenter</align>";
+	let filename = "comic-0" + typePage + ".png";
+	fxml += "<src><![CDATA[images/" + filename + " ]]></src>";
+	fxml += "<an>0</an><de>0</de>";
+	fxml += "<fontsize>20</fontsize>";
+	fxml += "<color><![CDATA[black]]></color>";
+	fxml += "<page>" + p + "</page>";
+	fxml += "<ind>3</ind>";
+	fxml += "</bloc>";
+
+	
+	return fxml;
+	
+}
+exports.renderOverLaw = renderOverLaw;
+
+function renderButton(ob,p,typePage){
 	
 	var fxml = '';
 	
 	if(ob.type=='button'){
 		
 		fxml += '<bloc>';
-		fxml += '<type>button</type>';
+		
+		var tb = parseInt(ob.text6);
+		
+		if(tb==4||tb==5){
+			fxml += '<type>btncirculaire</type>';
+		}else{
+			fxml += '<type>button</type>';
+		}
+		
 		fxml += '<id></id>';
 		fxml += "<x>" + parseInt(parseInt(ob.x+3)) + "</x>";
 		fxml += "<y>" + parseInt(parseInt(ob.y+3)) + "</y>";
 		fxml += "<w>" + parseInt(parseInt(ob.w-6)) + "</w>";
 		fxml += "<h>" + parseInt(parseInt(ob.h-6)) + "</h>";
-		fxml += "<text><![CDATA[" + rJtext(ob.text) + "]]></text>";
 		
-		if(parseInt(ob.text6)==2){
+		if(tb==4||tb==5){
+			if(tb==4){
+				fxml += "<text><![CDATA[next]]></text>";
+			}
+			if(tb==5){
+				fxml += "<text><![CDATA[prev]]></text>";
+			}
+		}else{
+			fxml += "<text><![CDATA[" + rJtext(ob.text) + "]]></text>";
+		}
+		
+		if(tb==2){
 			fxml += "<boite>css3modernblue</boite>";
 			fxml += "<color>white</color>";
 		}else{
-			if(parseInt(ob.text6)==3){
+			if(tb==3){
 				fxml += "<boite>css3modernorange</boite>";
 				fxml += "<color>DarkRed</color>";
 			}else{
-				fxml += "<boite>neoCssGray</boite>";
-				fxml += "<color>#808080</color>";
+				if(tb==4){
+					fxml += "<boite>gray</boite>";
+				}else{
+					fxml += "<boite>neoCssGray</boite>";
+					fxml += "<color>#808080</color>";
+				}
 			}
 		}
 		
@@ -305,7 +522,13 @@ function renderButton(ob,p){
 		fxml += "<fontsize>15</fontsize>";
 		
 		fxml += "<page>" + p + "</page>";
-		fxml += "<ind>2</ind>";
+		
+		if(typePage==0){
+			fxml += "<ind>2</ind>";
+		}else{
+			fxml += "<ind>4</ind>";
+		}
+		
 		fxml += "</bloc>";
 	
 	}
@@ -408,7 +631,7 @@ function renderVideoMp4(ob,p,back){
 }
 exports.renderVideoMp4 = renderVideoMp4;
 
-function renderLcm(ob,p){
+function renderLcm(ob,p,typePage){
 	
 	var fxml = '';
 	
@@ -468,6 +691,10 @@ function renderLcm(ob,p){
 			fxml = strReplaceX('Object6' ,rJtext(ob.val6),fxml);
 		}
 		
+		var ntb =  (ob.note/n);
+		
+		fxml = strReplaceX('<note>0</note>','<note>' + ntb + '<note>',fxml);
+
 		fxml =  strReplaceZ("<page>2</page>","<page>" + p + "</page>",fxml);
 		
 	}
@@ -477,7 +704,7 @@ function renderLcm(ob,p){
 }
 exports.renderLcm = renderLcm;
 
-function renderTcm(ob,p){
+function renderTcm(ob,p,typePage){
 	
 	var fxml = '';
 	
@@ -508,7 +735,17 @@ function renderTcm(ob,p){
 		fxml += "<css>text-align:left;vertical-align:top;</css>";
 		fxml += "<color><![CDATA[black]]></color>";
 		fxml += "<page>" + p + "</page>";
-		fxml += "<ind>2</ind>";
+		
+		fxml += '<note>' + ob.note + '</note>';
+		fxml += '<remarque><![CDATA[' + rJtext(ob.remarque) + ']]></remarque>';
+		fxml += '<negnote>0</negnote>';
+
+		if(typePage==0){
+			fxml += "<ind>2</ind>";
+		}else{
+			fxml += "<ind>4</ind>";
+		}
+		
 		fxml += "</bloc>";
 		
 	}
@@ -584,7 +821,7 @@ function renderLife(ob,p){
 }
 exports.renderLife = renderLife;
 
-function renderPlugMe(ob,p){
+function renderPlugMe(ob,p,typePage){
 	
 	var fxml = '';
 	
@@ -620,9 +857,14 @@ function renderPlugMe(ob,p){
 		for(var i=0;i<res.length;i++){
 			var ress = res[i];
 			if(ress!=''){
-				var fDirp = easyfile.getfWf("assets")+extractNameImg(ress);
-				var hDirp = easyfile.getfWf("finalHtml")+'data/'+extractNameImg(ress);
-				copyFileImgPlug(fDirp,hDirp);
+				if(ress.indexOf('.jpg')!=-1
+				||ress.indexOf('.gif')!=-1
+				||ress.indexOf('.png')!=-1
+				){
+					var fDirp = easyfile.getfWf("assets")+extractNameImg(ress);
+					var hDirp = easyfile.getfWf("finalHtml")+'data/'+extractNameImg(ress);
+					copyFileImgPlug(fDirp,hDirp);
+				}
 			}
 		}
 		
@@ -633,21 +875,191 @@ function renderPlugMe(ob,p){
 }
 exports.renderPlugMe = renderPlugMe;
 
+function renderFluxPts(ob,p,dataLudiFile){
+	
+	var fxml = '';
+	
+	if(ob.type=='fluxPts'&&ob.val3==0){
+		
+		var finalPath = "";
+		
+		var decx = ob.w/2;
+		var decy = ob.h/2;
+		
+		var recTx1 = ob.x;
+		var recTy1 = ob.y;
+		
+		var recTx2 = ob.x;
+		var recTy2 = ob.y;
+		
+		var recTw = 30;
+		var recTh = 30;
+		
+		//liste des CLudi
+		for(var i = 0; i < dataLudiFile.length; i++){
+			var objPath = dataLudiFile[i];
+			if(objPath.type=='fluxPts'
+			&&objPath.val3>0
+			&&objPath.val==ob.val){
+				
+				finalPath = finalPath + parseInt(objPath.x + decx) + ";" + parseInt(objPath.y + decy) + "!";
+				
+				if(objPath.x<recTx1){
+					recTx1 = objPath.x;
+				}
+				if(objPath.x>recTx2){
+					recTx2 = objPath.x;
+				}
+				if(objPath.y<recTy1){
+					recTy1 = objPath.y;
+				}
+				if(objPath.y>recTy2){
+					recTy2 = objPath.y;
+				}
+				
+			}
+		}
+		
+		recTw = recTx2 - recTx1;
+		recTh = recTy2 - recTy1;
+		
+		if(recTw<30){recTw = 30;}
+		if(recTh<30){recTh = 30;}
+		
+		recTw = recTw + 30;
+		recTh = recTh + 30;
+
+		var svgmap =  getBaseSvg(recTw,recTh);
+		
+		var mapx = ob.x + decx;
+		var mapy = ob.y + decy;
+		
+		var endx = ob.x + decx;
+		var endy = ob.y + decy;
+		
+		for(var i = 0; i < dataLudiFile.length; i++){
+			
+			var objPath = dataLudiFile[i];
+			
+			if(objPath.type=='fluxPts'
+			&&objPath.val3>0
+			&&objPath.val==ob.val){
+				
+				endx = objPath.x + decx;
+				endy = objPath.y + decy;
+				
+				
+				var dy1 = parseInt(mapy - (recTy1 + decy));
+				var dy2 = parseInt(endy - (recTy1 + decy));
+				if(dy1<1){dy1 = 1;}
+				if(dy2<1){dy2 = 1;}
+				
+				svgmap += '<line ';
+				svgmap += ' x1="' + parseInt(mapx - (recTx1 + decx)) + '" ';
+				svgmap += ' y1="' + dy1 + '" ';
+				svgmap += ' x2="' + parseInt(endx - (recTx1 + decx)) + '" ';
+				svgmap += ' y2="' + dy2 + '" ';
+				svgmap += ' style="stroke:rgb(50,50,50);stroke-width:1" />';
+				
+				mapx = endx;
+				mapy = endy;
+			}
+			
+		}
+		
+		svgmap += '</svg>';
+		
+		var easyfile =  require('./easyfile');
+		var renderMap = easyfile.getfWf("finalHtml") + 'images' + fd + 'map.svg';
+		easyfile.writeText(renderMap,svgmap);
+		
+		//generate image svg path
+		
+		fxml += '<bloc>';
+		fxml += '<type>img</type>';
+		fxml += '<id></id>';
+		fxml += '<ids>mapsvg</ids>';
+		fxml += "<x>" + parseInt(recTx1 + decx) + "</x>";
+		fxml += "<y>" + parseInt(recTy1 + decy) + "</y>";
+		fxml += "<w>" + recTw + "</w>";
+		fxml += "<h>" + recTh + "</h>";
+		fxml += '<text></text><align></align>';
+		fxml += "<src><![CDATA[images/map.svg]]></src>";
+		fxml += "<an>1</an><de>0</de>";
+		fxml += "<fontsize>20</fontsize>";
+		fxml += "<color><![CDATA[black]]></color>";
+		fxml += "<page>" + p + "</page>";
+		fxml += "<ind>1</ind>";
+		fxml += "</bloc>";
+		
+		
+		
+		fxml += '<bloc>';
+		fxml += '<type>fluxitems</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + parseInt(ob.x + decx) + "</x><y>" + parseInt(ob.y + decy) + "</y>";
+		fxml += "<contenu3><![CDATA[" + parseInt(ob.x + decx) + ";" + parseInt(ob.y + decy) + "]]></contenu3>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+		fxml += '<data><![CDATA[fluxprocess.png]]></data>';
+		fxml += '<text><![CDATA[fluxprocess.png]]></text>';
+		fxml += "<contenu2><![CDATA[" + finalPath + "]]></contenu2>";
+		fxml += "<fontsize>20</fontsize>";
+		fxml += "<color><![CDATA[black]]></color>";
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
+		fxml += "<page>" + p + "</page><align>5</align>";
+		fxml += "<ind>1</ind><border>0</border>";
+		fxml += "</bloc>";
+		
+		
+		
+		
+		
+		
+		
+	}
+
+	return fxml;
+	
+}
+exports.renderFluxPts = renderFluxPts;
+
+function getBaseSvg(w,h){
+	
+	var svg = '<?xml version="1.0" encoding="utf-8"?>';
+	svg = svg + '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" ';
+	svg = svg + ' "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
+	svg = svg + '<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" ';
+	svg = svg + ' xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" ';
+	svg = svg + ' viewBox="0 0 ' + w + ' ' + h +'" ';
+	svg = svg + ' enable-background="new 0 0 ' + w + ' ' + h +'" ';
+	svg = svg + ' xml:space="preserve">';
+	
+	return svg;
+	
+}
+
 function copyFileImgPlug(src,dest){
 	
 	var fs = require('fs');
 	
-	let readStream = fs.createReadStream(src);
+	//If no exist
+	if(!fs.existsSync(dest)){
+		
+		let readStream = fs.createReadStream(src);
+		
+		readStream.once('error', (err) => {
+			console.log(err);
+		});
+		
+		readStream.once('end', () => {
+			console.log('done copying');
+		});
+		
+		readStream.pipe(fs.createWriteStream(dest));
 	
-	readStream.once('error', (err) => {
-		console.log(err);
-	});
-	
-	readStream.once('end', () => {
-		console.log('done copying');
-	});
-	
-	readStream.pipe(fs.createWriteStream(dest));
+	}
 	
 }
 
@@ -785,6 +1197,14 @@ function preg_match_all(str){
 
 function rand(){
 	return Math.floor((Math.random() * 10) + 1);
+}
+
+function parseInteger(s){
+
+	if(typeof s==="undefined"){s = 0;}
+
+	return parseInt(s);
+
 }
 
 function rJtext(s){

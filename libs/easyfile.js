@@ -15,7 +15,7 @@ const appName = "openelearning";
 //getFolderInWorkingFolder
 //writeText
 
-function init(nameFolder){
+function init(nameVersion){
 	
 	var fs = require('fs');
 	
@@ -23,9 +23,19 @@ function init(nameFolder){
 	
 	global.sharedLogs.logs += 'init:' + appName + '<br>';
 	
+	var haveNewVersion = false;
+	var fileversion = getfWf("params") + nameVersion + "v.txt";
+	
+	if(!fs.existsSync(fileClue)){
+		haveNewVersion = true;
+		writeText(fileversion, "v");
+	}
+		
 	createWorkingFolder(appName);
 	createFolderInWorkingFolder(appName,"dataFiles");
 	createFolderInWorkingFolder(appName,"temp");
+	createFolderInWorkingFolder(appName,"tpl");
+	createFolderInWorkingFolder(appName,"store");
 	createFolderInWorkingFolder(appName,"extract");
 	createFolderInWorkingFolder(appName,"params");
 	createFolderInWorkingFolder(appName,"renderHtml");
@@ -33,20 +43,15 @@ function init(nameFolder){
 	createFolderInWorkingFolder(appName,"launchOverview");
 	createFolderInWorkingFolder(appName,"assets");
 	createFolderInWorkingFolder(appName,"assetsxml");
-	createFolderInWorkingFolder(appName,"plugins");
+	createFolderInWorkingFolder(appName,"scorm");
 	
 	global.sharedLogs.logs += 'finalHtml:' + getfWf("finalHtml") + '<br>';
 	global.sharedLogs.logs += 'appData:' + app.getPath('appData') + '<br>';
 	global.sharedLogs.logs += 'userData:' + app.getPath('userData') + '<br>';
+		
+	createFolderInWorkingFolder(appName,"plugins");
 	
-	var serv = './';
-	if(!fs.existsSync(serv + "app/assets")) {
-		serv = '/usr/lib/OpenElearning/resources/app/';
-		if(!fs.existsSync(serv + "app/assets")) {
-			global.sharedLogs.logs += 'ERROR serv:' + serv + "app/assets not exits" + '<br>';
-			return false;
-		}
-	}
+	var serv = getPathServ();
 	
 	//Search file before copy
 	var fileClue = serv + "app/launchOverview/base.txt";
@@ -54,24 +59,37 @@ function init(nameFolder){
 	if(fs.existsSync(fileClue)){
 
 		global.sharedLogs.logs += 'serv:' + serv + "app/assets" + '<br>';
-
-		ncp(serv + "app/assets", getfWf("assets"), function (err) {
-			if (err){
-				global.sharedLogs.logs += 'assets error:' + err + '<br>';
-				return console.error(err);
-			}
-			console.log('assets init done !');
-			global.sharedLogs.logs += 'assets init done !<br>';
-		});
 		
-		ncp(serv + "assets/t", getfWf("assetsxml"), function (err) {
-			if (err){
-				global.sharedLogs.logs += 'assetsxml error:' + err + '<br>';
-				return console.error(err);
-			}
-			console.log('assetsxml init done !');
-			global.sharedLogs.logs += 'assetsxml init done !<br>';
-		});
+		if(haveNewVersion){
+			
+			ncp(serv + "app/assets", getfWf("assets"), function (err) {
+				if (err){
+					global.sharedLogs.logs += 'assets error:' + err + '<br>';
+					return console.error(err);
+				}
+				console.log('assets init done !');
+				global.sharedLogs.logs += 'assets init done !<br>';
+			});
+			
+			ncp(serv + "assets/t", getfWf("assetsxml"), function (err) {
+				if (err){
+					global.sharedLogs.logs += 'assetsxml error:' + err + '<br>';
+					return console.error(err);
+				}
+				console.log('assetsxml init done !');
+				global.sharedLogs.logs += 'assetsxml init done !<br>';
+			});
+			
+			ncp(serv + "assets/e", getfWf("plugins"), function (err) {
+				if (err){
+					global.sharedLogs.logs += 'plugins error:' + err + '<br>';
+					return console.error(err);
+				}
+				console.log('plugins init done !');
+				global.sharedLogs.logs += 'plugins init done !<br>';
+			});
+			
+		}
 		
 		ncp(serv + "app/launchOverview", getfWf("finalHtml"), function (err) {
 			if(err){
@@ -85,14 +103,12 @@ function init(nameFolder){
 	
 		
 	}else{
-		
+		console.log('ERROR:' + fileClue + " not exits");
 		global.sharedLogs.logs += 'ERROR:' + fileClue + " not exits" + '<br>';
 		
 	}
 	
 	global.sharedObj.gpath = app.getPath('userData');
-	
-	writeText(getfWf("dataFiles") + "texte.txt", "test");
 	
 	deleteExtracts("cludis.json");
 	deleteExtracts("pages.json");
@@ -100,35 +116,95 @@ function init(nameFolder){
 	deleteTemp("cludis.json");
 	deleteTemp("pages.json");
 	
-	cleanImages();
-	
 	setTimeout(function(){
+		
 		loadLibs();
-		listOfPlugins();
 		listOfPluginsX();
-	},1000);
+		cleanImages();
+		writeText(getfWf("dataFiles") + "texte.txt", "test");
+		
+		ncp(serv + "assets/store", getfWf("store"), function (err) {
+			if (err){
+				global.sharedLogs.logs += 'store error:' + err + '<br>';
+				return console.error(err);
+			}
+			console.log('store init done !');
+			global.sharedLogs.logs += 'store init done !<br>';
+		});
+
+	},200);
 	
 	setTimeout(function(){
+		
 		if(haveErrorLoadInit){
-			console.log('INIT is RESET');
-			global.sharedLogs.logs += 'INIT is RESET<br>';
-			init(nameFolder);
+			console.log('INIT is in ERROR');
+			global.sharedLogs.logs += 'INIT is in ERROR<br>';
 		}else{
 			console.log('INIT is COMPLETE');
 			global.sharedLogs.logs += 'INIT is COMPLETE<br>';
 		}
-	},2500);
+		
+		ncp(serv + "assets/tpl", getfWf("tpl"),function (err) {
+			if(err){
+				global.sharedLogs.logs += 'tpl error:' + err + '<br>';
+				return console.error(err);
+			}
+			console.log('tpl init done !');
+			global.sharedLogs.logs += 'tpl init done !<br>';
+		});
+		
+		ncp(serv + "assets/scorm", getfWf("finalHtml"),function (err) {
+			if(err){
+				global.sharedLogs.logs += 'scorm error:' + err + '<br>';
+				return console.error(err);
+			}
+			console.log('scorm init done !');
+			global.sharedLogs.logs += 'scorm init done !<br>';
+		});
+		listOfStore();
+		listOfInterface();	
+	},2000);
 	
 }
 exports.init = init;
 
+function getPathServ(){
+	
+	var fs = require('fs');
+	
+	var serv = './';
+	
+	/* Ubuntu 18.04.1 LTS */
+	if(!fs.existsSync(serv + "app/assets")) {
+		serv = '/usr/lib/OpenElearning/resources/app/';
+		
+		/* MAC-OS */
+		if(!fs.existsSync(serv + "app/assets")) {
+			
+			serv = __dirname;
+			if(typeof serv !== 'string'){
+				serv = serv.toString('utf8');
+			}
+			serv = serv.substring(0, serv.length - 4);
+			
+			if(!fs.existsSync(serv + "app/assets")) {
+				global.sharedLogs.logs += 'ERROR serv:' + serv + "app/assets not exits" + '<br>';
+				return './';
+			}
+			
+		}
+		
+	}
+	
+	return serv;
+	
+}
+
 function cleanImages(){
 	
 	var fd = global.fd;
-	
 	var fs = require('fs');
 	var dir = getfWf("finalHtml") + "images" + fd;
-	
 	
 	fs.readdir(dir, function (err, items) {
 		if(err) {
@@ -144,10 +220,28 @@ function cleanImages(){
 		});	  
 	});
 	
+	var dir2 = getfWf("finalHtml") + "data" + fd;
+	
+	fs.readdir(dir2, function (err, items) {
+		if(err) {
+			return console.log(err);
+		}
+		items.forEach(function (item) {
+			
+			if(item.indexOf('aaoel')!=-1){
+				var filepath = dir2 + item;
+				deleteFileDeleteLink(filepath);
+			}
+			
+		});	  
+	});
+	
+	
 	deleteFileDeleteLink(getfWf("extract") + "listfile.txt");
 	
 }
 
+//Old
 function listOfPlugins(){
 	
 	global.plugins.allData = new Array();
@@ -167,18 +261,19 @@ function listOfPlugins(){
 			}
 		})
 	});
+	
 }
 
-function listOfPluginsX(){
+function listOfStore(){
 	
-	global.plugins.xData = new Array();
-	global.plugins.jsData = new Array();
-	global.plugins.cssData = new Array();
-	
+	global.plugins.store = new Array();
 	var fs = require('fs');
-	var dir = getfWf("plugins");
+	var dir = getfWf("store");
+	
+	global.plugins.pathStore = dir;
 	
 	fs.readdir(dir,function(err,items){
+		
 		if(err){
 			return console.log(err);
 		}
@@ -186,36 +281,204 @@ function listOfPluginsX(){
 			var filepath = dir + item;
 			if(item.indexOf('.')==-1&&item!='.'&&item!='..'){
 				
-				fs.openSync(dir+item+'/plugin.xml','r+');
-				fs.readFile(dir+item+'/plugin.xml',function read(err,fxml){
-					if(typeof fxml !== 'string'){
-						fxml = fxml.toString('utf8');
-					}
-					fxml = strReplace("\n",'',fxml);
-					fxml = fxml.replace(/[\n]/gi,"");
-					fxml = fxml.replace(/(\r\n|\n|\r)/gm,"");
-					global.plugins.xData.push(fxml);
-				});
+				var plugItem = {name:item,description:'',isInstall:false};
+				var pathFile = dir + item + global.fd + "description.txt";
 				
-				fs.openSync(dir+item+'/run.js','r+');
-				fs.readFile(dir+item+'/run.js',function read(err,fjs){
-					if(typeof fjs !== 'string'){
-						fjs = fjs.toString('utf8');
-					}
-					global.plugins.jsData.push(fjs);
-				});
+				console.log("plugPath==>" + pathFile);
+				console.log("plugItem.description==>" + plugItem.description);
 				
-				fs.openSync(dir+item+'/run.css','r+');
-				fs.readFile(dir+item+'/run.css',function read(err,fcss){
-					if(typeof fcss !== 'string'){
-						fcss = fcss.toString('utf8');
-					}
-					global.plugins.cssData.push(fcss);
-				});
+				if(fs.existsSync(pathFile)){
+					fs.readFile(pathFile,function read(err, data) {
+						if(err){
+							global.plugins.store.push(plugItem);
+						}
+						plugItem.description = data;
+						global.plugins.store.push(plugItem);
+					});
+				}else{
+					global.plugins.store.push(plugItem);
+				}
+				
+				
 				
 			}
 		})
 	});
+	
+}
+
+function listOfInterface(){
+	loadInterface('chamilo');
+	loadInterface('moodle');
+}
+
+function loadInterface(intef){
+
+	var fs = require('fs');
+	var pathFile = getfWf("finalHtml") + 'scorm' + intef +'.js';
+
+	if(fs.existsSync(pathFile)){
+		fs.readFile(pathFile,function read(err, data) {
+			if(err){
+				global.sharedScorm["scorm" + intef] = '';
+			}
+			data = parseText(data);
+			global.sharedScorm["scorm" + intef] = data;
+		});
+	}else{
+		global.sharedScorm["scorm" + intef] = '';
+	}
+	
+}
+
+function listOfPluginsX(){
+	
+	global.plugins.allData = new Array();
+	global.plugins.xData = new Array();
+	global.plugins.jsData = new Array();
+	global.plugins.cssData = new Array();
+	
+	var fs = require('fs');
+	var dir = getfWf("plugins");
+	var tmp = 0;
+	fs.readdir(dir,function(err,items){
+		if(err){
+			return console.log(err);
+		}
+		items.forEach(function(item){
+			setTimeout(function(){
+			loadOnePlug(dir,item);
+			},tmp);
+			tmp = tmp + 300;
+		})
+	});
+
+}
+exports.listOfPluginsX = listOfPluginsX;
+
+function loadOnePlug(dir,item){
+	
+	var haveLog = false;
+
+	var fs = require('fs');
+	
+	var filepath = dir + item;
+	
+	if(item.indexOf('.')==-1&&item!='.'&&item!='..'){
+		
+		var fileClue = dir+item+'/plugin.xml';
+		
+		if(fs.existsSync(fileClue)){//fileClue plugin.xml
+			
+			global.plugins.allData.push(item);
+			
+			if(haveLog)
+			console.log('loadOnePlug allData => ' + item);
+
+			fs.openSync(fileClue,'r+');
+			fs.readFile(fileClue,function read(err,fxml){
+				
+				fxml = parseText(fxml);
+
+				fxml = strReplace("\n",'',fxml);
+				fxml = fxml.replace(/[\n]/gi,"");
+				fxml = fxml.replace(/(\r\n|\n|\r)/gm,"");
+				global.plugins.xData.push(fxml);
+				
+				if(haveLog)
+				console.log('loadOnePlug xData => ' + fxml);
+				
+				var fileRunJs = dir+item+'/run.js';
+				
+				if(fs.existsSync(fileRunJs)){
+					
+					fs.openSync(fileRunJs,'r+');
+					fs.readFile(fileRunJs,function read(err,fjs){
+						
+						fjs = parseText(fjs);
+
+						global.plugins.jsData.push(fjs);
+						
+						if(haveLog)
+						console.log('loadOnePlug jsData => ' + fjs);
+						
+						var fileRunCss = dir+item+'/run.css';
+						
+						if(fs.existsSync(fileRunCss)){
+							
+							fs.openSync(fileRunCss,'r+');
+							fs.readFile(fileRunCss,function read(err,fcss){
+								
+								fcss = parseText(fcss);
+								
+								global.plugins.cssData.push(fcss);
+								
+								if(haveLog)
+								console.log('loadOnePlug cssData => ' + fcss);
+								
+								//preload all js
+							
+								fs.readFile(dir+item+'/plugin.xml','ascii', function(err,xml){
+								
+									if(err){
+										console.log("Could not open file"+ err);
+										process.exit(1);
+									}
+									
+									if(typeof xml === 'undefined'){
+										
+									}else{
+									
+										let re = new RegExp(/<file>(.|\r\n)*?<\/file>/g);
+										let result = xml.match(re);
+										
+										result.forEach(function(entry){
+											if(entry.indexOf(".js")!=-1){
+												
+												entry = entry.replace('<file>','');
+												entry = entry.replace('<\/file>','');
+												console.log("File =>" + entry);
+												
+												let filebasetxt = dir + item + '/resources/' + entry;
+												
+												copyFilePromise(filebasetxt,getfWf("assets")+entry);
+												let entrytxt = entry.replace('.js','.txt');
+												copyFilePromise(filebasetxt,getfWf("assets") + entrytxt);
+											
+											}
+										});
+									
+									}
+								
+								});
+								
+							});//readFile
+						
+						}//fileRunCss
+							
+					});//readFile
+						
+				}//fileRunJs
+				
+			});
+			
+		}//fileClue plugin.xml
+				
+	}
+
+}
+
+function parseText(str){
+
+	if(typeof str === "undefined"){
+		str = '';
+	}
+	if(typeof str !== 'string'){
+		str = str.toString('utf8');
+	}
+	
+	return str;
+	
 }
 
 function loadLibs(){
@@ -269,7 +532,6 @@ function loadLibs(){
 	}
 	
 	fs.closeSync(fd);
-	
 	
 	//LCM 5
 	var pathLcm5 = getfWf("assetsxml") + 'lcm4.xml';
@@ -424,20 +686,41 @@ function loadLibs(){
 	
 }
 
+function deleteFolder(fileFolder) {
+	
+	var fs = require('fs');
+	fs.readdir(fileFolder,function(err,items){
+		if(err){
+			return console.log(err);
+		}
+		items.forEach(function(item){
+			if(item!='.'&&item!='..'){
+				if(item.indexOf('.')!=-1||item=='LICENSE'){
+					deleteFileDeleteLink(fileFolder + global.fd  + item);
+				}else{
+					deleteFolder(fileFolder + global.fd  + item)
+				}
+			}
+		})
+	});
+	
+}
+exports.deleteFolder = deleteFolder;
+
 function deleteFileDeleteLink(filepath) {
 	
 	var fs = require('fs');
 	if (fs.existsSync(filepath)) {
 		fs.unlink(filepath, (err) => {
 			if(err){
-				alert("An error ocurred updating the file" + err.message);
+				console.log("An error ocurred updating the file" + err.message);
 				console.log(err);
 				return;
 			}
-			console.log("File succesfully deleted");
+			console.log("File " + filepath + " succesfully deleted");
 		});
 	} else {
-		console.log("This file doesn't exist, cannot delete");
+		console.log("This file " + filepath + " doesn't exist, cannot delete");
 	}
 
 }
@@ -468,7 +751,7 @@ function getTextFile(pathFile){
 	}else{
 		return "";
 	}
-	
+	return "";
 }
 exports.getTextFile = getTextFile;
 
@@ -584,6 +867,57 @@ function file_get_contents(path,idFile){
 	}
 	
 }
+
+function copyFile(source, target, cb) {
+	
+    console.log("CopyFile", source, target);
+	var fs = require('fs');
+    var cbCalled = false;
+    var rd = fs.createReadStream(source);
+    rd.on("error", function (err) {
+		global.sharedLogs.logs += 'copy error ReadStream source:' + dest + '<br>';
+        done(err);
+    });
+    var wr = fs.createWriteStream(target);
+    wr.on("error", function (err) {
+		global.sharedLogs.logs += 'copy error WriteStream source:' + dest + '<br>';
+        done(err);
+    });
+    wr.on("close", function (ex) {
+        done();
+    });
+    rd.pipe(wr);
+	
+    function done(err) {
+        if (!cbCalled) {
+            cb(err);
+            cbCalled = true;
+        }
+    }
+}
+
+function copyFilePromise(source, target) {
+    return new Promise(function (accept, reject) {
+        copyFile(source, target, function (data) {
+            if (data === undefined) {
+                accept();
+            } else {
+                reject(data);
+            }
+        });
+    });
+}
+
+function copyMultiFilePromise(srcTgtPairArr) {
+    var copyFilePromiseArr = new Array();
+    srcTgtPairArr.forEach(function (srcTgtPair) {
+        copyFilePromiseArr.push(copyFilePromise(srcTgtPair[0], srcTgtPair[1]));
+    });
+    return Promise.all(copyFilePromiseArr);
+}
+
+exports.copyFileAsync = copyFilePromise;
+
 
 function strReplace(s1,par,str){
 	str = str.replace(s1,par);

@@ -1,0 +1,5 @@
+rendererLaunch.js
+ => 	ipc.send('message',{key:'openfile',val:path});
+		ipc.send('ShowEditorWindow');
+		
+	

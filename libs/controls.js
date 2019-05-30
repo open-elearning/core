@@ -7,6 +7,11 @@ const appName = "openelearning";
 const dialog = electron.dialog;
 const window = electron.BrowserWindow;
 const fs = require('fs');
+const ncp = require('./easyncp').ncp;
+const ctrimages = require('./controls-upload-image');
+const ctrexports = require('./export/export-scorm');
+const ctrexportlocal = require('./export/export-local');
+const ctropenfile = require('./open/open-file');
 
 function exec(event,data){
 	
@@ -40,9 +45,35 @@ function exec(event,data){
 	}
 	
 	if(data.key=='refreshimgs'){
-		refreshImgsAll();
+		ctrimages.refreshImgsAll();
 	}
 	
+	if(data.key=='addpluginbtn'){
+		
+		var refStore = easyfile.getfWf("store") + data.val;
+		var refDesti = easyfile.getfWf("plugins") + data.val;
+		
+		ncp(refStore,refDesti,function(err){
+			if(err){
+				console.log('error' + refStore);
+				global.sharedLogs.logs += 'addpluginbtn error:' + refStore + '<br>';
+				return console.error(err);
+			}
+			console.log('addpluginbtn init done !');
+			global.sharedLogs.logs += 'addpluginbtn init done !<br>';
+		});
+
+	}
+	
+	if(data.key=='delpluginbtn'){
+		var refDesti = easyfile.getfWf("plugins") + data.val
+		easyfile.deleteFolder(refDesti);
+	}
+	
+	if(data.key=='modifProcess'){
+		app.showExitPrompt = true;
+	}
+
 	if(data.key=='savefile'){
 		
 		var path = global.sharedObj.dataFile;
@@ -62,50 +93,59 @@ function exec(event,data){
 				}
 				
 				if(path!=''){
-					easyfile.writeText(easyfile.getfWf("params") + "recent1.txt",path);
+					ctropenfile.addRecentFile(path);
 					global.sharedObj.dataFile = path;
 					saveAll(path);
+					app.showExitPrompt = false;
 				}
 				
 			});
   
 		}else{
 			saveAll(path);
+			app.showExitPrompt = false;
 		}
 		
 	}
 	
 	if(data.key=='activeFile'){
 		global.sharedObj.activeFile = data.val;
+		console.log("global.sharedObj.activeFile = " + global.sharedObj.activeFile);
 	}
 	
 	if(data.key=='export'){
-		if(data.path!=''){
-			exportAll(data.path);
+		if(data.path!=''&&data.typlms!=''){
+			ctrexports.exportAll(data.path,data.typlms,data.ms,data.acpl);
 		}
+	}
+
+	if(data.key=='exportlocal'){
+
+		console.log("exportAllLocal:ok");
+
+		var filePath = dialog.showOpenDialog({
+		title: 'open Directory',
+		properties: ['openDirectory'],
+		filters: [{
+			name: 'file',
+			extensions: ['openelearning']
+		}]
+		},function(path) {
+			
+			if(typeof path === "undefined") {
+				path = '';
+			}
+			if(path!=''){
+				ctrexportlocal.exportAllLocal(path);
+			}
+			
+		});
+
 	}
 	
 	if(data.key=='uploadimage'){
 		
-		global.sharedObj.listassets = '';
-		global.sharedObj.imgassets = '';
-		var path = openDialogOpenIMG();
-		if(!fs.existsSync(path)){
-		    if (path === undefined) return;
-			var path2 = path[0];
-			var nameImg2 = findNameImg(path2);
-			var ptarget = easyfile.getfWf("assets") + nameImg2;
-			global.sharedObj.imgassets = nameImg2;
-			copyFileImg(path2,ptarget);
-			refreshImgsAll();
-			setTimeout(function(){
-				refreshImgsAll();
-			},500);
-		}else{
-			setTimeout(function(){
-				refreshImgsAll();
-			},500);
-		}
+		ctrimages.uplimg();
 		
 	}
 	
@@ -170,7 +210,6 @@ function exec(event,data){
 		
 	}
 	
-	
 	if(data.key=='addplugin'){
 	
 		global.sharedObj.dataZip = "";
@@ -206,7 +245,9 @@ function exec(event,data){
 		
 		if(fs.existsSync(path)){
 		    if (path === undefined) return;
-			var ptarget = easyfile.getfWf("assets") + extractNameImg(path);
+			var nameF = extractNameImg(path);
+			nameF = nameF.replace(".js",".txt");
+			var ptarget = easyfile.getfWf("assets") + nameF;
 			console.log("path:" + path);
 			console.log("ptarget:" + ptarget);
 			copyFileImg(path,ptarget);
@@ -215,152 +256,25 @@ function exec(event,data){
 	}
 	
 	if(data.key=='openfile'){
+		
+		var recent0 = "";
 
-		var recent0 = data.val[0];
+		try{
+			recent0 = data.val[0];
+		}catch(e){}
 		
 		if(typeof recent0 !== 'string'){
 			recent0 = recent0.toString('utf8');
 		}
-		
-		if(fs.existsSync(recent0)){
-			
-			console.log('Open:' + recent0);
-			
-			try{	
-				global.sharedObj.activeTitle = ("OPEN ELEARNING : " + recent0);
-			}catch(e){
-				
-			}
-			
-			fs.readFile(recent0,function read(err, zipBuffer){
-				
-				if(err){throw err;}
-				
-				easyfile.writeText(easyfile.getfWf("params")+"recent2.txt",data.val[0]);
-				
-				var zip = new require('node-zip')(zipBuffer,{base64:false,checkCRC32:true})
-				
-				var listfile = zip.files['listfile.txt'];
-				var datafile = listfile._data;
-				var util = require('util');
-				
-				var listfilePath = easyfile.getfWf("extract") + "listfile.txt";	
-				easyfile.writeText(listfilePath,datafile);
-				
-				var datacludis = zip.files['cludis.txt'];
-				var cludisPath = easyfile.getfWf("extract") + "cludis.json";	
-				easyfile.writeText(cludisPath,JSON.stringify(datacludis));
-				
-				var datapages = zip.files['pages.txt'];
-				var pagesPath = easyfile.getfWf("extract") + "pages.json";	
-				easyfile.writeText(pagesPath,JSON.stringify(datapages));
-				
-				
-				var extraCodeData = zip.files['extracode.txt'];
-				
-				if (typeof extraCodeData === "undefined") {
-					
-					global.sharedObj.extracode = '';
-					
-				}else{
-					
-					console.log(extraCodeData);
-					
-					var extraPath = easyfile.getfWf("extract") + "extracode.txt";
-					
-					if(typeof extraCodeData !== 'string'){
-						extraCodeData = extraCodeData._data;
-					}
-					
-					extraCodeData = decodeURIComponent(escape(extraCodeData));
-					
-					global.sharedObj.extracode = extraCodeData;
-					console.log("extracode:" + extraCodeData);
-					
-				}
-				
-				global.sharedObj.dataFile = data.val[0];
-				getDependFiles(zip,datafile);
-				global.sharedObj.activeFile = '1';
-				
-			});
-			
-		}else{
-			
-			easyfile.writeText(easyfile.getfWf("params") + "recent1.txt" , "");
-			easyfile.writeText(easyfile.getfWf("params") + "recent2.txt" , "");
-			
-			global.cwle();
-			global.errornb = 1;
-			console.log('ERROR:', 'error open-file');
-			
-			global.sharedLogs.logs += 'ERROR:error open-file<br>';
-			
-		}
-		
+
+		ctropenfile.openFileProcess(recent0);
+
 	}
 	
 	//console.log("exec:" + data.key);
 	
 }
 exports.exec = exec;
-
-function getDependFiles(zip,datafile){
-	
-	var easyfile =  require('./easyfile');
-	var util = require('util');
-	
-	if (typeof datafile === "undefined") {
-		datafile = '';
-	}
-	if(typeof datafile !== 'string'){
-		datafile = datafile.toString('utf8');
-	}
-	
-	var arrayOfStrings = datafile.split(';');
-		
-	for (var i=0; i < arrayOfStrings.length; i++){
-		var fnam = arrayOfStrings[i];
-		if(fnam!=''){
-			var path2 = easyfile.getfWf("assets")+fnam;
-			console.log('fnam:' + fnam);
-			if(fs.existsSync(path2)){
-				console.log('exist:' + fnam);
-			}else{
-				var dataImg = zip.files[fnam];
-				var bynaryImg = dataImg._data;
-				
-				console.log('exist:' + bynaryImg);
-				easyfile.writeImg(path2,bynaryImg);
-				console.log('complete:' + fnam);
-			}
-		}
-	}
-
-}
-
-function refreshImgsAll(){
-	
-	var easyfile =  require('./easyfile');
-	var directoryName = easyfile.getfWf("assets");
-	var datalistassets = "";
-	
-	fs.readdir(directoryName, function (err, items) {
-	  if (err) {
-		return onError(err);
-	  }
-	  
-	  datalistassets = datalistassets + directoryName + ';';
-	  
-	  items.forEach(function (item) {
-		 datalistassets = datalistassets + item + ';';
-	  });
-	  
-	  global.sharedObj.listassets = datalistassets;
-		
-	});
-	
-}
 
 function saveAll(filename){
 	
@@ -373,7 +287,7 @@ function saveAll(filename){
 	
 	zip.file('openelearning.txt', 'v1');
 	zip.file('extracode.txt', global.sharedObj.extracode);
-	console.log("extracode:" + global.sharedObj.extracode);
+	//console.log("extracode:" + global.sharedObj.extracode);
 	
 	var file = [];
 	file.push( "cludis.json");
@@ -385,26 +299,52 @@ function saveAll(filename){
 		zip.file(namt,txtw);
 	}
 	
-	//Fond images des pages
+	//Background image for page
 	var path2 = src + "pages.json";
 	
 	var jsonPagesData = fs.readFileSync(path2);
 	var datapages = JSON.parse(jsonPagesData);
 	
+	//One screen Only
+	var oneScreen = true;
+
 	for(var i=0;i<datapages.length;i++){
+
 		var obj = datapages[i];
+
 		if(obj.back==''||obj.back=='white.jpg'){
+
 		}else{
-			var fnam2 = obj.back;
+
+			var fnam2 = obj.back.trim();
 			
 			var path2 = srcAssets + fnam2;
 			if(fs.existsSync(path2)){
 				var srcData = fs.readFileSync(path2);
 				console.log('inc:' + fnam2);
 				listfile = listfile + fnam2 + ';';
-				zip.file(fnam2,srcData);
+				zip.file(fnam2.trim(),srcData);
 			}
+
 		}
+
+		if(oneScreen){
+
+			if(obj.screen==''){
+			
+			}else{
+				var fnam5 = obj.screen.trim();
+				var path5 = srcAssets + fnam5;
+				if(fs.existsSync(path5)){
+					var srcData = fs.readFileSync(path5);
+					console.log('inc:' + fnam5);
+					listfile = listfile + fnam5 + ';';
+					zip.file(fnam5.trim(),srcData);
+				}
+			}
+			oneScreen = false;	
+		}
+
 	}
 	
 	//Images des objets
@@ -421,14 +361,14 @@ function saveAll(filename){
 		
 			var fnam3 = objLudi.text6.replace(/^.*[\\\/]/, '');
 			
-			var path3 = srcAssets + fnam3;
+			var path3 = srcAssets + fnam3.trim();
 			if(fs.existsSync(path3)){
 				
 				try {
 					var srcData3 = fs.readFileSync(path3);
 					console.log('inc:' + fnam3);
-					listfile = listfile + fnam3 + ';';
-					zip.file(fnam3,srcData3);
+					listfile = listfile + fnam3.trim() + ';';
+					zip.file(fnam3.trim(),srcData3);
 				}catch(err){
 					if(err.code==='ENOENT'){
 						
@@ -437,17 +377,62 @@ function saveAll(filename){
 				
 			}
 		}
+		
+		
+		if(objLudi.type=='videomp4'){
+			
+			var fnam4 = objLudi.text;
+			
+			var fnamVideo = fnam4.replace(/^.*[\\\/]/, '');
+			
+			if(fnamVideo.indexOf(".mp4")!=-1){
+				
+				var pathVideo = srcAssets + fnamVideo.trim();
+				
+				if(fs.existsSync(pathVideo)){
+					
+					try {
+						var srcDataVideo = fs.readFileSync(pathVideo);
+						listfile = listfile + fnamVideo + ';';
+						console.log('inc:' + fnamVideo);
+						zip.file(fnamVideo.trim(),srcDataVideo);//, {binary:false}
+					}catch(err){
+						if(err.code==='ENOENT'){
+							
+						}
+						console.log('err:' + err.code + ' ' + fnamVideo);
+					}
+					
+				}
+			}
+			
+		}
+		
 	}
 	
 	zip.file('listfile.txt',listfile);
 	
-	var data = zip.generate({base64:false,compression:'DEFLATE'});
+	var data = zip.generate({base64:false,compression:'STORE'});
 	
-	fs.writeFileSync(filename, data, 'binary');
+	try {
+		
+		fs.writeFileSync(filename, data, 'binary');
+		
+	}catch(err){
+		
+		if(err.code==='EACCES'||err.code==='EPERM'){
+			global.sharedLogs.logs = 'Permission denied in this folder <br>';
+			global.cwle();
+		}
+		
+	}
+	
 	
 }
 
-function exportAll(filename) {
+function exportAll(filename){
+	
+	global.renderprocess = true;
 	
 	var zip = new require("node-zip")();
 	var fs = require('fs');
@@ -466,7 +451,9 @@ function exportAll(filename) {
 			return onError(err);
 		}
 		items.forEach(function (item) {
-			if(item.indexOf('.html')!=-1){
+			if(item.indexOf('.html')!=-1
+			||item.indexOf('.xml')!=-1
+			||item.indexOf('.xsd')!=-1){
 				file.push(item);
 			}
 			console.log("item:" + item);
@@ -551,30 +538,68 @@ function exportAll(filename) {
 								zip.file('fx/' + filefx[i],txtw);
 							}
 							
-								//FX QCM
-								var filefxqcm = [];
-								var dirfxqcm  = dir + "/fx/qcm"
-								fs.readdir(dirfxqcm,function (err,items){
+								//DATA
+								var filedata = [];
+								var dirdata = dir + "/data"
+								fs.readdir(dirdata,function (err,items){
 									if(err){return onError(err);}
 									items.forEach(function (item) {
-										if(item.indexOf('.jpg')!=-1
-										||item.indexOf('.gif')!=-1
-										||item.indexOf('.png')!=-1
+										if(item.indexOf('.css')!=-1||item.indexOf('.jpg')!=-1
+										||item.indexOf('.gif')!=-1||item.indexOf('.png')!=-1
+										||item.indexOf('.xml')!=-1||item.indexOf('.mp4')!=-1
+										||item.indexOf('.html')!=-1||item.indexOf('.mp3')!=-1
 										){
-											filefxqcm.push(item);
+											if(haveRightFiles(item)){
+												filedata.push(item);
+												console.log("item data :" + item);
+											}
 										}
-										console.log("item fx :" + item);
+										
 									});
-									for(var i = 0; i < filefxqcm.length; i++) {
-										var txtw = fs.readFileSync(src + '/fx/qcm/' + filefxqcm[i]);
-										zip.file('fx/qcm/' + filefxqcm[i],txtw);
+									for(var i = 0; i < filedata.length; i++){
+										var txtdatab = fs.readFileSync(src+'/data/'+filedata[i]);
+										zip.file('data/'+filedata[i],txtdatab);
 									}
 									
-									//Save
-									var data = zip.generate({base64:false,compression:'DEFLATE'});
-									fs.writeFileSync(filename, data, 'binary');
-									
-								});//END FX QCM
+										//FX QCM
+										var filefxqcm = [];
+										var dirfxqcm  = dir + "/fx/qcm"
+										fs.readdir(dirfxqcm,function (err,items){
+											if(err){return onError(err);}
+											items.forEach(function (item) {
+												if(item.indexOf('.jpg')!=-1
+												||item.indexOf('.gif')!=-1
+												||item.indexOf('.png')!=-1
+												){
+													filefxqcm.push(item);
+												}
+												console.log("item fx :" + item);
+											});
+											for(var i = 0; i < filefxqcm.length; i++) {
+												var txtw = fs.readFileSync(src + '/fx/qcm/' + filefxqcm[i]);
+												zip.file('fx/qcm/' + filefxqcm[i],txtw);
+											}
+											//Save
+											var data = zip.generate({base64:false,compression:'DEFLATE'});
+											try{
+												
+												fs.writeFileSync(filename, data, 'binary');
+												global.renderprocess = false;
+												
+											}catch(err){
+												
+												if(err.code==='EACCES'){
+													global.sharedLogs.logs = 'Permission denied in this folder <br>';
+													global.cwle();
+												}
+												
+											}
+										});//END FX QCM
+								
+								
+								
+								});//END DATA
+							
 							
 						});//END FX
 					
@@ -590,24 +615,15 @@ function exportAll(filename) {
 	
 }
 
-function transformTarget(filename) {
-	return new CustomTransformStream()
+function haveRightFiles(filename){
+	if(filename.indexOf('retour.png')!=-1){
+		return false;
+	}
+	return true;
 }
 
-function openDialogOpenIMG(){
-	
-	return dialog.showOpenDialog(window,
-		{
-			defaultPath: 'c:/',
-			filters:[
-			{
-				name:'images',
-				extensions:['jpg','png']
-			}
-			],properties: ['openFile']
-		}
-    );
-
+function transformTarget(filename){
+	return new CustomTransformStream()
 }
 
 function openDialogOpenExtensions(){
@@ -623,7 +639,6 @@ function openDialogOpenExtensions(){
     );
 
 }
-
 
 function openDialogOpenMP4(){
 	
@@ -677,32 +692,6 @@ function getData(tmpFolder, url, callback) {
 	  })
 	})
 	}).pipe(tempZipFileStream)
-}
-
-function findNameImg(source){
-	
-	var currentTime = new Date();
-	var month = currentTime.getMonth() + 1;
-	var day = currentTime.getDate();
-	var year = currentTime.getFullYear();
-	var mfl = Math.floor(Math.random()*100) + 1;
-	var mf2 = Math.floor(Math.random()*100) + 1;
-	var nam = 'aaoel' +  year + month + day + 'n' + mfl + 'o' + mf2;
-	
-	var ext = "";
-	var src = source;
-	console.log("src:" + src);
-	if(src.indexOf('.jpg')!=-1){
-		ext = '.jpg';
-	}
-	if(src.indexOf('.png')!=-1){
-		ext = '.png';
-	}
-	if(src.indexOf('.gif')!=-1){
-		ext = '.gif';
-	}
-	
-	return nam + ext;
 }
 
 function findNameMp4(source){
