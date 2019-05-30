@@ -1,0 +1,504 @@
+
+html{
+    display : block;
+	background-color : #D8F6CE;
+	background-image : url(img/barre.png);
+	background-repeat: repeat-x;
+	background-position: left top;
+	overflow : hidden;
+}
+
+body {
+    font-family: "Open Sans", sans-serif !important;
+    margin : 0;
+    font-size : 14px !important;
+    line-height : 1.5 !important;
+    color : #333;
+	border : solid 0px red;
+	border-top : solid 1px #3B0B39;
+	position : fixed;
+	left : 0px;
+	top : 0px;
+	bottom : 0px;
+	right : 0px;
+	overflow : hidden;
+}
+
+.backScreenDiv{
+	position : absolute;
+	background-color : #D8F6CE;
+	background-size: cover; 
+	background-repeat : no-repeat;
+	background-position: center center;
+	left:0px;
+	top:100px;
+	right : 100px;
+	bottom:0px;
+}
+
+
+.ecran{
+	position : absolute;
+	left:-250px;
+	top:-720px;
+	width : 960px;
+	height : 720px;
+	border : 1px solid #3B0B39;
+}
+
+.ecranmini{
+	width : 150px;
+	height : 110px;
+	border : 1px solid #3B0B39;
+	z-index : 98;
+	background-color : pink;
+}
+
+.canvas-container{
+	background-color : white;
+}
+
+.lineoe{
+	transform-origin: 0 100%;
+	height: 2px;
+	background: gray;
+	border-style: dotted;
+}
+
+
+.css-input {
+	display : inline-block;
+	border-width:2px;
+	border-color:#cccccc;
+	border-style:solid;
+	padding:9px;
+	font-size:18px;
+	border-radius:10px;
+	text-shadow:0px 0px 0px rgba(42,42,42,.75);
+} 
+.css-input:focus {
+	outline:none;
+}
+
+.lcm-input {
+	display : inline-block;
+	border-width : 2px;
+	border-color : #cccccc;
+	border-style : solid;
+	padding : 9px;
+	font-size : 18px;
+	border-radius : 10px;
+	margin-right : 8px;
+	margin-top : 6px;
+	text-shadow : 0px 0px 0px rgba(42,42,42,.75);
+} 
+.lcm-input:focus {
+	outline:none;
+}
+
+.fakeSelect {
+	display : inline-block;
+	width:170px;
+	border-width:2px;
+	border-color:#cccccc;
+	border-style:solid;
+	padding:8px;
+	margin-left : 2px;
+	font-size:18px;
+	border-radius:10px;
+	text-shadow:0px 0px 0px rgba(42,42,42,.75);
+	cursor : pointer;
+} 
+.fakeSelect:hover {
+	background: #1ABC9C;
+	color: #FFF;
+}
+.fakeSelect:active{
+	background: #1ABC9C;
+	color: #FFF;
+}
+
+.actionSelect {
+	position : relative;
+	display : block;
+	width : 226px;
+	border-width : 1px;
+	border-color : #cccccc;
+	border-style : solid;
+	margin-bottom : 1px;
+	padding : 9px;
+	font-size : 18px;
+	border-radius : 10px;
+	text-shadow : 0px 0px 0px rgba(42,42,42,.75);
+	cursor : pointer;
+} 
+.actionSelect:hover {
+	background: #1ABC9C;
+	color: #FFF;
+}
+.actionSelect:active{
+	background: #1ABC9C;
+	color: #FFF;
+}
+
+.selectChoice{
+	position : absolute;
+	padding : 2px;
+	display : block;
+	width : 246px;
+	height : 330px;
+	margin-top : -330px;
+	background-color : white;
+	border : solid 2px #1ABC9C;
+	border-radius : 10px;
+	z-index : 101;
+	background-image : url(../img/triangle-select.png);
+	background-position : center bottom;
+	background-repeat : no-repeat;
+	display : none;
+}
+
+.actionDeleteBack{
+	position : absolute;
+    right: 16px;
+    top: 279px;
+	border-radius: 10px;
+	border : solid 2px #cccccc;
+	width : 40px;
+	height : 43px;
+	cursor : pointer;
+	background-image : url(../img/icons/delete.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+
+.actionSelectPerso{
+	display : none;
+	position : absolute;
+    right: 50px;
+    top: 89px;
+	border-radius: 10px;
+	border : solid 2px #cccccc;
+	width : 40px;
+	height : 43px;
+	cursor : pointer;
+	background-image : url(../img/script-puzzle.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+.actionSelectPerso:hover , .actionSelectPerso:active {
+	border : solid 2px #1ABC9C;
+}
+
+.actionSelectPersoBtn{
+	display : none;
+	position : absolute;
+	right: 20px;
+    top: 105px;
+	border-radius: 10px;
+	border : solid 2px #cccccc;
+	width : 40px;
+	height : 43px;
+	cursor : pointer;
+	background-image : url(../img/script-puzzle.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+.actionSelectPersoBtn:hover , .actionSelectPersoBtn:active {
+	border : solid 2px #1ABC9C;
+}
+
+.actionSlctPerso{
+	display : none;
+	position : relative;
+	margin-bottom: -16px;
+	margin-left: 5px;
+	border-radius: 10px;
+	border : solid 2px #cccccc;
+	width : 40px;
+	height : 43px;
+	cursor : pointer;
+	background-image : url(../img/script-puzzle.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+.actionSlctPerso:hover , .actionSlctPerso:active {
+	border : solid 2px #1ABC9C;
+}
+
+
+/*Actions personnalisées*/
+.actionslistehelp{
+	position : absolute;
+	left : 25px;
+	top  : 15px;
+	width : 285px;
+	text-align : center;
+	z-index : 102;
+}
+.actionsliste{
+	float:left;
+	width : 320px;
+	height : 420px;
+	list-style-type: none; 
+	border : dotted 1px gray;
+	padding : 0px;
+	margin : 0px;
+	margin-top  : 10px;
+	margin-left : 15px;
+	z-index:103;
+}
+.actionsliste li{
+	width : 306px;
+	list-style-type: none; 
+	z-index : 104;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor : move;
+}
+.minAction{
+	width : 256px;
+	font-size : 16px;
+	padding : 4px;
+	margin : 2px;
+	margin-left : 50px;
+	background : #F8ECE0;
+	border : solid 1px gray;
+	border-radius : 10px;
+	text-align : center;
+}
+.minCondi{
+	width : 306px;
+	font-size : 16px;
+	padding : 4px;
+	margin : 2px;
+	border : solid 1px gray;
+	border-radius : 10px;
+	text-align : left;
+	background-image : url(../img/arrow.png);
+	background-position : right 10px center;
+	background-repeat : no-repeat;
+}
+
+.minFct{
+	background : white;
+	max-width : 150px;
+	padding : 2px;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+
+.numFct{
+	background : white;
+	max-width : 80px;
+	padding : 2px;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+
+
+.Pos{
+	background-color : #D0F5A9;
+}
+.Neg{
+	background-color : #F6CECE;
+}
+
+.remarqueview{
+	position : absolute;
+	left : 17px;
+	top  : 45px;
+	width : 197px;
+	height : 27px;
+	overflow : hidden;
+}
+
+.noteview{
+	position : absolute;
+	text-align : center;
+	left : 234px;
+	top  : 45px;
+	width : 46px;
+	height : 27px;
+	overflow : hidden;
+}
+
+.notequestion{
+	position : absolute;
+	width : 300px;
+	height : 100px;
+	left : 150px;
+	top : 250px;
+	cursor : pointer;
+	background-image : url(../img/bullequestion.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	display : none;
+}
+
+
+.actionaddfluxpts{
+	position : absolute;
+	width : 60px;
+	height : 30px;
+	left : -50px;
+	top : -50px;
+	cursor : pointer;
+	background-image : url(../img/flux-add-tool.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	opacity: 0.9;
+	display : none;
+	z-index : 98;
+}
+.actionaddfluxpts:hover{
+	opacity: 1;
+}
+
+
+
+.actiondelete{
+	position : absolute;
+	width : 36px;
+	height : 43px;
+	left : 150px;
+	top : 250px;
+	cursor : pointer;
+	background-image : url(../img/delete-r.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	opacity: 0.5;
+	display : none;
+	z-index : 98;
+}
+.actiondelete:hover{
+	opacity: 1;
+}
+
+.actionposition{
+	position : absolute;
+	width : 36px;
+	height : 43px;
+	left : 150px;
+	top : 250px;
+	cursor : pointer;
+	background-image : url(../img/position-r.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	opacity: 0.6;
+	display : none;
+	z-index : 98;
+}
+.actionposition:hover{
+	opacity: 1;
+}
+
+.actiondeleteb{
+	position : absolute;
+	height : 36px;
+	width : 43px;
+	left : 150px;
+	top : 250px;
+	cursor : pointer;
+	background-image : url(../img/delete-b.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	opacity: 0.5;
+	display : none;
+	z-index : 98;
+}
+.actiondeleteb:hover{
+	opacity: 1;
+}
+
+.validationMin{
+	display: inline-block;
+	color: black!important;
+	text-align: center;
+	border-style: none;
+	font-size:13px;
+	font-weight:bold;
+	font-style:normal;
+	height:32px;
+	line-height:32px;
+	width : 160px;
+	padding-left:10px;
+	padding-right:10px;
+	border-radius: 6px;
+	cursor:pointer;
+	background-image:-moz-linear-gradient(45deg, #DFDFDF, #B9B9B9);
+	background-image:-webkit-linear-gradient(45deg, #DFDFDF, #B9B9B9);
+	background-image:-o-linear-gradient(45deg, #DFDFDF, #B9B9B9);
+	background-image:linear-gradient(45deg, #DFDFDF, #B9B9B9);
+}
+.validationMin:hover {
+	color: black!important;
+	background-image:-moz-linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+	background-image:-webkit-linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+	background-image:-o-linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+	background-image:linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+}
+
+.validation {
+	display: inline-block;
+	color: black!important;
+	text-align: center;
+	border-style: none;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:32px;
+	line-height:32px;
+	width : 100px;
+	border-radius: 6px;
+	cursor:pointer;
+	background-image:-moz-linear-gradient(45deg, #DFDFDF, #B9B9B9);
+	background-image:-webkit-linear-gradient(45deg, #DFDFDF, #B9B9B9);
+	background-image:-o-linear-gradient(45deg, #DFDFDF, #B9B9B9);
+	background-image:linear-gradient(45deg, #DFDFDF, #B9B9B9);
+}
+.validation:hover {
+	color: black!important;
+	background-image:-moz-linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+	background-image:-webkit-linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+	background-image:-o-linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+	background-image:linear-gradient(45deg, rgb(235, 233, 233), rgb(199, 199, 199));
+}
+
+.btnSave,.btnSave2{
+	display: inline-block;
+    color: white!important;
+    text-align: center;
+    border-style: none;
+	border-radius: 6px;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:32px;
+	line-height:32px;
+	width : 100px;
+    cursor :pointer;
+	background-image:-moz-linear-gradient(45deg, #00A538, #006F67);
+	background-image:-webkit-linear-gradient(45deg, #00A538, #006F67);
+	background-image:-o-linear-gradient(45deg, #00A538, #006F67);
+	background-image:linear-gradient(45deg, #00A538, #006F67);
+}
+
+.btnSave:hover {
+	background-image:-moz-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+	background-image:-webkit-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+	background-image:-o-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+	background-image:linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+}
+

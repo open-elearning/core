@@ -1,0 +1,299 @@
+
+.editzone{
+	position : fixed;
+	left : 120px;
+	top : 100px;
+	width : 500px;
+	height : 90%;
+	max-height:400px;
+	box-shadow: 0 0 30px rgba(0,0,0,.1);
+    border: 0px solid #bebebe;
+    border-radius: 6px;
+	background-color : white;
+	z-index : 101;
+	display:none;
+}
+.editzone .textzone{
+	position:absolute;
+	left : 5px;
+	right : 5px;
+	top : 5px;
+	bottom : 10px;
+	border : dotted 0px gray;
+	z-index:1061;
+}
+
+.editZoneTexte{
+	position : fixed;
+	left : 50%;
+	top : 50%;
+	width : 600px;
+	height : 500px;
+	margin-left:-300px;
+	margin-top:-250px;
+	max-height:400px;
+	box-shadow: 0 0 30px rgba(0,0,0,.1);
+    border: 0px solid #bebebe;
+    border-radius: 6px;
+	background-color : white;
+	z-index : 101;
+	display:none;
+}
+.editZoneTexte .formzone{
+	position : absolute;
+	left : 0px;
+	right : 5px;
+	top : 35px;
+	bottom : 10px;
+	z-index:1061;
+	font-size : 20px;
+	border : dotted 0px red;
+	overflow:hidden;
+}
+
+
+.editzoneTablet{
+	position : fixed;
+	left : 120px;
+	top : 100px;
+	width : 700px;
+	height : 310px;
+	border : 2px solid black;
+	border-radius : 10px;
+	background-color : white;
+	z-index : 101;
+	display:none;
+}
+.editzoneTablet .textzone{
+	position:relative;
+	width:96%;
+	margin-left:2%;
+	margin-top:5px;
+	height: 280px;
+	font-size:15px;
+	color:white;
+	background:black;
+	border : dotted 1px gray;
+	z-index:1061;
+}
+.editzoneTablet .formzone{
+	position : relative;
+	left : 0px;
+	top : 5px;
+	height : 300px;
+	z-index:1061;
+	font-size : 15px;
+	overflow:hidden;
+}
+
+#tcmeditnote textarea{
+	border : solid 1px gray;
+}
+
+.editzone2{
+	position : absolute;
+	left : 120px;
+	top : 20px;
+	width : 450px;
+	height :160px;
+	border : 2px solid black;
+	border-radius : 10px;
+	background-color : white;
+	z-index : 101;
+	display:none;
+}
+.editzone2 .textzone{
+	position:relative;
+	width:96%;
+	margin:2%;
+	margin-top:2%;
+	margin-bottom:0%;
+	height:60%;
+	border : dotted 1px gray;
+	z-index:1061;
+}
+.editzone2 .formzone{
+	position : relative;
+	left : 0px;
+	top : 0px;
+	height : 100px;
+	z-index:1061;
+	font-size : 20px;
+	overflow:hidden;
+}
+
+#toolbar{
+	position : absolute;
+	height : 60px;
+	padding-top:10px;
+	bottom : 2px;
+	left : 10px;
+	right : 70px;
+	z-index:1062;
+}
+
+.toolBasRight{
+	position : absolute;
+	width : 260px;
+	height : 60px;
+	padding-top: 10px;
+	bottom : 2px;
+	left : 10px;
+	z-index : 1065;
+	background-color : transparent;
+}
+
+.toolBas2{
+	position : absolute;
+	height : 60px;
+	padding-top: 10px;
+	bottom : 2px;
+	right : 10px;
+	z-index : 1065;
+	background-color : transparent;
+}
+
+.toolCube{
+	float : left;
+	display : block;
+	height : 40px;
+	width : 40px;
+	z-index:1063;
+	border : solid 2px gray;
+	margin-left : 2%;
+	margin-top : 1%;
+	margin-bottom : 1%;
+	background-color : white;
+	background-position : center center;
+	background-repeat : no-repeat;
+	cursor:pointer;
+}
+.toolCube:hover{
+	border : solid 2px #088A29;
+}
+
+.colorCircle{
+	float : left;
+	display : block;
+	border : 0px solid black;
+	height : 64px;
+	width : 64px;
+	margin : 6px;
+	border-radius : 32px;
+	cursor : pointer;
+}
+.colorCircle:hover,.colorCircle:active{
+	height : 60px;
+	width : 60px;
+	border : 2px solid black;
+}
+.showtext{
+	position : absolute;
+	z-index: 95;
+	border : 0px dotted red;
+	cursor : pointer;
+	background : transparent;
+	overflow: hidden;
+}
+.tabletext{
+	position : absolute;
+	z-index: 95;
+	border : 0px dotted red;
+	cursor : pointer;
+	background : transparent;
+}
+.tabletext tbody{
+	height : 100%;
+	width : 100%;
+}
+.tabletext tr{
+	margin :0;padding:0;
+}
+.tabletext td{
+	margin :0;padding:0;
+}
+
+.colorpikerpalette{
+	position : absolute;
+	left : 220px;
+	bottom : 2px;
+	margin-bottom : 21px;
+    background-color : #ffffff;
+    border : 1px solid gray;
+    border-radius : 4px;
+    -webkit-box-shadow : 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow : 0 1px 1px rgba(0,0,0,0.05);
+	z-index:2500;
+	display:none;
+}
+.colorpikerpaletterow {
+    margin-left: -0px;
+    margin-right: -0px;
+}	
+.color_tile {
+    width: 25px;
+    height: 25px;
+	border : 1px solid gray;
+    border-radius: 4px;
+    float: left;
+    margin: 5px;
+    cursor: pointer;
+}
+.nosel{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#voirleslogs{
+	position : absolute;
+	left : 10px;
+	bottom : 0px;
+	width: 250px;
+    height: 350px;
+	overflow:auto;
+	font-size:10px;
+	padding:4px;
+	color:white;
+    background-color : black;
+	z-index:3500;
+	display:none;
+}
+
+.wysiwyg-color-silver {
+  color: silver;
+}
+.wysiwyg-color-gray {
+  color: gray;
+}
+.wysiwyg-color-maroon {
+  color: maroon;
+}
+.wysiwyg-color-olive {
+  color: olive;
+}
+.wysiwyg-color-navy {
+  color: navy;
+}
+.wysiwyg-color-red {
+  color: red;
+}
+.wysiwyg-color-green {
+  color: green;
+}
+.wysiwyg-color-blue {
+  color: blue;
+}
+.wysiwyg-color-purple {
+  color: purple;
+}
+
+a[data-wysihtml5-command-value="red"] {
+	color:red;
+}
+a[data-wysihtml5-command-value="green"] {
+	color:green;
+}
