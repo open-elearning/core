@@ -6,8 +6,14 @@ const ipc = require('electron').ipcRenderer;
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const nodeConsole = require('console');
+
 var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 var easyfile =  require('../libs/easyfile');
+
+const settingsStore = document.getElementById('extensions-store')  
+settingsStore.addEventListener('click',function(event){
+	ipc.send('message',{key:'store',path:'store'})
+});
 
 const settingsElearni = document.getElementById('extensions-elearni')  
 settingsElearni.addEventListener('click',function(event){
@@ -19,12 +25,10 @@ settingslogs.addEventListener('click',function(event){
 	ipc.send('message',{key:'logs',path:'logs'})
 });
 
-
 const settingscancel = document.getElementById('extensions-cancel')
 settingscancel.addEventListener('click',function(event){
 	ipc.send('index');
 });
-
 
 function openDialogOpenExtensions(){
 	

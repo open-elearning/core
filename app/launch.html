@@ -6,43 +6,50 @@
 		<meta name="description" content="" />
 		<meta name="author" content="" />
 		<title>Open-eLearning</title>
-		<link href="css/default.css" rel="stylesheet" />
 		<link rel="icon" href="images/favicon.ico" />
 		<script>
 			const electron = require('electron');
 			if (typeof module === 'object') {
 			window.module = module; module = undefined;}
 		</script>
-		<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
-		<script src="js/launch.js" ></script>
+		<link href="css/default.css" rel="stylesheet" />
 	</head>
 	<body>
 		
 		<div id="windowschoice" class="windowsbase" >
-	
-			<div id="ctr-title" class="control-title" >Open-Source Course Editor</div>
 			
-			<a id="newProject" 
-			style="position:absolute;left:390px;top:260px;" 
-			class="ludibtn pleasewait" >New Project</a>
-			<a id="openProject" 
-			style="position:absolute;left:390px;top:310px;" 
-			class="ludibtn pleasewait" >Open a project</a>
-			
-			<a id="extensions" 
-			style="position:absolute;left:390px;top:360px;font-weight:normal;" 
-			class="ludibtn pleasewait" >Extensions</a>
-			
-			<div id="divrecent" class="pleasewait" >
-				<div onclick="launchRecent(1);" id="linerecent1" class="linerecent" ><span>Test1</span></div>
-				<div onclick="launchRecent(2);" id="linerecent2" class="linerecent" ><span>Test2</span></div>
+			<div id="debugBtn" style="position:absolute;left:0px;bottom:250px;width:30px;height:60px;cursor:pointer;" >
 			</div>
 			
-			<img class="loadimg" src="images/openelearning.gif" />
+			<div id="ctr-title" class="control-title" style="display:none;" >Open-Source Course Editor</div>
 			
-			<a id="choicelang" ></a>
+			<img id="logoTypo" src="images/logotypo.png" />
+
+			<a id="newProject" 
+			style="position:absolute;left:390px;top:120px;" 
+			class="boutonGreen pleasewait" >New Project</a>
+
+			<a id="openProject" 
+			style="position:absolute;left:390px;top:180px;" 
+			class="boutonGreen pleasewait" >Open a project</a>
 			
-			<div id="openelearningversion" >Beta Version 1.0.7</div>
+			<a id="extensions" 
+			style="position:absolute;left:390px;top:240px;font-weight:normal;" 
+			class="boutonGreen pleasewait" >Extensions</a>
+			
+			<div id="divrecent" class="pleasewait" >
+				<div onclick="launchRecent(4);" id="linerecent4" class="linerecent" ><span>Test4</span></div>
+				<div onclick="launchRecent(3);" id="linerecent3" class="linerecent" ><span>Test3</span></div>
+				<div onclick="launchRecent(2);" id="linerecent2" class="linerecent" ><span>Test2</span></div>
+				<div onclick="launchRecent(1);" id="linerecent1" class="linerecent" ><span>Test1</span></div>
+			</div>
+			
+			<div class="loadimg" ><div class="loadimgprogress" ></div></div>
+			
+			<a id="choicelang" onClick="$('#choicelang').hide();" ></a>
+			
+			<div id="openelearningversion" >Beta Version 0.0.0</div>
+
 			<a target="_blank" id="openelearninglink" 
 			 >http://www.openelearning.org/</a>
 			
@@ -50,10 +57,13 @@
 	
 	</body>
 	
+	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+
 	<script>
 		require('../app/rendererLaunch.js');
 	</script>
- 
-  <script src="../lang/trad.js" ></script>
+	
+	<script src="js/launch.js" ></script>
+	<script src="../lang/trad.js" ></script>
   
 </html>

@@ -10,19 +10,18 @@ var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 var easyfile =  require('../libs/easyfile');
 
 const settingsEl = document.querySelector('#newProject');
-settingsEl.addEventListener('click', function () {
-	
-	ipc.send('message',{key:'activeFile',val:'1'})
-	ipc.send('ShowEditorWindow');
-	
+settingsEl.addEventListener('click', function(){
+	ipc.send('ShowModelsWindow');
 });
 
 const fileManagerBtn = document.getElementById('openProject')
 fileManagerBtn.addEventListener('click',function(event){
-	
+
 	var path = openDialogOpenEL();
-	ipc.send('message',{key:'openfile',val:path});
-	ipc.send('ShowEditorWindow');
+	if(path){
+		ipc.send('message',{key:'openfile',val:path});
+		ipc.send('ShowEditorWindow');
+	}
 	
 });
 
@@ -39,6 +38,11 @@ choiceExtensionsBtn.addEventListener('click', function (event) {
 const settingsopenelearninglink = document.querySelector('#openelearninglink');
 settingsopenelearninglink.addEventListener('click', function () {
 shell.openExternal('http://www.openelearning.org/')
+});
+
+const settingsdebugBtn = document.querySelector('#debugBtn');
+settingsdebugBtn.addEventListener('click', function () {
+	ipc.send('debugMode');
 });
 
 function openDialogOpenEL(){

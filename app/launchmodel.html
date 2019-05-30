@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	
+	<script>
+		const electron = require('electron');
+	</script>
+  </head>
+  <body>
+		
+	<div id="windowschoice" class="windowsbasemodels" >
+
+		<div id="chooseamodel" class="control-title-model" >Choose a model</div>
+		
+		<a id="mod01" style="position:absolute;left:75px;top:80px;" class="ludibtnactive ludibtnmodel01" >
+		<span>Classic</span>
+		</a>
+		
+		<a id="mod02" style="position:absolute;left:320px;top:80px;" class="ludibtnactive ludibtnmodel02" >
+		<span class="lblcomic" >Comics</span>
+		</a>
+		
+		<a id="mod03" style="position:absolute;left:200px;top:250px;" class="ludibtnactive ludibtnmodel03" >
+			<span class="lblPurple" >Purple flat</span>
+		</a>
+
+
+		<a id="returnArrow" ></a>
+		
+	</div>
+	
+  </body>
+
+  <script>
+    require('../app/rendererModels.js')
+  </script>
+  
+  <script src="../lang/trad.js" ></script>
+  
+</html>
