@@ -1,0 +1,213 @@
+
+body.dragging, body.dragging * {
+	cursor: move !important;
+}
+.dragged {
+	position: relative;
+	opacity: 0.1;
+	border : solid 1px black;
+	z-index: 2000;
+	margin-left : 0px;
+	margin-top : 0px;
+}
+.listecrans li.placeholder {
+	position: relative;
+	box-sizing:none;
+}
+
+.listecrans li.placeholder:before {
+	position: relative;
+	box-sizing:none;
+}
+
+.placeholder{
+	height: 10px !important;
+	border : solid 1px blue;
+	background-color: blue;
+	box-sizing:none;
+}
+
+.pagedeleteicone{
+	cursor : pointer;
+	background-image : url(../img/pagedelete.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	z-index : 106;
+}
+
+.pagedeleteb{
+	position : absolute;
+	left : -6px;
+	bottom : 3px;
+	height : 40px;
+	width : 45px;
+	cursor : pointer;
+	background-image : url(../img/delete-l.png);
+	background-position : top left;
+	background-repeat : no-repeat;
+	display:none;
+	opacity: 0.5;
+	z-index : 106;
+}
+.pagedeleteb:hover{
+	opacity: 1;
+}
+
+.listecrans::before{
+	box-sizing: none;
+	-webkit-box-sizing: none;
+}
+.listecrans::after{
+	box-sizing: none;
+	-webkit-box-sizing: none
+}
+
+.global-block{
+	position : fixed;
+	right : 2px;
+	top : 106px;
+	bottom : 0px;
+	width:191px;
+	background-color: #f5f6f7;
+	border-left : solid 1px gray;
+	border-right : solid 1px gray;
+	border-top : solid 0px #3B0B39;
+	overflow : scroll;
+	z-index : 99;
+}
+.global-block .listecrans{
+	position: relative;
+	padding : 0px;
+	margin : 3px;
+	webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.global-block .listecrans li{
+	position : relative;
+	display : block;
+	width : 150px;
+	height : 110px;
+	text-align : center;
+	padding : 0px;
+	margin : 3px;
+	margin-top : 2px;
+	cursor : pointer;
+	box-sizing: none;
+}
+.global-block .listecrans li:hover{
+	border : solid 1px red;
+	box-sizing: none;
+}
+.global-block .listecrans li:active{
+	border : solid 1px red;
+	box-sizing: none;
+}
+
+
+
+.global-block .imgpage{
+	position : relative;
+	width : 150px;
+	height : 110px;
+	background-color: white;
+}
+
+.global-block-little{
+	position : fixed;
+	right : 2px;
+	top : 106px;
+	bottom : 0px;
+	width:116px;
+	background-color: #f5f6f7;
+	border-left : solid 1px gray;
+	border-right : solid 1px gray;
+	border-top : solid 0px #3B0B39;
+	overflow : scroll;
+	z-index : 99;
+}
+.global-block-little .listecrans{
+	padding : 0px;
+	margin : 2px;
+}
+.global-block-little .listecrans li{
+	position : relative;
+	float:left;
+	display : block;
+	width : 88px;
+	height : 70px;
+	text-align : center;
+	padding : 0px;
+	margin : 2px;
+	margin-top : 2px;
+	margin-left : 0px;
+	border-right : dotted 1px gray;
+	overflow:hidden;
+	cursor : pointer;
+}
+.global-block-little .listecrans li:hover{
+	border-color : red;
+}
+.global-block-little .imgpage{
+	position : relative;
+	width : 90px;
+	height : 70px;
+	background-color: white;
+}
+.global-block #addecrans{
+	position : fixed;
+	right : 65px;
+	bottom : 18px;
+	width : 60px;
+	height : 60px;
+	cursor : pointer;
+	border : dotted 0px gray;
+	background : url(../img/circle-add.png) transparent no-repeat center center;
+}
+.global-block-little #addecrans{
+	position : fixed;
+	right : 35px;
+	bottom : 18px;
+	width : 60px;
+	height : 60px;
+	cursor : pointer;
+	border : dotted 0px gray;
+	background : url(../img/circle-add.png) transparent no-repeat center center;
+}
+
+.forceload{
+	position : fixed;
+	display:none;
+	right : 265px;
+	bottom : 0px;
+	width : 800px;
+	height : 20px;
+	cursor : pointer;
+	border-top : dotted 0px gray;
+	z-index : 1200;
+	background : transparent;
+}
+
+
+.block-reordonne{
+	position : relative;
+	left : 8%;
+	width : 79%;
+	top : 2px;
+	height : 30px;
+	cursor : pointer;
+	background : url(../img/move.png) transparent no-repeat center center;
+}
+.block-stopedit{
+	position : relative;
+	left : 8%;
+	width : 79%;
+	top : 2px;
+	height : 30px;
+	cursor : pointer;
+	display:none;
+	background : url(../img/finishedit.png) white no-repeat center center;
+}

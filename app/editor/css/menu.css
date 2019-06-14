@@ -1,0 +1,398 @@
+
+.menu-ecran{
+	position : fixed;
+	left : 0px;
+	top : 106px;
+	bottom : 0px;
+	width : 0px;
+	background-color: #f5f6f7;
+	z-index : 100;
+	border-right : solid 0px #3B0B39;
+	border-top : solid 0px #3B0B39;
+	cursor : pointer;
+}
+.micro-save{
+	position:fixed;
+	left : 90px;
+	top : 0px;
+	width : 30px;
+	height : 30px;
+	display : none;
+	background-image:url(../img/microsave.gif);
+	border-radius : 15px;
+}
+
+.mpan{
+	position:relative;
+	width : 90px;
+	height : 63px;
+	border-right :solid 1px gray;
+	border-bottom :solid 1px gray;
+	margin-bottom :1px;
+	margin-top : 1px;
+	padding-top :1px;
+	padding-bottom :1px;
+}
+.mpan:hover,.mpan:active{
+	position:relative;
+}
+
+.mmenu{
+	position:relative;
+	width : 90px;
+	height : 53px;
+	background-image:url(../img/logo.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+
+.pann-extensions{
+	position : absolute;
+	padding : 2px;
+	left: 507px;
+	top : 106px;
+	width : 220px;
+	height : 260px;
+	border : solid 1px gray;
+	background : white;
+	z-index : 100;
+	overflow: auto;
+}
+.pann-extensions button{
+	border : solid 1px gray;
+	margin-left:5px;
+	margin-top:5px;
+	width : 100px;
+	height : 100px;
+	overflow: hidden;
+}
+.mcontenus{
+	background-image:url(../img/contenus.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+.mparcours{
+	background-image:url(../img/parcours.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+.mcharts{
+	background-image : url(../img/charts.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+.mapercu{
+	background-image : url(../img/apercu.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+
+.mparamspage{
+	background-image : url(../img/paramspage.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	display : none;
+}
+.pspeedpage{
+	position : fixed;
+	left : 1px;
+	bottom : 1px;
+	width : 45px;
+	height : 45px;
+	border-radius:5px;
+	border :solid 1px gray;
+	background-color : white;
+	background-image : url(../img/projection.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	z-index: 1000;
+}
+
+.pslogs{
+	position : fixed;
+	left : 46px;
+	bottom : 0px;
+	width : 20px;
+	height : 20px;
+	border :solid 0px gray;
+	background-color:transparent;
+	background-position : center center;
+	background-repeat : no-repeat;
+	z-index: 1000;
+}
+
+.pan{
+	animation-duration: 0.5s;
+  animation-delay: 0.5s;
+  animation-iteration-count: infinite;
+  -vendor-animation-duration: 0.5s;
+  -vendor-animation-delay: 0.5s;
+  -vendor-animation-iteration-count: infinite;
+}
+
+.pcontenus{
+	position : fixed;
+	left : 91px;
+	top : 107px;
+	width : 313px;
+	min-height : 280px;
+	padding-bottom : 5px;
+	background-color : white;
+	border : solid 1px black;
+	z-index: 1000;
+	display : none;
+}
+.pparcours{
+	position : fixed;
+	left : 91px;
+	top : 172px;
+	width : 210px;
+	height : 210px;
+	background-color : white;
+	border : solid 1px black;
+	z-index: 1000;
+	display : none;
+}
+
+.pcharts{
+	position : fixed;
+	left : 91px;
+	top : 237px;
+	width : 210px;
+	height : 210px;
+	background-color : white;
+	border : solid 1px black;
+	z-index: 1000;
+	display : none;
+}
+
+.lbtn{
+	position : relative;
+	float : left;
+	margin-left : 5px;
+	margin-top : 5px;	
+	width : 95px;
+	height : 80px;
+	cursor : pointer;
+	background-position : center center;
+	background-repeat : no-repeat;
+	border : solid 1px #088A29;
+	color:black;
+	background-color : white;
+}
+.lbtn:hover{
+	border : solid 1px white;
+	background-color : #088A29;
+	color:white;
+}
+.linkp{
+	position : absolute;
+	width : 95px;
+	height : 16px;
+	font-size : 12px;
+	left : 0px;
+	bottom : -1px;
+	text-align:center;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
+
+.linkpendu{
+	background-image : url(../img/thumbs/lependu.png);
+}
+.linkqcm{
+	background-image : url(../img/thumbs/qcm.png);
+}
+.linktcm{
+	background-image : url(../img/thumbs/tcm.png);
+}
+
+.linkbouton{
+	background-image : url(../img/thumbs/toolbouton.png);
+}
+.linktext{
+	background-image : url(../img/thumbs/text.png);
+}
+.linktitle{
+	background-image : url(../img/thumbs/title.png);
+}
+.linkspeech{
+	background-image : url(../img/thumbs/speech.png);
+}
+.linkimage{
+	background-image : url(../img/thumbs/image.png);
+}
+.linkvideo{
+	background-image : url(../img/thumbs/video.png);
+}
+.linkplugin{
+	background-image : url(../img/thumbs/plugins.svg);
+	background-position : center 4px;
+}
+
+.linkscore{
+	background-image : url(../img/thumbs/bilan-score.png) ;
+}
+.linktablescore{
+	background-image : url(../img/thumbs/linktablescore.png) ;
+}
+.linktablebase{
+	background-image : url(../img/thumbs/base.png) ;
+}
+.linklife{
+	background-image : url(../img/thumbs/life.png) ;
+}
+.linklcm{
+	background-image : url(../img/thumbs/lcm.png) ;
+}
+
+#minvideoimage{
+	position : absolute;
+	left : 150px;
+	top  : 50px;
+	z-index : 95;
+	width  : 160px;
+	height : 100px;
+	background-color : white;
+	border : solid 1px black;
+	display : none;
+}
+
+.editquestion{
+	position : absolute;
+	width  : 50px;
+	height : 50px;
+	left : 150px;
+	top  : 50px;
+	z-index: 96;
+	cursor : pointer;
+	background-image : url(../img/editdoc.png);
+	background-position : center center;
+	background-repeat : no-repeat;
+	opacity: 0.8;
+	display : none;
+}
+
+.editquestion:hover{
+	opacity: 1;
+}
+
+.cocheqcmedit{
+	position : relative;
+	float:left;
+	display : block;
+	width  : 40px;
+	height : 40px;
+	margin : 4px;
+	cursor : pointer;
+	background : url(../img/circle40.png) no-repeat center center;
+	background-image : url(../img/circle40.png);
+}
+
+.textqcmedit{
+	position : relative;
+	float:left;
+	display : block;
+	width  : 330px;
+	height : 40px;
+	margin : 4px;
+	border : solid 1px black;
+}
+
+.opacedit{
+	position : fixed;
+	width : 960px;
+	top : 0px;
+	left:95px;
+	bottom : 0px;
+	left:0px;
+	right:0px;
+	opacity: 0.8;
+	background-color : #6E6E6E;
+	z-index : 100;
+	display : none;
+}
+
+.actionseditzone{
+	height : 300px;
+	background-color : white;
+	border : solid 2px black;
+	border-radius : 10px;
+	z-index : 101;
+	display : none;
+}
+
+
+
+.title-vm {
+	color: #fff;
+	padding: 3px 10px;
+	display: inline-block;
+	position: relative;
+	background-color: #FF7373;
+	z-index: 1000;
+}
+
+.menu-vertical {
+	position : fixed;
+	left : 0px;
+	top : 25px;
+	width: 270px;
+	list-style: none;
+	padding: 4px;
+	margin: 0;
+	background: #088A29;
+	z-index: 1000;
+	display: none;
+}
+
+.menu-options{
+	position : fixed;
+	left : 270px;
+	top : 146px;
+	width: 270px;
+	list-style: none;
+	padding: 4px;
+	margin: 0;
+	background: #088A85;
+	z-index: 1000;
+	display: none;
+}
+
+
+.mv-item,
+.mv-item a {
+  display: block;
+}
+ 
+.mv-item a {
+  margin: 1px 0;
+  padding: 8px 20px;
+  color: #666;
+  background: #FFF;
+  text-decoration: none;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+  cursor : pointer;
+}
+ 
+.mv-item a:hover,
+.mv-item a:focus {
+  background: #088A29;
+  color: #FFF;
+  padding-left: 30px;
+}
+
+textarea {
+    resize: none;
+}
+
+.noselectmouse{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
