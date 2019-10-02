@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	
+	<properties>
+		<type>objet</type>
+		<id>CacheCacheWord</id>
+		<title>CacheCacheWord</title>
+		<category>game</category>
+	</properties>
+
+	<display>
+		<screenImage>CacheCacheWord450450.jpg</screenImage>
+		<defaultText></defaultText>
+		<width>450</width>
+		<height>450</height>
+		<sizeText>30</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>1</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+</plugin>
