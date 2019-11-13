@@ -7,7 +7,7 @@ ncp.ncp = ncp;
 function ncp (source, dest, options, callback) {
 	
   var cback = callback;
-
+  
   if (!callback) {
     cback = options;
     options = {};
