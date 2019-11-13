@@ -6,7 +6,7 @@
 	<title>OPEN ELEARNING</title>
 	
 	<script>
-	if (typeof module === 'object') {
+	if (typeof module === 'object'){
 	window.module = module; module = undefined;}</script>
 	
 	<link rel="stylesheet" href="editor/css/main.css" />
@@ -18,25 +18,376 @@
 	<link rel="stylesheet" href="editor/css/wy/stylesheet.css" />
 	<link rel="stylesheet" href="editor/css/jquery.contextmenu.css" />
 	<link rel="stylesheet" href="editor/css/checkbox.css" />
-
+	<link rel="stylesheet" href="editor/css/anim.css" />
+	
 	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
 	<script src="editor/js/libs/jquery-sortable.js" ></script>
-	<script src="editor/js/xing-wysihtml5/parser_rules/advanced.js" ></script>
-	<script src="editor/js/xing-wysihtml5/dist/wysihtml5-0.3.0.min.js" ></script>
+	
+	<script src="editor/js/libs/tinymce/tinymce.js" ></script>
+
 	<script src="editor/js/libs/amplify.min.js" ></script>
 	<script src="editor/js/libs/jquery.contextmenu.js"></script>
 	<script src="editor/openelearning/dist/fabric.js" ></script>
 	<script src="editor/js/FileSaver.js"></script>
 
-	<script src="editor/js/libs/a-table.min.js"></script>
-	<link rel="stylesheet" href="editor/css/a-table.css" />
-	
 </head>
-	
 <body>
+	
+	<div id="topmenu" class="nosel" style="position:fixed;z-index:99;left:0px;top:0px;right:0px;" >
+	
+		<nav data-role="ribbonmenu">
+			
+			<ul class="tabs-holder">
+				<li class="static" style="background-color:#5FB404;" >
+				<a id="menuFile" onClick="ludiCssNoPan('menu-vertical');" href="#">File</a></li>
+				<li class="active"><a id="menuMain" href="#section_main">Main</a></li>
+				<li><a id="menuQuestions"  href="#section_questions">Questions</a></li>
+				<li><a id="menuGame"  href="#section_game">Game</a></li>
+				<li><a id="menuData"  href="#section_data">Data</a></li>
+				<li><a id="menuProcess"  href="#section_process">Process</a></li>
+				<li><a id="menuGraphics"  href="#section_graphics">Graphics</a></li>
+			</ul>
+			
+			<div class="content-holder">
+				
+				<div class="section" id="section_main">
+				
+					<div class="group">
+						
+						<button onClick="saveCommand();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/save.png">
+							</span>
+							<span id="labelSave" class="caption">&nbsp;Save&nbsp;</span>
+						</button>
+						<button onClick="launchRapidRender(-1);" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/projection.png">
+							</span>
+							<span id="labelOverview" class="caption">&nbsp;Overview&nbsp;</span>
+						</button>
+						
+						<div>
+							<button class="ribbon-button dropdown-toggle">
+								<span class="icon">
+									<span class="mif-file-zip fg-cyan"></span>
+								</span>
+								<span id="labelPublish" class="caption">&nbsp;&nbsp;Publish&nbsp;&nbsp;</span>
+							</button>
+							<ul class="ribbon-dropdown" data-role="dropdown" data-duration="100">
+								<li><a id="exportBtnProjectLink" href="#" onMouseUp="lauchExportsScorm();" >To SCORM package</a></li>
+								<li><a id="exportBtnProjectHtml" href="#" onMouseUp="closePan();launchRapidRender(-2);" >To local HTML</a></li>
+							</ul>
+						</div>
+						
+						<div class="group-divider"></div>
+
+						<button onClick="pageEditShow()" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/stylesheets.png">
+							</span>
+							<span id="labelPageStyle" class="caption">&nbsp;Page style&nbsp;</span>
+						</button>
+						
+						<div class="group-divider"></div>
+						
+						<div class="d-flex flex-column" >
+						
+							<button onClick="ajoutLudiTEXT();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-paragraph-left fg-green"></span>
+								</span>
+								<span id="labelTextZone" class="caption">Text zone</span>
+							</button>
+							
+							<button onClick="ajoutLudiIMG();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-file-image fg-green"></span>
+								</span>
+								<span id="labelImage" class="caption">Image</span>
+							</button>
+							
+						</div>
+						
+						<div class="group-divider"></div>
+						
+						<div class="d-flex flex-column" >
+						
+							<button onClick="ajoutLudiBTN();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-file-play fg-green" ></span>
+								</span>
+								<span id="labelButton" class="caption" >Button</span>
+							</button>
+							
+							<button onClick="ajoutLudiSPEECH();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-chat-bubble-outline fg-green"></span>
+								</span>
+								<span id="labelSpeechtext" class="caption">Speech text</span>
+							</button>
+							
+						</div>
+
+						<div class="group-divider"></div>
+						
+						<div class="d-flex flex-column" >
+						
+							<button onClick="ajoutLudiTITLE();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-paragraph-left fg-green" ></span>
+								</span>
+								<span id="labelTitle" class="caption" >Title</span>
+							</button>
+							
+							<button onClick="ajoutLudiDOM();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-paragraph-left fg-green"></span>
+								</span>
+								<span id="labelDomtext" class="caption">Dom</span>
+							</button>
+							
+						</div>
+
+						<div class="group-divider"></div>
+
+						<div>
+							<button class="ribbon-button dropdown-toggle">
+								<span class="icon">
+									<img src="editor/metro/img/video.png">
+								</span>
+								<span id="labelMedias" class="caption">&nbsp;&nbsp;Medias&nbsp;&nbsp;</span>
+							</button>
+							<ul class="ribbon-dropdown" data-role="dropdown" data-duration="100" >
+								<li><a id="btnUrlVideoLink" onMouseUp="ajoutLudiVIDEO();" href="#" >Video Url</a></li>
+								<li><a id="btnMp4VideoLink" onMouseUp="ajoutLudiVIDEOMP4();" href="#" >Video Mp4</a></li>
+								<li><a id="btnMp3AudioLink" onMouseUp="ajoutLudiAUDIOMP3();" href="#" >Audio Mp3</a></li>
+							</ul>
+						</div>
+						
+						<div class="group-divider"></div>
+
+						<button onClick="$('#pann-extensions').toggle();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/plugins.png" >
+							</span>
+							<span id="labelPageStyle" class="caption">&nbsp;Plugins&nbsp;</span>
+						</button>
+
+						<div class="group-divider"></div>
+
+						<button id="lockopenludi" style="display:none;" onClick="ludisUnlock()" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/lock-open.svg" >
+							</span>
+							<span id="labelPageStyle" class="caption">&nbsp;Unlock&nbsp;</span>
+						</button>
+
+						<span class="title"><span class="menuMain" >Main</span> tools</span>
+						
+					</div>
+				
+				</div>
+				
+				<div class="section" id="section_questions">
+				
+					<div class="group">
+					
+						<button onClick="ajoutLudiQCM();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/qcm.png">
+							</span>
+							<span id="labelMcq" class="caption">&nbsp;&nbsp;&nbsp;MCQ&nbsp;&nbsp;&nbsp;</span>
+						</button>
+					
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiTCM();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/tcm.png">
+							</span>
+							<span id="labelMct" class="caption">&nbsp;&nbsp;MCT&nbsp;&nbsp;</span>
+						</button>
+						
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiLCM();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/lcm.png">
+							</span>
+							<span class="caption">&nbsp;&nbsp;MCL&nbsp;&nbsp;</span>
+						</button>
+					
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiInput();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/input.png">
+							</span>
+							<span id="labelInput" class="caption">&nbsp;&nbsp;Input&nbsp;&nbsp;</span>
+						</button>
+						
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiVariable();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/variable.png">
+							</span>
+							<span class="caption">&nbsp;&nbsp;Variable&nbsp;&nbsp;</span>
+						</button>
+						
+						<div id="addPluginsQuestions" class="group-divider"></div>
+					
+						<span class="title"><span class="menuQuestions" >Questions</span> tools</span>
+						
+					</div>
+				
+				
+				</div>
+				
+				<div class="section" id="section_game">
+				
+					<div class="group">
+					
+						<button onClick="ajoutLudiLIFE();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/life.png">
+							</span>
+							<span id="labelLife" class="caption">&nbsp;&nbsp;&nbsp;Life&nbsp;&nbsp;&nbsp;</span>
+						</button>
+					
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiPENDU();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/hangman.png">
+							</span>
+							<span id="labelHangedMan" class="caption">&nbsp;&nbsp;Hangman&nbsp;&nbsp;</span>
+						</button>
+					
+						<div id="addPluginsGame" class="group-divider"></div>
+					
+						<span class="title"><span class="menuGame" >Game</span> tools</span>
+						
+					</div>
+				
+				
+				</div>
+				
+				<div class="section" id="section_data">
+				
+					<div class="group">
+
+						<button onClick="ajoutLudiBILAN();" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/bilan-score.png" >
+							</span>
+							<span id="labelScore" class="caption">&nbsp;&nbsp;&nbsp;Score&nbsp;&nbsp;&nbsp;</span>
+						</button>
+						
+						<button onClick="ajoutLudiTABLESCORE();" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/linktablescore.png" >
+							</span>
+							<span id="labelScoreTable" class="caption">&nbsp;Score&nbsp;table&nbsp;</span>
+						</button>
+
+						<button onClick="ajoutLudiDATATABLE();" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/base.png" >
+							</span>
+							<span id="labelBase" class="caption">&nbsp;&nbsp;&nbsp;Base&nbsp;&nbsp;&nbsp;</span>
+						</button>
+
+						<span class="title"><span class="menuData" >Data</span></span>
+
+					</div>
+				
+				</div>				
+
+				<div class="section" id="section_process">
+				
+					<div class="group">
+						
+						<button onClick="ajoutLudiIMGprocess();" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/flux41.png" >
+							</span>
+							<span id="labelSteps" class="caption">&nbsp;&nbsp;&nbsp;Steps&nbsp;&nbsp;&nbsp;</span>
+						</button>
+						
+						<button onClick="ajoutLudiFluxPts();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/processline.png" >
+							</span>
+							<span id="labelLines" class="caption">&nbsp;&nbsp;&nbsp;Lines&nbsp;&nbsp;&nbsp;</span>
+						</button>
+					
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiIMGsvg('uibase-dataprocess-gears',450,450,450,450);" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/icon-gears.png" >
+							</span>
+							<span class="caption">&nbsp;&nbsp;&nbsp;Shemas&nbsp;&nbsp;&nbsp;</span>
+						</button>
+						
+						
+						<span class="title"><span class="menuGame" >Process</span> tools</span>
+						
+					</div>
+				
+				</div>
+				
+				<div class="section" id="section_graphics">
+				
+					<div class="group">
+						
+						<button onClick="ajoutLudiIMGpng('uibase-ted-open',450,450,450,450);" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/ted.png" />
+							</span>
+							<span class="caption">&nbsp;&nbsp;&nbsp;Ted&nbsp;&nbsp;&nbsp;</span>
+						</button>
+					
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiLABEL();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/label.png" />
+							</span>
+							<span class="caption">&nbsp;&nbsp;&nbsp;Label&nbsp;&nbsp;&nbsp;</span>
+						</button>
+
+						<button onClick="ajoutLudiIMGsvgReal('uibase-arrow-trian3d7',200,200,200,200);" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/arrows.png" />
+							</span>
+							<span class="caption">&nbsp;&nbsp;&nbsp;Arrows&nbsp;&nbsp;&nbsp;</span>
+						</button>
+						
+						<div id="addPluginsGraphics" class="group-divider"></div>
+
+						<span class="title"><span class="menuGraphics" >Graphics</span></span>
+						
+					</div>
+				
+				</div>
+				
+			</div>
+			
+		</nav>
+		
+	</div>
 	
 	<div class="menu-ecran" ></div>
 	
+	<div id="pann-extensions" class="pann-extensions pan" style="display:none" >
+	
+		
+
+	</div>
+
 	<div id="opacedit" onClick="closeEdit();" class="opacedit pan" ></div>
 	
 	<ul class="menu-vertical pan" >
@@ -45,15 +396,20 @@
 		<a id="saveBtnProject" 
 		onMouseUp="saveCommand();" >Save</a>
 		</li>
-	
+		
 		<li class="mv-item">
 		<a id="exportBtnProject" 
 		onMouseUp="closePan();launchRapidRender(-2);" >Export to SCORM</a>
 		</li>
 		
 		<li class="mv-item">
-		<a id="exportBtnProject" 
+		<a id="exportBtnProject2" 
 		onMouseUp="closePan();launchCodeEditZone();" >Extra Code</a>
+		</li>
+		
+		<li class="mv-item">
+		<a id="exportBtnProject3" 
+		onMouseUp="optMenu();" ><span class="lbloptions" >Options</span>&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;</a>
 		</li>
 		
 		<li class="mv-item">
@@ -63,62 +419,80 @@
 		
 	</ul>
 	
+	<ul class="menu-options pan" >
+		
+		<li class="mv-item">
+		<a id="saveBtnProject" 
+		onMouseUp="showLogsInfos();" >Logs</a>
+		</li>
+	
+	</ul>
+	
+	<div class="backScreenDiv" ></div>
+
 	<canvas id="ecran" class="ecran" width="960" height="720" ></canvas>
 	
-<div id="editzone" class="editZoneTexte pan" >
-
-	<form class="formzone" >
-		<textarea id="textarea" col=45 line=24 class="textzone" style="font-size:18px;" placeholder="Enter text ..." ></textarea>	
-	</form>
+	<div id="editzoneV2" class="editZoneTexteV2 pan" style="background-color: #FAF8F8;" >
+		<div class="toolbarZoneTexteDiv" ></div>
+		<div class="toolbarZoneTexteArea" >
+			<textarea id="textAreaV2" col=45 line=24 >text ....</textarea>
+		</div>
+	</div>
 	
-	<div id="wysihtml5-editor-toolbar">
+	<div id="editzone" class="editZoneTexte pan" >
+
+		<form class="formzone" style="height:320px;" >
+			<textarea id="textarea" col=45 line=24 class="textzone" style="font-size:18px;height:320px;" placeholder="Enter text ..." ></textarea>	
+		</form>
 		
-		<header>
+		<div id="wysihtml5-editor-toolbar">
 			
-			<ul class="commands">
-			  <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command"></li>
-			  <li data-wysihtml5-command="italic" title="Make text italic (CTRL + I)" class="command"></li>
-			  <li data-wysihtml5-command="insertUnorderedList" title="Insert an unordered list" class="command"></li>
-			  <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command"></li>
-			  <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command">
-				<ul class="foreColorliste" >
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy"></li>
-				  <li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue"></li>
+			<header>
+				
+				<ul class="commands">
+				  <li data-wysihtml5-command="bold" title="Make text bold (CTRL + B)" class="command"></li>
+				  <li data-wysihtml5-command="italic" title="Make text italic (CTRL + I)" class="command"></li>
+				  <li data-wysihtml5-command="insertUnorderedList" title="Insert an unordered list" class="command"></li>
+				  <li data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" title="Insert headline 2" class="command"></li>
+				  <li data-wysihtml5-command-group="foreColor" class="fore-color" title="Color the selected text" class="command">
+					<ul class="foreColorliste" >
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="gray"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="maroon"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="purple"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="olive"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="navy"></li>
+						<li data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue"></li>
+					</ul>
+				  </li>
+				  <li data-wysihtml5-command="insertSpeech" title="Insert speech" class="command"></li>
+				  <li data-wysihtml5-action="change_view" title="Show HTML" class="action"></li>
 				</ul>
-			  </li>
-			  <li data-wysihtml5-command="insertSpeech" title="Insert speech" class="command"></li>
-			  <li data-wysihtml5-action="change_view" title="Show HTML" class="action"></li>
-			</ul>
+			
+			</header>
+			
+		</div>
 		
-		</header>
+		<div class="toolBasRight" >
+			<a onclick="switchTextBack(0);" 
+			class="toolCube styl0" 
+			style='background-image: url("img/text-white.png");' ></a>
+			<a onclick="switchTextBack(1);" 
+			class="toolCube styl1" 
+			style='background-image: url("img/text-black.png");' ></a>
+		</div>
 		
-	</div>
-	
-	<div class="toolBasRight" >
-		<a onclick="switchTextBack(0);" 
-		class="toolCube styl0" 
-		style='background-image: url("img/text-white.png");' ></a>
-		<a onclick="switchTextBack(1);" 
-		class="toolCube styl1" 
-		style='background-image: url("img/text-black.png");' ></a>
-	</div>
-	
-	<div class="toolBas2" >
+		<div class="toolBas2" >
 
-		<a style="float:right;margin-right:5px;margin-top:10px;"
-		onclick="setSourceText();"
-		class="btnSave" >Save</a>
-	
+			<a style="float:right;margin-right:5px;margin-top:10px;"
+			onclick="setSourceText();"
+			class="btnSave lblsave" >Save</a>
+		
+		</div>
+		
 	</div>
-	
-</div>
 	
 	<div id="editscript" class="editzoneTablet pan" >
 		
@@ -134,9 +508,9 @@
 		
 	</div>
 	
-	<div id="editgeneration" style="height:130px;" class="editnote pan" >
+	<div id="editgeneration" style="height:130px;" class="loadBase pan" >
 	
-		<div class="toolbar toolbar-header">
+		<div class="toolbar-w toolbar-header">
 			<h1 class="titlehead">Prepare files ...</h1>
 		</div>
 	  
@@ -146,11 +520,11 @@
 				<b><span id="progressrendering" >...</span></b>
 			</p>
 			<img src="img/progress.gif" />
-			<a style="display:none;" onClick="closeEdit();" class="validation">Cancel</a>
+			<a style="display:none;" onClick="closeEdit();" class="validation lblcancel" >Cancel</a>
 		</center>
 	</div>
 	
-	<div id="initgeneration" style="height:130px;" class="editnote pan" >
+	<div id="initgeneration" style="height:130px;" class="loadBase pan" >
 		<center>
 			<p style="padding:2px;margin:2px;" >
 				<br/>
@@ -160,20 +534,45 @@
 		</center>
 	</div>
 	
+	<div id="barreGeneration" style="height:130px;" class="loadBase pan" >
+		<center>
+			<div class="barreContain" >
+				<div class="barreProgress" >
+				</div>
+			</div>
+		</center>
+	</div>
+	
 	<div id="voirleslogs" onClick="$('#voirleslogs').css('display','none');" style="height:130px;" >
 	</div>
 	
+	<script src="../lang/trad.js" ></script>
+	
+	<script src="editor/js/class/cls-windows.js" ></script>
+	<script src="editor/js/class/cls-params.js" ></script>
+
 	<script src="editor/js/oel-interface.js"></script>
 	<script src="editor/js/oel-aaa-openelearning2017.js"></script>
 	<script src="editor/js/oel-color-select.js"></script>
 	<script src="editor/js/oel-ajout-helpers.js"></script>
 	<script src="editor/js/oel-fonctions.js" ></script>
+
+	<script src="editor/js/oel-app-large-process.js" ></script>
 	<script src="editor/js/oel-app.js" ></script>
+	<script src="editor/js/oel-app-keys.js" ></script>
+
 	<script src="editor/js/oel-svghelper.js" ></script>
 	<script src="editor/js/oel-page.js" ></script>
-	<script src="editor/js/oel-ludi.js" ></script>
+	<script src="editor/js/class/cls-ludi.js" ></script>
+	<script src="editor/js/oel-ludi-render.js" ></script>
 	<script src="editor/js/oel-mp4-gestion.js" ></script>
+	<script src="editor/js/oel-mp3-gestion.js" ></script>
+	
 	<script src="editor/js/oel-windows.js" ></script>
+	<script src="editor/js/oel-windows-page-format.js" ></script>
+	<script src="editor/js/oel-windows-qcm.js" ></script>
+	
+	<script src="editor/js/oel-prop.js" ></script>
 	<script src="editor/js/oel-images-gestion.js" ></script>
 	<script src="editor/js/oel-extracode.js" ></script>
 	
@@ -181,17 +580,54 @@
 	<script src="editor/js/oel-buttonformat.js" ></script>
 	<script src="editor/js/oel-database.js" ></script>
 	<script src="editor/js/oel-actionsperso.js" ></script>
+	
 	<script src="editor/js/oel-menu.js" ></script>
-	<script src="editor/js/oel-placeeditzones.js" ></script>
+	<script src="editor/js/oel-menu-ecrans.js" ></script>
 
+	<script src="editor/js/oel-placeeditzones.js" ></script>
+	
 	<script src="editor/js/oel-showWizi.js" ></script>
 	<script src="editor/js/oel-saveeditzones.js" ></script>
 	<script src="editor/js/oel-ajout-ludi.js" ></script>
-	<script src="editor/js/oel-zjson-save-render.js" ></script>
+
 	<script src="editor/js/oel-init.js" ></script>
 	<script src="editor/js/oel-plugme.js" ></script>
 	<script src="editor/js/oel-plugedit.js" ></script>
+	<script src="editor/js/oel-export-scorm.js" ></script>
+
+	<script src="editor/js/process/oel-zjson-save-render.js" ></script>
+	<script src="editor/js/process/oel-zjson-open.js" ></script>
+	<script src="editor/js/process/oel-lauchextensions.js" ></script>
+	<script src="editor/js/process/oel-editor-extensions.js" ></script>
+	<script src="editor/js/process/oel-elect-exportscorm.js" ></script>
 	
+	<link href="editor/metro/css/metro-all.css?ver=@@b-version" rel="stylesheet">
+  	<script src="editor/metro/js/metro.js?ver=@@b-version"></script>
+	
+	<script src="editor/js/libs/editable-table-master/mindmup-editabletable.js"></script>
+	<script src="editor/js/libs/editable-table-master/numeric-input-example.js"></script>
+
+	<script>
+		tinymce.init({
+			selector: 'textarea#textAreaV2',
+			height: 420, menubar: false, statusbar: false,
+			plugins:[
+				'advlist autolink lists link image charmap print preview anchor',
+				'searchreplace visualblocks code fullscreen',
+				'insertdatetime media table paste code help wordcount'
+			],
+			toolbar: 'undo redo | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help'
+		});
+		/*
+		,content_css: [
+			'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+			'//www.tiny.cloud/css/codepen.min.css'
+		]
+		*/
+	</script>
+
+	<link rel="stylesheet" href="editor/css/a-table.css" />
+
 </body>
   	
 	<script>

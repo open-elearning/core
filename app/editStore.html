@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Open-eLearning</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>Open-eLearning exports</title>
+		<link href="css/store.css" rel="stylesheet" />
+		<link rel="icon" href="images/favicon.ico" />
+		<script>
+			const electron = require('electron');
+			if (typeof module === 'object') {
+			window.module = module; module = undefined;}
+		</script>
+		<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+		<script src="js/store.js" ></script>
+	</head>
+<body>
+	
+	<div id="windowsStore" class="windows-store" >
+		
+		<div class="title-store" >Install extensions and objects</div>
+		
+		<ul id="gallery-plugins" class="gallery-plugins">
+		
+			<li class="gallery-li gallstore" >
+				<img src="images/icon64.png" >
+				<div class="gallery-plugins-text" >Plugins</div>
+			</li>
+			<li class="gallery-li-descript gallstore" >
+				<p>...</p>
+			</li>
+			
+		</ul>
+
+		<ul id="gallery-plugins-load" class="gallery-plugins-load" >
+			<li>Load ....</li>
+		</ul>
+		
+	</div>
+		
+</body>
+	
+	<script>
+		require('../app/rendererStore.js')
+	</script>
+	
+	<script>
+		loadPluginsStore();
+	</script>
+	
+</html>

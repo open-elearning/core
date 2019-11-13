@@ -18,19 +18,11 @@
 <body>
 	
 	<div id="etape1" class="windowsexports" >
-		
-		<div class="title-exports" >Logs ...</div>
-
-		<div class="zone-exports" >		
-		
-		<div id="logparams" >
-		
+		<div class="title-exports" style="color:black;" >Logs and infos ...  :-( !!! </div>
+		<div class="zone-exports" >
+			<div id="logparams" ></div>
 		</div>
-		</div>
-		
-		
 	</div>
-	
 	
 </body>
 
@@ -39,7 +31,7 @@
 			var remote = require('electron').remote;
 			var sharedLogs = remote.getGlobal('sharedLogs').logs;
 			$("#logparams").html(sharedLogs);
-		},1000);
+		},300);
 	</script>
   
 </html>

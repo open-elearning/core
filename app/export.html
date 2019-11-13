@@ -1,64 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Open-eLearning</title>
+	
 	<meta charset="utf-8" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
+	
 	<title>Open-eLearning exports</title>
 	<link href="css/default.css" rel="stylesheet" />
+	<link href="css/export.css" rel="stylesheet" />
+	<link href="editor/css/checkbox.css" rel="stylesheet" />
+
 	<link rel="icon" href="images/favicon.ico" />
+	
 	<script>
 		const electron = require('electron');
 		if (typeof module === 'object') {
 		window.module = module; module = undefined;}
 	</script>
+	
 	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
+	
 </head>
 <body>
 	
 	<div id="etape1" class="windowsexports" >
 		
-		<div class="title-exports" >Exports SCORM</div>
-
+		<div class="title-exports exportBtnProject" style="color:black;" >Export to SCORM</div>
+		
 		<div class="zone-exports" >
-
+			
+			<p>Title&nbsp;:</p>
+			<input id="inputTitleScorm" 
+			style="width:415px;" 
+			class="css-input" 
+			type="input" 
+			name="inputTitleScorm" />
+			
 			<p>Interface&nbsp;:</p>
+			
 			<div class="pure-css-select-style theme-default" >
-				<select>
+				<select id="selectlms" >
 					<option value="chamilo">interface for Chamilo</option>
 					<option value="moodle">interface for Moodle</option>
 				</select>
 			</div>
 			
-		</div>
+			<br/>
+			
+			<div 
+			style="position:relative;margin-left:70px;;width:260px;margin-bottom:4px;" >
+			<label style="margin-top:1px;"  class="el-switch el-switch-green" >
+			<input id="inputautocompleted" type="checkbox" name="switch" checked />
+			<span class="el-switch-style"></span></label>
+			<span class="margin-r" style="position:absolute;left:50px;top:0px;margin-top:2px;" >
+			&nbsp;Send&nbsp;the&nbsp;status&nbsp;completed&nbsp;automatically</span>
+			</div>
+			
+			<div 
+			style="position:relative;margin-left:70px;;width:260px;margin-bottom:4px;" >
+			<p id="labelmasterscore" >&nbsp;Mastery&nbsp;Score&nbsp;:&nbsp;&nbsp;
+			<input id="inputmasterscore" 
+			min="0" max="100" 
+			style="width:80px;" type="number" 
+			class="css-input" value="80" />
+			</div>
 
-		<a id="extensions-graphic"
+			<img id="imglms" src="images/chamilo.jpg" />
+			
+		</div>
+	
+		<a id="extensions-wait"
 		style="position:absolute;right:55px;bottom:30px;"
-		onMouseUp="loadProg();"
-		class="ludibtn" >Execute</a>
+		class="ludibtn fakeBtnProject" >.</a>
+		
+		<a id="extensions-graphic"
+		style="position:absolute;right:55px;bottom:30px;display:none;"
+		class="ludibtn saveBtnProject" >Save</a>
 		
 	</div>
 	
 	<div id="etape2" class="windowsexports" style="display:none;" >
-		<div class="title-exports" >Progress</div>
-		<img class="loadimg" src="images/openelearning.gif" />
+		<div class="title-exports" style="color:black;" >Progress</div>
+		
+		<center>
+			<div class="barreContain" >
+				<div class="barreProgress" >
+				</div>
+			</div>
+		</center>
+
 	</div>
 	
-</body>
-	<script>
-		function loadProg(){
-			setTimeout(function(){
-				$('#etape1').css('display','none');
-				$('#etape2').css('display','block');
-				$('.loadimg').css('display','block');
-				setTimeout(function(){
-					$('.loadimg').css('display','none');
-				},8000);
+	<div id="helpmoodle" class="windowsexports" style="display:none;" >
+		
+		<div class="title-exports" style="color:black;" >Export is OK</div>
+		
+		<div class="zone-exports" >
+
+			<p><span style="font-weight:bold;">Next&nbsp;step&nbsp;:&nbsp;</span>Import the package to Moodle<br>
+			<br>
+			1.&nbsp;Then either with editing turned on,<br>
+			<img src="images/edit-turn-on.jpg" /><br><br>
+			2.&nbsp;Select "add an activity > SCORM/AICC", choose the SCORM course format and you will be prompted to upload it there.<br>
+			<img src="images/moodle-scorm.jpg" /><br><br>
+			3. Click on "Add"<br>
+			</p>
 			
-			},2000);
-		}
-	</script>
+		</div>
+		
+	</div>
+	
+	<div id="helpchamilo" class="windowsexports" style="display:none;" >
+		
+		<div class="title-exports" style="color:black;" >Export is OK</div>
+		
+		<div class="zone-exports" >
+
+			<p><span style="font-weight:bold;">Next&nbsp;step&nbsp;:&nbsp;</span>Import the package to Chamilo<br>
+			<br>
+			1.&nbsp;Open "learningpath tool" in a course,<br>
+			<img src="images/learningpath.jpg" /><br><br>
+			2.&nbsp;Select "Import SCORM course" and you will be prompted to upload it there.<br>
+			<img src="images/learningpath2.jpg" /><br><br>
+			3. Click on "Upload"<br>
+			</p>
+			
+		</div>
+		
+	</div>
+
+	
+</body>
+	
+	<script src="../lang/trad.js" ></script>
+	<script src="js/export.js" ></script>
+
 	<script>
 		require('../app/rendererExports.js')
 	</script>

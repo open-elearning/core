@@ -20,11 +20,11 @@
 	<div id="etape1" class="windowsexports" >
 		
 		<div class="title-exports" >Little error ...</div>
-
+		
 		<div class="zone-exports" >		
 			<p>a problem has been detected&nbsp;:</p>
 			<img class="loadimg2" src="images/openelearning.gif" />
-			<a id="extensions-logs" class="ludibtn" >Logs</a>
+			<div id="logparamscrash" ></div>
 		</div>
 		
 	</div>
@@ -34,9 +34,15 @@
 	<script>
 		setTimeout(function(){
 			$('.loadimg2').css("display","none");
-		},3000);
+		},1000);
 	</script>
-  
+	<script>
+		setTimeout(function(){
+			var remote = require('electron').remote;
+			var sharedLogs = remote.getGlobal('sharedLogs').logs;
+			$("#logparamscrash").html(sharedLogs);
+		},1000);
+	</script>
     <script>
 		require('../app/rendererCrash.js')
 	</script>

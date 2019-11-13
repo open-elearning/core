@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open-eLearning</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Open-eLearning</title>
+	<link href="css/default.css" rel="stylesheet" />
+	<link rel="icon" href="images/favicon.ico" />
+	<script>
+		const electron = require('electron');
+	</script>
+  </head>
+  <body>
+		
+		<div id="windowschoice" class="windowsbaseextensions" >
+
+			<div id="chooseamodel" style="color:black;top:48px;" class="control-title-model" >Connect Service</div>
+
+			<input id="urlinput" style="position:absolute;left:30px;top:210px;width:85px;" />
+			<a id="extensions-store" 
+			style="position:absolute;left:250px;top:210px;" 
+			class="ludibtn" >>&nbsp;&nbsp;Add&nbsp;Service</a>
+			
+			<a id="returnHouse" >
+				<div class=icon ></div>
+			</a>
+			
+		</div>
+	
+  </body>
+
+  <script>
+    require('../app/rendererExtensions-connect.js')
+  </script>
+  
+</html>
