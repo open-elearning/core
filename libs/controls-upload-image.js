@@ -21,14 +21,23 @@ function uplimg(event,data){
 	if(!fs.existsSync(path)){
 		if (path === undefined) return;
 		var path2 = path[0];
-		var nameImg2 = findNameImg(path2);
-		var ptarget = easyfile.getfWf("assets") + nameImg2;
-		global.sharedObj.imgassets = nameImg2;
-		copyFileImgAndResize(path2,ptarget);
-		refreshImgsAll();
-		setTimeout(function(){
+
+		if(path2 === undefined){
+			path2 = '';
+		}
+		if(path2!=''){
+			var nameImg2 = findNameImg(path2);
+			var ptarget = easyfile.getfWf("assets") + nameImg2;
+			global.sharedObj.imgassets = nameImg2;
+			copyFileImgAndResize(path2,ptarget);
 			refreshImgsAll();
-		},500);
+			setTimeout(function(){
+				refreshImgsAll();
+			},500);
+		}else{
+			refreshImgsAll();
+		}
+		
 	}else{
 		setTimeout(function(){
 			refreshImgsAll();
@@ -38,27 +47,27 @@ function uplimg(event,data){
 }
 exports.uplimg = uplimg;
 
-
 function openDialogOpenIMG(){
 	
 	if(global.editorWind){
 		global.editorWind.hide();
 	}
-	
-	var dlgResult = dialog.showOpenDialog(window,{
-			defaultPath: 'c:/',
-			filters:[{
-				name:'images',
-				extensions:['jpg','png','svg']
-			}]
-		,properties: ['openFile']});
 
-		if(global.editorWind){
-			global.editorWind.show();
-		}
-		
-		
-		return dlgResult;
+	var dlgResult = dialog.showOpenDialogSync(window,{
+		defaultPath: 'c:/',
+		filters:[{
+			name:'images',
+			extensions:['jpg','png','svg']
+		}]
+	,properties: ['openFile']});
+
+	if(global.editorWind){
+		global.editorWind.show();
+	}
+	if(typeof dlgResult === "undefined") {
+		dlgResult = '';
+	}	
+	return dlgResult;
 
 }
 exports.openDialogOpenIMG = openDialogOpenIMG;
@@ -126,6 +135,10 @@ exports.copyFileImgAndResize = copyFileImgAndResize;
 
 function findNameImg(source){
 	
+	if(typeof source === "undefined"){
+		source = '';
+	}
+
 	var currentTime = new Date();
 	var month = currentTime.getMonth() + 1;
 	var day = currentTime.getDate();
@@ -140,14 +153,29 @@ function findNameImg(source){
 	if(src.indexOf('.jpg')!=-1){
 		ext = '.jpg';
 	}
+	if(src.indexOf('.JPG')!=-1){
+		ext = '.jpg';
+	}
+	if(src.indexOf('.jpeg')!=-1){
+		ext = '.jpg';
+	}
 	if(src.indexOf('.png')!=-1){
+		ext = '.png';
+	}
+	if(src.indexOf('.PNG')!=-1){
 		ext = '.png';
 	}
 	if(src.indexOf('.gif')!=-1){
 		ext = '.gif';
 	}
+	if(src.indexOf('.GIF')!=-1){
+		ext = '.gif';
+	}
 	if(src.indexOf('.svg')!=-1){
 		ext = '.svg';
+	}
+	if(ext==''){
+		ext = '.jpg';
 	}
 	return nam + ext;
 }

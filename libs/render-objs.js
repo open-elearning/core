@@ -5,6 +5,7 @@ function renderBarre(ob,p){
 	var fxml = '';
 	
 	if(ob.type=='barre'){
+		
 		fxml += '<bloc>';
 		fxml += '<type>texthtml</type>';
 		fxml += '<id></id>';
@@ -12,6 +13,10 @@ function renderBarre(ob,p){
 		fxml += "<y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w>";
 		fxml += "<h>" + ob.h + "</h>";
+		fxml += "<x2>" + ob.x2 + "</x2>";
+		fxml += "<y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2>";
+		fxml += "<h2>" + ob.h2 + "</h2>";
 		fxml += "<text></text>";
 		fxml += "<align>LeftCenter</align>";
 		fxml += "<fontsize>14</fontsize>";
@@ -21,6 +26,26 @@ function renderBarre(ob,p){
 		fxml += "<an>1</an>";
 		fxml += "<css>background-color:" + ob.val + ";</css>";
 		fxml += "</bloc>";
+
+		fxml += '<bloc>';
+		fxml += '<type>text</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + (ob.x + 10) + "</x>";
+		fxml += "<y>" + (ob.y + 5) + "</y>";
+		fxml += "<w>" + (ob.w - 20) + "</w>";
+		fxml += "<h>" + (ob.h - 10) + "</h>";
+		fxml += '<text>';
+		fxml += '<![CDATA[' + rJtext(ob.text) +']]>';
+		fxml += '</text>';
+		fxml += "<align>LeftCenter</align>";
+		if(ob.fontSize){
+			fxml += "<fontsize>" + ob.fontSize + "</fontsize>";
+		}
+		fxml += "<color><![CDATA[white]]></color>";
+		fxml += "<page>" + p + "</page>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+
 	}
 	
 	return fxml;
@@ -62,6 +87,10 @@ function renderInput(ob,p){
 		fxml += '<id></id>';
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
 		fxml += "<text><![CDATA[" + ob.text + "]]></text>";
 		fxml += "<align>LeftTop</align>";
 		fxml += "<fontsize>18</fontsize>";
@@ -95,6 +124,9 @@ function renderDom(ob,p){
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
 		
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
 		if(ob.fontSize){
 			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
 		}else{
@@ -112,7 +144,7 @@ function renderDom(ob,p){
 			actJs = ' onClick="LUDI.nextPageIsOK()" ';
 		}
 		if(ob.data=="GO"){
-			actJs = ' onClick="LUDI.goPage(' + parseInt(ob.val) + ')" ';
+			actJs = ' onClick="LUDI.goPage(' + pInt(ob.val) + ')" ';
 		}
 		if(ob.data=="AP"){
 			var scriptVal = strReplaceZ("'","&apos;",ob.text4)
@@ -146,9 +178,13 @@ function renderDom(ob,p){
 		fxml += '<bloc>';
 		fxml += '<type>texthtml</type>';
 		fxml += '<id></id>';
+
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
 		
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
 		if(ob.fontSize){
 			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
 		}else{
@@ -191,6 +227,10 @@ function renderText(ob,p){
 		fxml += "<y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w>";
 		fxml += "<h>" + ob.h + "</h>";
+
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
 		fxml += '<tx><![CDATA[' + rJtext(ob.text) +']]></tx>';
 		fxml += "<align>LeftTop</align>";
 		if(ob.fontSize){
@@ -207,6 +247,8 @@ function renderText(ob,p){
 		if(ob.anim){
 			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
 		}
+		
+		fxml += "<css><![CDATA[" + rJtext(ob.css) + "]]></css>"
 		fxml += "<page>" + p + "</page>";
 		fxml += "<ind>2</ind>";
 		fxml += "</bloc>";
@@ -216,10 +258,12 @@ function renderText(ob,p){
 		fxml += '<bloc>';
 		fxml += '<type>text</type>';
 		fxml += '<id></id>';
-		fxml += "<x>" + ob.x + "</x>";
-		fxml += "<y>" + ob.y + "</y>";
-		fxml += "<w>" + ob.w + "</w>";
-		fxml += "<h>" + ob.h + "</h>";
+		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
 		fxml += '<text>';
 		fxml += '<![CDATA[' + rJtext(ob.text) +']]>';
 		fxml += '</text>';
@@ -293,29 +337,32 @@ function renderQcm(ob,p,typePage){
 		fxml += "<y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w>";
 		
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2>";
+
 		var calculH = parseInt(ob.h);
 		
 		var nbelement = 2;
 		
 		var src = '';
 		if(ob.val==1){
-			src += '*' + rJtext(ob.text);
+			src += '*' + rJtextCmq(ob.text);
 		}else{
-			src += rJtext(ob.text);
+			src += rJtextCmq(ob.text);
 		}
 		
 		if(ob.val2==1){
-			src += ';*' + rJtext(ob.text2);
+			src += ';*' + rJtextCmq(ob.text2);
 		}else{
-			src += ';' + rJtext(ob.text2);
+			src += ';' + rJtextCmq(ob.text2);
 		}
 
 		if(ob.text3){
 			if(ob.text3!=''){
 				if(ob.val3==1){
-					src += ';*' + rJtext(ob.text3);
+					src += ';*' + rJtextCmq(ob.text3);
 				}else{
-					src += ';' + rJtext(ob.text3);
+					src += ';' + rJtextCmq(ob.text3);
 				}
 				nbelement++;
 			}
@@ -323,9 +370,9 @@ function renderQcm(ob,p,typePage){
 		if(ob.text4){
 			if(ob.text4!=''){
 				if(ob.val4==1){
-					src += ';*' + rJtext(ob.text4);
+					src += ';*' + rJtextCmq(ob.text4);
 				}else{
-					src += ';' + rJtext(ob.text4);
+					src += ';' + rJtextCmq(ob.text4);
 				}
 				nbelement++;
 			}
@@ -333,9 +380,9 @@ function renderQcm(ob,p,typePage){
 		if(ob.text5){
 			if(ob.text5!=''){
 				if(ob.val5==1){
-					src += ';*' + rJtext(ob.text5);
+					src += ';*' + rJtextCmq(ob.text5);
 				}else{
-					src += ';' + rJtext(ob.text5);
+					src += ';' + rJtextCmq(ob.text5);
 				}
 				nbelement++;
 			}
@@ -384,14 +431,23 @@ function renderImages(ob,p){
 		if(ob.idString!=''){
 			fxml += '<ids>'+ ob.idString +'</ids>';
 		}
-		fxml += "<x>" + ob.x + "</x>";
-		fxml += "<y>" + ob.y + "</y>";
-		fxml += "<w>" + ob.w + "</w>";
-		fxml += "<h>" + ob.h + "</h>";
+		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
 		fxml += '<tx></tx>';
 		fxml += '<tx7></tx7>'
 		fxml += "<align>LeftCenter</align>";
-		var filename = ob.text6.replace(/^.*[\\\/]/, '');
+
+		var filename = ob.text6.replace(/^.*[\\\/]/,'');
+		filename = filename.replace(' ','');
+		filename = filename.replace(' ','');
+
+		if(filename.indexOf('.jpg')==-1&&filename.indexOf('.gif')==-1&&filename.indexOf('.png')==-1&&filename.indexOf('.svg')==-1){
+			filename = filename + '.jpg';
+		}
 		
 		fxml += "<src><![CDATA[images/" + filename + " ]]></src>";
 		
@@ -424,6 +480,13 @@ function renderOverLaw(typePage,p){
 	fxml += "<y>-1</y>";
 	fxml += "<w>962</w>";
 	fxml += "<h>722</h>";
+
+	fxml += "<x2>-1</x2>";
+	fxml += "<y2>-1</y2>";
+	fxml += "<w2>962</w2>";
+	fxml += "<h2>722</h2>";
+
+
 	fxml += '<tx></tx>';
 	fxml += "<align>LeftCenter</align>";
 	let filename = "comic-0" + typePage + ".png";
@@ -458,11 +521,16 @@ function renderButton(ob,p,typePage){
 		}
 		
 		fxml += '<id></id>';
-		fxml += "<x>" + parseInt(parseInt(ob.x+3)) + "</x>";
-		fxml += "<y>" + parseInt(parseInt(ob.y+3)) + "</y>";
-		fxml += "<w>" + parseInt(parseInt(ob.w-6)) + "</w>";
-		fxml += "<h>" + parseInt(parseInt(ob.h-6)) + "</h>";
+		fxml += "<x>" + pInt(pInt(ob.x)+3) + "</x>";
+		fxml += "<y>" + pInt(pInt(ob.y)+3) + "</y>";
+		fxml += "<w>" + pInt(pInt(ob.w)-6) + "</w>";
+		fxml += "<h>" + pInt(pInt(ob.h)-6) + "</h>";
 		
+		fxml += "<x2>" + pInt(pInt(ob.x2)+3) + "</x2>";
+		fxml += "<y2>" + pInt(pInt(ob.y2)+3) + "</y2>";
+		fxml += "<w2>" + pInt(pInt(ob.w2)-6) + "</w2>";
+		fxml += "<h2>" + pInt(pInt(ob.h2)-6) + "</h2>";
+
 		if(tb==4||tb==5||tb==6){
 			if(tb==4){
 				fxml += "<tx><![CDATA[next]]></tx>";
@@ -498,19 +566,23 @@ function renderButton(ob,p,typePage){
 		fxml += "<contenu5>1</contenu5>";
 		
 		if(ob.data=="DS"){
-			fxml += "<url>data/page" + parseInt(p+1) + ".xml</url>";
+			fxml += "<url>data/page" + pInt(pInt(p)+1) + ".xml</url>";
 			fxml += "<data></data>";
 		}
 		if(ob.data=="DP"&&p>0){
-			fxml += "<url>data/page" + parseInt(p-1) + ".xml</url>";
+			fxml += "<url>data/page" +  pInt(pInt(p)-1) + ".xml</url>";
+			fxml += "<data></data>";
+		}
+		if(ob.data=="DC"){
+			fxml += "<url>openCorrectSimple(" + pInt(pInt(p)+1) + ");</url>";
 			fxml += "<data></data>";
 		}
 		if(ob.data=="DK"){
-			fxml += "<url>data/page" + parseInt(p+1) + ".xml</url>";
+			fxml += "<url>data/page" + pInt(pInt(p)+1) + ".xml</url>";
 			fxml += "<data>isok</data>";
 		}
 		if(ob.data=="GO"){
-			fxml += "<url>data/page" + parseInt(ob.val) + ".xml</url>";
+			fxml += "<url>data/page" + pInt(ob.val) + ".xml</url>";
 			fxml += "<data></data>";
 		}
 		if(ob.data=="AP"){
@@ -520,7 +592,7 @@ function renderButton(ob,p,typePage){
 			fxml += "<data></data>";
 		}
 		
-		fxml += "<an>" + ob.anim + "</an><de>0</de>";
+		fxml += "<an>" + pInt(ob.anim) + "</an><de>0</de>";
 		
 		fxml += "<fontsize>15</fontsize>";
 		
@@ -555,6 +627,12 @@ function renderVideo(ob,p){
 		fxml += "<y>" + parseInt(ob.y) + "</y>";
 		fxml += "<w>" + parseInt(ob.w) + "</w>";
 		fxml += "<h>" + parseInt(ob.h) + "</h>";
+
+		fxml += "<x2>" + parseInt(ob.x2) + "</x2>";
+		fxml += "<y2>" + parseInt(ob.y2) + "</y2>";
+		fxml += "<w2>" + parseInt(ob.w2) + "</w2>";
+		fxml += "<h2>" + parseInt(ob.h2) + "</h2>";
+
 		fxml += "<text><![CDATA[" + rJtext(ob.text) + "]]></text>";
 		
 		fxml += '<data>';
@@ -585,20 +663,32 @@ function renderVideoMp4(ob,p,back){
 	if(ob.type=='videomp4'){
 		
 		fxml += '<bloc>';
-		fxml += '<type>ludiplayerhtml</type>';
+		fxml += '<type>videohtml</type>';
 		fxml += '<id></id><an>1</an><border>0</border>';
 		
 		//Fullscreen
 		if(parseInt(ob.val)==1){
+
 			fxml += "<x>-1</x><y>-1</y>";
 			fxml += "<w>962</w><h>722</h>";
+
+			fxml += "<x2>-1</x2><y2>-1</y2>";
+			fxml += "<w2>482</w2><h2>782</h2>";
+
 			fxml += "<contenu5><![CDATA["+back+"]]></contenu5>";
 			
 		}else{
+
 			fxml += "<x>" + parseInt(ob.x) + "</x>";
 			fxml += "<y>" + parseInt(ob.y) + "</y>";
 			fxml += "<w>" + parseInt(ob.w) + "</w>";
 			fxml += "<h>" + parseInt(ob.h) + "</h>";
+
+			fxml += "<x2>" + parseInt(ob.x2) + "</x2>";
+			fxml += "<y2>" + parseInt(ob.y2) + "</y2>";
+			fxml += "<w2>" + parseInt(ob.w2) + "</w2>";
+			fxml += "<h2>" + parseInt(ob.h2) + "</h2>";
+
 		}
 		
 		fxml += "<text><![CDATA[data/" + rJtext(ob.text) + "]]></text>";
@@ -611,15 +701,9 @@ function renderVideoMp4(ob,p,back){
 			fxml += '<o>0</o>';
 		}
 		
-		fxml += '<o2>0</o2>';
+		fxml += '<o2>1</o2>';
 		
-		//NextPageLudiVideo
-		if(parseInt(ob.val2)==1){
-			fxml += '<o3>1</o3>';
-		}else{
-			fxml += '<o3>0</o3>';
-		}
-		
+	
 		fxml += "<align>LeftTop</align>";
 		fxml += "<fontsize>5</fontsize>";
 		fxml += "<color>black</color>";
@@ -633,7 +717,6 @@ function renderVideoMp4(ob,p,back){
 	
 }
 exports.renderVideoMp4 = renderVideoMp4;
-
 
 function renderAudioMp3(ob,p){
 
@@ -649,6 +732,11 @@ function renderAudioMp3(ob,p){
 		fxml += "<y>" + parseInt(ob.y) + "</y>";
 		fxml += "<w>" + parseInt(ob.w) + "</w>";
 		fxml += "<h>" + parseInt(ob.h) + "</h>";
+
+		fxml += "<x2>" + parseInt(ob.x2) + "</x2>";
+		fxml += "<y2>" + parseInt(ob.y2) + "</y2>";
+		fxml += "<w2>" + parseInt(ob.w2) + "</w2>";
+		fxml += "<h2>" + parseInt(ob.h2) + "</h2>";
 
 		fxml += "<text><![CDATA[data/" + rJtext(ob.text) + "]]></text>";
 		fxml += '<data></data><contenu3>0</contenu3><contenu4>0</contenu4>';
@@ -675,7 +763,6 @@ function renderAudioMp3(ob,p){
 	
 }
 exports.renderAudioMp3 = renderAudioMp3;
-
 
 function renderLcm(ob,p,typePage){
 	
@@ -766,11 +853,17 @@ function renderTcm(ob,p,typePage){
 		fxml += '<type>tcm</type>';
 		fxml += '<id></id>';
 		fxml += '<an>1</an>';
+		
 		fxml += "<x>" + parseInt(ob.x) + "</x>";
 		fxml += "<y>" + parseInt(ob.y) + "</y>";
 		fxml += "<w>" + parseInt(ob.w) + "</w>";
 		fxml += "<h>" + parseInt(ob.h) + "</h>";
 		
+		fxml += "<x2>" + parseInt(ob.x2) + "</x2>";
+		fxml += "<y2>" + parseInt(ob.y2) + "</y2>";
+		fxml += "<w2>" + parseInt(ob.w2) + "</w2>";
+		fxml += "<h2>" + parseInt(ob.h2) + "</h2>";
+
 		var txtval = rJtext(ob.text);
 		var distra = rJtext(ob.text2);
 		distra = strReplace('<br>','|',distra);
@@ -1286,6 +1379,14 @@ function parseInteger(s){
 
 }
 
+function pInt(s){
+
+	if(typeof s==="undefined"){s = 0;}
+
+	return parseInt(s);
+
+}
+
 function rJtext(s){
 	
 	if(typeof s==="undefined"){
@@ -1314,6 +1415,35 @@ function rJtext(s){
 	
 }
 exports.rJtext = rJtext;
+
+function rJtextCmq(s){
+	
+	if(typeof s==="undefined"){
+		s = '';
+	}
+	if(typeof s==='number'){
+		s = s.toString();
+	}
+	if(typeof s!=='number'){
+		if(typeof s!=='string'){
+			s = s.toString('utf8');
+		}
+	}
+	
+	s = strReplace("u00f4","ô",s);
+	s = strReplace("u00e9","é",s);
+	s = strReplace("u00e8","è",s);
+	s = strReplace("u00e2","â",s);
+	s = strReplace("u2019","'",s);
+	s = strReplace("ZaposA",'"',s);
+	s = strReplace("'",'&apos.,',s);
+	s = strReplace("!",'ZexclaA',s);
+	
+	return s;
+	
+}
+exports.rJtextCmq = rJtextCmq;
+
 
 function extractNameImg(source){
 	

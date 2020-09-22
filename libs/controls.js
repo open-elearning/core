@@ -24,21 +24,27 @@ function exec(event,data){
 		console.log("saveJsonPages:ok");
 	}
 	
-	if(data.key=='downdata'){
-		ctrdownloadfile.downloadFile('https://openelearning.org/dist/data.json',easyfile.getfWf("params") + 'data.json');
-		console.log("downdata");
-	}
-	
 	if(data.key=='saveJsonCLudis'){
 		var jsonCLudisPath = easyfile.getfWf("temp") + "cludis.json";	
 		easyfile.writeText(jsonCLudisPath,data.text);
 		console.log("saveJsonCLudis:ok");
+	}
+
+	if(data.key=='saveJsonCParams'){
+		var jsonCLudisPath = easyfile.getfWf("temp") + "params.json";	
+		easyfile.writeText(jsonCLudisPath,data.text);
+		console.log("saveJsonCParams:ok");
 	}
 	
 	if(data.key=='saveExtraCode'){
 		global.sharedObj.extracode = data.text;
 	}
 	
+	if(data.key=='downdata'){
+		ctrdownloadfile.downloadFile('https://openelearning.org/dist/data.json',easyfile.getfWf("params") + 'data.json');
+		console.log("downdata");
+	}
+
 	if(data.key=='lang'){
 		var langPath = easyfile.getfWf("params") + "lang.txt";	
 		easyfile.writeText(langPath,data.val);
@@ -95,27 +101,28 @@ function exec(event,data){
 		
 		if(path==''){
 			
-			var filepath = dialog.showSaveDialog({
-			title: 'save File',
-			filters: [{
-				name: 'file',
-				extensions: ['openelearning']
-			}]
-			}, function(path) {
-				
-				if(typeof path === "undefined") {
-					path = '';
-				}
-				
-				if(path!=''){
-					ctropenfile.addRecentFile(path);
-					global.sharedObj.dataFile = path;
-					saveAll(path);
-					app.showExitPrompt = false;
-				}
-				
+			//showSaveDialog
+			var filepath = dialog.showSaveDialogSync({
+				title: 'save File',
+				filters: [{
+					name: 'file',extensions: ['openelearning']
+				}]
 			});
-  
+
+			if(filepath.indexOf(".openelearning")==-1){
+				if(filepath!=''){
+					filepath = filepath + ".openelearning";
+				}
+			}
+
+			if(filepath!=''){
+				console.log("save:ok path:" + filepath);
+				ctropenfile.addRecentFile(filepath);
+				global.sharedObj.dataFile = filepath;
+				saveAll(filepath);
+				app.showExitPrompt = false;
+			}
+			  
 		}else{
 			saveAll(path);
 			app.showExitPrompt = false;
@@ -136,26 +143,24 @@ function exec(event,data){
 
 	if(data.key=='exportlocal'){
 
-		console.log("exportAllLocal:ok");
+		console.log("exportAllLocal");
 
-		var filePath = dialog.showOpenDialog({
-		title: 'open Directory',
-		properties: ['openDirectory'],
-		filters: [{
-			name: 'file',
-			extensions: ['openelearning']
-		}]
-		},function(path) {
-			
-			if(typeof path === "undefined") {
-				path = '';
-			}
-			if(path!=''){
-				ctrexportlocal.exportAllLocal(path);
-			}
-			
+		var filePath = dialog.showOpenDialogSync({
+			title: 'open Directory',
+			properties: ['openDirectory'],
+			filters: [{
+				name: 'file',
+				extensions: ['openelearning']
+			}]
 		});
-
+		if(typeof filePath === "undefined") {
+			filePath = '';
+		}
+		if(filePath!=''){
+			ctrexportlocal.exportAllLocal(filePath);
+			console.log("exportAllLocal:" + filePath);
+		}
+		
 	}
 	
 	if(data.key=='uploadimage'){
@@ -203,6 +208,7 @@ function exec(event,data){
 		global.sharedObj.dataVideo = "";
 		
 		var path = openDialogOpenMP4();
+		
 		if(!fs.existsSync(path)){
 		    if (path === undefined) return;
 			var path2 = path[0];
@@ -252,7 +258,6 @@ function exec(event,data){
 		
 	}
 
-	
 	if(data.key=='addplugin'){
 	
 		global.sharedObj.dataZip = "";
@@ -306,12 +311,17 @@ function exec(event,data){
 			recent0 = data.val[0];
 		}catch(e){}
 		
+		if(typeof recent0 === 'undefined') {
+			recent0 = '';
+		}
+
 		if(typeof recent0 !== 'string'){
 			recent0 = recent0.toString('utf8');
 		}
+		if(recent0!=''){
+			ctropenfile.openFileProcess(recent0,data.tpl);
+		}
 		
-		ctropenfile.openFileProcess(recent0,data.tpl);
-
 	}
 	
 	//console.log("exec:" + data.key);
@@ -335,6 +345,7 @@ function saveAll(filename){
 	var file = [];
 	file.push( "cludis.json");
 	file.push( "pages.json");
+	file.push( "params.json");
 	for (var i = 0; i < file.length; i++) {
 		var txtw = fs.readFileSync(src + file[i]);
 		var namt = file[i].replace('.json','.txt');
@@ -421,7 +432,6 @@ function saveAll(filename){
 			}
 		}
 		
-		
 		if(objLudi.type=='videomp4'
 		||objLudi.type=='audio'){
 			
@@ -460,7 +470,7 @@ function saveAll(filename){
 	
 	var data = zip.generate({base64:false,compression:'STORE'});
 	
-	try {
+	try{
 		
 		fs.writeFileSync(filename, data, 'binary');
 		
@@ -527,6 +537,27 @@ function exportAll(filename){
 				var txtw = fs.readFileSync(src + '/css/' + filecss[i]);
 				zip.file('css/' + filecss[i],txtw);
 			}
+
+			var fileIcons = [];
+			//Css Icons
+			var dirCssIcons = dir + "/css/icons"
+			fs.readdir(dirCssIcons,function (err, items) {
+				if(err){return onError(err);}
+				items.forEach(function (item) {
+					if(item.indexOf('.css')!=-1
+					||item.indexOf('.jpg')!=-1
+					||item.indexOf('.gif')!=-1
+					||item.indexOf('.png')!=-1
+					){
+						fileIcons.push(item);
+					}
+					console.log("item css icon :" + item);
+				});
+				for(var i = 0; i < fileIcons.length; i++) {
+					var txtw = fs.readFileSync(src + '/css/icons/' + fileIcons[i]);
+					zip.file('css/icons/' + fileIcons[i],txtw);
+				}
+			});//Css Icons
 			
 		//JAVASCRIPT
 		var filejs = [];
@@ -641,10 +672,7 @@ function exportAll(filename){
 											}
 										});//END FX QCM
 								
-								
-								
 								});//END DATA
-							
 							
 						});//END FX
 					
@@ -655,8 +683,6 @@ function exportAll(filename){
 		});//END CSS
 
 	});
-	
-	
 	
 }
 
@@ -673,7 +699,7 @@ function transformTarget(filename){
 
 function openDialogOpenExtensions(){
 	
-    return dialog.showOpenDialog(window,
+    return dialog.showOpenDialogSync(window,
 		{
 			defaultPath: 'c:/',
 			filters:[
@@ -687,7 +713,7 @@ function openDialogOpenExtensions(){
 
 function openDialogOpenMP4(){
 	
-	return dialog.showOpenDialog(window,
+	return dialog.showOpenDialogSync(window,
 		{
 			defaultPath: 'c:/',
 			filters:[
@@ -703,7 +729,7 @@ function openDialogOpenMP4(){
 
 function openDialogOpenMP3(){
 	
-	return dialog.showOpenDialog(window,
+	return dialog.showOpenDialogSync(window,
 		{
 			defaultPath: 'c:/',
 			filters:[
@@ -719,7 +745,7 @@ function openDialogOpenMP3(){
 
 function openDialogOpenCsv(){
 	
-	return dialog.showOpenDialog(window,
+	return dialog.showOpenDialogSync(window,
 		{
 			defaultPath: 'c:/',
 			filters:[
@@ -763,8 +789,7 @@ function findNameMp4(source){
 	if(typeof source !== 'string'){
 		source = source.toString('utf8');
 	}
-	source = replaceAll(source,'-','o');
-	source = replaceAll(source,' ','o');
+	source = cleanNameParasits(source);
 	
 	var namsource = source.replace(/^.*[\\\/]/, '');
 	var nam = 'aaoel' + namsource;
@@ -780,15 +805,13 @@ function findNameMp3(source){
 	if(typeof source !== 'string'){
 		source = source.toString('utf8');
 	}
-	source = replaceAll(source,'-','o');
-	source = replaceAll(source,' ','o');
+	source = cleanNameParasits(source);
 	
 	var namsource = source.replace(/^.*[\\\/]/, '');
 	var nam = 'aaoel' + namsource;
 	
 	return nam;
 }
-
 
 function findNameZIP(source){
 	
@@ -805,6 +828,21 @@ function findNameZIP(source){
 	var nam = 'aaoel' + namsource;
 	
 	return nam;
+}
+
+function cleanNameParasits(source){
+	source = replaceAll(source,'-','o');
+	source = replaceAll(source,' ','o');
+	source = replaceAll(source,'(','p');
+	source = replaceAll(source,')','p');
+	source = replaceAll(source,'é','e');
+	source = replaceAll(source,'è','e');
+	source = replaceAll(source,'ê','e');
+	source = replaceAll(source,'ô','o');
+	source = replaceAll(source,'à','a');
+	source = replaceAll(source,'.com','dcom');
+	
+	return source;
 }
 
 function extractNameImg(source){
@@ -826,7 +864,6 @@ function extractNameImg(source){
 	
 	return nam;
 }
-
 
 function copyFileImg(src,dest){
 	

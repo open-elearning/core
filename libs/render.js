@@ -18,11 +18,19 @@ function generateHtml(){
 
 	console.log('CYCLE RENDER 1 ');
 
+	var path = easyfile.getfWf("temp") + "params.json";	
+	fs.openSync(path,'r+');
+	fs.readFile(path,function read(err,dataParams){
+		global.dataLudiParamsData = JSON.parse(dataParams);
+	});
+
 	var path = easyfile.getfWf("temp") + "cludis.json";	
 	fs.openSync(path,'r+');
 	fs.readFile(path,function read(err,dataLudi){
 		
-		var dataLudiFile = JSON.parse(dataLudi);
+		global.dataLudiFileData = JSON.parse(dataLudi);
+		var dataLudiFile = global.dataLudiFileData;
+
 		for(var i = 0; i < dataLudiFile.length; i++){
 			var objLudi = dataLudiFile[i];
 			if(objLudi.type=='plugme'){
@@ -166,7 +174,7 @@ function generateHtmlSecondPass(){
 				}
 				oneScreenOnly = false;
 			}
-
+			
 			if(obj.script==''){
 				fxml += '<scriptdiapo><page>' + obj.index + '</page><data>';
 				fxml += '<![CDATA[' + renderobjs.rJtext(extraScript) + ']]>';
@@ -188,120 +196,130 @@ function generateHtmlSecondPass(){
 		fxml += '<messagefalse><data><![CDATA[Incorrect answer !]]></data></messagefalse>';
 		
 		//Objets Cludi
-		var path = easyfile.getfWf("temp") + "cludis.json";
-		
-		fs.openSync(path,'r+');
-		fs.readFile(path,function read(err,dataLudi){
-			
-			var dataLudiFile = JSON.parse(dataLudi);
-			
-			//liste des CLudi
-			for(var i = 0; i < dataLudiFile.length; i++){
-				
-				var objLudi = dataLudiFile[i];
-				
-				var numPage = -1;
-				if(objLudi.pageId){
-					numPage = parseInt(Pitems[objLudi.pageId]);
-				}
-				
-				var typePage = parseInt(PtypePage[objLudi.pageId]);
-				
-				fxml +=  renderobjs.renderBarre(objLudi,numPage);
-				fxml +=  renderobjs.renderText(objLudi,numPage);
-				fxml +=  renderobjs.renderQcm(objLudi,numPage,typePage);
-				fxml +=  renderobjs.renderImages(objLudi,numPage);
-				
-				renderbase.renderBaseProcess(objLudi,pathFinalHtml + 'data');
-				
-				if(objLudi.type=='img'){
-					var fnam = objLudi.text6.replace(/^.*[\\\/]/, '');
-					var pinit = pathF.join(easyfile.getfWf("assets"),fnam.trim());
-					var ptarget = pathFinalHtml + 'images' + fd + fnam.trim();
-					copyFileImg(pinit,ptarget);
-				}
-				
-				if(objLudi.type=='videomp4'){
-					var fnam2 = objLudi.text;
-					if(fnam2.indexOf(".mp4")!=-1){
-						var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
-						var ptarget2 = pathFinalHtml + 'data' + fd + fnam2.trim();
-						easyfile.copyFileAsync(pinit2,ptarget2);
-					}
-				}
+		var dataLudiFile = global.dataLudiFileData;
 
-				if(objLudi.type=='audio'){
-					var fnam2 = objLudi.text;
-					if(fnam2.indexOf(".mp3")!=-1){
-						var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
-						var ptarget2 = pathFinalHtml + 'data' + fd + fnam2.trim();
-						easyfile.copyFileAsync(pinit2,ptarget2);
-					}
-				}
+		//liste des CLudi
+		for(var i = 0; i < dataLudiFile.length; i++){
+			
+			var objLudi = dataLudiFile[i];
+			
+			var numPage = -1;
+
+			if(objLudi.pageId){
+				numPage = parseInt(Pitems[objLudi.pageId]);
+			}
+			
+			var typePage = parseInt(PtypePage[objLudi.pageId]);
+			
+			fxml += renderobjs.renderBarre(objLudi,numPage);
+			fxml += renderobjs.renderText(objLudi,numPage);
+			fxml += renderobjs.renderQcm(objLudi,numPage,typePage);
+			fxml += renderobjs.renderImages(objLudi,numPage);
+			
+			renderbase.renderBaseProcess(objLudi,pathFinalHtml + 'data');
+			
+			if(objLudi.type=='img'){
+
+				var fnam = objLudi.text6.replace(/^.*[\\\/]/,'');
+				fnam = fnam.trim();
+				var pinit = pathF.join(easyfile.getfWf("assets"),fnam);
 				
-				if(objLudi.type=='fluxPts'&&objLudi.val3==0){
-					var i4 = easyfile.getfWf("assets") + 'fluxprocess.png';
-					var t4 = pathFinalHtml + 'images' + fd + 'fluxprocess.png';
-					copyFileImg(i4,t4);
-					fxml +=  renderobjs.renderFluxPts(objLudi,numPage,dataLudiFile);
+				if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
+					fnam = fnam + '.jpg';
 				}
-				
-				fxml +=  renderobjs.renderDom(objLudi,numPage);
-				fxml +=  renderobjs.renderVariable(objLudi,numPage);
-				fxml +=  renderobjs.renderInput(objLudi,numPage);
-				fxml +=  renderobjs.renderButton(objLudi,numPage,typePage);
-				fxml +=  renderobjs.renderVideo(objLudi,numPage);
-				fxml +=  renderobjs.renderLcm(objLudi,numPage,typePage);
-				fxml +=  renderobjs.renderTcm(objLudi,numPage,typePage);
-				fxml +=  renderobjs.renderLife(objLudi,numPage);
-				fxml +=  renderobjs.renderPlugMe(objLudi,numPage,typePage);
-				fxml +=  renderobjs.renderVideoMp4(objLudi,numPage,Pback[objLudi.pageId]);
-				fxml +=  renderobjs.renderAudioMp3(objLudi,numPage);
+				var ptarget = pathFinalHtml + 'images' + fd + fnam;
+				copyFileImg(pinit,ptarget);
 
 			}
 			
-			var tmpid = 'openlearning';
+			if(objLudi.type=='speech'){
+				var fnam = 'bullebase' + renderobjs.rJtext(objLudi.val)+ '.png';
+				var pInitS = pathF.join(easyfile.getfWf("assets") + '/bulle/',fnam.trim());
+				var pTargS = pathFinalHtml + 'images' + fd + fnam.trim();
+				//copyFileImg(pInitS,pTargS);
+			}
+
+			if(objLudi.type=='videomp4'){
+				var fnam2 = objLudi.text;
+				if(fnam2.indexOf(".mp4")!=-1){
+					var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
+					var ptarget2 = pathFinalHtml + 'data' + fd + fnam2.trim();
+					easyfile.copyFileAsync(pinit2,ptarget2);
+				}
+			}
+
+			if(objLudi.type=='audio'){
+				var fnam2 = objLudi.text;
+				if(fnam2.indexOf(".mp3")!=-1){
+					var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
+					var ptarget2 = pathFinalHtml + 'data' + fd + fnam2.trim();
+					easyfile.copyFileAsync(pinit2,ptarget2);
+				}
+			}
 			
-			fxml += '<bloc><type>text</type><fontsize>16</fontsize><ids>dociid</ids>';
-			fxml += '<x>-100</x><y>-100</y><w>20</w><h>20</h><an>1</an><text>';
-			fxml += '<![CDATA[<p>' + tmpid + '</p>]]></text><color>Black</color><align>Justify</align>';
-			fxml += '<ind>1</ind></bloc>';
-			fxml += '</d>';
+			if(objLudi.type=='fluxPts'&&objLudi.val3==0){
+				var i4 = easyfile.getfWf("assets") + 'fluxprocess.png';
+				var t4 = pathFinalHtml + 'images' + fd + 'fluxprocess.png';
+				copyFileImg(i4,t4);
+				fxml +=  renderobjs.renderFluxPts(objLudi,numPage,dataLudiFile);
+			}
 			
-			var renderPath = easyfile.getfWf("renderHtml") + "data.xml";
-			easyfile.writeText(renderPath,fxml);
+			fxml +=  renderobjs.renderDom(objLudi,numPage);
+			fxml +=  renderobjs.renderVariable(objLudi,numPage);
+			fxml +=  renderobjs.renderInput(objLudi,numPage);
+			fxml +=  renderobjs.renderButton(objLudi,numPage,typePage);
+			fxml +=  renderobjs.renderVideo(objLudi,numPage);
+			fxml +=  renderobjs.renderLcm(objLudi,numPage,typePage);
+			fxml +=  renderobjs.renderTcm(objLudi,numPage,typePage);
+			fxml +=  renderobjs.renderLife(objLudi,numPage);
+			fxml +=  renderobjs.renderPlugMe(objLudi,numPage,typePage);
+			fxml +=  renderobjs.renderVideoMp4(objLudi,numPage,Pback[objLudi.pageId]);
+			fxml +=  renderobjs.renderAudioMp3(objLudi,numPage);
+
+		}
+		
+		var tmpid = 'openlearning';
+		
+		fxml += '<bloc><type>text</type><fontsize>16</fontsize><ids>dociid</ids>';
+		fxml += '<x>-100</x><y>-100</y><w>20</w><h>20</h><an>1</an><text>';
+		fxml += '<![CDATA[<p>' + tmpid + '</p>]]></text><color>Black</color><align>Justify</align>';
+		fxml += '<ind>1</ind></bloc>';
+		fxml += '</d>';
+		
+		var renderPath = easyfile.getfWf("renderHtml") + "data.xml";
+		easyfile.writeText(renderPath,fxml);
+		
+		global.sharedObj.dataElectronXml = fxml;
+		
+		var renderBasetxt = pathFinalHtml + "base.txt";
+		
+		try{
 			
-			global.sharedObj.dataElectronXml = fxml;
+			fs.openSync(renderBasetxt,'r+');
+			fs.readFile(renderBasetxt,function read(err,renderHtml){
+				generateHtmlThirdPass(renderHtml,fxml);
+			});
 			
-			var renderBasetxt = pathFinalHtml + "base.txt";
+		}catch(e){
 			
 			try{
 				
-				fs.openSync(renderBasetxt,'r+');
-				fs.readFile(renderBasetxt,function read(err,renderHtml){
+				var renderBasetxt2 = pathFinalHtml + "base1.txt";
+				fs.openSync(renderBasetxt2,'r+');
+				fs.readFile(renderBasetxt2,function read(err,renderHtml){
 					generateHtmlThirdPass(renderHtml,fxml);
 				});
 				
 			}catch(e){
 				
-				try{
-					
-					var renderBasetxt2 = pathFinalHtml + "base1.txt";
-					fs.openSync(renderBasetxt2,'r+');
-					fs.readFile(renderBasetxt2,function read(err,renderHtml){
-						generateHtmlThirdPass(renderHtml,fxml);
-					});
-					
-				}catch(e){
-					
-					global.cwle();
-					global.errornb = 1;
-					global.sharedLogs.logs += 'ERROR:' + e + '<br>';
-					console.log('Error:', e);	
-				
-				}
+				global.cwle();
+				global.errornb = 1;
+				global.sharedLogs.logs += 'ERROR:' + e + '<br>';
+				console.log('Error:', e);	
+			
 			}
-		});
+		}
+
 		
 	});
 	
@@ -330,6 +348,10 @@ function generateHtmlThirdPass(renderHtml,fxml){
 		console.log('CYCLE RENDER ERROR dataElecXml ');
 	}
 	
+	if(getParamsValue("responsiveProject")==1){
+		fh = fh.replace("data-size='classique'","data-size='classic-auto'");
+	}
+	
 	var listOfRef = '';
 	listOfRef += '<script type="text/javascript" src="data/chartist.min.js" ></script>';
 	listOfRef += '<link rel="stylesheet" href="data/chartist.min.css" type="text/css" />';
@@ -340,6 +362,28 @@ function generateHtmlThirdPass(renderHtml,fxml){
 	global.renderprocess = false;
 	
 }
+
+function getParamsValue(keystr){
+
+	let returnValue = "";
+
+	//Objets Cparams
+	var dataLudiParams = global.dataLudiParamsData;
+
+	//liste des Cparams
+	for(var i = 0; i < dataLudiParams.length; i++){
+		
+		var objParams = dataLudiParams[i];
+		if(objParams.key==keystr){
+			returnValue = objParams.value;
+		}
+
+	}
+	
+	return returnValue;
+
+}
+
 
 function generateJs(){
 

@@ -1,0 +1,29 @@
+	if(data.key=='savefileasar'){
+		
+		console.log("savefile-dataFile:" + global.sharedObj.dataFile);
+
+		if(global.sharedObj.dataFile==''){
+
+			var filepath = dialog.showSaveDialog({
+			title: 'save File',
+			filters: [{
+				name: 'file',
+				extensions: ['openelearning']
+			}]
+			}, function(path) {
+				
+				var asar = require('asar');
+				
+				var src = easyfile.getfWf("temp");
+				var dest = path;
+				
+				asar.createPackage(src, dest, function() {
+				 console.log('done.  src' + src);
+				 console.log('done. dest' + dest);
+				})
+					
+			});
+  
+		}
+		
+	}

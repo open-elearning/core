@@ -27,6 +27,8 @@ function init(nameVersion){
 	var haveNewVersion = false;
 	var fileversion = getfWf("params") + nameVersion + "v.txt";
 	
+	console.log('fileversion ' + fileversion);
+
 	if(!fs.existsSync(fileversion)){
 		haveNewVersion = true;
 		writeText(fileversion, "v");
@@ -78,7 +80,10 @@ function init(nameVersion){
 				console.log('plugins init done !');
 				global.sharedLogs.logs += 'plugins init done !<br>';
 			});
-			
+
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormchamilo.js')
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormmoodle.js')
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormmoodle-v1.js')
 		}
 		
 		ncp(serv + "app/launchOverview", getfWf("finalHtml"), function (err) {
@@ -101,9 +106,11 @@ function init(nameVersion){
 	
 	deleteExtracts("cludis.json");
 	deleteExtracts("pages.json");
-	
+	deleteExtracts("params.json");
+
 	deleteTemp("cludis.json");
 	deleteTemp("pages.json");
+	deleteTemp("params.json");
 	
 	setTimeout(function(){
 		
@@ -282,8 +289,6 @@ function listOfStore(){
 					global.plugins.store.push(plugItem);
 				}
 				
-				
-				
 			}
 		})
 	});
@@ -293,16 +298,24 @@ function listOfStore(){
 function loadDataDist(){
 
 	var fs = require('fs');
+
 	var pathFile = getfWf("params") + 'data.json';
 
 	if(fs.existsSync(pathFile)){
-		fs.readFile(pathFile,function read(err, data) {
+		
+		fs.readFile(pathFile,function read(err, data){
 			if(err){
 				global.sharedFiles.distData = new Object();
 			}
-			global.sharedFiles.distData = JSON.parse(data);
-			console.log('data.json is load');
+			try{
+				global.sharedFiles.distData = JSON.parse(data);
+				console.log('data.json is load');
+			}catch(e){
+				console.log('data.json is not load');
+			}
+			
 		});
+
 	}
 
 }
@@ -316,18 +329,18 @@ function listOfInterface(){
 function loadInterface(intef){
 
 	var fs = require('fs');
-	var pathFile = getfWf("finalHtml") + 'scorm' + intef +'.js';
+	var pathFile = getfWf("finalHtml") + 'scormlms' + intef +'.js';
 
 	if(fs.existsSync(pathFile)){
 		fs.readFile(pathFile,function read(err, data) {
 			if(err){
-				global.sharedScorm["scorm" + intef] = '';
+				global.sharedScorm["scormlms" + intef] = '';
 			}
 			data = parseText(data);
-			global.sharedScorm["scorm" + intef] = data;
+			global.sharedScorm["scormlms" + intef] = data;
 		});
 	}else{
-		global.sharedScorm["scorm" + intef] = '';
+		global.sharedScorm["scormlms" + intef] = '';
 	}
 	
 }
@@ -370,7 +383,7 @@ function loadOnePlug(dir,item){
 	
 	var filepath = dir + item;
 	
-	console.log('loadOnePlug => ' + item);
+	//console.log('loadOnePlug => ' + item);
 
 	if(item.indexOf('.')==-1&&item!='.'&&item!='..'){
 		
@@ -457,7 +470,7 @@ function loadOnePlug(dir,item){
 
 function GlobalLogScreen(mess){
 	global.sharedLogs.logs += mess+ '<br>';
-	console.log(mess);
+	//console.log(mess);
 }
 
 function processCopyAlterFilesOfPlugins(dir,item,xml){
@@ -598,6 +611,8 @@ function deleteTemp(name){
 	var erasePath = getfWf("temp") + name;	
 	writeText(erasePath,'{}');	
 }
+
+
 
 function getTextFile(pathFile){
 	
