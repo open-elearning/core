@@ -24,12 +24,12 @@
 	<script src="editor/js/libs/jquery-sortable.js" ></script>
 	
 	<script src="editor/js/libs/tinymce/tinymce.js" ></script>
-
+	
 	<script src="editor/js/libs/amplify.min.js" ></script>
 	<script src="editor/js/libs/jquery.contextmenu.js"></script>
 	<script src="editor/openelearning/dist/fabric.js" ></script>
 	<script src="editor/js/FileSaver.js"></script>
-
+	
 </head>
 <body>
 	
@@ -46,6 +46,9 @@
 				<li><a id="menuData"  href="#section_data">Data</a></li>
 				<li><a id="menuProcess"  href="#section_process">Process</a></li>
 				<li><a id="menuGraphics"  href="#section_graphics">Graphics</a></li>
+				<li id="GlobalMenuFormat" style="display:none;" >
+				<a id="menuFormat" style="color:rgb(182, 63, 144);" href="#section_format" >Format</a></li>
+
 			</ul>
 			
 			<div class="content-holder">
@@ -60,7 +63,7 @@
 							</span>
 							<span id="labelSave" class="caption">&nbsp;Save&nbsp;</span>
 						</button>
-						<button onClick="launchRapidRender(-1);" class="ribbon-button">
+						<button onClick="launchRapidRender(-1);" id="blocOverviewbox" class="ribbon-button">
 							<span class="icon">
 								<img src="editor/metro/img/projection.png">
 							</span>
@@ -126,27 +129,14 @@
 								</span>
 								<span id="labelSpeechtext" class="caption">Speech text</span>
 							</button>
-							
-						</div>
 
-						<div class="group-divider"></div>
-						
-						<div class="d-flex flex-column" >
-						
-							<button onClick="ajoutLudiTITLE();" class="ribbon-icon-button">
-								<span class="icon">
-									<span class="mif-paragraph-left fg-green" ></span>
-								</span>
-								<span id="labelTitle" class="caption" >Title</span>
-							</button>
-							
 							<button onClick="ajoutLudiDOM();" class="ribbon-icon-button">
 								<span class="icon">
 									<span class="mif-paragraph-left fg-green"></span>
 								</span>
 								<span id="labelDomtext" class="caption">Dom</span>
 							</button>
-							
+
 						</div>
 
 						<div class="group-divider"></div>
@@ -172,6 +162,15 @@
 								<img src="editor/metro/img/plugins.png" >
 							</span>
 							<span id="labelPageStyle" class="caption">&nbsp;Plugins&nbsp;</span>
+						</button>
+
+						<div class="group-divider"></div>
+
+						<button onClick="deviceChange();" class="ribbon-button" >
+							<span class="icon">
+								<img id="iconScreenMode" style="max-width:66px" src="editor/metro/img/screen43.png" >
+							</span>
+							<span id="labelPageStyle" class="caption">&nbsp;Mode&nbsp;</span>
 						</button>
 
 						<div class="group-divider"></div>
@@ -374,6 +373,35 @@
 				
 				</div>
 				
+				<div class="section" id="section_format">
+				
+					<div class="group">
+						
+						<button onClick="showEditAnim();" class="ribbon-button toolsMenuFormat" >
+							<span class="icon">
+								<img src="editor/metro/img/slide_fwd_plan.png" />
+							</span>
+							<span class="caption">&nbsp;&nbsp;&nbsp;Animation&nbsp;&nbsp;&nbsp;</span>
+						</button>
+					
+						<div class="group-divider"></div>
+						
+						<div style="width:150px;" class="toolsMenuFormat" >
+							<span style="float:left;font-size:12px;padding:2px;" >Font&nbsp;Size&nbsp;:&nbsp;</span>
+							<input type="number" id="fontsizenumber" onClick="applikFtSizeToObj()"
+							onChange="applikFtSizeToObj()"
+							style="text-align:center;width:70px!important;padding:2px;float:left;" 
+							min="10" max="28" />
+						</div>
+						
+						<div class="group-divider"></div>
+
+						<span class="title"><span class="menuGraphics" >Format</span></span>
+						
+					</div>
+				
+				</div>
+
 			</div>
 			
 		</nav>
@@ -399,7 +427,7 @@
 		
 		<li class="mv-item">
 		<a id="exportBtnProject" 
-		onMouseUp="closePan();launchRapidRender(-2);" >Export to SCORM</a>
+		onMouseUp="closePan();lauchExportsScorm();" >Export to SCORM</a>
 		</li>
 		
 		<li class="mv-item">
@@ -421,7 +449,12 @@
 	
 	<ul class="menu-options pan" >
 		
-		<li class="mv-item">
+		<li class="mv-item" >
+			<a id="saveBtnProject" 
+			onMouseUp="paramsSettingsLaunch();" >Settings</a>
+		</li>
+		
+		<li class="mv-item" >
 		<a id="saveBtnProject" 
 		onMouseUp="showLogsInfos();" >Logs</a>
 		</li>
@@ -563,6 +596,8 @@
 
 	<script src="editor/js/oel-svghelper.js" ></script>
 	<script src="editor/js/oel-page.js" ></script>
+	<script src="editor/js/oel-params.js" ></script>
+	
 	<script src="editor/js/class/cls-ludi.js" ></script>
 	<script src="editor/js/oel-ludi-render.js" ></script>
 	<script src="editor/js/oel-mp4-gestion.js" ></script>
@@ -614,9 +649,9 @@
 			plugins:[
 				'advlist autolink lists link image charmap print preview anchor',
 				'searchreplace visualblocks code fullscreen',
-				'insertdatetime media table paste code help wordcount'
+				'insertdatetime media table paste code help wordcount paste'
 			],
-			toolbar: 'undo redo | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help'
+			toolbar: 'undo redo | paste | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help'
 		});
 		/*
 		,content_css: [
