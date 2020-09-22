@@ -1,0 +1,26 @@
+{
+  "name": "openelearning",
+  "productName": "OpenElearning",
+  "version": "1.4.8",
+  "description": "OpenElearning Authoring Tools For eLearning",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "win": "electron-packager . OpenElearning --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icon.ico --prune=true --out=release-builds --version-string.FileDescription=open-source-elearning-editor --version-string.ProductName=OpenElearning "
+  },
+  "keywords": [
+    "OpenElearning"
+  ],
+  "author": "OpenElearning",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^8.2.5",
+    "electron-packager": "^14.2.1",
+    "electron-rebuild": "^1.10.1"
+  },
+  "dependencies": {
+    "asar": "^0.14.3",
+    "extract-zip": "^1.6.7",
+    "node-zip": "^1.1.1"
+  }
+}
