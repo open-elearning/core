@@ -13,11 +13,13 @@ btn.addEventListener('click', function (e) {
 	ipc.send('message',{key:'save'});
 })
 
+/*
 var exportP = document.querySelector('#exportBtnProject');
 exportP.addEventListener('click', function (e) {
 	e.preventDefault();
 	ipc.send('exports');
 })
+*/
 
 //SCORM
 /*

@@ -34,7 +34,22 @@ function loadLearningPlugins(){
     $(".extensions-button").remove();
     
 	var remote = require('electron').remote;
-	var allData = remote.getGlobal('plugins').allData;
+	var Rplugins = remote.getGlobal('plugins');
+	var idOkLoad = false;
+	var allData = new Array();
+	
+	if(Rplugins){
+		if(Rplugins.allData){
+			allData = Rplugins.allData;
+			idOkLoad = true;
+		}
+	}
+	if(idOkLoad==false){
+		setTimeout(function(){
+			loadLearningPlugins();
+		},1000);
+	}
+
 	var listassets = remote.getGlobal('sharedObj').listassets;
 	var res = listassets.split(";");
 	
@@ -44,50 +59,56 @@ function loadLearningPlugins(){
 	var ind = 1;
 
 	folderAllPlugins = dir;
+	
 	var contentP = 0;
 	var i = 0;
-	allData.forEach(function(entry){
-	
-		var pth = 'file:///' + dir + entry + '/icon.png';
-		pth = pth.replace(/\\/g, "/");
-		
-		var base = '<div class="linkplugin lbtn" ';
-		base += ' style="background-image:url(\'' + pth + '\');" ';
-		base += ' onClick="addPlugProcess(\'' + entry + '\');" >';
-		base += '<p class="linkp" >' + entry + '</p>';
-		base += '</div>';
-		
-		var dirp = 'file:///' + dir + entry + '/resources/';
-		dirp = dirp.replace(/\\/g, "/");
-		
-		var arrList = remote.getGlobal('plugins').xData;
 
-		openPlug(arrList[i],dirp);
+	allData.forEach(function(entry){
 		
-		var plugMe = getLastPlugMe();
-		
-		if(plugMe.category=='Games'||plugMe.category=='game'){
-			addToGamePanel(entry,pth);
-		}else{
-			if(plugMe.category=='Charts'||plugMe.category=='chart'){
-				addToGraphicsPanel(entry,pth);
+		if(entry!=''){
+
+			var pth = 'file:///' + dir + entry + '/icon.png';
+			pth = pth.replace(/\\/g, "/");
+			
+			var base = '<div class="linkplugin lbtn" ';
+			base += ' style="background-image:url(\'' + pth + '\');" ';
+			base += ' onClick="addPlugProcess(\'' + entry + '\');" >';
+			base += '<p class="linkp" >' + entry + '</p>';
+			base += '</div>';
+			
+			var dirp = 'file:///' + dir + entry + '/resources/';
+			dirp = dirp.replace(/\\/g, "/");
+			
+			var arrList = remote.getGlobal('plugins').xData;
+
+			openPlug(arrList[i],dirp);
+			
+			var plugMe = getLastPlugMe();
+			
+			if(plugMe.category=='Games'||plugMe.category=='game'){
+				addToGamePanel(entry,pth);
 			}else{
-				if(plugMe.type=='objet'||plugMe.type=='object'){
-					contentP++;
-					addToContentsPanel(entry,pth,ind);
-					ind ++;
-					if(ind==3){ind=1;}
-				}
-				if(plugMe.type=='UI'||plugMe.type=='ui'){
-					var dirprun = 'file:///' + dir + entry + '/run.js';
-					dirprun = dirprun.replace(/\\/g, "/");
-					addToUI(dirprun);
+				if(plugMe.category=='Charts'||plugMe.category=='chart'){
+					addToGraphicsPanel(entry,pth);
+				}else{
+					if(plugMe.type=='objet'||plugMe.type=='object'){
+						contentP++;
+						addToContentsPanel(entry,pth,ind);
+						ind ++;
+						if(ind==3){ind=1;}
+					}
+					if(plugMe.type=='UI'||plugMe.type=='ui'){
+						var dirprun = 'file:///' + dir + entry + '/run.js';
+						dirprun = dirprun.replace(/\\/g, "/");
+						addToUI(dirprun);
+					}
 				}
 			}
+			
+			i++;
+						
 		}
-		
-		i++;
-		
+
 	});
 	
 	if(contentP==0){

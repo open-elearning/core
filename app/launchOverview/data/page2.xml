@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>2</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>12</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>qcm</type>
+<theme>barre</theme>
+<fontsize>18</fontsize>
+<note>1</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids>jce435</ids><st></st><x>206,9241</x><y>323,7931</y><w>262</w><h>153</h><o>0</o><o2>0</o2><acl>0</acl><boite>check</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<contenu2>51</contenu2>
+<contenu3><![CDATA[Double cliquer ici pour modifier votre texte !]]></contenu3>
+<contenu4><![CDATA[27]]></contenu4>
+<contenu8>0</contenu8>
+<o4>0</o4>
+<text><![CDATA[Réponse 1;Réponse 2;Réponse 3]]></text>
+<color>#000000</color>
+<border><![CDATA[#D8D8D8|White]]></border>
+<selectcolor>#BCF5A9</selectcolor>
+<ind>1</ind>
+</bloc>
+<bloc><type>img</type>
+<src>images/2016x2016x10x24x11x23x32xquestionmark.png</src>
+<ids></ids><st></st><x>536,9241</x><y>257,7931</y><w>236</w><h>236</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>text</type><fontsize>16</fontsize><ids></ids><st></st><x>207</x><y>232</y><w>320</w><h>78</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Double cliquer ici pour modifier votre texte !</p>]]></text><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc><bloc><type>texthtml</type>
+<fontsize>14</fontsize>
+<ids></ids><st></st><x>0,4758606</x><y>-1</y><w>970</w><h>66</h><o>0</o><o2>1</o2><acl>0</acl><an>0</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text></text>
+<color>#000000</color>
+<css>border: solid 0px White;background-color:#FFC600;margin-left:-0px;margin-top:-0px;</css>
+<ind>1</ind>
+</bloc>
+<bloc><type>button</type>
+<url>data/page3.xml</url>
+<fontsize>15</fontsize>
+<ids></ids><st></st><x>777</x><y>653</y><w>156</w><h>34</h><o>0</o><o2>0</o2><acl>0</acl><boite>neoCssGray</boite><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[Suite]]></text>
+<contenu5>1</contenu5>
+<color>#808080</color>
+<ind>3</ind>
+</bloc>
+</d>

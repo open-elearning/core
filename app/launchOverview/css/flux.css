@@ -1,0 +1,107 @@
+
+.contentflux{
+	width:400px;
+	height:300px;
+	overflow:hidden;
+	position:relative;
+}
+
+.footerflux{
+	overflow:hidden;
+	position:absolute;
+	left:0px;
+	bottom:2px;
+}
+
+.ray5{
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+
+
+.contentinner{
+	position:relative;
+	left:1%;
+	top:1%;
+	width:98%;
+	height:98%;
+}
+
+.box-shadow {
+	box-shadow: #969696 3px 3px 3px;
+	-moz-box-shadow: 2px 2px 3px #969696; /* for Firefox 3.5+ */
+	-webkit-box-shadow: 2px 2px 3px #969696; /* for Safari and Chrome */
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=145, Strength=2);
+}
+
+.titreflux{
+	width: 95%;
+	margin: 0px;
+	margin-left: 6px;
+	margin-top:  7px;
+	padding: 1px;
+	font-weight: bold;
+}
+
+.mini_img_flux{
+	border:0px dotted pink;
+	float:right;
+	margin:2px;
+	width: 34%;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-left: 3px;
+	margin-top: 3px;
+}
+
+.full_img_flux{
+	border:0px dotted pink;
+	float:right;
+	margin:2px;
+	width: 40%;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-left: 3px;
+	margin-top: 3px;
+}
+
+
+.contenuflux{
+	border:0px dotted gray;
+	width: 95%;
+	height: 80%;
+	margin-left: 4px;
+	overflow:hidden;
+}
+
+.contenuflux p{
+	margin-left: 0px;
+	margin : 1px;
+	padding : 1px;
+}
+
+
+.contenufluxfull{
+	border:0px dotted gray;
+	width: 97%;
+	height: 90%;
+	margin-left: 4px;
+	overflow:hidden;
+}
+
+.contenufluxfull p{
+	margin-left: 0px;
+	margin : 1px;
+	padding : 1px;
+}
+
+.loadslide{
+	position:absolute;
+	left :50%;
+	top:50%;
+	margin-left: -21px;
+	margin-top : -6px;
+}

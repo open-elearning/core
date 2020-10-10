@@ -1,0 +1,96 @@
+
+.LPanelCenter{
+	position : absolute;
+	top  : 10px;
+	left : 10px;
+	margin-left:10px;
+	margin-top:10px;
+	height : 30px;
+	width : 30px;
+	cursor : pointer;
+	transition: all 0.5s ease;
+	background-image: url('noise.png');
+	z-index : 5;
+}
+
+.LPanelCenter:hover{
+	margin-left:0px;
+	margin-top:0px;
+	height : 50px;
+	width : 50px;
+}
+
+.PanelCenterLink{
+	position : absolute;
+	top  : 10px;
+	left : 10px;
+	height : 200px;
+	width : 200px;
+	background-image: url('icons/link45.png');
+	background-position : top left;
+	background-repeat : no-repeat;
+	padding:0px;
+	display:none;
+	z-index : 4;
+}
+.PanelCenterLink90{
+	position : absolute;
+	top  : 10px;
+	right : 10px;
+	height : 200px;
+	width : 200px;
+	background-image: url('icons/link90.png');
+	background-position : top left;
+	background-repeat : no-repeat;
+	padding:0px;
+	display:none;
+	z-index : 4;
+}
+
+.LPanelCenter .p1{
+	position:absolute;
+	top:0px;left:0px;
+	width:10px;height:10px;
+	border:2px solid gray;
+	border-right:none;border-bottom:none;
+}
+.LPanelCenter .p2{
+	position:absolute;
+	top:0px;right:0px;
+	width:10px;height:10px;
+	border:2px solid gray;
+	border-left:none;border-bottom:none;
+}
+.LPanelCenter .p3{
+	position:absolute;
+	bottom:0px;left:0px;
+	width:10px;height:10px;
+	border:2px solid gray;
+	border-right:none;border-top:none;
+}
+.LPanelCenter .p4{
+	position:absolute;
+	bottom:0px;right:0px;
+	width:10px;height:10px;
+	border :2px solid gray;
+	border-left:none;border-top:none;
+}
+
+.PanelCenterInner{
+	position : absolute;
+	top  : 100px;
+	left : 100px;
+	bottom  : 0px;
+	width  : 280px;
+	height : 240px;
+	border-radius:10px;
+	padding :10px;
+	padding-top :20px;
+	padding-top :30px;
+	border : 4px solid #2E9AFE;
+	background-color : #f7f7f7;
+	z-index : 6;
+	overflow : auto;
+	box-shadow : 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+	display:none;
+}

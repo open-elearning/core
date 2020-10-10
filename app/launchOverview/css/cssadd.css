@@ -1,0 +1,146 @@
+﻿.wysiwyg-color-silver {
+  color: silver;
+}
+.wysiwyg-color-gray {
+  color: gray;
+}
+.wysiwyg-color-maroon {
+  color: maroon;
+}
+.wysiwyg-color-olive {
+  color: olive;
+}
+.wysiwyg-color-navy {
+  color: navy;
+}
+.wysiwyg-color-red {
+  color: red;
+}
+.wysiwyg-color-green {
+  color: green;
+}
+.wysiwyg-color-blue {
+  color: blue;
+}
+.wysiwyg-color-purple {
+  color: purple;
+}
+#LePenduImg{
+position:absolute;
+border:solid 0px blue;
+left:0px;
+top:0px;
+width:40%;
+z-index:5;
+}
+.LePenduDescription{
+position:absolute;
+border:solid 0px red;
+font-size:16px;
+right:0px;
+top: 17%;
+width:58%;
+height :20%;
+z-index:5;
+}
+.LePenduWord{
+position:absolute;
+border:solid 0px purple;
+right:0px;
+top: 2%;
+width:58%;
+height :15%;
+z-index:5;
+}
+.LePenduClavier{
+position:absolute;
+border:solid 0px purple;
+left:0px;
+right:0px;
+bottom:0px;
+height :53%;
+z-index:5;
+text-align:center;
+}
+.LePenduLetter{
+float : left;
+width    : 23px;
+height   : 24px;
+margin : 0px;
+border   : solid 0px gray;
+font-size : 22px;
+}
+.WordClavier{
+-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+box-shadow:inset 0px 1px 0px 0px #ffffff;
+background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9) );
+background:-moz-linear-gradient( center top, #f9f9f9 5%, #e9e9e9 100% );
+background-color:#f9f9f9;
+-webkit-border-top-left-radius:20px;
+-moz-border-radius-topleft:20px;
+border-top-left-radius:20px;
+-webkit-border-top-right-radius:20px;
+-moz-border-radius-topright:20px;
+border-top-right-radius:20px;
+-webkit-border-bottom-right-radius:20px;
+-moz-border-radius-bottomright:20px;
+border-bottom-right-radius:20px;
+-webkit-border-bottom-left-radius:20px;
+-moz-border-radius-bottomleft:20px;
+border-bottom-left-radius:20px;
+text-indent:0;
+border:1px solid #dcdcdc;
+display:inline-block;
+color:#666666;
+font-family:Arial;
+font-weight:bold;
+font-style:normal;
+padding:10px;
+text-decoration:none;
+text-align:center;
+text-shadow:1px 1px 0px #ffffff;
+}
+.WordClavier:hover{
+background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9) );
+background:-moz-linear-gradient( center top, #e9e9e9 5%, #f9f9f9 100% );
+background-color:#e9e9e9;
+}.WordClavier:active{
+position:relative;
+top:1px;
+}
+
+
+.ludiScoAdd{
+display:none;
+background-color:white;
+border:solid 1px gray;
+z-index:1000;
+}
+.scoreTable{
+position:relative;
+font-family: "Lato","sans-serif";
+margin-bottom: 2em;
+border-collapse:collapse;
+}
+.scoreTable td{
+text-align: center;
+width: 9em;
+padding: 0.5em;
+}
+.scoreTable th{
+text-align: center;
+padding: 0.5em;
+background-color: #e8503a;
+color: white;
+}
+.scoreTable tr{
+height: 0.5em;
+}
+.scoreTable tr:nth-child(even){
+background-color: #eee;
+}
+.scoreTable tr:nth-child(odd){
+background-color:#fff;
+}
+

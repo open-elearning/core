@@ -1,0 +1,21 @@
+
+
+.barreContain{
+	position : relative;
+	left:10px;
+	top:150px;
+	width  : 350px;
+	height : 10px;
+	border: 1px solid gray;
+	border-radius: 6px;
+	overflow : hidden;
+}
+.barreProgress{
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	bottom : 0px;
+	width  : 0%;
+	background-color:#5FB404;
+	transition: all 0.5s ease-out;
+}

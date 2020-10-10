@@ -54,7 +54,7 @@ function pageEditOptions(){
 	
 	var p = '';
 	
-	p += '<div id="pageeditbtn" class="editbackground pageeditbtn pan" >';
+	p += '<div id="pageeditbtn" class="editbackground pageeditbtn pan ' + TYPEWIND + 'osBorder" >';
 	
 	p += barreEdit();
 	
@@ -76,7 +76,8 @@ function pageEditOptions(){
 	p += 'Page&nbsp;script&nbsp;:&nbsp;&nbsp;&nbsp;';
 	p += '<span onClick="showScriptEdit();" class="fakeSelect" >...</span>';
 	p += '</p>';
-	p += '<a onClick="showScriptEdit();" class="actionSelectPerso" style="display:block!important;" ></a>';
+	p += '<a onClick="showScriptEdit();" class="actionSelectPerso" ';
+	p += 'style="display:block!important;top:95px!important;margin-left:-5px;margin-top:5px;" ></a>';
 	
 	p += '<p>';
 	p += 'Background&nbsp;page&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -96,7 +97,15 @@ function pageEditOptions(){
 	p += '<span id="typePageScreen" onClick="showChoiceBackScreen();" ';
 	p += ' class="fakeSelect" >-</span>';
 	p += '</p>';
-	p += '<a onClick="deleteImageBackScreen();" class="actionDeleteBack" style="display:block!important;" ></a>';
+	p += '<a onClick="deleteImageBackScreen();" class="actionDeleteBack" style="display:block!important;margin-top:9px;" ></a>';
+
+	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
+	p += ' onclick="closeEdit();" ';
+	p += 'class="validation noselectmouse" >Cancel</a>';
+
+	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
+	p += 'onclick="closeEdit();" ';
+	p += 'class="btnSave noselectmouse" >Save</a>';
 
 	p += '</div>';
 	

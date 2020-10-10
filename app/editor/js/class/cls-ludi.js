@@ -14,14 +14,22 @@ function CLudi(){
 	this.idFab;
 	this.unikid;
 	this.idString;
+	this.css;
+
 	this.x;this.y;
 	this.width;this.height;
 	
-	this.x2;this.y2;
-	this.width2;this.height2;
+	this.x2 = -1;
+	this.y2 = -1;
+	this.width2 = -1;
+	this.height2 = -1;
 	
-	this.realwidth;this.realheight;
+	this.realwidth = -1;
+	this.realheight = -1;
 	
+	this.realwidth2 = -1;
+	this.realheight2 = -1;
+
 	this.fontSize;this.pageId;this.data;
 	this.text;this.text2;this.text3;
 	this.text4;this.text5;this.text6;
@@ -49,13 +57,103 @@ function CLudi(){
 		return b;
 	}
 
-}
-
-function correctUrlImg(imgsrc){
-	if(imgsrc.indexOf("assets")==-1){
-		imgsrc = folderAllImages + imgsrc;
+	this.setX = function(v){
+		if(EDITORMODE==1){
+			this.x2 = v;
+		}else{
+			this.x = v;
+		}
 	}
-	return imgsrc;
+	this.setY = function(v){
+		if(EDITORMODE==1){
+			this.y2 = v;
+		}else{
+			this.y = v;
+		}
+	}
+	this.setW = function(v){
+		if(EDITORMODE==1){
+			this.width2 = v;
+		}else{
+			this.width = v;
+		}
+	}
+	this.setH = function(v){
+		if(EDITORMODE==1){
+			this.height2 = v;
+		}else{
+			this.height = v;
+		}
+	}
+	this.setRW = function(v){
+		if(EDITORMODE==1){
+			this.realwidth2 = v;
+		}else{
+			this.realwidth = v;
+		}
+	}
+	this.setRH = function(v){
+		if(EDITORMODE==1){
+			this.realheight2 = v;
+		}else{
+			this.realheight = v;
+		}
+	}
+
+	this.getX = function(){
+		if(EDITORMODE==1){
+			if(this.x2==-1){
+				this.x2=this.x;
+				if(this.x2>470){
+					this.x2 = 300;
+				}
+			}
+			return parseInt(this.x2);
+		}else{
+			return parseInt(this.x);
+		}
+	}
+	this.getY = function(){
+		if(EDITORMODE==1){
+			if(this.y2==-1){this.y2=this.y;}
+			return parseInt(this.y2);
+		}else{
+			return parseInt(this.y);
+		}
+	}
+	this.getW = function(){
+		if(EDITORMODE==1){
+			if(this.width2==-1){this.width2=this.width;}
+			return parseInt(this.width2);
+		}else{
+			return parseInt(this.width);
+		}
+	}
+	this.getH = function(){
+		if(EDITORMODE==1){
+			if(this.height2==-1){this.height2=this.height;}
+			return parseInt(this.height2);
+		}else{
+			return parseInt(this.height);
+		}
+	}
+	this.getRW = function(){
+		if(EDITORMODE==1){
+			if(this.realwidth2==-1){this.realwidth2=this.realwidth;}
+			return parseInt(this.realwidth2);
+		}else{
+			return parseInt(this.realwidth);
+		}
+	}
+	this.getRH = function(){
+		if(EDITORMODE==1){
+			if(this.realheight2==-1){this.realheight2=this.realheight;}
+			return parseInt(this.realheight2);
+		}else{
+			return parseInt(this.realheight);
+		}
+	}
+
 }
 
 function cloneObj(i){
@@ -71,13 +169,24 @@ function cloneObj(i){
 	obj2.y = obj1.y;
 	obj2.width = obj1.width;
 	obj2.height = obj1.height;
+
+	obj2.x2 = obj1.x2;
+	obj2.y2 = obj1.y2;
+	obj2.width2 = obj1.width2;
+	obj2.height2 = obj1.height2;
+
 	obj2.realwidth = obj1.realwidth;
 	obj2.realheight = obj1.realheight;
+
+	obj2.realwidth2 = obj1.realwidth2;
+	obj2.realheight2 = obj1.realheight2;
+
 	obj2.fontSize = obj1.fontSize;
 	obj2.data = obj1.data;
 	obj2.zindex = obj1.zindex;
 	obj2.anim = obj1.anim;
-	
+	obj2.css = obj1.css;
+
 	obj2.text = obj1.text;
 	obj2.text2 = obj1.text2;
 	obj2.text3 = obj1.text3;
@@ -171,7 +280,6 @@ function ludisUnlock(){
 	loadPage(GPageId);
 }
 
-
 var stockLudis = null;
 
 function copyCLudi(){
@@ -188,17 +296,29 @@ function copyCLudi(){
 	obj2.x = obj1.x - 20;
 	obj2.y = obj1.y - 20;
 	
+	obj2.x2 = obj1.x2 - 20;
+	obj2.y2 = obj1.y2 - 20;
+
 	if(obj2.x<30){obj2.x = 20;}
 	if(obj2.y<60){obj2.y = 59;}
 	
 	obj2.width = obj1.width;
 	obj2.height = obj1.height;
+
+	obj2.width2 = obj1.width2;
+	obj2.height2 = obj1.height2;
+
 	obj2.realwidth = obj1.realwidth;
 	obj2.realheight = obj1.realheight;
+
+	obj2.realwidth2 = obj1.realwidth2;
+	obj2.realheight2 = obj1.realheight2;
+
 	obj2.fontSize = obj1.fontSize;
 	obj2.data = obj1.data;
 	obj2.zindex = obj1.zindex;
 	obj2.anim = obj1.anim;
+	obj2.css = obj1.css;
 	
 	obj2.text = obj1.text;
 	obj2.text2 = obj1.text2;
@@ -308,7 +428,7 @@ function addMoveCursor(){
 		
 	if(createObjectLudi===false){
 		
-		placeWorkingPlace(false);
+		placeWorkingPlace();
 		
 		createObjectLudi = true;
 		

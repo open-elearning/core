@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>Open elearning</title>
+<meta name="doc-type" content="Public">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<script type="text/javascript" >
+if (typeof module === 'object') {
+window.module = module; module = undefined;
+}
+var dataExterneXml = '{dataElectronXml}';   
+</script>
+<script type="text/javascript" src="javascript/jquery1.8.2.min.js" ></script>
+<meta name="viewport" content="user-scalable=no">
+<link rel="stylesheet" href="css/openel.css" type="text/css" />
+<style>body{background-color:#D8F6CE;}#main{border:solid 1px black;}</style>
+<link rel="stylesheet" href="css/open.css" type="text/css" />
+</head><body><noscript style="color:red;background:white;" >Please allow scripts !!</noscript>
+<img style="position:absolute;top:1000px;width:1px;height:1px;" src="css/ludiLoad.gif" />
+<div id="loadbloc" >...</div><div id="game" style="display:none;position:absolute;z-index:100;" ></div><div id="globaltransition" style="display:none;position:absolute;overflow:hidden;z-index : 101;" ><img id="zoomtransition" style="position:absolute;" src="" /></div><div id="globalcurtain" style="display:none;position:absolute;z-index : 102;" ><div id="globalcurtainanim" ></div><div id="globalcurtainanim2" ></div></div><div id="main" style="display:none;" onClick="clickAction();" ></div>	<div id='loaddiv' style='background-color:White;' ></div><div id="loaddivbarre" ></div><div id='loadludi' style="background-image:url('css/ludiLoad.gif');" ><div id='minibar' ><div id='evolminibar' ></div></div></div>	<div id="lightbox" class="lightbox" ><div class="closelightbox" onClick="closeFluxLight();" ></div><div id="innerlightbox" class="innerlightbox" ></div></div><div id='typesite' data-size='classique' ></div><div id='sizesite' data-size='860' ></div><div id="xapiActivityID" ></div><div id="xapiTitle" ></div><div id='noNavigueparam' ></div><div id='noCacheManifest' ></div><div style='display:none' id='DiapoNbDiapo' >12</div>
+<span style='display:none;' id='numpagemem' >page0</span>
+<span id=codeup ></span>
+<script type="text/javascript" src="javascript/video-ludivideo.js" ></script>
+<script type="text/javascript" src="javascript/jquery.anim.js" ></script>
+<script type="text/javascript" src="javascript/jquery.ts.min.js" ></script>
+<script type="text/javascript" src="javascript/jquery.mousewheel.js" ></script>
+<script type="text/javascript" src="javascript/jquery.rotate.js" ></script>
+<script type="text/javascript" src="javascript/hand-1.3.8.js" ></script>
+<script type="text/javascript" src="javascript/page.js?v=2018127155950" ></script>
+<script type="text/javascript" src="javascript/open-extra.js" ></script>
+<script type="text/javascript" src="javascript/openelearning.js?v=2018127155950" ></script>
+<script type="text/javascript" src="javascript/openelearning-x.js?v=2018127155950" ></script>
+
+<script type="text/javascript" src="javascript/jsadd.js" ></script>
+<script type="text/javascript" src="javascript/scorm.js" ></script>
+<script type="text/javascript" >ScormStartCom();</script>
+<link rel='stylesheet' type='text/css' href='data/style-ludivideo.css' />
+
+<img id='imgloadctr' style="position:absolute;left:-2500px;top:-2500px;" />
+<span id="dummyspan" style="display:none;" ></span>
+<span id="linkParams" style="display:none;" ></span>
+<div id="mysoundswf" ></div>
+<div id="controlload" >-</div>
+</body></html>

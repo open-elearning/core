@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	
+	<properties>
+		<type>objet</type>
+		<id>chartistsimplepie</id>
+		<title>Simple Pie</title>
+		<category>chart</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>chartist.min.css</file>
+		<file>chartist.min.js</file>
+		<file>graphdatelineload.gif</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>graphsimplepie.jpg</screenImage>
+		<width>300</width>
+		<height>300</height>
+		<sizeText>18</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>1</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+	<fields>
+		<field>
+			<label>Fichier 1 :</label>
+			<type>file</type>
+			<defaut></defaut>
+		</field>
+	</fields>
+	
+</plugin>

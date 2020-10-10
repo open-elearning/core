@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/2017x2017x6x8x16x58x52xjeutele.jpg]]></data></fond>
+<title><n>10</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[alertm('hello');
+LUDI.createImg('test',610,0,50,50);]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>12</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>img</type>
+<src>images/2017x2017x6x8x16x53x38xeyes02.gif</src>
+<ids></ids><st></st><x>610</x><y>357</y><w>146</w><h>69</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+</d>

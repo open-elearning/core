@@ -16,7 +16,6 @@ settingsEl.addEventListener('click', function () {
 	ipc.send('ShowEditorWindow');
 	
 });
-
 const settingsE2 = document.querySelector('#mod02');
 settingsE2.addEventListener('click', function () {
 	
@@ -30,7 +29,16 @@ const settingsE3 = document.querySelector('#mod03');
 settingsE3.addEventListener('click', function () {
 	
 	var tabl = new Array();
-	tabl[0] = 'tpl-purple-splash';
+	tabl[0] = 'tpl-prof-fox';
+	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
+	ipc.send('ShowEditorWindow');
+	
+});
+const settingsE4 = document.querySelector('#mod04');
+settingsE4.addEventListener('click', function () {
+	
+	var tabl = new Array();
+	tabl[0] = 'tpl-gameboard';
 	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
 	ipc.send('ShowEditorWindow');
 	
@@ -42,5 +50,3 @@ settingsReturnArrow.addEventListener('click', function () {
 	ipc.send('index');
 	
 });
-
-

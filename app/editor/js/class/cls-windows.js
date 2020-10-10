@@ -220,7 +220,7 @@ function CWindow(){
             p += '&nbsp;' + lbl + '&nbsp;';
             p += '</span>';
             p += '&nbsp;:&nbsp;&nbsp;&nbsp;';
-            p += '<span id="actioneditselect' + idAct + '" style="height:26px;width:190px;" ';
+            p += '<span id="actioneditselect' + idAct + '" style="height:26px;width:220px;" ';
             p += ' onClick="$(\'#selectChoiceAction' + idAct + '\').toggle();" ';
             p += ' class="fakeSelect" >-</span>';
 
@@ -362,7 +362,8 @@ function GetActionSel(id,left,top,actId){
 	p += '<div onClick="selChAct(1,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[1])+ '</div>';
 	p += '<div onClick="selChAct(2,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[2])+ '</div>';
 	p += '<div onClick="selChAct(3,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[3])+ '</div>';
-	p += '<div onClick="selChAct(4,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[4])+ '</div>';
+    p += '<div onClick="selChAct(5,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[5])+ '</div>';
+    p += '<div onClick="selChAct(4,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[4])+ '</div>';
     p += '<div onClick="selChAct(-1,\'' + actId + '\');" class="actionSelect" >-&nbsp;</div>';
 
     p += '</div>';
@@ -384,6 +385,7 @@ function selChAct(i,actId){
 	$('#actioneditpage'+ actId).css('display','none');
     $('.actionSelectPersoBtn'+ actId).css('display','none');
     $('.actionSlctPerso'+ actId).css('display','none');
+
 	var obj = CLudis[GlobalUid];
     
     if(i==-1){
@@ -459,6 +461,9 @@ function setValuesWind(letter,id,obj){
             case refAct[4]:
                 targetObj.html(getTrd(refActs[4]));
                 $('.actionSlctPerso' + actId).css('display','inline-block');
+                break;
+            case refAct[5]:
+                targetObj.html(getTrd(refActs[5]));
                 break;
             default:
                 targetObj.html('-');
@@ -556,6 +561,7 @@ function constructWindEdit(obj){
     }
     
     if(obj.type=='dom'){
+
         var objWind = new CWindow();
 		objWind.id = obj.type;
         objWind.name = getTrd("edition") + '  DOM';
@@ -592,12 +598,24 @@ function constructWindEdit(obj){
     }
 
     if(obj.type=='process_infos'){
-
+        
         var objWind = new CWindow();
 		objWind.id = obj.type;
         objWind.name = getTrd("Infos");
         objWind.addControl("htmlinfos:htmlinfos=>htmlinfos|");
         objWind.showDialog('process_infos');
+        
+    }
+
+    if(obj.type=='process_params'){
+
+        var objWind = new CWindow();
+		objWind.id = obj.type;
+        objWind.name = getTrd("Settings");
+        objWind.addControl("text:Title=>titleScorm|");
+        objWind.addControl("boolean:Send&nbsp;the&nbsp;status&nbsp;completed=>statusScorm|");
+        objWind.addControl("boolean:Responsive <b>(Beta)</b>=>responsiveProject|");
+        objWind.showDialog('process_params');
         
     }
 

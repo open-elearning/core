@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>0</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>12</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>text</type>
+<fontsize>18</fontsize><x>-50</x><y>-50</y><w>10</w><h>10</h><align>LeftCenter</align><text></text><data></data><src></src><color>red</color><css>background-color:white;border:solid 1px black;</css><ind>4</ind><cssadd></cssadd><an>0</an><de>0</de><domaine></domaine></bloc></d>

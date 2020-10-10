@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>5</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>12</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc>
+<type>bilanresult</type>
+<fontsize>14</fontsize>
+<ids></ids><st></st><x>155,8182</x><y>103,9394</y><w>100</w><h>100</h><o>0</o><o2>0</o2><acl>0</acl><an>0</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[General||||||||||||||||||||]]></text>
+<data><![CDATA[#D8BFD8;#AFEEEE;#FFE4C4;#90EE90;#DEB887;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;]]></data>
+<src>1</src>
+<border>0</border>
+<note>0</note>
+<contenu2><![CDATA[images/bilan.png]]></contenu2>
+<contenu3><![CDATA[Résumé du parcours]]></contenu3>
+<contenu4>0</contenu4>
+<contenu5></contenu5>
+<contenu6>0</contenu6>
+<selectcolor>0</selectcolor>
+<ind>1</ind>
+</bloc>
+<bloc><type>finalprogressbar</type>
+<ids></ids><st></st><x>0,6060648</x><y>29,0909</y><w>395</w><h>46</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<color>#696969</color>
+<css>border: solid 0px #808080;</css>
+</bloc>
+<bloc><type>text</type><fontsize>18</fontsize><ids></ids><st></st><x>0</x><y>0</y><w>395</w><h>31</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Score :</p>]]></text><color>#000000</color><align>LeftCenter</align>
+<css>border: solid 0px #808080;</css><ind>1</ind></bloc></d>

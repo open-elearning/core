@@ -45,7 +45,7 @@ function ludisInitCreation(){
 			objTemp.pageId = GPageId;
 			objTemp.index = 0;
 			CPagesAdd(objTemp);
-			ajoutLudiTITLE();
+			ajoutLudiBARRE();
 			eventPages = true;
 		}
 
@@ -68,7 +68,6 @@ function ludisInitCreation(){
 	}
 	
 }
-
 
 //Create Render JSON OBJETS
 function createRenderJSON(){
@@ -99,7 +98,7 @@ function createRenderJSON(){
 			if(ti=='img'||ti=='text'||ti=='label'
 			||ti=='database'||ti=='variable'||ti=='dom'
 			||ti=='title'||ti=='qcm'||ti=='button'
-			||ti=='tcm'||ti=='lcm'||ti=='video'
+			||ti=='tcm'||ti=='lcm'||ti=='video'||ti=='audio'
 			||ti=='videomp4'||ti=='bilan'||ti=='barre'
 			||ti=='speech'||ti=='plugme'||ti=='fluxPts'
 			||ti=='plugin'||ti=='life'||ti=='input'){
@@ -107,13 +106,21 @@ function createRenderJSON(){
 				var block = new Object();
 				block.type = Tobj.type;
 				block.subtype = Tobj.subtype;
+
 				block.x = Tobj.x;
 				block.y = Tobj.y;
 				block.w = Tobj.width;
 				block.h = Tobj.height;
+				
+				block.x2 = Tobj.x2;
+				block.y2 = Tobj.y2;
+				block.w2 = Tobj.width2;
+				block.h2 = Tobj.height2;
+
 				block.rw = Tobj.realwidth;
 				block.rh = Tobj.realheight;
 				block.anim = Tobj.anim;
+				block.css = Tobj.css;
 				block.fontSize = Tobj.fontSize;
 				block.lock = Tobj.lock;
 
@@ -270,9 +277,50 @@ function createRenderPagesJSON(){
 	amplify.store('actualCPages' + lessonid,jArrayCPages);
 	amplify.store('actualPageId' + lessonid,GPageId);
 	saveFileRender(jsonCPages);
+
+	createRenderParamsJSON();
 	
 	plogs('saveFileRender jsonCPages : ' + CPagesCount);
 		
+}
+
+//Create Render JSON PARAMS
+function createRenderParamsJSON(){
+	
+	if(typeof CParamsCount === "undefined"){
+		return false;
+	}
+	
+	if(haveActiveFile()==false){
+		return false;
+	}
+	
+	$('.micro-save').css("display","block");
+	
+	jArrayCParams = new Array();
+	jsonCParams = new Array();
+	
+	for (var i = 0; i < CParamsCount; i++){
+		
+		var Tobj = CParams[i];
+
+		var block = new Object();
+		block.id = Tobj.id;
+		block.type = Tobj.type;
+		block.key = Tobj.key;
+		block.value = Tobj.value;
+	
+		var jsonBlock = JSON.stringify(block);
+		
+		jArrayCParams.push(jsonBlock);
+		jsonCParams.push(block);
+		
+	}
+	
+	amplify.store('actualCParams',jArrayCParams);
+
+	saveFileRenderParams(jsonCParams);
+
 }
 
 var initLoadJson = 0;
@@ -291,21 +339,28 @@ function loadRenderJSON(){
 	
 	initLoadJson = 1;
 	
-	var actualCPages = new Array();;
-	var actualCLudis = new Array();;
-	
+	var actualCPages = new Array();
+	var actualCLudis = new Array();
+	var actualCparams = new Array();
+
 	GPageId = Sit(amplify.store('actualPageId' + lessonid));
 	
+
 	actualCPages = loadLocalJSON('pages.json');
 	amplify.store('actualCPages' + lessonid,actualCPages);
-	
 	plogs(actualCPages.length  + ' Pages load ...');
 	
+
 	actualCLudis = loadLocalJSON('cludis.json');
 	amplify.store('actualCLudis' + lessonid,actualCLudis);
-	
 	plogs(actualCLudis.length  + ' Objects load ...');
 	
+
+	actualCparams = loadLocalJSON('params.json');
+	amplify.store('actualCparams' + lessonid,actualCparams);
+	plogs(actualCparams.length  + ' Params load ...');
+
+
 	plogs('loadRenderJSON OK');
 	
 	if(typeof actualCPages.length ==="undefined"){
@@ -317,14 +372,14 @@ function loadRenderJSON(){
 		}
 	}
 	
-	loadRenderJsonByData(actualCPages,actualCLudis);
+	loadRenderJsonByData(actualCPages,actualCLudis,actualCparams);
 	
 	finishLoadJson = true;
 	
 }
 
 //loadRenderJsonByData
-function loadRenderJsonByData(actualCPages,actualCLudis){
+function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 	
 	var jso = true;
 	
@@ -333,6 +388,10 @@ function loadRenderJsonByData(actualCPages,actualCLudis){
 	}
 	
 	if(typeof actualCLudis==="undefined"){
+		return false;
+	}
+
+	if(typeof actualCparams==="undefined"){
 		return false;
 	}
 	
@@ -411,6 +470,12 @@ function loadRenderJsonByData(actualCPages,actualCLudis){
 			}
 			
 			objTemp2.anim = objLudi.anim;
+
+			objTemp2.css = objLudi.css;
+			if(typeof(objTemp2.css)=='undefined'){
+				objTemp2.css = '';
+			}
+			
 			objTemp2.idString = objLudi.idString;
 			objTemp2.pageId = objLudi.pageId;
 			
@@ -435,7 +500,13 @@ function loadRenderJsonByData(actualCPages,actualCLudis){
 			if(objTemp2.fontSize==0){
 				objTemp2.fontSize = 18;
 			}
+			
 			objTemp2.lock = objLudi.lock;
+
+			if(typeof this.lock === 'undefined'){
+				objTemp2.lock = false;
+			}
+
 			objTemp2.note = parseInteger(objLudi.note);
 			objTemp2.remarque = rJtext(Sit(objLudi.remarque));
 			
@@ -457,6 +528,21 @@ function loadRenderJsonByData(actualCPages,actualCLudis){
 	
 	}
 	
+	CParamsCount = 0;
+
+	for(var i=0;i<actualCparams.length;i++){
+		
+		var elemObj = actualCparams[i];
+		var elemP = new CParam();
+		elemP.id = CParamsCount;
+		elemP.key = elemObj.key;
+		elemP.type = elemObj.type;
+		elemP.value = elemObj.value;
+		CParams.push(elemP);
+		CParamsCount = CParamsCount + 1;
+
+	}
+
 	createRenderJSON();
 	
 }

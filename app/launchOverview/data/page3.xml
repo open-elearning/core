@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>3</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>12</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>tcm</type><fontsize>18</fontsize><note>1</note><negnote>0</negnote><remarque><![CDATA[]]></remarque><ids></ids><st></st><x>214</x><y>142</y><w>436</w><h>392</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine><text><![CDATA[<p style='line-height:150%;' >Ceci est un <select style='font-size:18px;' id='tcmnul314' class='reponseholetext selecttcm' data-rep="texte a trous" ><option value='' ></option><option value='texte a trous' >texte a trous</option><option value='est un' >est un</option></select> Ceci <select style='font-size:18px;' id='tcmnpc719' class='reponseholetext selecttcm' data-rep="est un" ><option value='' ></option><option value='texte a trous' >texte a trous</option><option value='est un' >est un</option></select> texte a trous</p>]]></text><data><![CDATA[#D8BFD8;#AFEEEE;#FFE4C4;#90EE90;#DEB887;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;#FFFFE0;]]></data><src>1</src><css>border: solid 0px #808080;background-color:White;text-align:left;vertical-align:top;</css><color>#000000</color><selectcolor>5</selectcolor><ind>1</ind></bloc></d>

@@ -18,6 +18,16 @@ function haveActiveFile(){
 	
 }
 
+//setEditorMode
+function setEditorMode(valEdit){
+
+	const electron = require('electron');
+	const ipc = electron.ipcRenderer;
+	
+	ipc.send('message',{key:'setGlobalVar',varkey:'EDITORMODE',valkey:valEdit});
+
+}
+
 //haveActiveOS
 function haveActiveOS(){
 
@@ -214,6 +224,21 @@ function saveFileRenderLudi(jsonCLudis){
 	
 }
 
+//Sauvegarde des données json params
+function saveFileRenderParams(jsonCParams){
+	
+	if(lessonid==''){return false;}
+	
+	const electron = require('electron')
+	const ipc = electron.ipcRenderer
+	ipc.send('message',{key:'saveJsonCParams',text:JSON.stringify(jsonCParams)})
+	
+	eventObjects = false;
+	setTimeout(function(){$('.micro-save').css("display","none");},500);
+	stepsave = stepsave + 1;
+	
+}
+
 var PageGlobaleRender = 0;
 
 var progressTranquil = 0;
@@ -267,7 +292,6 @@ function launchProcessRender(){
 	const ipc = electron.ipcRenderer;
 	ipc.send('message',{key:'render'});
 }
-
 
 function finalRenderProcess(){
 	

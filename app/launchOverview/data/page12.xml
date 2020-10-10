@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>12</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>12</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>text</type><fontsize>18</fontsize><ids></ids><st></st><x>50</x><y>50</y><w>862</w><h>622</h><o>0</o><o2>0</o2><acl>0</acl><cssadd>border-radius: 20px;</cssadd><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>...</p>]]></text><color>SlateGray</color><align>Center</align>
+<css>border: solid 1px SlateGray;</css><ind>1</ind></bloc></d>

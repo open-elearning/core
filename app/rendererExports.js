@@ -22,24 +22,28 @@ settingscancel.addEventListener('click',function(event){
 	
 	var lms = gei("selectlms");
 	
-	//alert(lms + ' ' + masterScore + ' ' + inputautocompleted);
-	
-	var filepath = dialog.showSaveDialog({
-	title: 'save package',
-	filters: [{
-		name: 'file',
-		extensions: ['zip']
-	}]
-	},function(path){
-		if(typeof path === "undefined") {
-			path = '';
-		}
-		if(path!=''){
-			loadProg();
-			ipc.send('message',{key:'export',path:path,typlms:lms,ms:masterScore,acpl:inputautocompleted,title:masterTitle})
-		}
+	var filepath = dialog.showSaveDialogSync({
+		title: 'save package',
+		filters: [{
+			name: 'file',extensions: ['zip']
+		}]
 	});
-	
+	if(typeof filepath === "undefined") {
+		filepath = '';
+	}
+	if(filepath!=''){
+		loadProg();
+		ipc.send('message',
+		{
+			key:'export',
+			path:filepath,
+			typlms:lms,
+			ms:masterScore,
+			acpl:inputautocompleted,
+			title:masterTitle
+		})
+	}
+
 });
 
 

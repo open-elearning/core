@@ -12,7 +12,7 @@
     "OpenElearning"
   ],
   "author": "OpenElearning",
-  "license": "MIT",
+  "license": "GPL V3",
   "devDependencies": {
     "electron": "^8.2.5",
     "electron-packager": "^14.2.1",

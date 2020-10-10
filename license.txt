@@ -23,4 +23,3 @@ Mail: contact@openelearning.org
 
 This license is referenced throughout the code using the following header line:
 /* For licensing terms, see /license.txt */
-/* For change, see /changelog.txt */

@@ -6,9 +6,6 @@
 	margin-top : -305px;
 	width : 700px;
 	height : 610px;
-	border : 2px solid black;
-	border-radius : 10px;
-	background-color : white;
 	z-index : 101;
 	display : none;
 }

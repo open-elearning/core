@@ -23,6 +23,38 @@
 	z-index:1061;
 }
 
+.editZoneTexteV2{
+	position : fixed;
+	left : 50%;
+	top : 50%;
+	width : 600px;
+	height : 520px;
+	margin-left : -300px;
+	margin-top : -260px;
+	max-height : 550px;
+	box-shadow : 0 0 30px rgba(0,0,0,.1);
+	background-color : white;
+	overflow: hidden;
+	display:none;
+	z-index : 102;
+}
+.toolbarZoneTexteDiv {
+	position:absolute;
+	left:0px;
+	top:0px;
+	right:0px;
+	height: 32px;
+	margin-bottom :1px;
+}
+.toolbarZoneTexteArea{
+	position:absolute;
+	left : 0px;
+	right :0px;
+	top : 33px;
+	height: 420px;
+	border-bottom: 1px dotted gray;
+}
+
 .editZoneTexte{
 	position : fixed;
 	left : 50%;
@@ -175,18 +207,17 @@
 .colorCircle{
 	float : left;
 	display : block;
-	border : 0px solid black;
-	height : 64px;
-	width : 64px;
-	margin : 6px;
+	height : 44px;
+	width : 44px;
+	border : 5px solid white;
+	margin : 2px;
 	border-radius : 32px;
 	cursor : pointer;
 }
-.colorCircle:hover,.colorCircle:active{
-	height : 60px;
-	width : 60px;
-	border : 2px solid black;
+.colorCircleActive{
+	border : 5px solid black;
 }
+
 .showtext{
 	position : absolute;
 	z-index: 95;

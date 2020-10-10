@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><d>
+<fond><data><![CDATA[images/fond-white.png]]></data></fond>
+<title><n>2</n><data><![CDATA[]]></data></title>
+<transition><data><![CDATA[Direct]]></data></transition>
+<messagefalse><data><![CDATA[Réponse incorrecte !]]></data></messagefalse>
+<scriptdiapo><data><![CDATA[]]></data></scriptdiapo>
+<scriptloop><data><![CDATA[]]></data></scriptloop>
+<nbpages><data>5</data></nbpages>
+<domainesliste><data><![CDATA[General||||||||||||||||||||]]></data></domainesliste>
+<bq><d></d></bq>
+<pq><d>1</d></pq>
+<pddf><ddf>0</ddf></pddf>
+<swt><d>0</d></swt>
+<progsave><d></d></progsave>
+<cadre><data>0</data></cadre>
+<header><data>0</data></header>
+<footer><data>0</data></footer>
+<tunik><d>0</d></tunik>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>0</x><y>0</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Element1</p>]]></text><color>Black</color><align>RightCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>143</x><y>7</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drag</type>
+<fontsize>16</fontsize>
+<ids>ludiscapelinks</ids><st></st><x>143</x><y>7</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p></p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>Element1 -> Object1</li>]]></contenu5>
+<color>Black</color>
+<data>lcmigrcpl376359</data>
+<align>LeftTop</align>
+<css>border: solid 0px Gray;</css>
+<src>images/linkpoint.png</src>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>343</x><y>128</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Object1</p>]]></text><color>Black</color><align>LeftCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>293</x><y>135</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drop</type>
+<fontsize>16</fontsize>
+<note>0</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids></ids><st></st><x>293</x><y>135</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>&nbsp;</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>Black</color>
+<align>LeftTop</align>
+<data>lcmigrcpl376359</data>
+<css>border: solid 0px White;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>0</x><y>64</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Element2</p>]]></text><color>Black</color><align>RightCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>143</x><y>71</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drag</type>
+<fontsize>16</fontsize>
+<ids>ludiscapelinks</ids><st></st><x>143</x><y>71</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p></p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>Element2 -> Object2</li>]]></contenu5>
+<color>Black</color>
+<data>lcmjeuyzy626613</data>
+<align>LeftTop</align>
+<css>border: solid 0px Gray;</css>
+<src>images/linkpoint.png</src>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>343</x><y>256</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Object2</p>]]></text><color>Black</color><align>LeftCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>293</x><y>263</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drop</type>
+<fontsize>16</fontsize>
+<note>0</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids></ids><st></st><x>293</x><y>263</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>&nbsp;</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>Black</color>
+<align>LeftTop</align>
+<data>lcmjeuyzy626613</data>
+<css>border: solid 0px White;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>0</x><y>128</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Element3</p>]]></text><color>Black</color><align>RightCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>143</x><y>135</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drag</type>
+<fontsize>16</fontsize>
+<ids>ludiscapelinks</ids><st></st><x>143</x><y>135</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p></p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>Element3 -> Object3</li>]]></contenu5>
+<color>Black</color>
+<data>lcmtklvkm570238</data>
+<align>LeftTop</align>
+<css>border: solid 0px Gray;</css>
+<src>images/linkpoint.png</src>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>343</x><y>0</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Object3</p>]]></text><color>Black</color><align>LeftCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>293</x><y>7</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drop</type>
+<fontsize>16</fontsize>
+<note>0</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids></ids><st></st><x>293</x><y>7</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>&nbsp;</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>Black</color>
+<align>LeftTop</align>
+<data>lcmtklvkm570238</data>
+<css>border: solid 0px White;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>0</x><y>192</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Element4</p>]]></text><color>Black</color><align>RightCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>143</x><y>199</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drag</type>
+<fontsize>16</fontsize>
+<ids>ludiscapelinks</ids><st></st><x>143</x><y>199</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p></p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>Element4 -> Object4</li>]]></contenu5>
+<color>Black</color>
+<data>lcmqejgph35450</data>
+<align>LeftTop</align>
+<css>border: solid 0px Gray;</css>
+<src>images/linkpoint.png</src>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>343</x><y>64</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Object4</p>]]></text><color>Black</color><align>LeftCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>293</x><y>71</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drop</type>
+<fontsize>16</fontsize>
+<note>0</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids></ids><st></st><x>293</x><y>71</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>&nbsp;</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>Black</color>
+<align>LeftTop</align>
+<data>lcmqejgph35450</data>
+<css>border: solid 0px White;</css>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>0</x><y>256</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Element5</p>]]></text><color>Black</color><align>RightCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>143</x><y>263</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drag</type>
+<fontsize>16</fontsize>
+<ids>ludiscapelinks</ids><st></st><x>143</x><y>263</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p></p>]]></text>
+<contenu3><![CDATA[]]></contenu3>
+<contenu4><![CDATA[]]></contenu4>
+<contenu5><![CDATA[<li>Element5 -> Object5</li>]]></contenu5>
+<color>Black</color>
+<data>lcmkadnrm182162</data>
+<align>LeftTop</align>
+<css>border: solid 0px Gray;</css>
+<src>images/linkpoint.png</src>
+<ind>2</ind>
+</bloc>
+<bloc><type>text</type><fontsize>15</fontsize><ids></ids><st></st><x>343</x><y>192</y><w>143</w><h>64</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><text><![CDATA[<p>Object5</p>]]></text><color>Black</color><align>LeftCenter</align>
+<css>border: solid 0px Gray;</css><ind>1</ind></bloc><bloc><type>img</type>
+<src>images/linkcheck.png</src>
+<ids></ids><st></st><x>293</x><y>199</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi>
+<cssadd></cssadd>
+<ind>1</ind>
+<field1></field1>
+<field2></field2>
+<contenu7></contenu7>
+</bloc>
+<bloc><type>drop</type>
+<fontsize>16</fontsize>
+<note>0</note>
+<negnote>0</negnote>
+<remarque><![CDATA[]]></remarque>
+<ids></ids><st></st><x>293</x><y>199</y><w>50</w><h>50</h><o>0</o><o2>0</o2><acl>0</acl><an>1</an><de>0</de><di>0</di><dedi>0</dedi><domaine>0</domaine>
+<text><![CDATA[<p>&nbsp;</p>]]></text>
+<contenu5><![CDATA[]]></contenu5>
+<color>Black</color>
+<align>LeftTop</align>
+<data>lcmkadnrm182162</data>
+<css>border: solid 0px White;</css>
+<ind>2</ind>
+</bloc>
+</d>

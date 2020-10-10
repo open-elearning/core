@@ -8,10 +8,14 @@ function exportToScorm(lms,msc,autc,title){
 	setTimeout(function(){
 		$('.barreProgress').css("width",'40%');
 	},500);
+
 	setTimeout(function(){
 		$('.barreProgress').css("width",'60%');
+	},700);
+
+	setTimeout(function(){
 		exportToScormSecond(lms,msc,autc,title);
-	},1000);
+	},1200);
 
 }
 
@@ -20,8 +24,6 @@ function exportToScormSecond(lms,msc,autc,title){
 	var remote = require('electron').remote;
 	var dialog = remote.dialog;
 	var ipc = require('electron').ipcRenderer;
-	
-	$('.barreProgress').css("width",'75%');
 
 	if(haveRenderProcess()){
 
@@ -30,23 +32,27 @@ function exportToScormSecond(lms,msc,autc,title){
 		},1000);
 
 	}else{
+		
+		var filepath = dialog.showSaveDialogSync({
+			title: 'save package',
+			filters: [{
+				name: 'file',extensions: ['zip']
+			}]
+		});
+		
+		if(typeof filepath === "undefined") {
+			filepath = '';
+		}
 
-		var filepath = dialog.showSaveDialog({
-		title: 'save package',
-		filters: [{
-			name: 'file',
-			extensions: ['zip']
-		}]
-		},function(path){
+		if(filepath!=''){
+
+			ipc.send('message',{key:'export',path:filepath,typlms:lms,ms:msc,acpl:autc,title:title})
 			
-			$("#barreGeneration").css("display","none");
-			$('.opacedit').css("display","none");
+			$('.barreProgress').css("width",'99%');
 
-			if(typeof path === "undefined"){
-				path = '';
-			}
-			if(path!=''){
-				ipc.send('message',{key:'export',path:path,typlms:lms,ms:msc,acpl:autc,title:title})
+			setTimeout(function(){
+				
+				$("#barreGeneration").css("display","none");
 
 				let obj = {type:"process_infos"};
 				constructWindEdit(obj);
@@ -72,9 +78,10 @@ function exportToScormSecond(lms,msc,autc,title){
 					c += '3. Click on "Upload"<br></p>';
 					$("#htmlinfos").html(c);
 				}
-				
-			}
-		});
+			},500);
+
+		}
+
 
 	}
 	

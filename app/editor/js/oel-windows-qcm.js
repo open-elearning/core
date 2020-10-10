@@ -1,7 +1,7 @@
 
 function questionQcmEdit(){
 	
-	var p = '<div class="questionqcmedit pan" >';
+	var p = '<div class="questionqcmedit pan ' + TYPEWIND + 'osBorder" >';
 	
 	p += barreEdit();
 	

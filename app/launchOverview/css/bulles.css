@@ -1,0 +1,136 @@
+
+.bullewhite0 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;
+	margin: 1px;
+	background-image:url("../fx/bullewhite.png");
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+
+.bullewhite1 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;
+	margin: 1px;
+	background-image:url("../fx/bullewhite.png");
+	background-position: right top;
+	background-repeat: no-repeat;
+}
+
+.bullewhite2 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;
+	margin: 1px;
+	background-image:url("../fx/bullewhite.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+
+.bullewhite3 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;
+	margin: 1px;
+	background-image:url("../fx/bullewhite.png");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+/* BULLE BEIGE */
+.bullebeige0 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;margin: 1px;
+	background-image:url("../fx/bullebeige.png");
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+.bullebeige1 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;margin: 1px;
+	background-image:url("../fx/bullebeige.png");
+	background-position: right top;
+	background-repeat: no-repeat;
+}
+.bullebeige2 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;margin: 1px;
+	background-image:url("../fx/bullebeige.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+.bullebeige3 {
+	position:absolute;
+	border: 0px solid red;
+	padding: 1px;margin: 1px;
+	background-image:url("../fx/bullebeige.png");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+/* BULLE BLUE */
+.bulleblue0 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleblue.png");
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+.bulleblue1 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleblue.png");
+	background-position: right top;
+	background-repeat: no-repeat;
+}
+.bulleblue2 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleblue.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+.bulleblue3 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleblue.png");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+/* BULLE ANOTE */
+.bulleanote0 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleanote.png");
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+.bulleanote1 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleanote.png");
+	background-position: right top;
+	background-repeat: no-repeat;
+}
+.bulleanote2 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleanote.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+.bulleanote3 {
+	position:absolute;
+	border: 0px solid red;padding: 1px;margin: 1px;
+	background-image:url("../fx/bulleanote.png");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+

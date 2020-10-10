@@ -1,0 +1,97 @@
+
+.LargegrayPanel {
+	position : absolute;
+	width: 370px;
+	height: 60px;
+	left : 30px;
+	top  : 50px;
+	border : solid 0px gray;
+	height: 60px;
+	overflow : visible;
+	display: inline-block;
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing:border-box; 
+	box-sizing:border-box; 
+	margin: 0;
+	padding: 0;
+}
+
+.LargegrayPanelOpen {
+	height: 350px;
+}
+
+.LargegrayPanelInner{
+  position: absolute;
+  display: block;
+  width: 350px;
+  height: 40px;
+  margin-top: 0px;
+  margin: 0px;
+  text-decoration: none;
+  cursor : pointer;
+  background-color: #f7f7f7;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#f7f7f7),to(#e7e7e7));
+  background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7); 
+  background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7); 
+  background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7); 
+  background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+  border:2px solid #dcdcdc;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #BDBDBD, inset 0px 2px 3px #fff;
+  z-index:6;
+}
+.LargegrayPanelInner:hover {
+  text-decoration:underline;
+  text-decoration: none;
+  background: #f5f5f5;
+}
+.LargegrayPanelInner:focus { 
+  outline: none;
+}
+
+.LargegrayPanelOpen .LargegrayPanelInner{
+	height: 30px;
+	border-radius : 10px 10px 0px 0px;
+}
+
+.LargegrayPanelBottom{
+  position: absolute;
+  display: block;
+  left:0px;
+  bottom:0px;
+  width: 350px;
+  height: 10px;
+  margin: 0px;
+  margin: 0px;
+  text-decoration: none;
+  cursor : pointer;
+  z-index:5;
+  background-color: #f7f7f7;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7));
+  background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7); 
+  background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7); 
+  background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7); 
+  background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+  border:2px solid #dcdcdc;
+  color: black;
+  text-align: center;
+  border-radius :0px 0px  10px 10px;
+  box-shadow: 0px 3px 8px #BDBDBD, inset 0px 2px 3px #fff;
+}
+
+.LargegrayPanelText{
+	position: absolute;
+	left: 15px;
+	top: 30px;
+	bottom:13px;
+	right:12px;
+	padding:7px;
+	padding-top:18px;
+	padding-bottom:18px;
+	border-left : solid 1px gray;
+	border-right : solid 1px gray;
+	background-color: white;
+	z-index:4;
+	overflow : auto;
+}

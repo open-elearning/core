@@ -47,7 +47,7 @@ settingsdebugBtn.addEventListener('click', function () {
 
 function openDialogOpenEL(){
 	
-    return dialog.showOpenDialog(
+    return dialog.showOpenDialogSync(
 		remote.getCurrentWindow(),
 		{
 			defaultPath: 'c:/',

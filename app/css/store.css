@@ -1,0 +1,199 @@
+
+body{
+	background : white;
+}
+
+.windows-store{
+	position : fixed;
+    top : 0px;
+    left : 0px; 
+    right : 0px; 
+    bottom : 0px;
+	background : url('../images/launch-base-store.jpg') top left no-repeat;
+	z-index : 9;
+}
+
+.title-store{
+	position : absolute;
+    top : 12px;
+	left : 23px;
+	font-size : 18px;
+	text-align : left;
+	color : #FFF;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.gallery-plugins{
+	position : absolute;
+    top : 52px;
+	left : 13px;
+	width : 800px;
+    bottom : 23px;
+	overflow : auto;
+	border-top : solid 1px gray;
+	border-bottom : solid 1px gray;
+    max-width : 1200px;
+    margin : 0 auto;
+	margin : 0px;
+	padding : 5px;
+	display:none;
+}
+
+.gallery-plugins-load{
+	position : absolute;
+    top : 52px;
+	left : 13px;
+	width : 800px;
+    bottom : 23px;
+	overflow : auto;
+	border-top : solid 1px gray;
+	border-bottom : solid 1px gray;
+    max-width : 1200px;
+    margin : 0 auto;
+	margin : 0px;
+	padding : 5px;
+}
+
+.gallery-li{
+	position : relative;
+	display : inline;
+	float : left;
+	width : 100px;
+	height : 140px;
+	border-radius:5px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border : solid 1px gray;
+	border-right : none;
+	margin : 0;
+    margin : 10px;
+	margin-left : 5px;
+	margin-right : 0px;
+	margin-top : 2px;
+    display : list-item;
+    text-align : -webkit-match-parent;
+	background :-webkit-gradient( linear,left top,left bottom,color-stop(0.05,#ededed),color-stop(1,#dfdfdf));
+	background :-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	background-color : #ededed;
+}
+
+.gallery-li-descript{
+	position : relative;
+	display : inline;
+	float : left;
+	width : 275px;
+	height : 140px;
+	border-radius : 5px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border : solid 1px gray;
+	margin : 0;
+    margin : 10px;
+	margin-left : 0px;
+	margin-right : 2px;
+	margin-top : 2px;
+    display : list-item;
+	background-color : #ededed;
+}
+
+.gallery-li-descript p{
+	position:relative;
+	top : 0px;
+	left : 14px;
+	width : 233px;
+}
+
+.gallery-li img{
+	position : absolute;
+	width : 60px;
+	height : 60px;
+	margin-top : 10px;
+	margin-left : 20px;
+}
+
+.gallery-plugins-text{
+	position : absolute;
+	text-align : center;
+	width : 100px;
+	bottom : 10px;
+	left : 0px;
+	border:solid 0px gray;
+	word-wrap:break-word;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.myButton {
+	position : absolute;
+	bottom : 6px;
+	right : 6px;
+	width : 50px;
+	text-align:center;
+	background-color:#44c767;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	padding: 5px 5px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.myButton:hover {
+	background-color:#5cbf2a;
+}
+.myButton:active {
+	position:absolute;
+	bottom : 7px;
+}
+
+.myButtonUn {
+	position : absolute;
+	bottom : 6px;
+	right : 6px;
+	width : 20px;
+	text-align:center;
+	background-color:#F58686;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #F58686;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	padding: 5px 5px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #F58686;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.myButtonUn:hover {
+	background-color:#F47575;
+}
+.myButtonUn:active {
+	position:absolute;
+	bottom : 7px;
+}
