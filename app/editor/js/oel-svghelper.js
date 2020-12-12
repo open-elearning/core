@@ -158,6 +158,8 @@ function getBaseBouton(w,h,obj){
 		
 		var possvg = ' y="25" x="56"';
 		
+		var txtV = obj.text;
+
 		if(obj.text6==0||obj.text6==1){
 			possvg = ' y="25" x="56"';
 		}else{
@@ -173,12 +175,18 @@ function getBaseBouton(w,h,obj){
 			possvg = ' y="25" x="50"';
 		}
 		
+		if(obj.text=='<'){
+			possvg = ' y="25" x="75"';
+			txtV = '&lt;';
+		}
+		if(obj.text=='>'){
+			possvg = ' y="25" x="75"';
+			txtV = '&gt;';
+		}
+
 		svg += possvg;
-		
 		svg += ' stroke-width="0" stroke="#000" ';
-		svg += ' fill="#000000" >';
-		svg += obj.text;
-		svg += '</text>';
+		svg += ' fill="#000000" >' + txtV + '</text>';
 	}
 	
 	svg += '</svg>';

@@ -10,6 +10,7 @@ function loadPluginsStore(){
 	var pathDatastore = remote.getGlobal('plugins').pathStore;
 	allDataPLugins = remote.getGlobal('plugins').allData;
 	
+	/*
 	var dataDist = remote.getGlobal('sharedFiles').distData;
 	
 	if(dataDist!=undefined){
@@ -25,7 +26,7 @@ function loadPluginsStore(){
 	}else{
 		console.log('dataDist => ' + dataDist);
 	}
-	
+	*/
 	allDatastore.forEach(function(entry){
 		
 		if(entry.pathicon==undefined){
@@ -83,7 +84,7 @@ function loadPluginsStore(){
 	setTimeout(function(){
 		$('.gallery-plugins-load').css('display','none');
 		$('.gallery-plugins').css('display','block');
-	},2000);
+	},1000);
 
 }
 

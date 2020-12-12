@@ -29,7 +29,6 @@ function databaseEditZone(){
 	p += '<a style="float:left;margin-left:10px;" onclick="csvUpload();" ';
 	p += 'class="validation" >Import CSV</a>';
 	
-	
 	p += '<a style="float:right;margin-right:10px;" ';
 	p += 'onclick="extractDataBase();" ';
 	p += 'class="btnSave" >Save</a>';

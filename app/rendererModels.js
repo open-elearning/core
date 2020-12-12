@@ -20,7 +20,7 @@ const settingsE2 = document.querySelector('#mod02');
 settingsE2.addEventListener('click', function () {
 	
 	var tabl = new Array();
-	tabl[0] = 'tpl-basecomics';
+	tabl[0] = 'tpl-world-learning';
 	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
 	ipc.send('ShowEditorWindow');
 	

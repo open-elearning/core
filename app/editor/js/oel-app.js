@@ -484,6 +484,8 @@ function SelectWorkingI(i){
 				}
 			}
 		});
+		
+		noSizeCanvas = 0;
 
 	}
 

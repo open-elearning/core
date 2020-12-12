@@ -46,7 +46,7 @@ global.appVersion = "1.4.8";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',gpath:'',listassets:'',imgassets:''
-,activeTitle:'OPEN ELEARNING',extracode:'',activeOS:'',datascorm:''};
+,activeTitle:'OPEN ELEARNING',extracode:'',extracodecss:'',stockfiles:'',stockmaj:0,activeOS:'',datascorm:''};
 
 global.sharedScorm = {scormlmschamilo:'',scormlmsmoodle:'',scormlmsclaroline:''};
 

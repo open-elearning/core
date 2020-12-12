@@ -26,6 +26,8 @@ function showEditAnim(){
 	$('.toolAnim05').css('background-color','#BCF5A9');}
 	if(obj.anim==12){
 	$('.toolAnim12').css('background-color','#BCF5A9');}
+	if(obj.anim==17){
+	$('.toolAnim17').css('background-color','#BCF5A9');}
 	if(obj.anim==18){
 	$('.toolAnim18').css('background-color','#BCF5A9');}
 	globalAnimChoice = obj.anim;
@@ -63,12 +65,13 @@ function animEditObject(){
 	p += '<div onClick="showClickAnim(4,this);" class="toolAnim04 toolAnimBl" ></div>';
 	p += '<div onClick="showClickAnim(5,this);" class="toolAnim05 toolAnimBl" ></div>';
 	p += '<div onClick="showClickAnim(12,this);" class="toolAnim12 toolAnimBl" ></div>';
+	p += '<div onClick="showClickAnim(17,this);" class="toolAnim17 toolAnimBl" ></div>';
 	p += '<div onClick="showClickAnim(18,this);" class="toolAnim18 toolAnimBl" ></div>';
 	
 	p += '</div>';
 	
-	p += '<br/><br/>';
-	p += '<a style="float:right;margin:10px;" onClick="saveAnimChoice();" class="btnSave">Save</a>';
+	p += '<a style="position:absolute;right:10px;bottom:10px;" ';
+	p += ' onClick="saveAnimChoice();" class="btnSave">Save</a>';
 	
 	p += '</div>';	
 	

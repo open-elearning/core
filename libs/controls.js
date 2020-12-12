@@ -9,6 +9,7 @@ const window = electron.BrowserWindow;
 const fs = require('fs');
 const ncp = require('./easyncp').ncp;
 const ctrimages = require('./controls-upload-image');
+const ctrimport = require('./import/uploadfiles');
 const ctrexports = require('./export/export-scorm');
 const ctrexportlocal = require('./export/export-local');
 const ctropenfile = require('./open/open-file');
@@ -17,6 +18,27 @@ const ctrdownloadfile = require('./download/download-file')
 function exec(event,data){
 	
 	var easyfile =  require('./easyfile');
+	
+	if(data.key=='openfile'){
+		
+		var recent0 = "";
+
+		try{
+			recent0 = data.val[0];
+		}catch(e){}
+		
+		if(typeof recent0 === 'undefined') {
+			recent0 = '';
+		}
+
+		if(typeof recent0 !== 'string'){
+			recent0 = recent0.toString('utf8');
+		}
+		if(recent0!=''){
+			ctropenfile.openFileProcess(recent0,data.tpl);
+		}
+		
+	}
 	
 	if(data.key=='saveJsonPages'){
 		var jsonPagesPath = easyfile.getfWf("temp") + "pages.json";	
@@ -37,7 +59,12 @@ function exec(event,data){
 	}
 	
 	if(data.key=='saveExtraCode'){
-		global.sharedObj.extracode = data.text;
+		if(data.tc==0){
+			global.sharedObj.extracode = data.text;
+		}
+		if(data.tc==1){
+			global.sharedObj.extracodecss = data.text;
+		}
 	}
 	
 	if(data.key=='downdata'){
@@ -163,10 +190,12 @@ function exec(event,data){
 		
 	}
 	
+	if(data.key=='uploadfile'){
+		ctrimport.uplfiles(event,data);
+	}
+	
 	if(data.key=='uploadimage'){
-		
 		ctrimages.uplimg();
-		
 	}
 	
 	if(data.key=='dataupload'){
@@ -302,28 +331,7 @@ function exec(event,data){
 		}
 		
 	}
-	
-	if(data.key=='openfile'){
-		
-		var recent0 = "";
 
-		try{
-			recent0 = data.val[0];
-		}catch(e){}
-		
-		if(typeof recent0 === 'undefined') {
-			recent0 = '';
-		}
-
-		if(typeof recent0 !== 'string'){
-			recent0 = recent0.toString('utf8');
-		}
-		if(recent0!=''){
-			ctropenfile.openFileProcess(recent0,data.tpl);
-		}
-		
-	}
-	
 	//console.log("exec:" + data.key);
 	
 }
@@ -340,6 +348,7 @@ function saveAll(filename){
 	
 	zip.file('openelearning.txt', 'v1');
 	zip.file('extracode.txt', global.sharedObj.extracode);
+	zip.file('extracodecss.txt', global.sharedObj.extracodecss);
 	//console.log("extracode:" + global.sharedObj.extracode);
 	
 	var file = [];

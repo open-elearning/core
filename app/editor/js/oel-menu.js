@@ -19,7 +19,9 @@ function ludiInit(){
 	p += tcmEditZone() + lcmEditZone() + extraCodeEditZone();
 	p += actionsEdit() + objectEditId() + editVideoMp4Zone();
 	p += colorChoiceZone() + pageEditOptions() + formatButtonObject();
-	p += exceptionExtraWindows() + databaseEditZone() + animEditObject()+ propertiesObject();
+	p += exceptionExtraWindows() + databaseEditZone();
+	p += animEditObject()+ propertiesObject();
+	p += extraCustomFilesEditZone();
 	$('body').append(p);
 	
 	var be = barreEdit();
@@ -80,7 +82,23 @@ function ludiCssNoPan(nam){
 }
 
 function optMenu(){
+	optHideAll();
 	$('.menu-options').css("display","block");
+}
+function optCustom(){
+	optHideAll();
+	$('.menu-custom').css("display","block");
+}
+function optExport(){
+	optHideAll();
+	$('.menu-export').css("display","block");
+}
+function optHideAll(){
+	$('#editExtraCustomFiles').css("display","none");
+	$('#editExtraCode').css("display","none");
+	$('.menu-options').css("display","none");
+	$('.menu-custom').css("display","none");
+	$('.menu-export').css("display","none");
 }
 
 function showLogsInfos(){
@@ -94,6 +112,8 @@ function closePan(){
 	var pan = $('.pan');
 	pan.css("display","none");
 	$('.opacedit').css("left","0px");
+	optHideAll();
+	typeCodeEdit = -1;
 }
 
 function closeMove(){

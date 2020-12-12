@@ -250,6 +250,16 @@
 	box-sizing: border-box;
 }
 
+.tableFileEdition{
+	position : absolute;
+	top:44px;
+	bottom:60px;
+	left:5px;
+	right:6px;
+	overflow: auto;
+	border : solid 1px #1ABC9C;
+}
+
 .selectChoiceTypePage{
 	position : absolute;
 	left : 100px;
@@ -295,18 +305,17 @@
 	left : 15px;
 	right : 15px;
 	bottom : 10px;
-	min-width : 770px;
 	height : 35px;
 	border : 0px dotted red;
 }
 
+
 .editExtraCode{
 	position : absolute;
-	left : 50%;
-	margin-left : -395px;
-	top : 30px;
-	width : 790px;
-	height : 600px;
+	left : 282px;
+	top : 25px;
+	right:10px;
+	bottom: 10px;
 	z-index : 101;
 	display:none;
 }
@@ -456,9 +465,9 @@
 	left : 50%;
 	top : 50%;
 	width : 470px;
-	height : 190px;
+	height : 250px;
 	margin-left : -235px;
-	margin-top : -95px;
+	margin-top : -125px;
 	z-index : 101;
 	display : none;
     flex-direction: column;
@@ -505,6 +514,9 @@
 }
 .toolAnim12{
 	background-image : url(../img/anim/toolAnim12.png);
+}
+.toolAnim17{
+	background-image : url(../img/anim/toolAnim17.png);
 }
 .toolAnim18{
 	background-image : url(../img/anim/toolAnim18.png);

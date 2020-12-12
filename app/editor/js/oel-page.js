@@ -402,6 +402,8 @@ function loadPage(UidPage){
 	closePan();
 	
 	ajoutLudiHELPER();
+
+	noSizeCanvas = 0;
 	
 }
 

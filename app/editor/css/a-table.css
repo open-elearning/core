@@ -70,7 +70,7 @@
 
 .a-table th {
 	border: 2px solid white;
-	background-image: linear-gradient(45deg, #00A538, #006F67);
+	background-color: #006F67;
 	color:white;
 	min-width: 50px;
 	font-weight:bold;

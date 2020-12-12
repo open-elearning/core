@@ -535,6 +535,11 @@ function generateCss(){
 		}
 	});
 	
+	if (typeof(global.sharedObj.extracodecss) != 'undefined'){
+		dataCssFile += '/*extracodecss*/';
+		dataCssFile += global.sharedObj.extracodecss;
+	}
+
 	easyfile.writeText(renderPath,dataCssFile);
 	
 }

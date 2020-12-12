@@ -87,8 +87,7 @@ function QueueInteractionsisProcess(){
 			return false;
 		}
 	}
-			
-	if (typeof(API.LMSCommit) != "undefined") {
+	if(typeof(API.LMSCommit) != "undefined"){
 		API.LMSCommit('');
 	}
 	InteractionsSubmitted = true;

@@ -12,5 +12,5 @@ var easyfile =  require('../libs/easyfile');
 const fs = require('fs');
 
 setTimeout(function(){
-    ipc.send('message',{key:'downdata'})
+    //ipc.send('message',{key:'downdata'})
 },1000);

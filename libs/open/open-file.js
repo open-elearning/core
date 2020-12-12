@@ -58,32 +58,37 @@ function openFileProcess(filename,tpl) {
 				console.log('ManualPackage: manualPackage detected');
 			}
 			
+			// CLUDIS
 			var datacludis = zip.files['cludis.txt'];
 			var cludisPath = easyfile.getfWf("extract") + "cludis.json";
-
-			console.log('-- datacludis = ' + datacludis);
-
+			
 			if(manualPackage&&typeof datacludis._data != "undefined"){
 				datacludis = datacludis._data;
 				easyfile.writeText(cludisPath,datacludis);
 			}else{
 				easyfile.writeText(cludisPath,JSON.stringify(datacludis));
 			}
+			if(typeof datacludis != "undefined"){
+				console.log('-- datacludis = ' + datacludis);
+			}
 			
-			
+
+			// PAGES
 			var datapages = zip.files['pages.txt'];
 			var pagesPath = easyfile.getfWf("extract") + "pages.json";
 
-			console.log('-- datapages = ' + datapages);
-			
 			if (manualPackage&&typeof datapages._data != "undefined") {
 				datapages = datapages._data;
 				easyfile.writeText(pagesPath,datapages);
 			}else{
 				easyfile.writeText(pagesPath,JSON.stringify(datapages));
 			}
+			if(typeof datapages != "undefined"){
+				console.log('-- datapages = ' + datapages);
+			}
 
 
+			// PARAMS
 			var dataparams = zip.files['params.txt'];
 			var paramsPath = easyfile.getfWf("extract") + "params.json";
 
@@ -91,18 +96,19 @@ function openFileProcess(filename,tpl) {
 
 			}else{
 				
-				console.log('-- datapages = ' + datapages);
-			
-				if (manualPackage&&typeof datapages._data != "undefined") {
+				if(manualPackage&&typeof datapages._data != "undefined") {
 					dataparams = dataparams._data;
 					easyfile.writeText(paramsPath,dataparams);
 				}else{
 					easyfile.writeText(paramsPath,JSON.stringify(dataparams));
 				}
-
+				if(typeof dataparams != "undefined"){
+					console.log('-- params = ' + dataparams);
+				}
 			}
 
 
+			// EXTRACODE
 			var extraCodeData = zip.files['extracode.txt'];
 			
 			if(typeof extraCodeData === "undefined"){
@@ -122,6 +128,30 @@ function openFileProcess(filename,tpl) {
 				global.sharedObj.extracode = extraCodeData;
 
 			}
+
+
+
+			// EXTRACODE CSS
+			var extraCodeDataCss = zip.files['extracodecss.txt'];
+
+			if(typeof extraCodeDataCss === "undefined"){
+				
+				global.sharedObj.extracodecss = '';
+				
+			}else{
+
+				var extraPath = easyfile.getfWf("extract") + "extracodecss.txt";
+				
+				if(typeof extraCodeDataCss !== 'string'){
+					extraCodeDataCss = extraCodeDataCss._data;
+				}
+				
+				extraCodeDataCss = decodeURIComponent(escape(extraCodeDataCss));
+				
+				global.sharedObj.extracodecss = extraCodeDataCss;
+
+			}
+
 
 			if(isTpl==false){
 				global.sharedObj.dataFile = filename;

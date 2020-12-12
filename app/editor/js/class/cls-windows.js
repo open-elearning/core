@@ -532,6 +532,7 @@ function barEditWind(name){
 	
 }
 
+
 var CWindows = new Array();
 var CWindowsCount = 0;
 

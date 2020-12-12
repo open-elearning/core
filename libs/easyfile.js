@@ -45,6 +45,7 @@ function init(nameVersion){
 	createFolderInWorkingFolder(appName,"finalHtml");
 	createFolderInWorkingFolder(appName,"launchOverview");
 	createFolderInWorkingFolder(appName,"assets");
+	createFolderInWorkingFolder(appName,"stockfiles");
 
 	global.sharedLogs.logs += 'finalHtml:' + getfWf("finalHtml") + '<br>';
 	global.sharedLogs.logs += 'appData:' + app.getPath('appData') + '<br>';
@@ -474,7 +475,7 @@ function GlobalLogScreen(mess){
 }
 
 function processCopyAlterFilesOfPlugins(dir,item,xml){
-
+	
 	xml = parseText(xml)
 	
 	let re = new RegExp(/<file>(.|\r\n)*?<\/file>/g);
@@ -611,8 +612,6 @@ function deleteTemp(name){
 	var erasePath = getfWf("temp") + name;	
 	writeText(erasePath,'{}');	
 }
-
-
 
 function getTextFile(pathFile){
 	
@@ -798,7 +797,7 @@ function copyFile(source, target, cb) {
 
 }
 
-function copyFilePromise(source, target) {
+function copyFilePromise(source,target) {
     return new Promise(function (accept, reject) {
         copyFile(source, target, function (data) {
             if (data === undefined) {
@@ -809,6 +808,7 @@ function copyFilePromise(source, target) {
         });
     });
 }
+exports.copyFilePromise = copyFilePromise;
 
 function copyMultiFilePromise(srcTgtPairArr) {
     var copyFilePromiseArr = new Array();
@@ -819,7 +819,6 @@ function copyMultiFilePromise(srcTgtPairArr) {
 }
 
 exports.copyFileAsync = copyFilePromise;
-
 
 function strReplace(s1,par,str){
 	str = str.replace(s1,par);

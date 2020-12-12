@@ -16,13 +16,11 @@ settingsEl.addEventListener('click', function(){
 
 const fileManagerBtn = document.getElementById('openProject')
 fileManagerBtn.addEventListener('click',function(event){
-
 	var path = openDialogOpenEL();
 	if(path){
 		ipc.send('message',{key:'openfile',val:path,tpl:false});
 		ipc.send('ShowEditorWindow');
 	}
-	
 });
 
 const choicelangBtn = document.getElementById('choicelang')

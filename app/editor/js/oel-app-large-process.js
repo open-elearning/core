@@ -4,6 +4,8 @@ var oldWidthCanvas = 0;
 var oldHeightCanvas = 0;
 var oldIdSize = '';
 
+var noSizeCanvas = 0;
+
 //Screen
 setTimeout(function(){
     
@@ -21,9 +23,10 @@ function detectWorkingResize(){
     var height = getWindowHeight();
     var idSize = parseInteger(width/3) + '_' + parseInteger(height/3);
     
-    if(oldIdSize!=idSize){
+    if(oldIdSize!=idSize||noSizeCanvas==0){
         oldIdSize = idSize;
-        placeWorkingPlace();
+		placeWorkingPlace();
+		noSizeCanvas = 1;
         console.log("call placeWorkingPlace");
     }
 	

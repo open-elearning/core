@@ -48,7 +48,6 @@
 				<li><a id="menuGraphics"  href="#section_graphics">Graphics</a></li>
 				<li id="GlobalMenuFormat" style="display:none;" >
 				<a id="menuFormat" style="color:rgb(182, 63, 144);" href="#section_format" >Format</a></li>
-
 			</ul>
 			
 			<div class="content-holder">
@@ -264,6 +263,15 @@
 							<span id="labelHangedMan" class="caption">&nbsp;&nbsp;Hangman&nbsp;&nbsp;</span>
 						</button>
 					
+						<div class="group-divider"></div>
+						
+						<button onClick="ajoutLudiPENDU();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/zonearea.png">
+							</span>
+							<span id="labelActiveZone" class="caption">&nbsp;Active&nbsp;zone&nbsp;</span>
+						</button>
+
 						<div id="addPluginsGame" class="group-divider"></div>
 					
 						<span class="title"><span class="menuGame" >Game</span> tools</span>
@@ -412,53 +420,84 @@
 	
 	<div id="pann-extensions" class="pann-extensions pan" style="display:none" >
 	
-		
-
 	</div>
 
 	<div id="opacedit" onClick="closeEdit();" class="opacedit pan" ></div>
 	
-	<ul class="menu-vertical pan" >
+	<ul class="menu-vertical pan noselectmouse" >
 		
+		<li class="mv-item-return">
+			<a id="returnBtnProject" a="mv-item-return" 
+			onMouseUp="closeEdit();" >&nbsp;&nbsp;&nbsp;</a>
+		</li>
+
 		<li class="mv-item">
-		<a id="saveBtnProject" 
-		onMouseUp="saveCommand();" >Save</a>
+			<a id="saveBtnProject" 
+			onMouseUp="optHideAll();saveCommand();" >&nbsp;Save</a>
 		</li>
 		
 		<li class="mv-item">
-		<a id="exportBtnProject" 
-		onMouseUp="closePan();lauchExportsScorm();" >Export to SCORM</a>
+			<a id="exportBtnProject" 
+			onMouseUp="optExport();" >Export&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;</a>
 		</li>
 		
 		<li class="mv-item">
-		<a id="exportBtnProject2" 
-		onMouseUp="closePan();launchCodeEditZone();" >Extra Code</a>
+			<a id="exportBtnScript" 
+			onMouseUp="optCustom();" >&nbsp;Custom&nbsp;code&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;</a>
+		</li>
+
+		<li class="mv-item">
+			<a id="customFileBtn" 
+			onMouseUp="launchCustomFilesEditZone();" >&nbsp;Custom&nbsp;Files</a>
+		</li>
+
+		<li class="mv-item">
+			<a id="exportBtnProject3" 
+			onMouseUp="optMenu();" >&nbsp;<span class="lbloptions" >Options</span>&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;</a>
 		</li>
 		
 		<li class="mv-item">
-		<a id="exportBtnProject3" 
-		onMouseUp="optMenu();" ><span class="lbloptions" >Options</span>&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;</a>
-		</li>
-		
-		<li class="mv-item">
-		<a id="quitBtnProject" 
-		onMouseUp="createRenderJSON();closePan();" >Quit</a>
+			<a id="quitBtnProject" 
+			onMouseUp="createRenderJSON();closePan();" >Quit</a>
 		</li>
 		
 	</ul>
-	
-	<ul class="menu-options pan" >
-		
+
+	<ul class="menu-export pan noselectmouse" >
+		<li class="mv-item">
+			<a id="exportBtnExportScorm" 
+			onMouseUp="closePan();lauchExportsScorm();" >Export to SCORM</a>
+		</li>
+		<li class="mv-item">
+			<a id="exportBtnExportFolder" 
+			onMouseUp="closePan();launchRapidRender(-2);" >Export to folder</a>
+		</li>
+	</ul>
+
+	<ul class="menu-options pan noselectmouse" >
 		<li class="mv-item" >
-			<a id="saveBtnProject" 
+			<a id="SettingsBtnProject" 
 			onMouseUp="paramsSettingsLaunch();" >Settings</a>
 		</li>
-		
 		<li class="mv-item" >
-		<a id="saveBtnProject" 
-		onMouseUp="showLogsInfos();" >Logs</a>
+			<a id="LogsBtnProject" 
+			onMouseUp="showLogsInfos();" >Logs</a>
 		</li>
-	
+		<li class="mv-item" >
+			<a id="ReloadBtnProject" 
+			onMouseUp="loadRenderJSON();" >Reload data</a>
+		</li>
+	</ul>
+
+	<ul class="menu-custom pan noselectmouse" >
+		<li class="mv-item">
+			<a id="exportBtnScript" 
+			onMouseUp="launchCodeEditZone();" >Custom code Script</a>
+		</li>
+		<li class="mv-item">
+			<a id="exportBtnStyle" 
+			onMouseUp="launchCodeEditZoneCss();" >Custom Code Style</a>
+		</li>
 	</ul>
 	
 	<div class="backScreenDiv" ></div>
@@ -610,7 +649,8 @@
 	<script src="editor/js/oel-prop.js" ></script>
 	<script src="editor/js/oel-images-gestion.js" ></script>
 	<script src="editor/js/oel-extracode.js" ></script>
-	
+	<script src="editor/js/oel-extra-files.js" ></script>
+
 	<script src="editor/js/oel-animaformat.js" ></script>
 	<script src="editor/js/oel-buttonformat.js" ></script>
 	<script src="editor/js/oel-database.js" ></script>

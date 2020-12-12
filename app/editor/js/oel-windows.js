@@ -222,7 +222,7 @@ function actionEdit(){
 	
 	p += barreEdit();
 	
-	p += GetActionSel("selectChoiceAction",119,109,'');
+	p += GetActionSel("selectChoiceAction",112,109,'');
 	
 	p += '<br>';
 	

@@ -337,19 +337,45 @@
 	position : fixed;
 	left : 0px;
 	top : 25px;
+	bottom : 0px;
+	width: 270px;
+	list-style : none;
+	padding : 4px;
+	margin : 0;
+	background : #088A29;
+	font-size: 15px!important;
+	z-index : 1000;
+	display : none;
+}
+
+.menu-export{
+	position : fixed;
+	left : 277px;
+	top : 146px;
 	width: 270px;
 	list-style: none;
 	padding: 4px;
 	margin: 0;
-	background: #088A29;
+	background: #088A85;
 	z-index: 1000;
 	display: none;
 }
-
+.menu-custom{
+	position : fixed;
+	left : 277px;
+	top : 190px;
+	width: 270px;
+	list-style: none;
+	padding: 4px;
+	margin: 0;
+	background: #088A85;
+	z-index: 1000;
+	display: none;
+}
 .menu-options{
 	position : fixed;
-	left : 270px;
-	top : 146px;
+	left : 277px;
+	top : 230px;
 	width: 270px;
 	list-style: none;
 	padding: 4px;
@@ -362,14 +388,30 @@
 
 .mv-item,
 .mv-item a {
-  display: block;
+	color: white;
+	font-size: 17px!important;
+  	display: block;
 }
- 
+.mv-item-return{
+	background-image : url(../img/next-arrow.png);
+	background-position : 15px center;
+	background-repeat: no-repeat;
+	height : 70px;
+	display : block;
+}
+.mv-item-return a {
+	color: white;
+	cursor : pointer;
+	height : 70px;
+	font-size : 17px!important;
+  	display : block;
+}
 .mv-item a {
   margin: 1px 0;
   padding: 8px 20px;
-  color: #666;
-  background: #FFF;
+  padding-left: 30px;
+  color: white;
+  background: #088A29;
   text-decoration: none;
   -webkit-transition: all .3s;
   -moz-transition: all .3s;
@@ -381,7 +423,8 @@
 .mv-item a:focus {
   background: #088A29;
   color: #FFF;
-  padding-left: 30px;
+  font-weight: bold;
+  padding-left: 50px;
 }
 
 textarea {

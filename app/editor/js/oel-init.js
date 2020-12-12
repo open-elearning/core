@@ -26,8 +26,7 @@ setTimeout(function(){
 setTimeout(function(){
 	loadLearningPlugins();
 },5000);
-
-						
+	
 function forceLoad(){
 	
 	location.hash = 'devmode';

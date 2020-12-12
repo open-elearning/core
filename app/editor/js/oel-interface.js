@@ -12,16 +12,29 @@ function loadLocalJSON(name){
 	}
 	pathTemp = pathTemp + name;
 	
-	var jsonObject = require(pathTemp);
+	var ret = false;
 	
-	if(typeof jsonObject ==="undefined"){
-		return JSON.parse('{}');
-	}else{
-		if(typeof jsonObject._data ==="undefined"){
-			return JSON.parse('{}');
-		}else{	
-			return JSON.parse(jsonObject._data);
+	var jsonObject = require(pathTemp);
+
+	if(typeof jsonObject !="undefined"){
+		if(typeof jsonObject[0] !="undefined"){
+			if(typeof jsonObject[0].pageId !="undefined"){
+				ret = true;
+				return jsonObject;
+			}
 		}
 	}
-	
+
+	if(!ret){
+		if(typeof jsonObject ==="undefined"){
+			return JSON.parse('{}');
+		}else{
+			if(typeof jsonObject._data ==="undefined"){
+				return JSON.parse('{}');
+			}else{	
+				return JSON.parse(jsonObject._data);
+			}
+		}
+	}
+
 }
