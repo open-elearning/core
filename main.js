@@ -42,7 +42,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.4.8";
+global.appVersion = "1.4.9";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',gpath:'',listassets:'',imgassets:''
@@ -639,6 +639,10 @@ ipcMain.on('message',function(event,data){
 	if(data.key=='setGlobalVar'){
 		if(data.varkey=='EDITORMODE'){
 			global.EDITORMODE = parseInt(data.valkey);
+		}
+		if(data.varkey=='stockfiles'){
+			global.sharedObj.stockfiles = data.valkey;
+			console.log("global.sharedObj.stockfiles : " + data.valkey);
 		}
 	}
 
