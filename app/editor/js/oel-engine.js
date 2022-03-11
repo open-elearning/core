@@ -145,7 +145,7 @@ function fctInnerActionsEdit(lst,lst2){
 	
 	p += '<div class="toolBas2" >';
 	p += '<a onclick="saveActionsPerso();" ';
-	p += ' style="margin-right:13px;margin-top:1px;" class="btnSave" >Save</a>';
+	p += ' style="margin-right:13px;margin-top:1px;" class="btnSave" >' + getTrd('save') + '</a>';
 	p += '</div>';
 	
 	return p;
@@ -259,10 +259,10 @@ function saveActionsPerso(){
 	var obj = CLudis[GlobalUid];
 	
 	var lst = recupActionsPerso();
-	obj.text3 = lst;
+	obj.actionLine1 = lst;
 	
 	var lst2 = recupParamsPerso();
-	obj.text5 = lst2;
+	obj.actionLine2 = lst2;
 	
 	var actions = lst.split('|');
 	var params  = lst2.split('|');
@@ -1336,6 +1336,36 @@ function ajoutLudiDATATABLE(){
 	
 }
 
+function ajoutLudiGameZoneAct(){
+	
+	closePan();
+	
+	var objTemp = LudiBase();
+	objTemp.type= "gamezoneaction";
+	objTemp.subtype= "gamezoneaction";
+	
+	objTemp.text3= "";
+	objTemp.text4= "";
+	
+	objTemp.x = 350 + qcmx;
+	objTemp.y = 350 + qcmx;
+	objTemp.width  = 90;
+	objTemp.height = 50;
+	objTemp.realwidth = objTemp.width;
+	objTemp.realheight = objTemp.height;
+	objTemp.pageId = GPageId;
+	objTemp.data = "img/zone-blue.png";
+	CLudisAdd(objTemp);
+	
+	qcmx++;
+	
+	CLudisPaint();
+	eventObjects = true;
+	createRenderJSON();
+	deleteLudiHELPER();
+	
+}
+
 //plugin plugin
 function ajoutLudiPENDU(){
 	
@@ -1528,39 +1558,39 @@ function ajoutLudiBTN(){
 	if(iCtn==0){
 		objTemp.x = 760;
 		objTemp.text = getTrdU("next");
-		objTemp.data = "DS";
+		objTemp.actionVal = "DS";
 	}
 	if(iCtn==1){
 		objTemp.x = 10;
 		objTemp.text = getTrdU("return");
-		objTemp.data = "DP";
+		objTemp.actionVal = "DP";
 	}
 	if(iCtn==2){
 		objTemp.x = 400;
 		objTemp.text = getTrdU("next");
-		objTemp.data = "DP";
+		objTemp.actionVal = "DP";
 	}
 	if(iCtn==3){
 		objTemp.x = 100;
 		objTemp.text = getTrdU("next");
-		objTemp.data = "DP";
+		objTemp.actionVal = "DP";
 	}
 	if(iCtn==4){
 		objTemp.x = 500;
 		objTemp.text = getTrdU("next");
-		objTemp.data = "DP";
+		objTemp.actionVal = "DP";
 	}
 	if(iCtn==5){
 		objTemp.x = 150;
 		objTemp.y = 600;
 		objTemp.text = getTrdU("next");
-		objTemp.data = "DP";
+		objTemp.actionVal = "DP";
 	}
 	if(iCtn==6){
 		objTemp.x = 170;
 		objTemp.y = 590;
 		objTemp.text = getTrdU("next");
-		objTemp.data = "DP";
+		objTemp.actionVal = "DP";
 	}
 	objTemp.width  = 160;
 	objTemp.height = 40;
@@ -1593,7 +1623,7 @@ function ajoutLudiActiveZone(){
 	objTemp.width = 80;
 	objTemp.height = 80;
 	objTemp.text = getTrdU("next");
-	objTemp.data = "DS";
+	objTemp.actionVal = "DS";
 	objTemp.realwidth = objTemp.width;
 	objTemp.realheight = objTemp.height;
 	
@@ -1947,7 +1977,7 @@ function animEditObject(){
 	p += '</div>';
 	
 	p += '<a style="position:absolute;right:10px;bottom:10px;" ';
-	p += ' onClick="saveAnimChoice();" class="btnSave">Save</a>';
+	p += ' onClick="saveAnimChoice();" class="btnSave">' + getTrd('save') + '</a>';
 	
 	p += '</div>';	
 	
@@ -2081,7 +2111,7 @@ function formatButtonObject(){
 	
 	p += '<br/><br/><br/><br/><br/>';
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
-	p += 'onClick="saveFormatButton();" class="btnSave">Save</a>';
+	p += 'onClick="saveFormatButton();" class="btnSave">' + getTrd('save') + '</a>';
 	
 	p += '</div>';	
 	
@@ -2138,7 +2168,7 @@ function colorChoiceZone(){
 	p += '</div>';
 
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
-	p += 'onClick="saveChoiceColorProcess();" class="btnSave">Save</a>';
+	p += 'onClick="saveChoiceColorProcess();" class="btnSave">' + getTrd('save') + '</a>';
 	p += '</div>';
 	
 	return p;
@@ -2230,7 +2260,7 @@ function databaseEditZone(){
 	
 	p += '<a style="float:right;margin-right:10px;" ';
 	p += 'onclick="extractDataBase();" ';
-	p += 'class="btnSave" >Save</a>';
+	p += 'class="btnSave" >' + getTrd('save') + '</a>';
 	
 	p += '</div>';
 	
@@ -2639,11 +2669,11 @@ function extraCustomFilesEditZone(){
 	p += '<div class="tableBaseEditionBtn" >';
 
 	p += '<a style="float:left;" onclick="cancelCustomFiles();" ';
-	p += 'class="validation lblcancel" >Cancel</a>';
+	p += 'class="validation lblcancel" >' + getTrd('cancel') + '</a>';
 	
 	p += '<a style="float:right;margin-right:10px;" ';
 	p += 'onclick="saveCustomFilesEditZone();" ';
-	p += 'class="btnSave lblsave" >Save</a>';
+	p += 'class="btnSave lblsave" >' + getTrd('save') + '</a>';
 	
 	p += '</div>';
 	
@@ -2660,7 +2690,7 @@ function launchTableFilesBase(){
 	initTableDataFiles = tableDataFiles;
 	deleteTableFiles = ";";
 	var dataTxt = tableDataFiles;
-
+	
 	var p ='<table id="tableBaseFS" ';
 	p += ' style="min-width:650px;margin-left:5px;" ';
 	p += ' class="tableBaseE a-table" >';
@@ -2739,7 +2769,7 @@ function cancelCustomFiles(){
 function addNewFileUpload(){
 	
 	actualIdTdInit=0;
-
+	
 	const electron = require('electron');
 	const ipc = electron.ipcRenderer;
 	ipc.send('message',{key:'uploadfile'});
@@ -2828,11 +2858,11 @@ function extraCodeEditZone(){
 	p += '<div class="tableBaseEditionBtn" >';
 	
 	p += '<a style="float:left;" onclick="closeEdit();" ';
-	p += 'class="validation lblcancel" >Cancel</a>';
+	p += 'class="validation lblcancel" >' + getTrd('cancel') + '</a>';
 	
 	p += '<a style="float:right;margin-right:10px;" ';
 	p += 'onclick="saveCodeEditZone();" ';
-	p += 'class="btnSave lblsave" >Save</a>';
+	p += 'class="btnSave lblsave" >' + getTrd('save') + '</a>';
 	
 	p += '</div>';
 	
@@ -3042,9 +3072,14 @@ function imageEditZone(){
 	p += '<a style="float:left;" onclick="closeEdit();" ';
 	p += 'class="validation" >'+getTrdU("cancel")+'</a>';
 	
-	p += '<a style="float:right;margin-right:10px;" ';
+	p += '<a id="imgactionbtn" ';
+	p += ' style="float:left;margin-left:10px;padding:5px;cursor:pointer;" ';
+	p += ' onclick="imageActions();" ';
+	p += ' ><img src="img/call_to_action.png" /></a>';
+	
+	p += '<a style="float:right;margin-right:10px;width:150px;" ';
 	p += 'onclick="imageInsert();" ';
-	p += 'class="btnSave" >'+getTrdU("apply")+'</a>';
+	p += 'class="btnSave" >'+getTrdU("save")+'</a>';
 	
 	p += '<a id="btnImgUpload" style="float:right;margin-right:10px;" ';
 	p += 'onclick="imageUpload();" ';
@@ -3053,6 +3088,20 @@ function imageEditZone(){
 	p += '</div></div>';
 	
 	return p;
+
+}
+
+function imageActions(){
+
+	if(targetImg==0){
+
+		loadEdit = true;
+		var obj = CLudis[GlobalUid];
+		$('.opacedit,#editImage').css("display","none");
+		showActionZone(obj);
+		loadEdit = false;
+	
+	}
 
 }
 
@@ -3140,40 +3189,43 @@ function filterImagesSys(name){
 	$('#btnImgUpload').css("display","");
 	
 	var r = true;
-	if(name.indexOf('uibase-')!=-1){
+	if (name.indexOf('uibase-')!=-1) {
 		$('#btnImgUpload').css("display","none");
 		r = false;
 	}
-	if(name.indexOf('processoe-')!=-1){
+	if (name.indexOf('processoe-')!=-1) {
 		$('#btnImgUpload').css("display","none");
 		r = false;
 	}
-	if(name.indexOf('fluxprocess.png')!=-1){
+	if (name.indexOf('fluxprocess.png')!=-1) {
 		$('#btnImgUpload').css("display","none");
 		r = false;
 	}
-	if(name.indexOf('white.jpg')!=-1){
+	if (name.indexOf('white.jpg')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('comic-01.png')!=-1){
+	if (name.indexOf('comic-01.png')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('playvideo.png')!=-1){
+	if (name.indexOf('playvideo.png')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('roundnext.png')!=-1){
+	if (name.indexOf('roundnext.png')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('roundprev.png')!=-1){
+	if (name.indexOf('roundprev.png')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('scorebilan.png')!=-1){
+	if (name.indexOf('scorebilan.png')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('scorescreen.jpg')!=-1){
+	if (name.indexOf('scorescreen.jpg')!=-1) {
 		r = false;
 	}
-	if(name.indexOf('littlelcm.png')!=-1){
+	if (name.indexOf('littlelcm.png')!=-1) {
+		r = false;
+	}
+	if (name.indexOf('gameoel-isodeco.jpg')!=-1) {
 		r = false;
 	}
 	
@@ -3284,6 +3336,14 @@ function launchImageEditZone(){
 	
 }
 
+//Choice show Sel AI onSelectFileImage
+function showSelImgDisplayImg(){
+    targetImg = 5;
+	$('#actioneditbtn').css("display","none");
+	$('.classWindow').css("display","none");
+	launchImageEditZone();
+}
+
 function calculImageRatio(){
 	
 	$(".Pzl1").each(function(){
@@ -3306,6 +3366,12 @@ function calculImageRatio(){
 }
 
 function filtreImageRatio(){
+	
+	if(targetImg==0){
+		$("#imgactionbtn").css("display","block");
+	}else{
+		$("#imgactionbtn").css("display","none");
+	}
 	
 	$(".Pzl1").each(function(){
 		
@@ -3405,7 +3471,7 @@ function imageInsert(){
 		}
 			
 	}
-	
+
 	//Page
 	if(targetImg==1){
 		
@@ -3439,6 +3505,20 @@ function imageInsert(){
 		$('.pan').css("display","none");
 	}
 	
+	//AI
+	if(targetImg==5){
+		var objTempT = CLudis[GlobalUid];
+		objTempT.actionData = urlImage;			
+		loadPage(GPageId);
+		$('.pan').css("display","none");
+	}
+	
+}
+
+function loadPageBackImgIso() {
+	urlImage = 'gameoel-isodeco.jpg';
+	targetImg = 1;
+	imageInsert();
 }
 
 function deleteImageBackScreen(){
@@ -3675,6 +3755,33 @@ function CLudiRender(refLudi){
 			});
 			
 		}
+
+		if(refLudi.type=="gamezoneaction"){
+			
+			var videosrc = refLudi.data;
+			
+			fabric.util.loadImage(videosrc,function(img){
+				
+				var legimg = new fabric.Image(img,{
+					left : ol,top  : ot,
+					scaleX : ow / img.width,
+					scaleY : oh / img.height
+				});
+				
+				legimg.id = uid;
+				legimg.lockRotation = true;
+				legimg.lockScalingY = true;
+				legimg.lockScalingX = true;
+				legimg.lockMovementX = false;
+				legimg.hasRotatingPoint = false;
+				legimg.hasControls = false;
+				OptsHandles(legimg,refLudi);
+
+				canvas.add(legimg);
+				
+			});
+			
+		}
 		
 		if(refLudi.type=="bilan"){
 			
@@ -3879,6 +3986,7 @@ function CLudiRender(refLudi){
 				text.lockScalingX = false;
 				text.lockMovementX = false;
 				text.hasControls = false;
+
 				text.hasBorders  = true;
 				text.setControlsVisibility({
 					mt: false, 
@@ -3891,6 +3999,22 @@ function CLudiRender(refLudi){
 					tr: false,
 					mtr: false,
 				});
+
+				if (refLudi.val.indexOf("t6m_")!=-1) {
+					text.hasControls = true;
+					text.setControlsVisibility({
+						mt: true, 
+						mb: true,
+						mr: true, 
+						ml: true, 
+						bl: true,
+						br: true, 
+						tl: true, 
+						tr: true,
+						mtr: true,
+					});	
+				}
+
 				text.id = uid;
 				OptsHandles(text,refLudi);
 				
@@ -4782,11 +4906,11 @@ function ludiInit(){
 	$('.toolbarZoneTexteDiv').html(be);
 	var mp = '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	mp += ' onclick="closeEdit();" ';
-	mp += 'class="validation noselectmouse" >Cancel</a>';
+	mp += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 	
 	mp += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	mp += 'onclick="setSourceTextV2();closeEdit();" ';
-	mp += 'class="btnSave noselectmouse" >Save</a>';
+	mp += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	$('#editzoneV2').append(mp);
 	
@@ -4964,11 +5088,11 @@ function editAudioMp3Zone(){
 	
 	p += '<a style="position:absolute;left:15px;bottom:15px;" ';
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation lblcancel" >Cancel</a>';
+	p += 'class="validation lblcancel" >' + getTrd('cancel') + '</a>';
 	
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="audioMp3Save();" ';
-	p += 'class="btnSave lblsave" >Save</a>';
+	p += 'class="btnSave lblsave" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
@@ -5064,7 +5188,7 @@ function videoEdit(){
 	
 	p += '<a style="position:absolute;right:10px;bottom:10px;" ';
 	p += 'onclick="saveSourceVideo();" ';
-	p += 'class="btnSave lblsave" >Save</a>';
+	p += 'class="btnSave lblsave" >' + getTrd('cancel') + '</a>';
 
 	p += '</div>';
 	
@@ -5163,11 +5287,11 @@ function editVideoMp4Zone(){
 	p += '<div class="listVideoMp4boutons" >';
 	
 	p += '<a style="float:left;" onclick="closeEdit();" ';
-	p += 'class="validation lblcancel" >Cancel</a>';
+	p += 'class="validation lblcancel" >' + getTrd('cancel') + '</a>';
 	
 	p += '<a style="float:right;margin-right:10px;" ';
 	p += 'onclick="videoMp4Save();" ';
-	p += 'class="btnSave lblsave" >Save</a>';
+	p += 'class="btnSave lblsave" >' + getTrd('save') + '</a>';
 	
 	p += '</div>';
 	
@@ -5310,6 +5434,7 @@ function CPage(){
 			p += '</li>';
 			$('#listecrans').append(p);
 			$('#lip' + i).append('<div class=pagedeleteb onClick="pageDelete=\'' + i + '\';showEditDelete(1);" ></div>');
+			$('#lip' + i).append('<div class=pageduplica onClick="duplikPageFct(\'' + i + '\');" ></div>');
 		}
 		
 	}
@@ -5421,10 +5546,15 @@ function deletePages(pId){
 	
 }
 
+function duplikPageFct(i){
+	pageDuplica = i;
+	duplikPages();
+}
+
 function duplikPages(){
 	
-	var precPage = GetPageById(GPageId);
-	var oldP = GPageId;
+	var precPage = GetPageById(pageDuplica);
+	var oldP = pageDuplica;
 	GPageId = guid();
 	
 	var objTemp = new CPage();
@@ -5456,9 +5586,7 @@ function duplikPages(){
 	eventObjects = true;
 	
 	$('#lip' + oldP).after('<li id="lip' + GPageId + '" class="pagecl ' + GPageId + '" ></li>');
-	reordonnePages();
-	loadPage(GPageId);
-	CPagesResetAll();
+	endOrdonne();
 	
 }
 
@@ -5695,7 +5823,7 @@ function reOrdonne(){
 	$(".block-reordonne").css("display","none");
 	$(".block-stopedit").css("display","block");
 	$(".pagedeleteb").css("display","block");
-
+	$(".pageduplica").css("display","block");
 	
 	//http://johnny.github.io/jquery-sortable/
 	$("#listecrans").sortable({
@@ -5717,6 +5845,7 @@ function endOrdonne(){
 	$(".block-reordonne").css("display","block");
 	$(".block-stopedit").css("display","none");
 	$(".pagedeleteb").css("display","none");
+	$(".pageduplica").css("display","none");
 
 	reordonnePages();
 	CPagesResetAll();
@@ -5799,10 +5928,59 @@ function exec_params(){
 
 }
 
+
+function showEditZoneText(obj){
+
+	if (obj.type=='text'||obj.type=='title'||obj.type=='speech'||obj.type=='label') {
+		
+		$('.editZoneTexteV2').css("display","block");
+		$('.opacedit').css("display","block");
+
+		loadEdit = true;
+		
+		var txtEdit = replaceAll(obj.text,"data-ref","href");
+		
+        txtEdit = txtEdit.replace('color: ','color:');
+		txtEdit = txtEdit.replace('#ffffff;','white;');
+		txtEdit = txtEdit.replace('#000000;','black;');
+
+        var isWhite = false;
+        if (txtEdit.toLowerCase().indexOf("color:white;")!=-1) {
+            isWhite = true;
+        }
+		
+		tinymce.get("textAreaV2").setContent(txtEdit);
+        if (isWhite) {
+            tinymce.get("textAreaV2").getBody().style.backgroundColor = "#808B96";
+        }else{
+			tinymce.get("textAreaV2").getBody().style.backgroundColor = "white";
+		}
+	    
+		//editorInstance.setValue(obj.text, true);
+
+		if(obj.type!='speech'){
+			$('.styl0,.styl1').css("background-color","white").css("display","block");
+		if(parseInteger(obj.val)==0){
+			$('.styl0').css("background-color","#A9A9F5");
+		}else{
+			$('.styl1').css("background-color","#A9A9F5");
+		}
+		}else{
+			$('.styl0,.styl1').css("display","none");
+		}
+		
+		loadEdit = false;
+
+	}
+
+
+}
+
 var GlobalUid = -1;
 var ModeEdit = false;
 var ModeDelete = 0;
 var pageDelete = '';
+var pageDuplica = '';
 var loadEdit = true;
 var UidEdit = -1;
 
@@ -5995,70 +6173,13 @@ function showEditZone(){
 		LaunchInputEdit(obj);
 	}
 	
-	if(obj.type=='text'||obj.type=='title'||obj.type=='speech'||obj.type=='label'){
-		
-		$('.editZoneTexteV2').css("display","block");
-		$('.opacedit').css("display","block");
+	showEditZoneText(obj);
 
-		loadEdit = true;
-		
-		tinymce.get("textAreaV2").setContent(obj.text);
-		
-		//editorInstance.setValue(obj.text, true);
-
-		if(obj.type!='speech'){
-			$('.styl0,.styl1').css("background-color","white").css("display","block");
-		if(parseInteger(obj.val)==0){
-			$('.styl0').css("background-color","#A9A9F5");
-		}else{
-			$('.styl1').css("background-color","#A9A9F5");
-		}
-		}else{
-			$('.styl0,.styl1').css("display","none");
-		}
-		
-		loadEdit = false;
-	}
-	
-	if(obj.type=='button'||obj.type=='buttonarea'){
+	if(obj.type=='button'||obj.type=='buttonarea'||obj.type=='gamezoneaction'){
 		
 		loadEdit = true;
-		
 		var obj = CLudis[GlobalUid];
-		
-		$('#actionedittext').val(obj.text);
-		
-		$('#actioneditpage').css('display','none');
-		$('.actionSelectPersoBtn').css('display','none');
-		switch (obj.data) {
-			case refAct[0]:
-				$('#actioneditselect').html(getTrd(refActs[0]));
-				break;
-			case refAct[1]:
-				$('#actioneditselect').html(getTrd(refActs[1]));
-				break;
-			case refAct[2]:
-				$('#actioneditselect').html(getTrd(refActs[2]));
-				break;
-			case refAct[3]:
-				$('#actioneditselect').html(getTrd(refActs[3]));
-				$('#actioneditpage').css('display','inline-block');
-				break;
-			case refAct[4]:
-				$('#actioneditselect').html(getTrd(refActs[4]));
-				$('.actionSelectPersoBtn').css('display','block');
-				break;
-			case refAct[5]:
-				$('#actioneditselect').html(getTrd(refActs[5]));
-				break;
-			default:
-				$('#actioneditselect').html('-');
-		}
-		
-		$('.opacedit,#actioneditbtn').css("display","block");
-		
-		$('#actioneditpage').val(parseInteger(obj.val));
-		
+		showActionZone(obj);
 		loadEdit = false;
 		
 	}
@@ -6156,6 +6277,72 @@ function showEditZone(){
 		editPluginLaunch(obj);
 	}
 	
+}
+
+function showActionZone(obj){
+
+	if(obj.type=='button'){
+		$('#actionedittext').val(obj.text);
+		$('#actionedittext').attr("readonly","false");
+		$('#actionTextPara').css('opacity','1');
+	}else{
+		$('#actionedittext').val("");
+		$('#actionedittext').attr("readonly","true");
+		$('#actionTextPara').css('opacity','0.6');
+	}
+	
+	$('#actioneditpage').css('display','none');
+	$('.actionSelectPersoBtn').css('display','none');
+	$('.actionSelectFileImage').css('display','none');
+
+	//Compatibility < 1.5 24042021
+	if (obj.actionVal==''){
+		if (obj.data==refAct[0]||obj.data==refAct[1] ||obj.data==refAct[2]
+		||obj.data==refAct[3]||obj.data==refAct[4]
+		||obj.data==refAct[5]||obj.data==refAct[6]){
+			obj.actionVal = obj.data;
+		}
+	}
+	if (obj.actionData==''){
+		if (obj.actionVal==refAct[3]){
+			obj.actionData = obj.val;
+		}
+	}
+	//End Compatibility
+
+	switch (obj.actionVal) {
+		case refAct[0]:
+			$('#actioneditselect').html(getTrd(refActs[0]));
+			break;
+		case refAct[1]:
+			$('#actioneditselect').html(getTrd(refActs[1]));
+			break;
+		case refAct[2]:
+			$('#actioneditselect').html(getTrd(refActs[2]));
+			break;
+		case refAct[3]:
+			$('#actioneditselect').html(getTrd(refActs[3]));
+			$('#actioneditpage').css('display','inline-block');
+			break;
+		case refAct[4]:
+			$('#actioneditselect').html(getTrd(refActs[4]));
+			$('.actionSelectPersoBtn').css('display','block');
+			break;
+		case refAct[5]:
+			$('#actioneditselect').html(getTrd(refActs[5]));
+			break;
+		case refAct[6]:
+			$('#actioneditselect').html(getTrd(refActs[6]));
+			$('.actionSelectFileImage').css('display','block');
+			break;
+		default:
+			$('#actioneditselect').html('-');
+	}
+	
+	$('.opacedit,#actioneditbtn').css("display","block");
+	
+	$('#actioneditpage').val(parseInteger(obj.actionData));
+
 }
 
 function ajustLcmZone(){
@@ -6346,11 +6533,11 @@ function editPluginForms(obj){
 		
 		p += '<div class="listzonepuglin" >';
 		p += '<a style="float:left;" onclick="closeEdit();" ';
-		p += 'class="validation" >Cancel</a>';
+		p += 'class="validation" >' + getTrd('cancel') + '</a>';
 
 		p += '<a style="float:right;margin-right:10px;" ';
 		p += 'onclick="validPluginInsert();" ';
-		p += 'class="btnSave" >Save</a>';
+		p += 'class="btnSave" >' + getTrd('save') + '</a>';
 		p += '</div>';
 		
 		p += '</div>';
@@ -6637,12 +6824,14 @@ function addPlugProcess(name){
 				var dirp = folderAllPlugins;
 				dirp = dirp.replace(/\\/g, "/");
 				copyFileProcess(dirp + ress);
+				copyProcessToEmbeded(dirp + ress);
 			}
 			if(ress.indexOf('.js')!=-1
 			||ress.indexOf('.css')!=-1){
 				var dirp = folderAllPlugins;
 				dirp = dirp.replace(/\\/g, "/");
 				copyFileProcess(dirp + ress);
+				copyProcessToEmbeded(dirp + ress);
 			}
 		}
 	}
@@ -6652,7 +6841,6 @@ function addPlugProcess(name){
 	createRenderJSON();
 	deleteLudiHELPER();
 	
-	
 }
 
 function copyFileProcess(filenam){
@@ -6660,6 +6848,14 @@ function copyFileProcess(filenam){
 	const electron = require('electron');
 	const ipc = electron.ipcRenderer;
 	ipc.send('message',{key:'copyFileProcess',filenam:filenam});
+	
+}
+
+function copyProcessToEmbeded(filenam){
+
+	const electron = require('electron');
+	const ipc = electron.ipcRenderer;
+	ipc.send('message',{key:'uploadfilebyplugin',filenam:filenam});
 	
 }
 
@@ -6818,7 +7014,7 @@ function reloadObject(i){
 	
 	if(objL.type=='qcm'||objL.type=='text'
 	||objL.type=='variable'||objL.type=='label'
-	||objL.type=='title'||objL.type=='tcm'
+	||objL.type=='title'||objL.type=='tcm'||objL.type=='gamezoneaction'
 	||objL.type=='lcm'||objL.type=='button'||objL.type=='buttonarea'
 	||objL.type=='speech'||objL.type=='input'){
 		
@@ -6891,7 +7087,6 @@ function setSourceTextV2(){
 
 	eventObjects = true;
 }
-
 
 function setSourceScript(){
 	
@@ -6967,13 +7162,22 @@ function setSourceButton(){
 	}
 	
 	var obj = CLudis[GlobalUid];
+
+	if (obj.type=='button'||obj.type=='buttonarea'||obj.type=='gamezoneaction') {
 	
-	if(obj.type=='button'){
 		var txt = $('#actionedittext').val();
 		obj.text = txt;
-		var objCanvas = canvas.getActiveObject();
-		objCanvas.paths[1].text = txt;
 		obj.val = $('#actioneditpage').val();
+		obj.actionData = $('#actioneditpage').val();
+		eventObjects = true;
+		if(obj.text6==4||obj.text6==5||obj.text6==6){
+		}else{
+			var objCanvas = canvas.getActiveObject();
+			if (objCanvas.paths) {
+				objCanvas.paths[1].text = txt;
+			}
+		}
+		
 	}
 	eventObjects = true;
 }
@@ -7169,6 +7373,56 @@ function txtAreaText(txt){
 	
 }
 
+
+function drawHardPlug(obj,objPlug,i){
+
+    if(!openelearning.gebi('plugzone' + i)){
+        var p = '<div id="plugzone'+i+'" ';
+        p += ' onClick="SelectWorkingI('+i+');" ';
+        p += ' class="tmpshow showtext noselectmouse" >';
+        p += '</div>';
+        $('body').append(p);
+    }
+    
+    var txtVars =  obj.text + "|||||||";
+    var textPlugs = txtVars.split("|");
+
+    var plugL = parseInt(obj.x * zoomCanv)+ decxCanv;
+    var plugT = parseInt(obj.y * zoomCanv)+ decyCanv;
+    var plugW = parseInt(obj.width * zoomCanv);
+    var plugH = parseInt(obj.height * zoomCanv);
+    
+    var plugzone = $('#plugzone'+i);
+    
+    plugzone.css("left",plugL+'px').css("top",plugT+'px');
+    plugzone.css("width",plugW+'px').css("height",plugH+'px');
+    plugzone.css("display","block");
+
+    if (objPlug.name=='t6m_markswords') {
+
+        var valTxt1 = textPlugs[0];
+        var valTxt2 = textPlugs[1];
+        
+        if (valTxt1=='') {
+            valTxt1 = 'Mark the Words';
+        }
+        if (valTxt2=='') {
+            valTxt2 = "A free based question type allowing *Creatives* to create *Challenges* ";
+            valTxt2 += "where the user is to mark *specific* types of verbs in a text.";
+        }
+
+        var plugzone = $('#plugzone'+i);
+		
+        var hPrt = '<div style="font-size:18px;font-family:Sans-Serif;padding-left:5px;';
+        hPrt += 'padding-top:10px;padding-bottom:10px;" >';
+        hPrt += valTxt1 + '</div>';
+        hPrt += '<div style="font-size:16px;font-family:Sans-Serif;padding-left:10px;" >';
+        hPrt += valTxt2 + '</div>';
+		plugzone.html(hPrt);
+
+    }
+
+}
 
 var ivideo = -1;
 
@@ -7566,6 +7820,8 @@ function installWiziTexte(obj,i){
 	var showW = parseInt(obj.getW() * zoomCanv) - 10;
 	var showH = parseInt(obj.getH() * zoomCanv) - 10;
 
+	var txtEdit = replaceAll(obj.text,"data-ref="," style='pointer-events:none;' href='javascript:function(){return false;}' data-ref=");
+	
 	var col='black';
 	if(parseInteger(obj.val)==1){col='white';}
 	
@@ -7574,7 +7830,7 @@ function installWiziTexte(obj,i){
 		p += ' onClick="SelectWorkingI('+i+');" ';
 		
 		p += ' class="tmpshow showtext noselectmouse" >';
-		p += obj.text + '</div>';
+		p += txtEdit + '</div>';
 		$('body').append(p);
 	}
 	
@@ -7582,7 +7838,7 @@ function installWiziTexte(obj,i){
 		$('#textzone'+i).attr("style",obj.css);
 	}
 	
-	$('#textzone'+i).html(obj.text);
+	$('#textzone'+i).html(txtEdit);
 	$('#textzone'+i).css("left",showL+'px').css("top",showT+'px');
 
 	if(obj.css!=''&&obj.css.indexOf("background")!=-1){
@@ -7598,7 +7854,9 @@ function installWiziTexte(obj,i){
 	$('#textzone'+i).css("font-size",tz+'px');
 	$('#textzone'+i).css("display","block");
 	$('#textzone'+i).css("overflow","hidden");
-	$('#textzone'+i).css("color",col);
+	$('#textzone'+i).find("p").css("margin",'0px').css("padding",'4px');
+	$('#textzone'+i).find("p").css("line-height","120%");
+	//$('#textzone'+i).css("color",col);
 
 }
 
@@ -7610,6 +7868,10 @@ function drawSvgMapping(obj,i){
 		objPlug = new CPlug();
 	}
 	
+	if (objPlug.name=='t6m_markswords') {
+		drawHardPlug(obj,objPlug,i);
+	}
+
 	var svgMapping = objPlug.screenTextMapping;
 	
 	if(typeof svgMapping === "undefined"){
@@ -8080,6 +8342,9 @@ function getBaseBouton(w,h,obj){
 		if(obj.text=='Siguiente'){
 			possvg = ' y="25" x="44"';
 		}
+		if(obj.text=='Seguendo'){
+			possvg = ' y="25" x="44"';
+		}
 		if(obj.text=='Nächster'){
 			possvg = ' y="25" x="44"';
 		}
@@ -8438,6 +8703,12 @@ function getBaseHelper(w,h,obj){
 }
 
 
+function hookChangeTabs(){
+
+    $('#pann-isometric').css('display','none');
+
+}
+
 function pageEditDom(){
     
 }
@@ -8544,11 +8815,11 @@ function pageEditOptions(){
 
 	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="closeEdit();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
@@ -8661,18 +8932,18 @@ function questionQcmEdit(){
 
 	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="saveQcmInsert();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
 	return p;
 }
 function saveQcmInsert(){
-
+	
 	getSourceQcm();
 	$('.opacedit').css("display","none");
 	$('.questionqcmedit').css("display",'none');
@@ -8938,8 +9209,8 @@ function qcmProcessClick(i){
 	eventObjects = true;
 }
 
-var refAct = ["DS","DK","DP","GO","AP","DC"];
-var refActs = ["nextpage","nextpageisok","previouspage","tothepage","personalact","nextpagefeedback"];
+var refAct = ["DS","DK","DP","GO","AP","DC","AI"];
+var refActs = ["nextpage","nextpageisok","previouspage","tothepage","personalact","nextpagefeedback","displayimage"];
 
 function questionEditDelete(){
 	
@@ -9006,11 +9277,11 @@ function LunchPluginEdit(obj){
 		
 		p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 		p += ' onclick="closeEdit();" ';
-		p += 'class="validation noselectmouse" >Cancel</a>';
+		p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 		p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 		p += 'onclick="setSourcePlugin();closeEdit();" ';
-		p += 'class="btnSave noselectmouse" >Save</a>';
+		p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 		p += '</div>';
 		
@@ -9046,11 +9317,11 @@ function LaunchInputEdit(obj){
 
 		p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 		p += ' onclick="closeEdit();" ';
-		p += 'class="validation noselectmouse" >Cancel</a>';
+		p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 		p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 		p += 'onclick="setSourceInput();closeEdit();" ';
-		p += 'class="btnSave noselectmouse" >Save</a>';
+		p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 		p += '</div>';
 		
@@ -9089,11 +9360,11 @@ function tcmEditZone(){
 	
 	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="setSourceTcm();closeEdit();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
@@ -9140,11 +9411,11 @@ function lcmEditZone(){
 
 	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="ajustLcmZone();closeEdit();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
@@ -9165,7 +9436,8 @@ function actionEdit(){
 	
 	p += '<br>';
 	
-	p += '<p>&nbsp;Button&nbsp;Text&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	p += '<p id="actionTextPara" >&nbsp;Button&nbsp;Text;';
+	p += '&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	
 	p += '<input id="actionedittext" type="text" style="width:190px;" ';
 	p += ' class="css-input" onchange="setSourceButton();"  ';
@@ -9186,15 +9458,17 @@ function actionEdit(){
 	
 	p += '<a onClick="actionspersoShow();" class="actionSelectPersoBtn" ></a>';
 	
+	p += '<a onClick="showSelImgDisplayImg();" class="actionSelectFileImage" ></a>';
+
 	p += '</p>';
 	
 	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 	
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="closeEdit();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
@@ -9225,11 +9499,11 @@ function objectEditId(){
 
 	p += '<a style="position:absolute;left:15px;bottom:15px;" '; 
 	p += ' onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 	p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 	p += 'onclick="saveEditIdCssFormat();closeEdit();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 
 	p += '</div>';
 	
@@ -9569,6 +9843,7 @@ $(function(){
 	
 	contextInstall($('body'));
 	contextInstall($('.canvas-container'));
+	//contextInstall($('canvas'));
 	
 	$('#g-block').contextPopup({
 	  title: 'Open eLearning',
@@ -9589,6 +9864,10 @@ $(function(){
 	//var Dropzone = require("dropzone");
 	
 });
+
+setTimeout(function(){
+	contextScreenInstall($('.global-block'));
+},1000);
 
 function contextInstall(objMenu){
 	
@@ -9637,6 +9916,21 @@ function contextInstall(objMenu){
 			showEditDelete();
 		}}
 	  ]
+	});
+
+}
+
+function contextScreenInstall(objMenu){
+
+	objMenu.contextPopup({
+		title: 'Open eLearning',
+		items: [
+		  {label:'Edit',
+		  icon:'img/icons/edit.png',
+		  action:function(){
+			reOrdonne();
+		  }}
+		]
 	});
 
 }
@@ -9793,6 +10087,7 @@ var kCodeCmdKey = 91;
 var kCodeVKey = 86;
 var kCodeRKey = 82;
 var kCodeCKey = 67;
+var kCodeSKey = 83;
 var kCodeDelete = 46;
 
 $(document).keyup(function(e){
@@ -9825,20 +10120,24 @@ function catchEventTouchs(){
 function processKeyEventCatch(event){
 
 	if(typeof event==="undefined"){return false;}
+
+	if(event.keyCode == kCodeCtrlKey||event.keyCode == kCodeCmdKey){
+		ctrlDownTouch = true;
+	}
+
+	if(ctrlDownTouch && event.keyCode == kCodeSKey){
+		saveCommand();
+	}
+
 	if(GlobalUid==-1){return false;}
 
 	var LudiObj = CLudis[GlobalUid];
 	var haveMv = false;
 	
 	console.log("keyCode = " + event.keyCode);
-
-	if(event.keyCode == kCodeCtrlKey||event.keyCode == kCodeCmdKey){
-		ctrlDownTouch = true;
-	}
 	
 	if(ctrlDownTouch && event.keyCode == kCodeRKey){
 		// Bubbles Mode
-		
 	}
 
 	if(ctrlDownTouch && event.keyCode == kCodeCKey){
@@ -9850,6 +10149,7 @@ function processKeyEventCatch(event){
 	if(event.keyCode == kCodeDelete){
 		actionDelete();
 	}
+
 	if(event.keyCode == 37&&oneTimeOnlyTouch) {
 		LudiObj.x = LudiObj.x - 1;
 		haveMv = true;
@@ -9886,7 +10186,6 @@ function processKeyEventCatch(event){
 	}
 
 }
-
 
 var timeWplace = 300;
 var oldWidthCanvas = 0;
