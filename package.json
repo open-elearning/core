@@ -14,7 +14,7 @@
   "author": "OpenElearning",
   "license": "GPL V3",
   "devDependencies": {
-    "electron": "^8.2.5",
+    "electron": "^11.5.0",
     "electron-packager": "^14.2.1",
     "electron-rebuild": "^1.10.1"
   },
