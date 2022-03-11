@@ -82,9 +82,10 @@ function init(nameVersion){
 				global.sharedLogs.logs += 'plugins init done !<br>';
 			});
 
-			deleteFileDeleteLink(getfWf("finalHtml") + 'scormchamilo.js')
-			deleteFileDeleteLink(getfWf("finalHtml") + 'scormmoodle.js')
-			deleteFileDeleteLink(getfWf("finalHtml") + 'scormmoodle-v1.js')
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormchamilo.js');
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormmoodle.js');
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormclaroline.js')
+			deleteFileDeleteLink(getfWf("finalHtml") + 'scormmoodle-v1.js');
 		}
 		
 		ncp(serv + "app/launchOverview", getfWf("finalHtml"), function (err) {
@@ -325,6 +326,7 @@ exports.loadDataDist = loadDataDist;
 function listOfInterface(){
 	loadInterface('chamilo');
 	loadInterface('moodle');
+	loadInterface('chamilo');
 }
 
 function loadInterface(intef){
@@ -600,6 +602,7 @@ function deleteFileDeleteLink(filepath) {
 	}
 
 }
+exports.deleteFileDeleteLink = deleteFileDeleteLink;
 
 function deleteExtracts(name){
 	var fs = require('fs');

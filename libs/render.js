@@ -105,7 +105,8 @@ function generateHtmlSecondPass(){
 	console.log('CYCLE RENDER 2 ');
 
 	generateJs();
-	
+	prepareFileStockProcess();
+
 	var fd = global.fd;
 	
 	var easyfile =  require('./easyfile')
@@ -133,7 +134,8 @@ function generateHtmlSecondPass(){
 		fxml += '<d>';
 		fxml += '<transition><data><![CDATA[Direct]]></data></transition>';
 		fxml += '<pq><d>1</d></pq>';
-
+		fxml += '<param><d>flatright</d></param>';
+		
 		var PtypePage = new Array();
 		var Pitems = new Array();
 		var Pback = new Array();
@@ -166,10 +168,13 @@ function generateHtmlSecondPass(){
 			
 			if(oneScreenOnly){
 				if(obj.screen!=''){
+					/*
 					var fnamScreen = obj.screen.trim();
 					var pinitScreen = easyfile.getfWf("assets") + fnamScreen;
 					var ptargetScreen = pathFinalHtml + 'images' + fd + fnamScreen;
 					copyFileImg(pinitScreen,ptargetScreen);
+					*/
+					copyImageToRender(obj.screen,pathFinalHtml);
 					extraScript = '$("body").css("background-image","url(images/' + fnamScreen + ')");';
 				}
 				oneScreenOnly = false;
@@ -218,21 +223,14 @@ function generateHtmlSecondPass(){
 			
 			renderbase.renderBaseProcess(objLudi,pathFinalHtml + 'data');
 			
-			if(objLudi.type=='img'){
-
-				var fnam = objLudi.text6.replace(/^.*[\\\/]/,'');
-				fnam = fnam.trim();
-				var pinit = pathF.join(easyfile.getfWf("assets"),fnam);
-				
-				if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
-					fnam = fnam + '.jpg';
-				}
-				var ptarget = pathFinalHtml + 'images' + fd + fnam;
-				copyFileImg(pinit,ptarget);
-
+			if (objLudi.type=='img') {
+				copyImageToRender(objLudi.text6,pathFinalHtml);
 			}
-			
-			if(objLudi.type=='speech'){
+			if (objLudi.type=='button'||objLudi.type=='buttonarea') {
+				copyImageToRender(objLudi.actionData,pathFinalHtml);
+			}
+
+			if (objLudi.type=='speech') {
 				var fnam = 'bullebase' + renderobjs.rJtext(objLudi.val)+ '.png';
 				var pInitS = pathF.join(easyfile.getfWf("assets") + '/bulle/',fnam.trim());
 				var pTargS = pathFinalHtml + 'images' + fd + fnam.trim();
@@ -325,7 +323,205 @@ function generateHtmlSecondPass(){
 	
 }
 
-function generateHtmlThirdPass(renderHtml,fxml){
+function prepareFileStockProcess() {
+
+	var easyfile =  require('./easyfile')
+	var fs = require('fs');
+	var pathFinalHtml = easyfile.getfWf("finalHtml");
+
+	var dataTxt = global.sharedObj.stockfiles;
+	var dataTxta = dataTxt.split("@");
+	
+	var i = 0;
+	for (i = 0; i < dataTxta.length; i++) {
+		var lineRow = dataTxta[i];
+		if (lineRow!='') {
+			var rowTxta = lineRow.split("|");
+			if (rowTxta.length>1) {
+				var clue1 = rowTxta[0].replace(' ','');
+				var clue2 = rowTxta[1].replace(' ','').toLowerCase();
+				if (clue1!=''&&clue1!=' ') {
+					var pthEf = easyfile.getfWf("stockfiles") + clue1;
+					if (isFileImage(pthEf)) {
+						copyImgDataToRend(pthEf,pathFinalHtml);
+					}
+					if (clue2=='extract') {
+						if (isFileZip(pthEf)) {
+							copyZipDataToRend(pthEf,pathFinalHtml + 'data' + fd);
+						}
+					}
+					if (clue2=='plugin'||clue2=='plugins') {
+						if (isFileZip(pthEf)) {
+							copyZipDataToRend(pthEf,easyfile.getfWf("plugins") + fd);
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+}
+exports.prepareFileStockProcess = prepareFileStockProcess;
+
+function copyImageToRender(srcF,pathFinalHtml) {
+	
+	var easyfile =  require('./easyfile')
+	var fs = require('fs');
+	var fnam = srcF.replace(/^.*[\\\/]/,'');
+	fnam = fnam.trim();
+	var pinit = pathF.join(easyfile.getfWf("assets"),fnam);
+	if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
+		fnam = fnam + '.jpg';
+	}
+	var ptarget = pathFinalHtml + 'images' + fd + fnam;
+	copyFileImg(pinit,ptarget);
+
+}
+
+function copyImgDataToRend(srcF,pathFinalHtml) {
+	
+	var easyfile =  require('./easyfile')
+	var fs = require('fs');
+	var fnam = srcF.replace(/^.*[\\\/]/,'');
+	fnam = fnam.trim();
+	if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
+		fnam = fnam + '.jpg';
+	}
+	var ptarget = pathFinalHtml + 'data' + fd + fnam;
+	copyFileImg(srcF,ptarget);
+
+}
+
+//Extract all
+function copyZipDataToRend(srcF,pathFinalHtml) {
+	
+	var easyfile =  require('./easyfile')
+	var fs = require('fs');
+	var fnam = srcF.replace(/^.*[\\\/]/,'');
+	fnam = fnam.trim();
+	
+	var ptarget = pathFinalHtml;
+	
+	fs.readFile(srcF,function read(err, zipBuffer) {
+		
+		console.log('-- extract ZIP:' + srcF);
+		
+		var zip = new require('node-zip')(zipBuffer,{base64:false,checkCRC32:true})
+		var listfile = zip.files;
+		
+		console.log(listfile);
+
+		//Folder only
+		for (var key in listfile) {
+			var fnamzip = key;
+			if (isFolderStr(fnamzip)) {
+				var foldernam = fnamzip.replace(/\//,'@');
+				foldernam = foldernam.replace(/\//,'@');
+				foldernam = foldernam.replace(/\//,'@');
+				foldernam = foldernam.replace('/','@');
+				foldernam = foldernam.replace('/','@');
+				foldernam = foldernam.trim();
+				foldernam = foldernam + '@';
+				if (foldernam!='') {
+					var neofolder = ptarget;
+					var actfold = foldernam.split('@');
+					var i = 0;
+					for (i=0;i<actfold.length;i++) {
+						if (actfold[i]!='') {
+							neofolder += actfold[i];
+							if (!fs.existsSync(neofolder)) {
+								fs.mkdirSync(neofolder);
+							}
+							neofolder += fd;
+							console.log('neofolder - ' + neofolder);
+						}
+					}
+				}
+			}
+		}
+		
+		//Files only
+		for (var key in listfile) {
+
+			console.log('k - ' + key);
+
+			var fnamzip = key;
+			var dataFile = zip.files[fnamzip];
+			
+			if (typeof dataFile._data === "undefined") {
+				
+				console.log('-- data undefined :' + fnamzip);
+
+			} else {
+				
+				var bynaryFile = dataFile._data;
+				
+				if (fnamzip.indexOf('.html')!=-1 
+				||fnamzip.indexOf('.css')!=-1
+				||fnamzip.indexOf('.xml')!=-1
+				||fnamzip.indexOf('.txt')!=-1
+				||fnamzip.indexOf('.js')!=-1) {
+					easyfile.writeImg(ptarget + fnamzip,bynaryFile);
+				}
+				
+				if (fnamzip.indexOf('.jpg')!=-1
+				||fnamzip.indexOf('.jpeg')!=-1
+				||fnamzip.indexOf('.png')!=-1
+				||fnamzip.indexOf('.gif')!=-1
+				) {
+					easyfile.writeImg(ptarget + fnamzip,bynaryFile);
+				}
+				
+			}
+			
+		}
+
+	});
+
+}
+
+function isFileImage(srcF) {
+	var b = false;
+	if(srcF.indexOf('.jpg')!=-1
+	||srcF.indexOf('.gif')!=-1
+	||srcF.indexOf('.png')!=-1
+	||srcF.indexOf('.svg')!=-1){
+		b = true;
+	}
+	return b;
+}
+function isFileZip(srcF) {
+	var b = false;
+	if(srcF.indexOf('.zip')!=-1
+	||srcF.indexOf('.ZIP')!=-1){
+		b = true;
+	}
+	return b;
+}
+function isFolderStr(dataFile) {
+
+	var r = false;
+
+	if (dataFile.indexOf('/')!=-1) {
+		r = true;
+	}
+
+	dataFile = dataFile.toLowerCase();
+	if (dataFile.indexOf('.html')!=-1) {r = false;}
+	if (dataFile.indexOf('.txt')!=-1) {r = false;}
+	if (dataFile.indexOf('.css')!=-1) {r = false;}
+	if (dataFile.indexOf('.js')!=-1) {r = false;}
+	if (dataFile.indexOf('.xml')!=-1) {r = false;}
+	if (dataFile.indexOf('.jpg')!=-1) {r = false;}
+	if (dataFile.indexOf('.jpeg')!=-1) {r = false;}
+	if (dataFile.indexOf('.png')!=-1) {r = false;}
+	if (dataFile.indexOf('.gif')!=-1) {r = false;}
+
+	return r;
+}
+
+function generateHtmlThirdPass(renderHtml,fxml) {
 	
 	console.log('CYCLE RENDER 3 ');
 
@@ -363,7 +559,7 @@ function generateHtmlThirdPass(renderHtml,fxml){
 	
 }
 
-function getParamsValue(keystr){
+function getParamsValue(keystr) {
 
 	let returnValue = "";
 
@@ -384,8 +580,7 @@ function getParamsValue(keystr){
 
 }
 
-
-function generateJs(){
+function generateJs() {
 
 	var fd = global.fd;
 	var easyfile =  require('./easyfile')
@@ -437,10 +632,11 @@ function generateJs(){
 				codeSP = codeSP.replace("onZoom(",idname + "OnZoom(");
 				codeSP = codeSP.replace("isOK(",idname + "IsOK(");
 				
-				codeSP = codeSP.replace("viewResults(", idname + "ViewResults(");
-				codeSP = codeSP.replace("sendObjMemory(", idname + "SendObjMemory(");
-				codeSP = codeSP.replace("retrieveObjMemory(", idname + "RetrieveObjMemory(");
-				codeSP = codeSP.replace("viewErrors(", idname + "ViewErrors(");
+				codeSP = codeSP.replace("function viewResults(","function " +  idname + "ViewResults(");
+				codeSP = codeSP.replace("function sendObjMemory(","function " +  idname + "SendObjMemory(");
+				codeSP = codeSP.replace("function retrieveObjMemory(","function " +  idname + "RetrieveObjMemory(");
+				codeSP = codeSP.replace("function viewErrors(","function " + idname + "ViewErrors(");
+				codeSP = codeSP.replace("function ViewErrors(","function " + idname + "ViewErrors(");
 				
 				if(codeSP.indexOf("WordFindGame")!=-1){
 					console.log('-- WordFindGame stop ! =>' + idname);
@@ -502,7 +698,7 @@ function generateJs(){
 
 }
 
-function generateCss(){
+function generateCss() {
 	
 	var fd = global.fd;
 	var easyfile =  require('./easyfile')
@@ -544,7 +740,7 @@ function generateCss(){
 	
 }
 
-function copyFileImg(src,dest){
+function copyFileImg(src,dest) {
 	
 	var fs = require('fs');
 	

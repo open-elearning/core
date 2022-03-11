@@ -133,24 +133,8 @@ function renderDom(ob,p){
 			fxml += "<fontsize>18</fontsize>";
 		}
 
-		var actJs = "";
-		if(ob.data=="DS"){
-			actJs = ' onClick="LUDI.nextPage()" ';
-		}
-		if(ob.data=="DP"&&p>0){
-			actJs = ' onClick="LUDI.prevPage()" ';
-		}
-		if(ob.data=="DK"){
-			actJs = ' onClick="LUDI.nextPageIsOK()" ';
-		}
-		if(ob.data=="GO"){
-			actJs = ' onClick="LUDI.goPage(' + pInt(ob.val) + ')" ';
-		}
-		if(ob.data=="AP"){
-			var scriptVal = strReplaceZ("'","&apos;",ob.text4)
-			actJs = ' onClick="' + scriptVal + '" ';
-		}
-		
+		var actJs = calculActionJs(ob,p);
+
 		fxml += '<text><![CDATA[<div ' + actJs;
 		fxml += 'style="position:absolute;top:50%;margin-top:-15px;';
 		fxml += 'line-height:30px;height:30px;left:0%;right:0%;" ';
@@ -231,7 +215,9 @@ function renderText(ob,p){
 		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
 		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
 
-		fxml += '<tx><![CDATA[' + rJtext(ob.text) +']]></tx>';
+		var txtEdit = strReplace("data-ref=","href=",ob.text);
+		fxml += '<tx><![CDATA[' + rJtext(txtEdit) +']]></tx>';
+
 		fxml += "<align>LeftTop</align>";
 		if(ob.fontSize){
 			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
@@ -387,6 +373,36 @@ function renderQcm(ob,p,typePage){
 				nbelement++;
 			}
 		}
+		if(ob.text6){
+			if(ob.text6!=''){
+				if(ob.val6==1){
+					src += ';*' + rJtextCmq(ob.text6);
+				}else{
+					src += ';' + rJtextCmq(ob.text6);
+				}
+				nbelement++;
+			}
+		}
+		if(ob.text7){
+			if(ob.text7!=''){
+				if(ob.val7==1){
+					src += ';*' + rJtextCmq(ob.text7);
+				}else{
+					src += ';' + rJtextCmq(ob.text7);
+				}
+				nbelement++;
+			}
+		}
+		if(ob.text8){
+			if(ob.text8!=''){
+				if(ob.val8==1){
+					src += ';*' + rJtextCmq(ob.text8);
+				}else{
+					src += ';' + rJtextCmq(ob.text8);
+				}
+				nbelement++;
+			}
+		}
 		
 		calculH = nbelement * 45;
 		
@@ -451,6 +467,8 @@ function renderImages(ob,p){
 		
 		fxml += "<src><![CDATA[images/" + filename + " ]]></src>";
 		
+		fxml += calculActionObj(ob,p);
+
 		fxml += "<an>" + ob.anim + "</an><de>0</de>";
 		
 		fxml += "<fontsize>20</fontsize>";
@@ -486,7 +504,6 @@ function renderOverLaw(typePage,p){
 	fxml += "<w2>962</w2>";
 	fxml += "<h2>722</h2>";
 
-
 	fxml += '<tx></tx>';
 	fxml += "<align>LeftCenter</align>";
 	let filename = "comic-0" + typePage + ".png";
@@ -508,18 +525,27 @@ function renderButton(ob,p,typePage){
 	
 	var fxml = '';
 	
-	if(ob.type=='button'){
+	if(ob.type=='button'||ob.type=='buttonarea'||ob.type=='gamezoneaction'){
 		
 		fxml += '<bloc>';
 		
 		var tb = parseInt(ob.text6);
 		
-		if(tb==4||tb==5){
-			fxml += '<type>btncirculaire</type>';
+		if(ob.type=='gamezoneaction'){
+			fxml += '<type>gamezoneaction</type>';
+			tb = 6;
 		}else{
-			fxml += '<type>button</type>';
+			if(ob.type=='buttonarea'){
+				fxml += '<type>buttonarea</type>';
+				tb = 6;
+			}else{
+				if(tb==4||tb==5){
+					fxml += '<type>btncirculaire</type>';
+				}else{
+					fxml += '<type>button</type>';
+				}
+			}
 		}
-		
 		fxml += '<id></id>';
 		fxml += "<x>" + pInt(pInt(ob.x)+3) + "</x>";
 		fxml += "<y>" + pInt(pInt(ob.y)+3) + "</y>";
@@ -531,19 +557,22 @@ function renderButton(ob,p,typePage){
 		fxml += "<w2>" + pInt(pInt(ob.w2)-6) + "</w2>";
 		fxml += "<h2>" + pInt(pInt(ob.h2)-6) + "</h2>";
 
-		if(tb==4||tb==5||tb==6){
-			if(tb==4){
-				fxml += "<tx><![CDATA[next]]></tx>";
-			}
-			if(tb==5){
-				fxml += "<tx><![CDATA[prev]]></tx>";
-			}
-			if(tb==6){
-				fxml += "<tx><![CDATA[(invisible)]]></tx>";
-			}
-			
+		if(ob.type=='gamezoneaction'){
+			fxml += "<tx><![CDATA[data/zone-blue.png]]></tx>";
 		}else{
-			fxml += "<tx><![CDATA[" + rJtext(ob.text) + "]]></tx>";
+			if(tb==4||tb==5||tb==6){
+				if(tb==4){
+					fxml += "<tx><![CDATA[next]]></tx>";
+				}
+				if(tb==5){
+					fxml += "<tx><![CDATA[prev]]></tx>";
+				}
+				if(tb==6){
+					fxml += "<tx><![CDATA[(invisible)]]></tx>";
+				}
+			}else{
+				fxml += "<tx><![CDATA[" + rJtext(ob.text) + "]]></tx>";
+			}
 		}
 		
 		if(tb==2){
@@ -565,32 +594,7 @@ function renderButton(ob,p,typePage){
 		
 		fxml += "<contenu5>1</contenu5>";
 		
-		if(ob.data=="DS"){
-			fxml += "<url>data/page" + pInt(pInt(p)+1) + ".xml</url>";
-			fxml += "<data></data>";
-		}
-		if(ob.data=="DP"&&p>0){
-			fxml += "<url>data/page" +  pInt(pInt(p)-1) + ".xml</url>";
-			fxml += "<data></data>";
-		}
-		if(ob.data=="DC"){
-			fxml += "<url>openCorrectSimple(" + pInt(pInt(p)+1) + ");</url>";
-			fxml += "<data></data>";
-		}
-		if(ob.data=="DK"){
-			fxml += "<url>data/page" + pInt(pInt(p)+1) + ".xml</url>";
-			fxml += "<data>isok</data>";
-		}
-		if(ob.data=="GO"){
-			fxml += "<url>data/page" + pInt(ob.val) + ".xml</url>";
-			fxml += "<data></data>";
-		}
-		if(ob.data=="AP"){
-			fxml += "<st>";
-			fxml += "<![CDATA[onMouseDown=\"" + rJtext(ob.text4) + "\"]]>";
-			fxml += "</st>";
-			fxml += "<data></data>";
-		}
+		fxml += calculActionObj(ob,p);
 		
 		fxml += "<an>" + pInt(ob.anim) + "</an><de>0</de>";
 		
@@ -598,10 +602,14 @@ function renderButton(ob,p,typePage){
 		
 		fxml += "<page>" + p + "</page>";
 		
-		if(typePage==0){
-			fxml += "<ind>2</ind>";
-		}else{
-			fxml += "<ind>4</ind>";
+		if (ob.type=='gamezoneaction') {
+			fxml += "<ind>1</ind>";
+		} else {
+			if(typePage==0){
+				fxml += "<ind>2</ind>";
+			}else{
+				fxml += "<ind>4</ind>";
+			}
 		}
 		
 		fxml += "</bloc>";
@@ -612,6 +620,80 @@ function renderButton(ob,p,typePage){
 	
 }
 exports.renderButton = renderButton;
+
+function calculActionObj(ob,p){
+	
+	var fxml = "";
+
+	if(ob.actionVal=="DS"){
+		fxml += "<url>data/page" + pInt(pInt(p)+1) + ".xml</url>";
+		fxml += "<data></data>";
+	}
+	if(ob.actionVal=="DP"&&p>0){
+		fxml += "<url>data/page" +  pInt(pInt(p)-1) + ".xml</url>";
+		fxml += "<data></data>";
+	}
+	if(ob.actionVal=="DC"){
+		fxml += "<url>openCorrectSimple(" + pInt(pInt(p)+1) + ");</url>";
+		fxml += "<data></data>";
+	}
+	if(ob.actionVal=="DK"){
+		fxml += "<url>data/page" + pInt(pInt(p)+1) + ".xml</url>";
+		fxml += "<data>isok</data>";
+	}
+	if(ob.actionVal=="GO"){
+		fxml += "<url>data/page" + pInt(ob.actionData) + ".xml</url>";
+		fxml += "<data></data>";
+	}
+	if(ob.actionVal=="AP"){
+		fxml += "<st>";
+		fxml += "<![CDATA[onMouseDown=\"" + rJtextScript(ob.actionData) + "\"]]>";
+		fxml += "</st>";
+		fxml += "<data></data>";
+	}
+	if(ob.actionVal=="AI"){
+		var filename = ob.actionData.replace(/^.*[\\\/]/,'');
+		filename = strReplace(' ','',filename);
+		fxml += "<url><![CDATA[";
+		fxml += "disImgToScr(0,\"" + filename + "\",\"black\");";
+		fxml += "]]></url>";
+		fxml += "<data></data>";
+	}
+
+	return fxml;
+
+}
+exports.calculActionObj = calculActionObj;
+
+function calculActionJs(ob,p){
+
+	var actJs = "";
+	if(ob.actionVal=="DS"){
+		actJs = ' onClick="LUDI.nextPage()" ';
+	}
+	if(ob.actionVal=="DP"&&p>0){
+		actJs = ' onClick="LUDI.prevPage()" ';
+	}
+	if(ob.actionVal=="DK"){
+		actJs = ' onClick="LUDI.nextPageIsOK()" ';
+	}
+	if(ob.actionVal=="GO"){
+		actJs = ' onClick="LUDI.goPage(' + pInt(ob.actionData) + ')" ';
+	}
+	if(ob.actionVal=="AP"){
+		var scriptVal = rJtextScript(ob.actionData);
+		actJs = ' onClick="' + scriptVal + '" ';
+	}
+	if(ob.actionVal=="AI"){
+		var filename = ob.actionData.replace(/^.*[\\\/]/,'');
+		filename = strReplace(' ','',filename);
+		actJs += ' onClick=\""disImgToScr(0,\'' + filename + '\',\'black\';\"" ';
+	}
+
+	return actJs;
+
+}
+exports.calculActionJs = calculActionJs;
 
 function renderVideo(ob,p){
 	
@@ -1410,11 +1492,42 @@ function rJtext(s){
 	s = strReplace("ZaposA",'"',s);
 	s = strReplace("'",'&apos;',s);
 	s = strReplace("!",'ZexclaA',s);
-	
+	s = strReplace("\\",'ZslashA',s);
+	s = strReplace("/",'ZdeslashA',s);
+	s = strReplace("{",'ZbrakA',s);
+	s = strReplace("}",'ZdebrakA',s);
 	return s;
 	
 }
 exports.rJtext = rJtext;
+
+function rJtextScript(s){
+	
+	if(typeof s==="undefined"){
+		s = '';
+	}
+	if(typeof s==='number'){
+		s = s.toString();
+	}
+	if(typeof s!=='number'){
+		if(typeof s!=='string'){
+			s = s.toString('utf8');
+		}
+	}
+	s = strReplace(";nLUDI.",";LUDI.",s);
+	s = strReplace(";n",";",s);
+	s = strReplace("u00f4","ô",s);
+	s = strReplace("u00e9","é",s);
+	s = strReplace("u00e8","è",s);
+	s = strReplace("u00e2","â",s);
+	s = strReplace("u2019","'",s);
+	s = strReplace("ZaposA",'"',s);
+	s = strReplace("'",'&apos;',s);
+	
+	return s;
+	
+}
+exports.rJtextScript = rJtextScript;
 
 function rJtextCmq(s){
 	
@@ -1443,7 +1556,6 @@ function rJtextCmq(s){
 	
 }
 exports.rJtextCmq = rJtextCmq;
-
 
 function extractNameImg(source){
 	

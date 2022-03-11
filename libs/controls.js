@@ -135,13 +135,13 @@ function exec(event,data){
 					name: 'file',extensions: ['openelearning']
 				}]
 			});
-
+			filepath = cleanString(filepath);
 			if(filepath.indexOf(".openelearning")==-1){
 				if(filepath!=''){
 					filepath = filepath + ".openelearning";
 				}
 			}
-
+			
 			if(filepath!=''){
 				console.log("save:ok path:" + filepath);
 				ctropenfile.addRecentFile(filepath);
@@ -192,6 +192,23 @@ function exec(event,data){
 	
 	if(data.key=='uploadfile'){
 		ctrimport.uplfiles(event,data);
+	}
+
+	if(data.key=='uploadfilebyplugin'){
+
+		var path = data.filenam;
+		
+		if(fs.existsSync(path)){
+		    if (path === undefined) return;
+			var nameF = extractNameImg(path);
+			nameF = nameF.replace(".js",".txt");
+			var ptarget = easyfile.getfWf("stockfiles") + nameF;
+			console.log("embeded path:" + path);
+			console.log("embeded ptarget:" + ptarget);
+			copyFileImg(path,ptarget);
+			global.sharedObj.stockfiles = global.sharedObj.stockfiles +  nameF + '|@';
+		}
+
 	}
 	
 	if(data.key=='uploadimage'){
@@ -345,10 +362,11 @@ function saveAll(filename){
 	var srcAssets = easyfile.getfWf("assets");
 	
 	var listfile =  '';
-	
-	zip.file('openelearning.txt', 'v1');
+
+	zip.file('openelearning.txt', 'v149');
 	zip.file('extracode.txt', global.sharedObj.extracode);
 	zip.file('extracodecss.txt', global.sharedObj.extracodecss);
+	zip.file('stockfiles.txt', global.sharedObj.stockfiles);
 	//console.log("extracode:" + global.sharedObj.extracode);
 	
 	var file = [];
@@ -474,7 +492,42 @@ function saveAll(filename){
 		}
 		
 	}
-	
+
+	//Embeded files
+	if (global.sharedObj.stockfiles!='') {
+
+		var dataTxt = global.sharedObj.stockfiles;
+		var dataTxta = dataTxt.split("@");
+		
+		for (i = 0; i < dataTxta.length; i++) {
+			var lineRow = dataTxta[i];
+			if(lineRow!=''){
+				var rowTxta = lineRow.split("|");
+				if(rowTxta.length>1){
+					var clue1 = rowTxta[0].replace(' ','');
+					if(clue1!=''&&clue1!=' '){
+						var ptarget = easyfile.getfWf("stockfiles") + clue1;
+						if(fs.existsSync(ptarget)){
+							try {
+								var srcDataMedia = fs.readFileSync(ptarget);
+								listfile = listfile + clue1 + ';';
+								console.log('inc:' + clue1);
+								zip.file(clue1.trim(),srcDataMedia);//, {binary:false}
+							}catch(err){
+								if(err.code==='ENOENT'){
+									
+								}
+								console.log('err:' + err.code + ' ' + fnamMedia);
+							}
+						}
+					}
+				}
+			}
+		}
+
+
+	}
+
 	zip.file('listfile.txt',listfile);
 	
 	var data = zip.generate({base64:false,compression:'STORE'});
@@ -792,12 +845,7 @@ function getData(tmpFolder, url, callback) {
 
 function findNameMp4(source){
 	
-	if (typeof source === "undefined") {
-		source = '';
-	}
-	if(typeof source !== 'string'){
-		source = source.toString('utf8');
-	}
+	source = cleanString(source);
 	source = cleanNameParasits(source);
 	
 	var namsource = source.replace(/^.*[\\\/]/, '');
@@ -808,12 +856,7 @@ function findNameMp4(source){
 
 function findNameMp3(source){
 	
-	if (typeof source === "undefined") {
-		source = '';
-	}
-	if(typeof source !== 'string'){
-		source = source.toString('utf8');
-	}
+	source = cleanString(source);
 	source = cleanNameParasits(source);
 	
 	var namsource = source.replace(/^.*[\\\/]/, '');
@@ -824,12 +867,8 @@ function findNameMp3(source){
 
 function findNameZIP(source){
 	
-	if (typeof source === "undefined") {
-		source = '';
-	}
-	if(typeof source !== 'string'){
-		source = source.toString('utf8');
-	}
+	source = cleanString(source);
+	
 	source = replaceAll(source,'-','o');
 	source = replaceAll(source,' ','o');
 	
@@ -837,6 +876,16 @@ function findNameZIP(source){
 	var nam = 'aaoel' + namsource;
 	
 	return nam;
+}
+
+function cleanString(source){
+	if (typeof source === "undefined") {
+		source = '';
+	}
+	if(typeof source !== 'string'){
+		source = source.toString('utf8');
+	}
+	return source;
 }
 
 function cleanNameParasits(source){
@@ -856,6 +905,8 @@ function cleanNameParasits(source){
 
 function extractNameImg(source){
 	
+	source = cleanString(source);
+
 	var nam = source.replace(/^.*[\\\/]/, '');
 	
 	var ext = "";
