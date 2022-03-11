@@ -1,0 +1,19 @@
+
+.switchthree{
+	position: absolute;
+	border: medium none;
+	cursor:pointer;
+	background: #D8D8D8;
+}
+
+.switchboule{
+	position: absolute;
+	background: none repeat scroll 0 0 #fff;
+    box-shadow: 0 2px 5px #999999;
+    content: " ";
+    left: 5px;
+    position: absolute;
+    top: 5px;
+    transition-duration: 300ms;
+    z-index: 2;
+}
