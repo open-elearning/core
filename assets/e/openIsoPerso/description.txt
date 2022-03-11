@@ -1,0 +1,1 @@
+Allows you to install a route for the serious game tutorial.

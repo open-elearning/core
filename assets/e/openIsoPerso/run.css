@@ -1,0 +1,24 @@
+
+.talk-bubble-right{
+	background-image:url("../data/circle.png");
+	background-position:center center;
+	background-size:100% 100%;
+	background-size:cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.talkVideo{
+	position:absolute;
+	left:3.3%;
+	top:3.8%;
+	right:3.1%;
+	bottom:3.6%;
+	border:solid 1px gray;
+	border-radius:50%;
+	overflow:hidden;
+}
+
+

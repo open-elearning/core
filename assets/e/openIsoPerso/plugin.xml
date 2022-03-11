@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+	<version>1.0</version>
+
+	<properties>
+		<type>objet</type>
+		<id>openIsoPerso</id>
+		<title>openIsoPerso</title>
+		<category>gameiso</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>open-sprite.png</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>open-sprite-solo.png</screenImage>
+		<width>66</width>
+		<height>192</height>
+		<sizeText>18</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+</plugin>

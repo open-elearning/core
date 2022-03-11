@@ -1,0 +1,81 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Forms</title>
+	<link rel="stylesheet" href="bootstrap.min.css" />
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="row">
+		  
+		  <div class="col-sm-6" >
+			<form>
+				<div class="form-group">
+				<br>
+					<label for="f1" >Skin image :</label>
+					<input type="text" class="form-control" id="f1" >
+				</div>
+			</form>
+		  </div>
+		  
+		  <div class="col-sm-6" >
+			<form>
+				<div class="form-group">
+				<br><br>
+					<img src="icon.png" />
+				</div>
+			</form>
+		  </div>
+		
+		</div>
+		
+	</div>
+
+	<textarea id="finalcode" style="display:none;" ></textarea>
+	
+<script>
+
+	var out = document.getElementById("finalcode");
+	
+	function init(){
+		
+		var str = '';
+		if(str==''&&out.value!=''){
+			str=out.value + '||||||||||';
+		}else{
+			setTimeout(function(){init();},300);
+			return false;
+		}
+		
+		var r = str.split('|');
+		
+		if(r.length>2){
+			document.getElementById("f1").value = r[0];
+		}
+		
+		main();
+		
+	}
+	
+	function main(){
+		
+		var f1 = document.getElementById("f1").value;
+		var f = f1 + '|||||||';
+		
+		out.value = f;
+		
+		setTimeout(function(){main();},200);
+	
+	}
+	
+	setTimeout(function(){
+		init();
+	},300);
+		
+</script>
+
+</body>
+</html>
