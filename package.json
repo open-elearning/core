@@ -1,7 +1,7 @@
 {
   "name": "openelearning",
   "productName": "OpenElearning",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "OpenElearning Authoring Tools For eLearning",
   "main": "main.js",
   "private": true,
