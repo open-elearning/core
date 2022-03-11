@@ -34,19 +34,19 @@
 <body>
 	
 	<div id="topmenu" class="nosel" style="position:fixed;z-index:99;left:0px;top:0px;right:0px;" >
-	
+		
 		<nav data-role="ribbonmenu">
 			
 			<ul class="tabs-holder">
 				<li class="static" style="background-color:#5FB404;" >
 				<a id="menuFile" onClick="ludiCssNoPan('menu-vertical');" href="#">File</a></li>
-				<li class="active"><a id="menuMain" href="#section_main">Main</a></li>
-				<li><a id="menuQuestions"  href="#section_questions">Questions</a></li>
-				<li><a id="menuGame"  href="#section_game">Game</a></li>
-				<li><a id="menuData"  href="#section_data">Data</a></li>
-				<li><a id="menuProcess"  href="#section_process">Process</a></li>
-				<li><a id="menuGraphics"  href="#section_graphics">Graphics</a></li>
-				<li id="GlobalMenuFormat" style="display:none;" >
+				<li class="active" onmousedown="hookChangeTabs();" ><a id="menuMain" href="#section_main">Main</a></li>
+				<li><a id="menuQuestions" onmousedown="hookChangeTabs();" href="#section_questions">Questions</a></li>
+				<li><a id="menuGame" onmousedown="hookChangeTabs();" href="#section_game">Game</a></li>
+				<li><a id="menuData" onmousedown="hookChangeTabs();" href="#section_data">Data</a></li>
+				<li><a id="menuProcess" onmousedown="hookChangeTabs();" href="#section_process">Process</a></li>
+				<li><a id="menuGraphics" onmousedown="hookChangeTabs();" href="#section_graphics">Graphics</a></li>
+				<li id="GlobalMenuFormat" onmousedown="hookChangeTabs();" style="display:none;" >
 				<a id="menuFormat" style="color:rgb(182, 63, 144);" href="#section_format" >Format</a></li>
 			</ul>
 			
@@ -135,6 +135,8 @@
 								</span>
 								<span id="labelDomtext" class="caption">Dom</span>
 							</button>
+							
+							
 
 						</div>
 
@@ -195,7 +197,7 @@
 							<span class="icon">
 								<img src="editor/metro/img/qcm.png">
 							</span>
-							<span id="labelMcq" class="caption">&nbsp;&nbsp;&nbsp;MCQ&nbsp;&nbsp;&nbsp;</span>
+							<span id="labelMcq" class="caption">&nbsp;&nbsp;&nbsp;Quiz&nbsp;&nbsp;&nbsp;</span>
 						</button>
 					
 						<div class="group-divider"></div>
@@ -213,7 +215,7 @@
 							<span class="icon">
 								<img src="editor/metro/img/lcm.png">
 							</span>
-							<span class="caption">&nbsp;&nbsp;MCL&nbsp;&nbsp;</span>
+							<span id="labelMcl" class="caption">&nbsp;&nbsp;MCL&nbsp;&nbsp;</span>
 						</button>
 					
 						<div class="group-divider"></div>
@@ -225,7 +227,7 @@
 							<span id="labelInput" class="caption">&nbsp;&nbsp;Input&nbsp;&nbsp;</span>
 						</button>
 						
-						<div class="group-divider"></div>
+						<div id="addPluginsQuestions" class="group-divider"></div>
 						
 						<button onClick="ajoutLudiVariable();" class="ribbon-button">
 							<span class="icon">
@@ -234,7 +236,7 @@
 							<span class="caption">&nbsp;&nbsp;Variable&nbsp;&nbsp;</span>
 						</button>
 						
-						<div id="addPluginsQuestions" class="group-divider"></div>
+						<div class="group-divider"></div>
 					
 						<span class="title"><span class="menuQuestions" >Questions</span> tools</span>
 						
@@ -249,7 +251,7 @@
 					
 						<button onClick="ajoutLudiLIFE();" class="ribbon-button">
 							<span class="icon">
-								<img src="editor/metro/img/life.png">
+								<img src="editor/metro/img/life.png" />
 							</span>
 							<span id="labelLife" class="caption">&nbsp;&nbsp;&nbsp;Life&nbsp;&nbsp;&nbsp;</span>
 						</button>
@@ -258,18 +260,27 @@
 						
 						<button onClick="ajoutLudiPENDU();" class="ribbon-button">
 							<span class="icon">
-								<img src="editor/metro/img/hangman.png">
+								<img src="editor/metro/img/hangman.png" />
 							</span>
 							<span id="labelHangedMan" class="caption">&nbsp;&nbsp;Hangman&nbsp;&nbsp;</span>
 						</button>
-					
+						
 						<div class="group-divider"></div>
 						
-						<button onClick="ajoutLudiPENDU();" class="ribbon-button">
+						<button onClick="ajoutLudiActiveZone();" class="ribbon-button">
 							<span class="icon">
-								<img src="editor/metro/img/zonearea.png">
+								<img src="editor/metro/img/zonearea.png" />
 							</span>
 							<span id="labelActiveZone" class="caption">&nbsp;Active&nbsp;zone&nbsp;</span>
+						</button>
+
+						<div class="group-divider"></div>
+						
+						<button onClick="$('#pann-isometric').toggle();" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/isometric.png" />
+							</span>
+							<span id="labelActiveZone" class="caption">&nbsp;Isometric&nbsp;</span>
 						</button>
 
 						<div id="addPluginsGame" class="group-divider"></div>
@@ -298,15 +309,25 @@
 							</span>
 							<span id="labelScoreTable" class="caption">&nbsp;Score&nbsp;table&nbsp;</span>
 						</button>
-
+						
 						<button onClick="ajoutLudiDATATABLE();" class="ribbon-button" >
 							<span class="icon">
 								<img src="editor/metro/img/base.png" >
 							</span>
 							<span id="labelBase" class="caption">&nbsp;&nbsp;&nbsp;Base&nbsp;&nbsp;&nbsp;</span>
 						</button>
-
+						
+						<button onClick="launchCustomFilesEditZone();" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/icon-files-embeded.png" >
+							</span>
+							<span id="labelBase" class="caption">&nbsp;&nbsp;Embedded&nbsp;files&nbsp;&nbsp;</span>
+						</button>
+						
 						<span class="title"><span class="menuData" >Data</span></span>
+
+
+
 
 					</div>
 				
@@ -418,8 +439,14 @@
 	
 	<div class="menu-ecran" ></div>
 	
-	<div id="pann-extensions" class="pann-extensions pan" style="display:none" >
-	
+	<div id="pann-extensions" class="pann-extensions pan noselectmouse" >
+	</div>
+
+	<div id="pann-isometric" class="pann-isometric pan noselectmouse" >
+		<div class="pann-isometric-title" >3D avatar</div>
+		<div class="pann-isometric-avatars" ></div>
+		<div class="pann-isometric-title" >Action area</div>
+		<div class="pann-isometric-zone" ></div>
 	</div>
 
 	<div id="opacedit" onClick="closeEdit();" class="opacedit pan" ></div>
@@ -496,7 +523,7 @@
 		</li>
 		<li class="mv-item">
 			<a id="exportBtnStyle" 
-			onMouseUp="launchCodeEditZoneCss();" >Custom Code Style</a>
+			onMouseUp="launchCodeEditZoneCss();" >Custom code Style</a>
 		</li>
 	</ul>
 	
@@ -580,7 +607,7 @@
 		
 	</div>
 	
-	<div id="editgeneration" style="height:130px;" class="loadBase pan" >
+	<div id="editgeneration" style="height:150px;" class="loadBase pan" >
 	
 		<div class="toolbar-w toolbar-header">
 			<h1 class="titlehead">Prepare files ...</h1>
@@ -589,25 +616,34 @@
 		<center>
 			<p style="padding:2px;margin:2px;" >
 				<br/>
-				<b><span id="progressrendering" >...</span></b>
 			</p>
-			<img src="img/progress.gif" />
+			<img src="img/cube-oe.gif" />
 			<a style="display:none;" onClick="closeEdit();" class="validation lblcancel" >Cancel</a>
 		</center>
 	</div>
 	
-	<div id="initgeneration" style="height:130px;" class="loadBase pan" >
+	<div id="initgeneration" style="height:150px;" class="loadBase pan" >
+
+		<div class="toolbar-w toolbar-header">
+			<h1 class="titlehead">...</h1>
+		</div>
 		<center>
 			<p style="padding:2px;margin:2px;" >
 				<br/>
-				<b>Load ...</b>
 			</p>
-			<img src="img/progress.gif" />
+			<img src="img/cube-oe.gif" />
 		</center>
 	</div>
 	
-	<div id="barreGeneration" style="height:130px;" class="loadBase pan" >
+	<div id="barreGeneration" style="height:170px;" class="loadBase pan" >
+
+		<div class="toolbar-w toolbar-header">
+			<h1 class="titlehead">Prepare files ...</h1>
+		</div>
+
 		<center>
+			<br/>
+			<img src="img/cube-oe.gif" />
 			<div class="barreContain" >
 				<div class="barreProgress" >
 				</div>
@@ -622,53 +658,9 @@
 	
 	<script src="editor/js/class/cls-windows.js" ></script>
 	<script src="editor/js/class/cls-params.js" ></script>
-
-	<script src="editor/js/oel-interface.js"></script>
-	<script src="editor/js/oel-aaa-openelearning2017.js"></script>
-	<script src="editor/js/oel-color-select.js"></script>
-	<script src="editor/js/oel-ajout-helpers.js"></script>
-	<script src="editor/js/oel-fonctions.js" ></script>
-
-	<script src="editor/js/oel-app-large-process.js" ></script>
-	<script src="editor/js/oel-app.js" ></script>
-	<script src="editor/js/oel-app-keys.js" ></script>
-
-	<script src="editor/js/oel-svghelper.js" ></script>
-	<script src="editor/js/oel-page.js" ></script>
-	<script src="editor/js/oel-params.js" ></script>
-	
 	<script src="editor/js/class/cls-ludi.js" ></script>
-	<script src="editor/js/oel-ludi-render.js" ></script>
-	<script src="editor/js/oel-mp4-gestion.js" ></script>
-	<script src="editor/js/oel-mp3-gestion.js" ></script>
-	
-	<script src="editor/js/oel-windows.js" ></script>
-	<script src="editor/js/oel-windows-page-format.js" ></script>
-	<script src="editor/js/oel-windows-qcm.js" ></script>
-	
-	<script src="editor/js/oel-prop.js" ></script>
-	<script src="editor/js/oel-images-gestion.js" ></script>
-	<script src="editor/js/oel-extracode.js" ></script>
-	<script src="editor/js/oel-extra-files.js" ></script>
 
-	<script src="editor/js/oel-animaformat.js" ></script>
-	<script src="editor/js/oel-buttonformat.js" ></script>
-	<script src="editor/js/oel-database.js" ></script>
-	<script src="editor/js/oel-actionsperso.js" ></script>
-	
-	<script src="editor/js/oel-menu.js" ></script>
-	<script src="editor/js/oel-menu-ecrans.js" ></script>
-
-	<script src="editor/js/oel-placeeditzones.js" ></script>
-	
-	<script src="editor/js/oel-showWizi.js" ></script>
-	<script src="editor/js/oel-saveeditzones.js" ></script>
-	<script src="editor/js/oel-ajout-ludi.js" ></script>
-
-	<script src="editor/js/oel-init.js" ></script>
-	<script src="editor/js/oel-plugme.js" ></script>
-	<script src="editor/js/oel-plugedit.js" ></script>
-	<script src="editor/js/oel-export-scorm.js" ></script>
+	<script src="editor/js/oel-engine.js" ></script>
 
 	<script src="editor/js/process/oel-zjson-save-render.js" ></script>
 	<script src="editor/js/process/oel-zjson-open.js" ></script>
@@ -681,7 +673,7 @@
 	
 	<script src="editor/js/libs/editable-table-master/mindmup-editabletable.js"></script>
 	<script src="editor/js/libs/editable-table-master/numeric-input-example.js"></script>
-
+	
 	<script>
 		tinymce.init({
 			selector: 'textarea#textAreaV2',
@@ -691,7 +683,8 @@
 				'searchreplace visualblocks code fullscreen',
 				'insertdatetime media table paste code help wordcount paste'
 			],
-			toolbar: 'undo redo | paste | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help'
+			toolbar: 'undo redo | paste | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help',
+			body_class: "mcebodycore"
 		});
 		/*
 		,content_css: [

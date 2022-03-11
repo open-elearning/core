@@ -26,4 +26,17 @@ settes.addEventListener('click', function () {
 	ipc.send('message',{key:'lang',val:'es'})
 });
 
+const settIT = document.querySelector('#lang-it');
+settIT.addEventListener('click', function () {
+	ipc.send('message',{key:'lang',val:'it'})
+});
 
+const settNE = document.querySelector('#lang-ne');
+settNE.addEventListener('click', function () {
+	ipc.send('message',{key:'lang',val:'ne'})
+});
+
+const settPO = document.querySelector('#lang-po');
+settPO.addEventListener('click', function () {
+	ipc.send('message',{key:'lang',val:'po'})
+});
