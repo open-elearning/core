@@ -42,7 +42,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.5.0";
+global.appVersion = "1.5.3";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',gpath:'',listassets:'',imgassets:''
@@ -91,7 +91,7 @@ function createWindow(){
 	//Create the browser window.,maximize: true 496,500
 	if(process.platform=='linux'||process.platform=='darwin'){
 		mainWindow = new BrowserWindow({
-			width: 610 + 0,
+			width: 620 + 0,
 			height: 510,
 			icon: __dirname + '/assets/icons/1024x1024.png',
 			title: 'Open-eLearning',
@@ -101,7 +101,7 @@ function createWindow(){
 		})
 	}else{
 		mainWindow = new BrowserWindow({
-			width: 610 + 0,
+			width: 620 + 0,
 			height: 510,
 			icon: __dirname + '/app/images/ico64.ico',
 			title: 'Open-eLearning',
@@ -137,7 +137,8 @@ function createWindow(){
 		protocol: 'file:',
 		slashes: true
 	}));
-	
+	// mainWindow.webContents.openDevTools();
+
 	global.sharedFiles.allData = new Array();
 
 	// Check if we are on a MAC
@@ -663,7 +664,18 @@ ipcMain.on('message',function(event,data){
 	if(data.key=='logsopt'){
 		createWindowLogsError();
 	}
-	
+
+	if(data.key=='cleancache'){
+		var fs = require('fs');
+		var fileVers = easyfile.getfWf("params") + global.appVersion + "v.txt";
+		if (fs.existsSync(fileVers)) {
+			easyfile.deleteFileDeleteLink(fileVers);
+			setTimeout(function(){
+				//easyfile.init(global.appVersion);
+			},300);
+		}
+	}
+
 });
 
 ipcMain.on('changlang',function(event,data){
