@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+	<version>1.0</version>
+
+	<properties>
+		<type>objet</type>
+		<id>simulsmartphone</id>
+		<title>Simul Smart</title>
+		<category>media</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>simul-smartphone.png</file>
+		<file>smiley.png</file>
+		<file>smileysad.png</file>
+		<file>smileydo.png</file>
+		<file>smileylove.png</file>
+		<file>textmessage.mp3</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>graphsmartphone.png</screenImage>
+		<width>332</width>
+		<height>630</height>
+		<sizeText>18</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>1</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+
+	<fields>
+		<field>
+			<label>Text :</label>
+			<type>text</type>
+			<defaut></defaut>
+		</field>
+	</fields>
+	
+</plugin>

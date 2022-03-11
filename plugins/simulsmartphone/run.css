@@ -1,0 +1,76 @@
+
+.back-smartphone{
+	background-image:url("../data/simul-smartphone.png");
+	background-position:center center;
+	background-size:100% 100%;
+	background-size:cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.talk-smartphone{
+	position: absolute;
+	left:4%;
+	right:4%;
+	top:5%;
+	bottom:6%;
+	border: 1px solid gray;
+	background:white;
+	border-radius:5px;
+	overflow:hidden;
+}
+
+.speech-bubble-g {
+	float:left;
+	display:none;
+	position: relative;
+	background: #e1e1e1;
+	color:black;
+	border-radius: .4em;
+	margin:5px;
+	width: 70%;
+    padding: 20px 20px;
+}
+
+.speech-bubble-g:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #e1e1e1;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -105px;
+	margin-bottom: -20px;
+}
+
+.speech-bubble-b {
+	position: relative;
+	display:none;
+	float:right;
+	background: #0080ff;
+	color:white;
+	border-radius: .4em;
+	margin:5px;
+	width: 70%;
+    padding: 20px 20px;
+}
+
+.speech-bubble-b:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #0080ff;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: 75px;
+	margin-bottom: -20px;
+}
