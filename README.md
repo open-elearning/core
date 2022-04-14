@@ -1,4 +1,4 @@
-# authoring-tools
+# E-Learning authoring tool
 Open elearning editor
 
 The Open e Learning project what is it?
