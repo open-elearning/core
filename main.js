@@ -5,6 +5,23 @@ const ipcMain = electron.ipcMain;
 const dialog = electron.dialog;
 
 // Module to control application life.
+// date 13/04/2022
+// @author Damien Renou <LudiscapeXApi> BatisseursNumeriques
+// https://twitter.com/0peneLearning
+//
+// This file is part of openelearning - openelearning.org/
+// Open eLearning Editor Is free software: you can redistribute it And/Or modify
+// it under the terms Of the GNU General Public License As 
+// the Free Software Foundation, either version 3 of the License, Or
+// (at your option) any later version.
+// Open eLearning Editor Is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty 
+// MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License For more details.
+//
+// You should have received a copy Of the GNU General Public License
+// along with Open eLearning Editor. If Not, see <http://www.gnu.org/licenses/>.
+
 const app = electron.app;
 
 app.showExitPrompt = true;
@@ -22,16 +39,24 @@ if(!shouldQuit) {
 
 	app.on('second-instance',(event, commandLine, workingDirectory) => {
 
-		if(mainWindow){
-			mainWindow.show();
-			if(mainWindow.isMinimized()){
-				mainWindow.restore();
+		try {
+
+			if(mainWindow){
+				mainWindow.show();
+				if(mainWindow.isMinimized()){
+					mainWindow.restore();
+				}
+				mainWindow.focus();
 			}
-			mainWindow.focus();
+				
+		} catch (error) {
+
+			console.log(error);
+		
 		}
-
+		  
 	});
-
+	
 }
 
 const BrowserWindow = electron.BrowserWindow;
@@ -42,7 +67,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.5.3";
+global.appVersion = "1.5.4";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',gpath:'',listassets:'',imgassets:''
@@ -112,7 +137,7 @@ function createWindow(){
 	}
 	
 	easyfile =  require('./libs/easyfile');
-
+	
 	var urlLaunch = path.join(__dirname, 'app/launch.html');
 	var langfile = easyfile.getfWf("params") + "lang.txt";
 	var fs = require('fs');
@@ -127,7 +152,17 @@ function createWindow(){
 			if(err){
 				throw err;
 			}
+			
+			console.log("data : " + data);
+
 			global.sharedObj.lang = data;
+			if ( validLang(global.sharedObj.lang)==false ) {
+				var datalang = data._data;
+				if ( validLang(datalang)==false ) {
+					global.sharedObj.lang = datalang;
+				}
+			}
+			console.log("lang : " + global.sharedObj.lang);
 		});
 
 	}
@@ -174,6 +209,40 @@ function createWindow(){
 	},3000);
 
 }
+
+function validLang(srcLang){
+	
+	var b = false;
+
+	if(srcLang=='en'){
+		b = true;
+	}
+	if(srcLang=='fr'){
+		b = true;
+	}
+	if(srcLang=='de'){
+		b = true;
+	}
+	if(srcLang=='es'){
+		b = true;
+	}
+	if(srcLang=='it'){
+		b = true;
+	}
+	if(srcLang=='ne'){
+		b = true;
+	}
+	if(srcLang=='po'){
+		b = true;
+	}
+	if(srcLang=='pobr'){
+		b = true;
+	}
+
+	return b;
+	
+}
+
 
 function initLaunch(){
 	
