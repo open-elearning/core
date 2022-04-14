@@ -1,5 +1,4 @@
 
-
 function Frequire(path){
 	
 	this.remote = {};
@@ -40,7 +39,8 @@ let tradData = [
 		"es": 'añadir introducción',
 		"it": 'aggiungere un\'introduzione',
 		"ne": 'een inleiding toevoegen',
-		"po": 'Dodaj wstęp'
+		"po": 'Dodaj wstęp',
+		"pobr": 'Adicionar introdução'
 	},
 	{"id": "addcmq",
 		"en": 'add mcq',
@@ -49,7 +49,8 @@ let tradData = [
 		"es": 'agregar mcq',
 		"it": 'aggiungere qcm',
 		"ne": 'qcm toevoegen',
-		"po": 'Dodaj Pytanie WW'
+		"po": 'Dodaj Pytanie WW',
+		"pobr": 'Adicionar Questão de Múltipla Escolha'
 	},
 	{"id": "nextpage",
 		"en": 'Next Page',
@@ -58,7 +59,8 @@ let tradData = [
 		"es": 'Siguiente página',
 		"it": 'Prossima pagina',
 		"ne": 'Volgende pagina',
-		"po": 'Następna Strona'
+		"po": 'Następna Strona',
+		"pobr": 'Próxima página'
 	},
 	{"id": "nextpagefeedback",
 		"en": 'Next page and correction',
@@ -67,7 +69,8 @@ let tradData = [
 		"es": 'Siguiente página corrección',
 		"it": 'Prossima pagina correzione',
 		"ne": 'Volgende pagina correctie',
-		"po": 'Następna Strona i korekta'
+		"po": 'Następna Strona i korekta',
+		"pobr": 'Próxima página e correção'
 	},
 	{"id": "nextpageisok",
 		"en": 'Next&nbsp;Page&nbsp;if&nbsp;OK',
@@ -76,7 +79,8 @@ let tradData = [
 		"es": 'Página&nbsp;siguiente&nbsp;si&nbsp;OK',
 		"it": 'Prossima&nbsp;pagina&nbsp;si&nbsp;OK',
 		"ne": 'Volgende&nbsp;pagina&nbsp;indien&nbsp;OK',
-		"po": 'Następn&nbsp;Strona&nbsp;jeżeli&nbsp;OK'
+		"po": 'Następn&nbsp;Strona&nbsp;jeżeli&nbsp;OK',
+		"pobr": 'Próxima&nbsp;Página&nbsp;se&nbsp;OK'
 	},
 	{"id": "previouspage",
 		"en": 'Previous page',
@@ -85,7 +89,8 @@ let tradData = [
 		"es": 'Pagina anterior',
 		"it": 'Pagina precedente',
 		"ne": 'Vorige pagina',
-		"po": 'Poprzednia Strona'
+		"po": 'Poprzednia Strona',
+		"pobr": 'Página Anterior'
 	},
 	{"id": "tothepage",
 		"en": 'To the page...',
@@ -94,7 +99,8 @@ let tradData = [
 		"es": 'A la pagina...',
 		"it": 'Alla pagina...',
 		"ne": 'Naar de pagina...',
-		"po": 'Do strony ...'
+		"po": 'Do strony ...',
+		"pobr": 'Para a página ...'
 	},
 	{"id": "personalact",
 		"en": 'Personal Act ...',
@@ -103,7 +109,8 @@ let tradData = [
 		"es": 'Acción perso ...',
 		"it": 'Azione personale ...',
 		"ne": 'Persoonlijke actie...',
-		"po": 'Własna akcja'
+		"po": 'Własna akcja',
+		"pobr": 'Ato pessoal...'
 	},
 	{"id": "displayimage",
 		"en": 'Display image ...',
@@ -112,7 +119,8 @@ let tradData = [
 		"es": 'Ver imagen ...',
 		"it": 'Visualizza Immagine ...',
 		"ne": 'Afbeelding bekijken...',
-		"po": 'Wyświetl obraz ...'
+		"po": 'Wyświetl obraz ...',
+		"pobr": 'Mostrar imagem...'
 	},
 	{"id": "fullscreen",
 		"en": 'Full screen',
@@ -121,7 +129,8 @@ let tradData = [
 		"es": 'Pantalla completa',
 		"it": 'Schermo intero',
 		"ne": 'Volledig scherm',
-		"po": 'Pełny ekran'
+		"po": 'Pełny ekran',
+		"pobr": 'Tela cheia'
 	},
 	{"id": "autonextpage",
 		"en": 'Auto next page',
@@ -130,7 +139,8 @@ let tradData = [
 		"es": 'Auto pagina siguiente',
 		"it": 'Auto pagina successiva',
 		"ne": 'Auto volgende pagina',
-		"po": 'Auto następna strona'
+		"po": 'Auto następna strona',
+		"pobr": 'Página seguinte automática'
 	},
 	{"id": "autoplay",
 		"en": 'Autoplay',
@@ -139,7 +149,8 @@ let tradData = [
 		"es": 'Auto-reproducción',
 		"it": 'Lettura automatica',
 		"ne": 'Automatisch lezen',
-		"po": 'Autoplay'
+		"po": 'Autoplay',
+		"pobr": 'Reprodução automática'
 	},
 	{"id": "chooseacolor",
 		"en": 'Choose a color',
@@ -148,7 +159,8 @@ let tradData = [
 		"es": 'Elige un color',
 		"it": 'Scegliere un colore',
 		"ne": 'Kies een kleur',
-		"po": 'Wybierz kolor'
+		"po": 'Wybierz kolor',
+		"pobr": 'Escolha uma cor'
 	},
 	{"id": "ctr-title",
 		"en": 'Open-Source Course Editor',
@@ -157,7 +169,8 @@ let tradData = [
 		"es": 'Editor de elearning Open Source',
 		"it": 'Editore elearning Open-Source',
 		"ne": 'Open-Source E-Learning-Editor',
-		"po": 'tytuł'
+		"po": 'Open-Source Course Editor',
+		"pobr": 'Editor de Curso de Código Aberto'
 	},
 	{"id": "sampletext",
 		"en": 'Write your text here',
@@ -166,7 +179,8 @@ let tradData = [
 		"es": 'Escribe tu texto aquí',
 		"it": 'Scrivi il tuo testo qui',
 		"ne": 'Schrijf hier uw tekst',
-		"po": 'Wpisz tekst'
+		"po": 'Wpisz tekst',
+		"pobr": 'Escreva seu texto aqui'
 	},
 	{"id": "sampletitle",
 		"en": 'Enter title',
@@ -175,7 +189,8 @@ let tradData = [
 		"es": 'Ingresar titulo',
 		"it": 'Inserisci il titolo',
 		"ne": 'Titel invoeren',
-		"po": 'Wpisz  tytuł'
+		"po": 'Wpisz  tytuł',
+		"pobr": 'Digite o título'
 	},
 	{"id": "lbltitle",
 		"en": 'title',
@@ -184,7 +199,8 @@ let tradData = [
 		"es": 'titulo',
 		"it": 'titolo',
 		"ne": 'titel',
-		"po": 'tytuł'
+		"po": 'tytuł',
+		"pobr": 'título'
 	},
 	{"id": "lblcomic",
 		"en": 'Comics',
@@ -193,7 +209,8 @@ let tradData = [
 		"es": 'Historietas',
 		"it": 'Fumetti',
 		"ne": 'Strips',
-		"po": 'Komiks'
+		"po": 'Komiks',
+		"pobr": 'Histórias em quadrinhos'
 	}
 	,
 	{"id": "labelLife",
@@ -203,7 +220,8 @@ let tradData = [
 		"es": 'Vida',
 		"it": 'Vive',
 		"ne": 'Lives',
-		"po": 'Życie'
+		"po": 'Życie',
+		"pobr": 'Vida'
 	},
 	{"id": "labelHangedMan",
 		"en": 'hanged man',
@@ -212,7 +230,8 @@ let tradData = [
 		"es": 'El ahorcado',
 		"it": 'L\'impiccato',
 		"ne": 'De opgehangen man',
-		"po": 'Gra szubienica'
+		"po": 'Gra szubienica',
+		"pobr": 'Enforcado'
 	},
 	{"id": "next",
 		"en": 'next',
@@ -221,7 +240,8 @@ let tradData = [
 		"es": 'siguiente',
 		"it": 'seguendo',
 		"ne": 'volgende',
-		"po": 'następny'
+		"po": 'następny',
+		"pobr": 'próximo'
 	},
 	{"id": "return",
 		"en": 'return',
@@ -230,7 +250,8 @@ let tradData = [
 		"es": 'regreso',
 		"it": 'ritorna',
 		"ne": 'terug',
-		"po": 'powrot'
+		"po": 'powrot',
+		"pobr": 'volta'
 	},
 	{"id": "reply",
 		"en": 'reply',
@@ -239,7 +260,8 @@ let tradData = [
 		"es": 'respuesta',
 		"it": 'Rispondi',
 		"ne": 'Antwoord',
-		"po": 'ponów'
+		"po": 'ponów',
+		"pobr": 'responder'
 	},
 	{"id": "writeqcm",
 		"en": 'Write your question here',
@@ -248,7 +270,8 @@ let tradData = [
 		"es": 'Escribe tu pregunta aquí',
 		"it": 'Scrivi qui la tua domanda',
 		"ne": 'Stel hier uw vraag',
-		"po": 'Wpisz pytanie'
+		"po": 'Wpisz pytanie',
+		"pobr": 'Escreva sua pergunta aqui'
 	},
 	{"id": "secretword",
 		"en": 'Secret word',
@@ -257,7 +280,8 @@ let tradData = [
 		"es": 'Palabra secreta',
 		"it": 'Parola segreta',
 		"ne": 'Geheim woord',
-		"po": 'Sekretne slowo'
+		"po": 'Sekretne slowo',
+		"pobr": 'Palavra secreta'
 	},
 	{"id": "definition",
 		"en": 'Definition',
@@ -266,7 +290,8 @@ let tradData = [
 		"es": 'Definición',
 		"it": 'Definizione',
 		"ne": 'Definitie',
-		"po": 'Definicja'
+		"po": 'Definicja',
+		"pobr": 'Definição'
 	},
 	{"id": "newProject",
 		"en": 'New Project',
@@ -275,7 +300,8 @@ let tradData = [
 		"es": 'Nuevo proyecto',
 		"it": 'Nuovo progetto',
 		"ne": 'Nieuw Project',
-		"po": 'Nowy Projekt'
+		"po": 'Nowy Projekt',
+		"pobr": 'Novo Projeto'
 	},
 	{"id": "openProject",
 		"en": 'Open Project',
@@ -284,7 +310,8 @@ let tradData = [
 		"es": 'Proyecto abierto',
 		"it": 'Progetto aperto',
 		"ne": 'Open Project',
-		"po": 'Otwórz Projekt'
+		"po": 'Otwórz Projekt',
+		"pobr": 'Abrir Projeto'
 	},
 	{"id": "chooseamodel",
 		"en": 'Choose a mode',
@@ -293,7 +320,8 @@ let tradData = [
 		"es": 'Escoge un modelo',
 		"it": 'Scegliere un modello',
 		"ne": 'Kies een model',
-		"po": 'Wybierz tryb'
+		"po": 'Wybierz tryb',
+		"pobr": 'Escolher um modo'
 	},
 	{"id": "menuFile",
 		"en": 'File',
@@ -302,7 +330,8 @@ let tradData = [
 		"es": 'Archivo',
 		"it": 'File',
 		"ne": 'Bestand',
-		"po": 'Plik'
+		"po": 'Plik',
+		"pobr": 'Arquivo'
 	},
 	{"id": "menuMain",
 		"en": 'Main',
@@ -311,7 +340,8 @@ let tradData = [
 		"es": 'Bienvenida',
 		"it": 'Accoglienza',
 		"ne": 'Home',
-		"po": 'Główny'
+		"po": 'Główny',
+		"pobr": 'Principal'
 	},
 	{"id": "menuGame",
 		"en": 'Game',
@@ -320,7 +350,8 @@ let tradData = [
 		"es": 'Juegos',
 		"it": 'Giochi',
 		"ne": 'Spelletjes',
-		"po": 'Gra'
+		"po": 'Gra',
+		"pobr": 'Jogo'
 	},
 	{"id": "labelSave",
 		"en": 'Save',
@@ -329,7 +360,8 @@ let tradData = [
 		"es": 'Guardar',
 		"it": 'Registra',
 		"ne": 'Registreren',
-		"po": 'Zapisz'
+		"po": 'Zapisz',
+		"pobr": 'Salvar'
 	},
 	{"id": "labelOverview",
 		"en": 'Overview',
@@ -338,7 +370,8 @@ let tradData = [
 		"es": 'Previsualización',
 		"it": 'Panoramica',
 		"ne": 'Overzicht',
-		"po": 'Przegląd'
+		"po": 'Przegląd',
+		"pobr": 'Visão geral'
 	},
 	{"id": "labelPublish",
 		"en": 'Publish',
@@ -347,7 +380,8 @@ let tradData = [
 		"es": 'Publicar',
 		"it": 'Pubblica',
 		"ne": 'Publiceren',
-		"po": 'Publikuj'
+		"po": 'Publikuj',
+		"pobr": 'Publicar'
 	},
 	{"id": "labelScore",
 		"en": 'Score',
@@ -356,7 +390,8 @@ let tradData = [
 		"es": 'Resultado',
 		"it": 'Punteggio',
 		"ne": 'Score',
-		"po": 'Punkty'
+		"po": 'Punkty',
+		"pobr": 'Pontuação'
 	},
 	{"id": "labelScoreTable",
 		"en": 'Score Table',
@@ -365,7 +400,8 @@ let tradData = [
 		"es": 'Mesa de tanteo',
 		"it": 'Tabella dei punteggi',
 		"ne": 'Scoretabel',
-		"po": 'Tabela punktów'
+		"po": 'Tabela punktów',
+		"pobr": 'Tabela de pontuação'
 	},
 	{"id": "labelBase",
 		"en": 'Base',
@@ -374,7 +410,8 @@ let tradData = [
 		"es": 'Base',
 		"it": 'Base',
 		"ne": 'Basis',
-		"po": 'Baza danych'
+		"po": 'Baza danych',
+		"pobr": 'Base'
 	},
 	{"id": "labelPageStyle",
 		"en": 'Page style',
@@ -383,7 +420,8 @@ let tradData = [
 		"es": 'Estilo de página',
 		"it": 'Stile di pagina',
 		"ne": 'Paginastijl',
-		"po": 'Styl strony'
+		"po": 'Styl strony',
+		"pobr": 'Estilo da página'
 	},
 	{"id": "exportBtnProjectLink",
 		"en": 'To SCORM package',
@@ -392,7 +430,8 @@ let tradData = [
 		"es": 'Hacia paquete SCORM',
 		"it": 'Al pacchetto SCORM',
 		"ne": 'Naar SCORM-pakket',
-		"po": 'Do pakietu SCORM'
+		"po": 'Do pakietu SCORM',
+		"pobr": 'Para pacote SCORM'
 	},
 	{"id": "exportBtnProjectHtml",
 		"en": 'To local HTML',
@@ -401,7 +440,8 @@ let tradData = [
 		"es": 'Hacia expediente local',
 		"it": 'Al file locale',
 		"ne": 'Naar lokaal bestand',
-		"po": 'Do lokalnego pliku HTML'
+		"po": 'Do lokalnego pliku HTML',
+		"pobr": 'Para HTML local'
 	},
 	{"id": "labelTitle",
 		"en": 'Title',
@@ -410,7 +450,8 @@ let tradData = [
 		"es": 'Título',
 		"it": 'Titolo',
 		"ne": 'Titel',
-		"po": 'Tytuł'
+		"po": 'Tytuł',
+		"pobr": 'Título'
 	},
 	{"id": "labelPageStyle",
 		"en": 'Page style',
@@ -419,7 +460,8 @@ let tradData = [
 		"es": 'Estilo Página',
 		"it": 'Pagina di stile',
 		"ne": 'Stijl pagina',
-		"po": 'Styl strony'
+		"po": 'Styl strony',
+		"pobr": 'Estilo da página'
 	},
 	{"id": "labelSteps",
 		"en": 'Steps',
@@ -428,7 +470,8 @@ let tradData = [
 		"es": 'Etapas',
 		"it": 'Passi',
 		"ne": 'Stappen',
-		"po": 'Kroki'
+		"po": 'Kroki',
+		"pobr": 'Etapas'
 	},
 	{"id": "labelMct",
 		"en": 'Chosing words',
@@ -437,7 +480,8 @@ let tradData = [
 		"es": 'Elegir palabras',
 		"it": 'Parole scelte',
 		"ne": 'Woorden kiezen',
-		"po": ''
+		"po": 'Chosing words',
+		"pobr": 'Escolhendo palavras'
 	},
 	{"id": "labelInput",
 		"en": 'Input',
@@ -446,7 +490,8 @@ let tradData = [
 		"es": 'campo de entrada',
 		"it": 'Campo d\'ingresso',
 		"ne": 'Invoerveld',
-		"po": 'Wprowadź tekst'
+		"po": 'Wprowadź tekst',
+		"pobr": 'Entrada'
 	},
 	{"id": "labelLines",
 		"en": 'Lines',
@@ -455,7 +500,8 @@ let tradData = [
 		"es": 'Líneas',
 		"it": 'Linee',
 		"ne": 'Lijnen',
-		"po": 'Linie'
+		"po": 'Linie',
+		"pobr": 'Linhas'
 	},
 	{"id": "labelMcq",
 		"en": 'Quiz',
@@ -464,7 +510,8 @@ let tradData = [
 		"es": 'QCM',
 		"it": 'Multiple Choice',
 		"ne": 'Multiple Choice',
-		"po": 'Test'
+		"po": 'Test',
+		"pobr": 'Quis'
 	},
 	{"id": "labelMcl",
 		"en": 'Link the words',
@@ -473,7 +520,8 @@ let tradData = [
 		"es": 'Enlazar las palabras',
 		"it": 'Collega le parole',
 		"ne": 'Verbind de woorden',
-		"po": 'Połącz słowa'
+		"po": 'Połącz słowa',
+		"pobr": 'Ligue as palavras'
 	},
 	{"id": "labelImage",
 		"en": 'Image',
@@ -482,7 +530,8 @@ let tradData = [
 		"es": 'Imagen',
 		"it": 'Immagine',
 		"ne": 'Afbeelding',
-		"po": 'Obraz'
+		"po": 'Obraz',
+		"pobr": 'Imagem'
 	},
 	{"id": "labelDialog",
 		"en": 'Dialog',
@@ -491,7 +540,8 @@ let tradData = [
 		"es": 'Diálogo',
 		"it": 'Dialogo',
 		"ne": 'Dialoog',
-		"po": 'Rozmowa'
+		"po": 'Rozmowa',
+		"pobr": 'Diálogo'
 	},
 	{"id": "labelTextZone",
 		"en": 'Text zone',
@@ -500,7 +550,8 @@ let tradData = [
 		"es": 'Zona de texto',
 		"it": 'Zona di testo',
 		"ne": 'Tekst Zone',
-		"po": 'Pole tekstowe'
+		"po": 'Pole tekstowe',
+		"pobr": 'Zona de texto'
 	},
 	{"id": "labelButton",
 		"en": 'Button',
@@ -509,7 +560,8 @@ let tradData = [
 		"es": 'Botón',
 		"it": 'Pulsante',
 		"ne": 'Knop',
-		"po": 'Przycisk'
+		"po": 'Przycisk',
+		"pobr": 'Botão'
 	},
 	{"id": "labelSpeechtext",
 		"en": 'Speech text',
@@ -518,7 +570,8 @@ let tradData = [
 		"es": 'Burbuja de texto',
 		"it": 'Bolla di testo',
 		"ne": 'Tekstballon',
-		"po": 'Dymki rozmowy'
+		"po": 'Dymki rozmowy',
+		"pobr": 'Discurso'
 	},
 	{"id": "saveBtnProject",
 		"en": 'Save',
@@ -527,7 +580,8 @@ let tradData = [
 		"es": 'Salvar',
 		"it": 'Registra',
 		"ne": 'Registreren',
-		"po": 'Zapisz'
+		"po": 'Zapisz',
+		"pobr": 'Salvar'
 	},
 	{"id": "exportBtnProject",
 		"en": 'Export&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;',
@@ -536,7 +590,8 @@ let tradData = [
 		"es": 'Exportar&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;',
 		"it": 'Esportazione&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;',
 		"ne": 'Exporteren&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;',
-		"po": 'Eksport&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;'
+		"po": 'Eksport&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;',
+		"pobr": 'Exportar&nbsp;&nbsp;&nbsp;&nbsp;&#x203A;'
 	},
 	{"id": "exportBtnProject2",
 		"en": 'Extra Code',
@@ -545,7 +600,8 @@ let tradData = [
 		"es": 'Código Extra',
 		"it": 'Codice aggiuntivo',
 		"ne": 'Extra code',
-		"po": 'Kod Extra'
+		"po": 'Kod Extra',
+		"pobr": 'Código Extra'
 	},
 	{"id": "lbloptions",
 		"en": 'Options',
@@ -554,7 +610,8 @@ let tradData = [
 		"es": 'Opciones',
 		"it": 'Opzioni',
 		"ne": 'Opties',
-		"po": 'Opcje'
+		"po": 'Opcje',
+		"pobr": 'Opções'
 	},
 	{"id": "quitBtnProject",
 		"en": 'Quit',
@@ -563,7 +620,8 @@ let tradData = [
 		"es": 'Dejar',
 		"it": 'Lascia',
 		"ne": 'Verlaat',
-		"po": 'Wyjście'
+		"po": 'Wyjście',
+		"pobr": 'Sair'
 	},
 	{"id": "deleteMessage",
 		"en": 'Do you want to delete this item?',
@@ -572,7 +630,8 @@ let tradData = [
 		"es": '¿Quieres eliminar este objeto?',
 		"it": 'Vuoi cancellare questa voce?',
 		"ne": 'Wilt u dit item verwijderen?',
-		"po": ''
+		"po": 'Do you want to delete this item?',
+		"pobr": 'Você deseja apagar este item?'
 	},
 	{"id": "save",
 		"en": 'Save',
@@ -581,7 +640,8 @@ let tradData = [
 		"es": 'Salvar',
 		"it": 'Registra',
 		"ne": 'Registreren',
-		"po": 'Zapisz'
+		"po": 'Zapisz',
+		"pobr": 'Salvar'
 	},
 	{"id": "lblsave",
 		"en": 'Save',
@@ -590,7 +650,8 @@ let tradData = [
 		"es": 'Salvar',
 		"it": 'Registra',
 		"ne": 'Registreren',
-		"po": 'Zapisz'
+		"po": 'Zapisz',
+		"pobr": 'Salvar'
 	},
 	{"id": "cancel",
 		"en": 'Cancel',
@@ -599,7 +660,8 @@ let tradData = [
 		"es": 'Cancelar',
 		"it": 'Cancella',
 		"ne": 'Annuleren',
-		"po": 'Anuluj'
+		"po": 'Anuluj',
+		"pobr": 'Cancelar'
 	},
 	{"id": "lblcancel",
 		"en": 'Cancel',
@@ -608,7 +670,8 @@ let tradData = [
 		"es": 'Cancelar',
 		"it": 'Cancella',
 		"ne": 'Annuleren',
-		"po": 'Anuluj'
+		"po": 'Anuluj',
+		"pobr": 'Cancelar'
 	},
 	{"id": "yes",
 		"en": 'Yes',
@@ -617,7 +680,8 @@ let tradData = [
 		"es": 'Sí',
 		"it": 'Sì',
 		"ne": 'Ja',
-		"po": 'Tak'
+		"po": 'Tak',
+		"pobr": 'Sim'
 	},
 	{"id": "no",
 		"en": 'No',
@@ -626,7 +690,8 @@ let tradData = [
 		"es": 'No',
 		"it": 'No',
 		"ne": 'Geen',
-		"po": 'Nie'
+		"po": 'Nie',
+		"pobr": 'Não'
 	},
 	{"id": "edition",
 		"en": 'edition',
@@ -635,7 +700,8 @@ let tradData = [
 		"es": 'edición',
 		"it": 'edizione',
 		"ne": 'editie',
-		"po": 'edycja'
+		"po": 'edycja',
+		"pobr": 'edição'
 	},
 	{"id": "text",
 		"en": 'text',
@@ -644,7 +710,8 @@ let tradData = [
 		"es": 'texto',
 		"it": 'testo',
 		"ne": 'tekst',
-		"po": 'tekst'
+		"po": 'tekst',
+		"pobr": 'texto'
 	},
 	{"id": "distractors",
 		"en": 'Distractors',
@@ -653,7 +720,8 @@ let tradData = [
 		"es": 'Distractores',
 		"it": 'Distrattori',
 		"ne": 'Afleiders',
-		"po": 'Rozproszenie'
+		"po": 'Rozproszenie',
+		"pobr": 'Destratores'
 	},
 	{"id": "linkingtexts",
 		"en": 'linking texts',
@@ -662,7 +730,8 @@ let tradData = [
 		"es": 'enlazando textos',
 		"it": 'link di testo',
 		"ne": 'tekstlinks',
-		"po": 'łączenie tekstów'
+		"po": 'łączenie tekstów',
+		"pobr": 'textos de link'
 	},
 	{"id": "apply",
 		"en": 'apply',
@@ -671,7 +740,8 @@ let tradData = [
 		"es": 'aplicar',
 		"it": 'applicare',
 		"ne": 'toepassen',
-		"po": 'zatwierdź'
+		"po": 'zatwierdź',
+		"pobr": 'Aplicar'
 	},
 	{"id": "upload",
 		"en": 'upload',
@@ -680,7 +750,8 @@ let tradData = [
 		"es": 'subir',
 		"it": 'caricare',
 		"ne": 'laden',
-		"po": 'załaduj'
+		"po": 'załaduj',
+		"pobr": 'carregar'
 	},
 	{"id": "markwords",
 		"en": 'Mark the words',
@@ -689,7 +760,8 @@ let tradData = [
 		"es": 'Marque las palabras',
 		"it": 'Segna le parole',
 		"ne": 'Markeer de woorden',
-		"po": 'Zaznacz słowa'
+		"po": 'Zaznacz słowa',
+		"pobr": 'Marque as palavras'
 	},
 	
 ];
@@ -733,6 +805,9 @@ function traductor(){
 				if(globalLang=='po'){
 					el.innerHTML = '&nbsp;' + tradData[i].po + '&nbsp;';
 				}
+				if(globalLang=='pobr'){
+					el.innerHTML = '&nbsp;' + tradData[i].pobr + '&nbsp;';
+				}
 				
 			}
 			
@@ -761,6 +836,9 @@ function traductor(){
 				if(globalLang=='po'){
 					elcn[j].innerHTML = tradData[i].po;
 				}
+				if(globalLang=='pobr'){
+					elcn[j].innerHTML = tradData[i].pobr;
+				}
 				
 			}
 			
@@ -777,7 +855,6 @@ function traductor(){
 }
 
 function getTrdU(idtrad){
-	
 	var txtInit = getTrd(idtrad);
 	return txtInit.charAt(0).toUpperCase() + txtInit.slice(1);
 }
@@ -809,6 +886,10 @@ function getTrd(idtrad){
 			if(globalLang=='po'){
 				return tradData[i].po;
 			}
+			if(globalLang=='pobr'){
+				return tradData[i].pobr;
+			}
+
 		}
 
 	}
