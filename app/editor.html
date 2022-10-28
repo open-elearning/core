@@ -20,6 +20,8 @@
 	<link rel="stylesheet" href="editor/css/checkbox.css" />
 	<link rel="stylesheet" href="editor/css/anim.css" />
 	
+	<link rel="stylesheet" href="editor/oel-card.css" />
+	
 	<script src="editor/js/libs/jquery-3.1.1.min.js" ></script>
 	<script src="editor/js/libs/jquery-sortable.js" ></script>
 	
@@ -108,6 +110,13 @@
 								</span>
 								<span id="labelImage" class="caption">Image</span>
 							</button>
+
+							<button onClick="showSmartBlocs();" class="ribbon-icon-button">
+								<span class="icon">
+									<span class="mif-paragraph-left fg-green"></span>
+								</span>
+								<span id="labelSmartBloc" class="caption">Smart Bloc</span>
+							</button>
 							
 						</div>
 						
@@ -136,8 +145,6 @@
 								<span id="labelDomtext" class="caption">Dom</span>
 							</button>
 							
-							
-
 						</div>
 
 						<div class="group-divider"></div>
@@ -317,6 +324,13 @@
 							<span id="labelBase" class="caption">&nbsp;&nbsp;&nbsp;Base&nbsp;&nbsp;&nbsp;</span>
 						</button>
 						
+						<button onClick="launchCustomIframe();" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/iframe.png" >
+							</span>
+							<span id="labelBase" class="caption">&nbsp;&nbsp;iframe&nbsp;&nbsp;</span>
+						</button>
+						
 						<button onClick="launchCustomFilesEditZone();" class="ribbon-button" >
 							<span class="icon">
 								<img src="editor/metro/img/icon-files-embeded.png" >
@@ -324,10 +338,9 @@
 							<span id="labelBase" class="caption">&nbsp;&nbsp;Embedded&nbsp;files&nbsp;&nbsp;</span>
 						</button>
 						
-						<span class="title"><span class="menuData" >Data</span></span>
-
-
-
+						<span class="title">
+							<span class="menuData" >Data</span>
+						</span>
 
 					</div>
 				
@@ -538,6 +551,13 @@
 		</div>
 	</div>
 	
+	<div id="editzoneContent" class="editZoneTexteContent pan" style="background-color: #FAF8F8;" >
+		<div class="toolbarZoneTexteDiv" ></div>
+		<div class="toolbarZoneTexteArea" >
+			<textarea id="textAreaV3" col=45 line=24 >text ....</textarea>
+		</div>
+	</div>
+	
 	<div id="editzone" class="editZoneTexte pan" >
 
 		<form class="formzone" style="height:320px;" >
@@ -596,9 +616,8 @@
 	<div id="editscript" class="editzoneTablet pan" >
 		
 		<form class="formzone" >
-			<textarea id="textareascript" col=45 line=24 class="textzone" style="font-size:18px;" placeholder="Enter script ..." ></textarea>	
+			<textarea id="textareascript" col=45 line=24 class="textzone" style="font-size:18px;" placeholder="Enter code ..." ></textarea>	
 		</form>
-		
 		<div class="toolBas2" >
 			<a onclick="setSourceScript();" 
 			style='background-image: url("img/save.png");' 
@@ -651,7 +670,7 @@
 		</center>
 	</div>
 	
-	<div id="voirleslogs" onClick="$('#voirleslogs').css('display','none');" style="height:130px;" >
+	<div id="voirleslogs" onClick="$('#voirleslogs').css('display','none');" >
 	</div>
 	
 	<script src="../lang/trad.js" ></script>
@@ -675,6 +694,7 @@
 	<script src="editor/js/libs/editable-table-master/numeric-input-example.js"></script>
 	
 	<script>
+
 		tinymce.init({
 			selector: 'textarea#textAreaV2',
 			height: 420, menubar: false, statusbar: false,
@@ -686,6 +706,20 @@
 			toolbar: 'undo redo | paste | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help',
 			body_class: "mcebodycore"
 		});
+
+		tinymce.init({
+			selector: 'textarea#textAreaV3',
+			height: 420, menubar: false, statusbar: false,
+			plugins:[
+				'advlist autolink lists link image charmap print preview anchor',
+				'searchreplace visualblocks code fullscreen',
+				'insertdatetime media table paste code help wordcount paste'
+			],
+			toolbar: 'undo redo | paste | formatselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat fontselect code | help',
+			body_class: "mcebodycore",
+			content_css: "editor/oel-card.css"
+		});
+		
 		/*
 		,content_css: [
 			'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
