@@ -27,6 +27,8 @@ const app = electron.app;
 app.showExitPrompt = true;
 app.allowRendererProcessReuse = false;
 
+app.commandLine.appendSwitch('disable-site-isolation-trials');
+
 const Menu = electron.Menu;
 
 var shouldQuit = app.requestSingleInstanceLock();
@@ -67,17 +69,20 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.5.4";
+global.appVersion = "1.5.8";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
-,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',gpath:'',listassets:'',imgassets:''
-,activeTitle:'OPEN ELEARNING',extracode:'',extracodecss:'',stockfiles:'',stockmaj:0,activeOS:'',datascorm:''};
+,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
+gpath:'',listassets:'',imgassets:''
+,activeTitle:'OPEN ELEARNING',extracode:'',
+extracodecss:'',contentcodecss:'',stockfiles:'',stockmaj:0,
+activeOS:'',datascorm:''};
 
 global.sharedScorm = {scormlmschamilo:'',scormlmsmoodle:'',scormlmsclaroline:''};
 
 global.sharedLibs = {lcm3:'',lcm4:'',lcm5:'',lcm6:'',life:'',speech:'',bilan:'',plugin:'',basetxt:''};
 global.sharedFiles = {nofile:'',distData:'',allData:'',recent1:'',recent2:'',recent3:'',recent4:''};
-global.plugins = {allData:'',xData:'',jsData:'',cssData:'',filesData:'',store:'',pathStore:'',deleteStore:''};
+global.plugins = {allData:'',xData:'',jsData:'',cssData:'',filesData:'',store:'',pathStore:'',deleteStore:'',nbload:0};
 global.embeddedFiles = '';
 global.listPluginsRender = '';
 global.errornb = 0;
@@ -242,7 +247,6 @@ function validLang(srcLang){
 	return b;
 	
 }
-
 
 function initLaunch(){
 	
@@ -543,9 +547,12 @@ function createWindowLaunch(){
 	launchWindow.loadURL(url.format({
 		pathname:  path.join(__dirname,'app/launchoverview/index.html'),
 		protocol: 'file:',
-		slashes: true
+		slashes: true,
+		webPreferences: {
+            plugins: true
+        }
 	}));
-	
+
 	if(global.debugEditor){
 		
 	}else{
