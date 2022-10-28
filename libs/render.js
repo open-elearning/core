@@ -1,8 +1,11 @@
 "use strict";
 
-const electron = require('electron')
-const renderobjs = require('./render-objs')
-const renderbase = require('./render-base')
+const electron = require('electron');
+
+const renderobjs = require('./render-objs');
+const renderbase = require('./render-base');
+const rendersmartbloc = require('./smartbloc/rendersmartbloc');
+
 const ipcMain = electron.ipcMain;
 const app = electron.app;
 const pathF = require('path');
@@ -15,7 +18,7 @@ function generateHtml(){
 	global.renderprocess = true;
 	global.embeddedFiles = ';';	
 	global.listPluginsRender = '';
-
+	global.sharedObj.contentcodecss = '';
 	console.log('CYCLE RENDER 1 ');
 
 	var path = easyfile.getfWf("temp") + "params.json";	
@@ -153,10 +156,14 @@ function generateHtmlSecondPass(){
 			PtypePage[obj.pageId] = obj.comicMode ;
 
 			if(obj.back==''||obj.back=='white.jpg'){
-				fxml += '<fond><page>' + obj.index + '</page><data><![CDATA[images/fond-white.png]]></data></fond>';
+				fxml += '<fond><page>' + obj.index + '</page>';
+				fxml += '<data><![CDATA[images/fond-white.png]]></data></fond>';
 				Pback[obj.pageId] = '';
 			}else{
-				fxml += '<fond><page>' + obj.index + '</page><data><![CDATA[images/' + obj.back + ']]></data></fond>';
+				fxml += '<fond><page>' + obj.index + '</page>';
+				fxml += '<data><![CDATA[images/' + obj.back + ']]></data></fond>';
+				fxml += '<fond2><page>' + obj.index + '</page>';
+				fxml += '<data><![CDATA[images/fond-white.png]]></data></fond2>';
 				var fnam2 = obj.back;
 				var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
 				var ptarget2 = pathFinalHtml + 'images' + fd + fnam2.trim();
@@ -168,12 +175,7 @@ function generateHtmlSecondPass(){
 			
 			if(oneScreenOnly){
 				if(obj.screen!=''){
-					/*
 					var fnamScreen = obj.screen.trim();
-					var pinitScreen = easyfile.getfWf("assets") + fnamScreen;
-					var ptargetScreen = pathFinalHtml + 'images' + fd + fnamScreen;
-					copyFileImg(pinitScreen,ptargetScreen);
-					*/
 					copyImageToRender(obj.screen,pathFinalHtml);
 					extraScript = '$("body").css("background-image","url(images/' + fnamScreen + ')");';
 				}
@@ -189,6 +191,7 @@ function generateHtmlSecondPass(){
 				fxml += '<![CDATA[' + renderobjs.rJtext(obj.script) + renderobjs.rJtext(extraScript) + ']]>';
 				fxml += '</data></scriptdiapo>';
 			}
+
 			if(obj.comicMode>0&&obj.comicMode!=4){
 				var pinitim3 = easyfile.getfWf("assets") + 'comic-0' + obj.comicMode + '.png';
 				var ptarget3 = pathFinalHtml + 'images' + fd + 'comic-0' + obj.comicMode + '.png';
@@ -216,20 +219,25 @@ function generateHtmlSecondPass(){
 			
 			var typePage = parseInt(PtypePage[objLudi.pageId]);
 			
-			fxml += renderobjs.renderBarre(objLudi,numPage);
+			
 			fxml += renderobjs.renderText(objLudi,numPage);
 			fxml += renderobjs.renderQcm(objLudi,numPage,typePage);
 			fxml += renderobjs.renderImages(objLudi,numPage);
 			
 			renderbase.renderBaseProcess(objLudi,pathFinalHtml + 'data');
 			
-			if (objLudi.type=='img') {
+			if (objLudi.type=='img'||objLudi.type=='texthtml') {
 				copyImageToRender(objLudi.text6,pathFinalHtml);
 			}
+			
+			if (objLudi.type=='texthtml'&&objLudi.text2!='') {
+				global.sharedObj.contentcodecss = global.sharedObj.contentcodecss + objLudi.text2;
+			}
+
 			if (objLudi.type=='button'||objLudi.type=='buttonarea') {
 				copyImageToRender(objLudi.actionData,pathFinalHtml);
 			}
-
+			
 			if (objLudi.type=='speech') {
 				var fnam = 'bullebase' + renderobjs.rJtext(objLudi.val)+ '.png';
 				var pInitS = pathF.join(easyfile.getfWf("assets") + '/bulle/',fnam.trim());
@@ -237,7 +245,7 @@ function generateHtmlSecondPass(){
 				//copyFileImg(pInitS,pTargS);
 			}
 
-			if(objLudi.type=='videomp4'){
+			if (objLudi.type=='videomp4') {
 				var fnam2 = objLudi.text;
 				if(fnam2.indexOf(".mp4")!=-1){
 					var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
@@ -246,7 +254,7 @@ function generateHtmlSecondPass(){
 				}
 			}
 
-			if(objLudi.type=='audio'){
+			if (objLudi.type=='audio') {
 				var fnam2 = objLudi.text;
 				if(fnam2.indexOf(".mp3")!=-1){
 					var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
@@ -255,13 +263,20 @@ function generateHtmlSecondPass(){
 				}
 			}
 			
-			if(objLudi.type=='fluxPts'&&objLudi.val3==0){
+			if (objLudi.type=='fluxPts'&&objLudi.val3==0) {
 				var i4 = easyfile.getfWf("assets") + 'fluxprocess.png';
 				var t4 = pathFinalHtml + 'images' + fd + 'fluxprocess.png';
 				copyFileImg(i4,t4);
 				fxml +=  renderobjs.renderFluxPts(objLudi,numPage,dataLudiFile);
 			}
-			
+
+			if (objLudi.type=='barre') {
+				fxml += renderobjs.renderBarre2(objLudi,numPage);
+				if (objLudi.val2==1) {
+					copyImageToRender(objLudi.val3,pathFinalHtml);
+				}
+			}	
+			fxml +=  renderobjs.renderobjframe(objLudi,numPage);
 			fxml +=  renderobjs.renderDom(objLudi,numPage);
 			fxml +=  renderobjs.renderVariable(objLudi,numPage);
 			fxml +=  renderobjs.renderInput(objLudi,numPage);
@@ -345,6 +360,9 @@ function prepareFileStockProcess() {
 					if (isFileImage(pthEf)) {
 						copyImgDataToRend(pthEf,pathFinalHtml);
 					}
+					if (isFileData(pthEf)) {
+						copyFileImg(pthEf,pathFinalHtml+ 'data' + fd + clue1);
+					}
 					if (clue2=='extract') {
 						if (isFileZip(pthEf)) {
 							copyZipDataToRend(pthEf,pathFinalHtml + 'data' + fd);
@@ -366,30 +384,51 @@ exports.prepareFileStockProcess = prepareFileStockProcess;
 
 function copyImageToRender(srcF,pathFinalHtml) {
 	
-	var easyfile =  require('./easyfile')
-	var fs = require('fs');
-	var fnam = srcF.replace(/^.*[\\\/]/,'');
-	fnam = fnam.trim();
-	var pinit = pathF.join(easyfile.getfWf("assets"),fnam);
-	if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
-		fnam = fnam + '.jpg';
+	if (typeof(srcF) == 'undefined'){
+		srcF = '';
+	}	
+	if(typeof srcF !== 'string'){
+		srcF = srcF.toString('utf8');
 	}
-	var ptarget = pathFinalHtml + 'images' + fd + fnam;
-	copyFileImg(pinit,ptarget);
+	srcF = srcF.replace('undefined','');
+
+	if (srcF!='') {
+		var easyfile =  require('./easyfile')
+		var fs = require('fs');
+		var fnam = srcF.replace(/^.*[\\\/]/,'');
+		fnam = fnam.trim();
+		var pinit = pathF.join(easyfile.getfWf("assets"),fnam);
+		if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
+			fnam = fnam + '.jpg';
+		}
+		var ptarget = pathFinalHtml + 'images' + fd + fnam;
+		copyFileImg(pinit,ptarget);	
+	}
 
 }
 
 function copyImgDataToRend(srcF,pathFinalHtml) {
 	
-	var easyfile =  require('./easyfile')
-	var fs = require('fs');
-	var fnam = srcF.replace(/^.*[\\\/]/,'');
-	fnam = fnam.trim();
-	if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1){
-		fnam = fnam + '.jpg';
+	if (typeof(srcF) == 'undefined'){
+		srcF = '';
+	}	
+	if(typeof srcF !== 'string'){
+		srcF = srcF.toString('utf8');
 	}
-	var ptarget = pathFinalHtml + 'data' + fd + fnam;
-	copyFileImg(srcF,ptarget);
+	srcF = srcF.replace('undefined','');
+
+	if (srcF!='') {
+
+		var easyfile =  require('./easyfile')
+		var fs = require('fs');
+		var fnam = srcF.replace(/^.*[\\\/]/,'');
+		fnam = fnam.trim();
+		if(fnam.indexOf('.jpg')==-1&&fnam.indexOf('.gif')==-1&&fnam.indexOf('.png')==-1&&fnam.indexOf('.svg')==-1&&fnam.indexOf('.pdf')==-1){
+			fnam = fnam + '.jpg';
+		}
+		var ptarget = pathFinalHtml + 'data' + fd + fnam;
+		copyFileImg(srcF,ptarget);
+	}
 
 }
 
@@ -499,6 +538,14 @@ function isFileZip(srcF) {
 	}
 	return b;
 }
+function isFileData(srcF) {
+	var b = false;
+	if(srcF.indexOf('.pdf')!=-1
+	||srcF.indexOf('.PDF')!=-1){
+		b = true;
+	}
+	return b;
+}
 function isFolderStr(dataFile) {
 
 	var r = false;
@@ -547,6 +594,9 @@ function generateHtmlThirdPass(renderHtml,fxml) {
 	if(getParamsValue("responsiveProject")==1){
 		fh = fh.replace("data-size='classique'","data-size='classic-auto'");
 	}
+	if(getParamsValue("classiquelarge")==1){
+		fh = fh.replace("data-size='classique'","data-size='classiquelarge'");
+	}
 	
 	var listOfRef = '';
 	listOfRef += '<script type="text/javascript" src="data/chartist.min.js" ></script>';
@@ -583,7 +633,8 @@ function getParamsValue(keystr) {
 function generateJs() {
 
 	var fd = global.fd;
-	var easyfile =  require('./easyfile')
+	var easyfile =  require('./easyfile');
+	var pathFinalHtml = easyfile.getfWf("finalHtml");
 	var fs = require('fs');
 	
 	//Objets Cludi
@@ -705,14 +756,15 @@ function generateCss() {
 	var fs = require('fs');
 	var dataCssFile = '';
 	var renderPath = easyfile.getfWf("finalHtml") + 'css/open.css';
-	
+	var pathFinalHtml = easyfile.getfWf("finalHtml");
+
 	var i = 0;
 	var mem = '';
 	
 	var a = global.plugins.allData;
 	a.forEach(function(idname) {
 		
-		if(mem.indexOf(idname + ';')==-1){
+		if (mem.indexOf(idname + ';')==-1) {
 			mem = idname + ';';
 			var codeCSS = global.plugins.cssData[i];
 			dataCssFile += codeCSS;
@@ -720,10 +772,11 @@ function generateCss() {
 		}
 		
 	});
+
 	var ae = global.embeddedFiles.split(';')
 	ae.forEach(function(filename){
-		if(filename!=''){
-			if(filename.indexOf(".css")!=-1){
+		if (filename!='') {
+			if (filename.indexOf(".css")!=-1) {
 				var pthEf = easyfile.getfWf("plugins") + filename;
 				dataCssFile += '/*' + filename + '*/';
 				dataCssFile += fileGetContents(pthEf,filename);
@@ -731,11 +784,19 @@ function generateCss() {
 		}
 	});
 	
-	if (typeof(global.sharedObj.extracodecss) != 'undefined'){
+	if (typeof(global.sharedObj.extracodecss) != 'undefined') {
 		dataCssFile += '/*extracodecss*/';
 		dataCssFile += global.sharedObj.extracodecss;
 	}
+	
+	if (typeof(global.sharedObj.contentcodecss) != 'undefined') {
+		dataCssFile += '/*contentcodecss*/';
+		dataCssFile += global.sharedObj.contentcodecss;
+	}
 
+	dataCssFile += rendersmartbloc.getCssSmartBLoc();
+	copyImageToRender('oel-man-working.jpg',pathFinalHtml);
+	
 	easyfile.writeText(renderPath,dataCssFile);
 	
 }

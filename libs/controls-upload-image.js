@@ -132,7 +132,6 @@ function copyFileImgAndResize(src,dest){
 }
 exports.copyFileImgAndResize = copyFileImgAndResize;
 
-
 function findNameImg(source){
 	
 	if(typeof source === "undefined"){
@@ -180,7 +179,6 @@ function findNameImg(source){
 	return nam + ext;
 }
 exports.findNameImg = findNameImg;
-
 
 function refreshImgsAll(){
 	

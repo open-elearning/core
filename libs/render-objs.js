@@ -27,6 +27,7 @@ function renderBarre(ob,p){
 		fxml += "<css>background-color:" + ob.val + ";</css>";
 		fxml += "</bloc>";
 
+		
 		fxml += '<bloc>';
 		fxml += '<type>text</type>';
 		fxml += '<id></id>';
@@ -52,6 +53,62 @@ function renderBarre(ob,p){
 	
 }
 exports.renderBarre = renderBarre;
+
+function renderBarre2(ob,p){
+	
+	var fxml = '';
+	
+	if(ob.type=='barre'){
+		
+		fxml += '<bloc>';
+		fxml += '<type>material-top50</type>';
+		fxml += '<ids>system-bartop</ids>';
+		fxml += '<id></id>';
+		fxml += "<x>-1</x>";
+		fxml += "<y>-1</y>";
+		fxml += "<w>960</w>";
+		fxml += "<h>65</h>";
+		fxml += "<x2>" + ob.x2 + "</x2>";
+		fxml += "<y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2>";
+		fxml += "<h2>" + ob.h2 + "</h2>";
+		
+		fxml += '<tx>';
+		fxml += '<![CDATA[' + rJtext(ob.text) +']]>';
+		fxml += '</tx>';
+
+		fxml += '<tx2>';
+		fxml += '<![CDATA[' +']]>';
+		fxml += '</tx2>';
+
+		fxml += "<css></css>";
+		if(ob.fontSize){
+			fxml += "<fontsize>" + ob.fontSize + "</fontsize>";
+		}
+		fxml += "<color><![CDATA[white]]></color>";
+		if (ob.val2==1) {
+			var filename = ob.val3.replace(/^.*[\\\/]/,'');
+			filename = filename.replace(' ','');
+			filename = filename.replace(' ','');
+			if(filename.indexOf('.jpg')==-1&&filename.indexOf('.gif')==-1&&filename.indexOf('.png')==-1&&filename.indexOf('.svg')==-1){
+				filename = filename + '.jpg';
+			}
+			fxml += "<src><![CDATA[images/" + filename + "]]></src>";
+		} else {
+			fxml += "<src></src>";
+		}
+		fxml += "<tx7>6</tx7>";
+		fxml += "<selectcolor>" + ob.val + "</selectcolor>";
+		fxml += "<page>" + p + "</page>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+
+	}
+	
+	return fxml;
+	
+}
+exports.renderBarre2 = renderBarre2;
 
 function renderVariable(ob,p){
 
@@ -199,11 +256,75 @@ function renderDom(ob,p){
 }
 exports.renderDom = renderDom;
 
+function renderobjframe(ob,p){
+
+	var fxml = '';
+
+	if(ob.type=='objframe'){
+
+		fxml += '<bloc>';
+		fxml += '<type>texthtml</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
+		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+		
+		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
+		if(ob.fontSize){
+			fxml += "<fontsize>" + rJtext(ob.fontSize) + "</fontsize>";
+		}else{
+			fxml += "<fontsize>18</fontsize>";
+		}
+
+		fxml += '<text><![CDATA[';
+
+		if (ob.text.indexOf('.pdf')!=-1) {
+			fxml += '<embed type="application/pdf" style="background-color:gray;" ';
+			fxml += ' src="' + ob.text + '" class="autosizebloc" ></embed>';
+			//fxml += '<object type="text/html" ';
+			//fxml += ' src="'+ob.text+'" class="autosizebloc" ></object>';
+		} else {
+			fxml += '<iframe ';
+			if(parseInt(ob.val2)==0){
+				fxml += ' scrolling="no" ';
+			}
+			if(parseInt(ob.val3)==0){
+				fxml += ' frameborder="1" ';
+			} else {
+				fxml += ' frameborder="0" ';
+			}
+			fxml += ' class="autosizebloc" src="'+ob.text+'" ></iframe>';
+		}
+
+		fxml += ']]></text>';
+		fxml += "<align>center</align>";
+		fxml += "<color><![CDATA[black]]></color>";
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
+		fxml += "<page>" + p + "</page>";
+
+		var cssExtra = rJtext(ob.text6);
+		cssExtra = cssExtra.replace(/(\r\n|\n|\r)/gm,"");
+		
+		fxml += "<css><![CDATA[" + cssExtra + "]]></css>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+	}
+	
+
+	return fxml;
+
+}
+exports.renderobjframe = renderobjframe;
+
+
 function renderText(ob,p){
 	
 	var fxml = '';
 	
-	if(ob.type=='text'){
+	if(ob.type=='text'||ob.type=='texthtml'){
 		fxml += '<bloc>';
 		fxml += '<type>text</type>';
 		fxml += '<id></id>';
@@ -216,6 +337,14 @@ function renderText(ob,p){
 		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
 
 		var txtEdit = strReplace("data-ref=","href=",ob.text);
+
+		// Correction picture path
+		if (ob.type=='texthtml'){
+			if (ob.text6!='') {
+				txtEdit = txtEdit.replace(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/g,'url(\'images/'+ob.text6+'\')');
+			}
+		}
+		
 		fxml += '<tx><![CDATA[' + rJtext(txtEdit) +']]></tx>';
 
 		fxml += "<align>LeftTop</align>";
@@ -439,17 +568,16 @@ function renderImages(ob,p){
 	
 	var fxml = '';
 	
-	if(ob.type=='img'){
+	if (ob.type=='img') {
 		
 		fxml += '<bloc>';
 		fxml += '<type>img</type>';
 		fxml += '<id></id>';
-		if(ob.idString!=''){
+		if (ob.idString!='') {
 			fxml += '<ids>'+ ob.idString +'</ids>';
 		}
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
-
 		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
 		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
 
@@ -1483,7 +1611,7 @@ function rJtext(s){
 		}
 	}
 	s = strReplace(";nLUDI.",";LUDI.",s);
-	s = strReplace(";n",";",s);
+	//s = strReplace(";n",";",s);
 	s = strReplace("u00f4","ô",s);
 	s = strReplace("u00e9","é",s);
 	s = strReplace("u00e8","è",s);
@@ -1515,7 +1643,7 @@ function rJtextScript(s){
 		}
 	}
 	s = strReplace(";nLUDI.",";LUDI.",s);
-	s = strReplace(";n",";",s);
+	//s = strReplace(";n",";",s);
 	s = strReplace("u00f4","ô",s);
 	s = strReplace("u00e9","é",s);
 	s = strReplace("u00e8","è",s);

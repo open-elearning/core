@@ -116,7 +116,6 @@ function init(nameVersion){
 	
 	setTimeout(function(){
 		
-		
 		listOfPluginsX();
 		cleanImages();
 		writeText(getfWf("dataFiles") + "texte.txt", "test");
@@ -128,11 +127,10 @@ function init(nameVersion){
 				global.sharedLogs.logs += 'store error:' + err + '<br>';
 				return console.error(err);
 			}
-			console.log('store init done !');
 			global.sharedLogs.logs += 'store init done !<br>';
 		});
 
-	},200);
+	},100);
 	
 	setTimeout(function(){
 		
@@ -144,19 +142,20 @@ function init(nameVersion){
 			global.sharedLogs.logs += 'INIT is COMPLETE<br>';
 		}
 		
-		ncp(serv + "assets/tpl", getfWf("tpl"),function (err) {
-			if(err){
-				global.sharedLogs.logs += 'tpl error:' + err + '<br>';
-				return console.error(err);
-			}
-			console.log('tpl init done !');
-			global.sharedLogs.logs += 'tpl init done !<br>';
-		});
-		
+		if(haveNewVersion){
+			ncp(serv + "assets/tpl", getfWf("tpl"),function (err) {
+				if(err){
+					global.sharedLogs.logs += 'tpl error:' + err + '<br>';
+					return console.error(err);
+				}
+				console.log('tpl init done !');
+				global.sharedLogs.logs += 'tpl init done !<br>';
+			});
+		}
 		listOfStore();
 		listOfInterface();
 
-	},2000);
+	},2100);
 
 	setTimeout(function(){
 
@@ -247,9 +246,15 @@ function cleanImages(){
 		}
 		items.forEach(function (item) {
 			
-			if(item.indexOf('aaoel')!=-1){
+			if (item.indexOf('aaoel')!=-1||isFileSpecial(item)) {
 				var filepath = dir2 + item;
 				deleteFileDeleteLink(filepath);
+			}
+			if (item.indexOf('.')==-1) {
+				var folderPath = dir2 + item;
+				deleteFolder(folderPath);
+				deleteEmptyFolder(folderPath)
+				console.log('deleteFolder ' + folderPath);
 			}
 			
 		});	  
@@ -257,6 +262,64 @@ function cleanImages(){
 	
 	deleteFileDeleteLink(getfWf("extract") + "listfile.txt");
 	
+}
+
+function isFileSpecial(item) {
+	var r = false;
+	if (item=='red-cool-sprite.png') {
+		r = true;
+	}
+	if (item=='red-cool-sprite-small.png') {
+		r = true;
+	}
+	if (item=='open-sprite.png') {
+		r = true;
+	}
+	if (item=='backWin19.png') {
+		r = true;
+	}
+	/*
+	if (item=='moveleft.gif') {
+		r = true;
+	}
+	if (item=='moveright.gif') {
+		r = true;
+	}
+	if (item.indexOf('ependuanimatescreen.jp')!=-1) {
+		r = true;
+	}
+	if (item=='page1.jpg'||item=='page2.jpg'||item=='page3.jpg'||item=='page4.jpg') {
+		r = true;
+	}
+	if (item=='pendu1.png'||item=='pendu2.png'||item=='pendu3.png'||item=='pendu4.png'||item=='pendu5.png') {
+		r = true;
+	}
+	if (item=='pendu6.png'||item=='pendu7.png'||item=='pendu8.png'||item=='pendu9.png'||item=='pendu10.png') {
+		r = true;
+	}
+	if (item=='back-document.png') {
+		r = true;
+	}
+	if (item=='poster-ludivideo.jpg') {
+		r = true;
+	}
+	if (item=='wordfindgame.txt.jpg') {
+		r = true;
+	}
+	if (item=='wordfind.txt.jpg') {
+		r = true;
+	}
+	if (item=='loading-ludivideo.gif') {
+		r = true;
+	}
+	if (item.indexOf('.xml')!=-1) {
+		r = true;
+	}
+	if (item=='LePendu-screen.jpg') {
+		r = true;
+	}
+	*/
+	return r;
 }
 
 function listOfStore(){
@@ -311,7 +374,7 @@ function loadDataDist(){
 			}
 			try{
 				global.sharedFiles.distData = JSON.parse(data);
-				console.log('data.json is load');
+				//console.log('data.json is load');
 			}catch(e){
 				console.log('data.json is not load');
 			}
@@ -356,11 +419,12 @@ function listOfPluginsX(){
 	global.plugins.xData = new Array();
 	global.plugins.jsData = new Array();
 	global.plugins.cssData = new Array();
-	
+	global.plugins.nbload = 0;
+
 	var fs = require('fs');
 	var dir = getfWf("plugins");
 
-	var tmp = 0;
+	var pluginsAllitem = new Array();
 
 	fs.readdir(dir,function(err,items){
 		
@@ -368,15 +432,48 @@ function listOfPluginsX(){
 			return console.log(err);
 		}
 		items.forEach(function(item){
-			setTimeout(function(){
-				loadOnePlug(dir,item);
-			},tmp);
-			tmp = tmp + 500;
-		})
+			pluginsAllitem.push(item);
+		});
+		loadPluginOptim(pluginsAllitem,dir,0);
 	});
 
 }
 exports.listOfPluginsX = listOfPluginsX;
+
+function loadPluginOptim(pluginsAllitem,dir,indexLst){
+
+	var findAPlug = false;
+	pluginsAllitem.forEach((item, index) => {
+		if (indexLst==index) {
+			loadOnePlug(dir,item);
+			findAPlug = true;
+		}
+    });
+	if (findAPlug) {
+		setTimeout(function() {
+			if (global.plugins.nbload>2) {
+				console.log(' ** loadOnePlug ' + indexLst + ' => ' + pluginsAllitem[indexLst]);
+				global.plugins.nbload = 0;
+				indexLst = indexLst + 1;
+				loadPluginOptim(pluginsAllitem,dir,indexLst);
+			} else {
+				setTimeout(function() {
+					if (global.plugins.nbload>2) {
+						console.log(' ** loadOnePlug ' + indexLst + ' => ' + pluginsAllitem[indexLst]);
+						global.plugins.nbload = 0;
+						indexLst = indexLst + 1;
+						loadPluginOptim(pluginsAllitem,dir,indexLst);
+					} else {
+						loadPluginOptim(pluginsAllitem,dir,indexLst);
+					}
+				},100);
+			}
+		},40);
+	} else {
+		console.log(' *** loadOnePlug finish');
+	}
+
+}
 
 function loadOnePlug(dir,item){
 	
@@ -386,7 +483,7 @@ function loadOnePlug(dir,item){
 	
 	var filepath = dir + item;
 	
-	//console.log('loadOnePlug => ' + item);
+	GlobalLogScreen(' ** loadOnePlug => ' + item);
 
 	if(item.indexOf('.')==-1&&item!='.'&&item!='..'){
 		
@@ -424,7 +521,7 @@ function loadOnePlug(dir,item){
 						global.plugins.xData.push(fxml);
 
 						GlobalLogScreen('loadOnePlug ==>'+item+' plugin.xml');
-						
+						global.plugins.nbload++;
 					});
 
 					fs.openSync(fileRunJs,'r+');
@@ -442,7 +539,7 @@ function loadOnePlug(dir,item){
 						fjs = parseText(fjs);
 						global.plugins.jsData.push(fjs);
 						GlobalLogScreen('loadOnePlug ==>'+item+' run.js');
-					
+						global.plugins.nbload++;
 					});//readFile
 					
 					fs.openSync(fileRunCss,'r+');
@@ -460,14 +557,14 @@ function loadOnePlug(dir,item){
 						fcss = parseText(fcss);
 						global.plugins.cssData.push(fcss);
 						GlobalLogScreen('loadOnePlug ==>' + item + ' run.css');
-						
+						global.plugins.nbload++;
 					});//readFile
 					
-				}//fileRunCss
-			}//fileRunJs
-		}//fileClue plugin.xml
+				} else { global.plugins.nbload = 3; }//fileRunCss
+			} else { global.plugins.nbload = 3; }//fileRunJs
+		} else { global.plugins.nbload = 3; }//fileClue plugin.xml
 		
-	}
+	} else { global.plugins.nbload = 3; }
 
 }
 
@@ -567,6 +664,19 @@ function deleteFolder(fileFolder) {
 	
 }
 exports.deleteFolder = deleteFolder;
+
+function deleteEmptyFolder(fileFolder) {
+
+	var fs = require('fs');
+	try {
+		fs.rmdirSync(fileFolder, { recursive: true });
+		console.log(`${fileFolder} is deleted!`);
+	} catch (err) {
+		console.error(`Error while deleting ${fileFolder}.`);
+	}
+
+}
+exports.deleteEmptyFolder = deleteEmptyFolder;
 
 function deleteFolderPLugin(fileFolder) {
 	
@@ -776,12 +886,12 @@ function copyFile(source, target, cb) {
 		var cbCalled = false;
 		var rd = fs.createReadStream(source);
 		rd.on("error", function (err) {
-			global.sharedLogs.logs += 'copy error ReadStream source:' + dest + '<br>';
+			global.sharedLogs.logs += 'copy error ReadStream source:' + source + '<br>';
 			done(err);
 		});
 		var wr = fs.createWriteStream(target);
 		wr.on("error", function (err) {
-			global.sharedLogs.logs += 'copy error WriteStream source:' + dest + '<br>';
+			global.sharedLogs.logs += 'copy error WriteStream source:' + target + '<br>';
 			done(err);
 		});
 		wr.on("close", function (ex) {
