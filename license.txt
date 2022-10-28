@@ -1,6 +1,6 @@
 OPEN ELEARNING - elearning and course software
 
-Copyright (c) 2008-2020 Batisseurs Numériques Lyon
+Copyright (c) 2008-2022 Batisseurs Numériques Lyon
 
 For a full list of contributors detaining copyrights over parts of
 the Chamilo software, see "documentation/credits.html".
