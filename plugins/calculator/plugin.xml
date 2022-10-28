@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<version>1.0</version>	
+	<properties>	
+		<type>objet</type>
+		<id>calculator</id>
+		<title>calculator</title>
+		<category>Content</category>
+	</properties>
+	
+	<embeddedFiles>
+		<file>CalculBlockClose.png</file>
+		<file>CalculBlock.png</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>CalculBlock.png</screenImage>
+		<defaultText></defaultText>
+		<width>100</width>
+		<height>100</height>
+		<sizeText>18</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<resize>0</resize>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>0</docTypeStrict>
+	</options>
+	
+</plugin>

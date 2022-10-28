@@ -1,0 +1,3 @@
+Beautiful and accessible math in all browsers
+A JavaScript display engine for mathematics that works in all browsers.
+No more setup for readers. It just works.

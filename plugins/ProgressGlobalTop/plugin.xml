@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	
+	<version>1.0</version>
+	
+	<properties>
+		<type>objet</type>
+		<id>ProgressGlobalTop</id>
+		<title>Progress Top</title>
+		<category>Parcours</category>
+	</properties>
+
+	<embeddedFiles>
+		<file>star30.png</file>
+	</embeddedFiles>
+	
+	<display>
+		<screenImage>sreenptwin.png</screenImage>
+		<defaultText></defaultText>
+		<width>100</width>
+		<height>100</height>
+		<sizeText>12</sizeText>
+		<colorText>black</colorText>
+		<textAlign>center</textAlign>
+		<behavior>center</behavior>
+	</display>
+	
+	<options>
+		<changeImage>0</changeImage>
+		<changeText>0</changeText>
+		<conditionalObject>0</conditionalObject>
+		<docTypeStrict>1</docTypeStrict>
+	</options>
+	
+	<fields>
+		<field>
+			<label>Color :</label>
+			<type>color</type>
+			<defaut>#337ab7</defaut>
+		</field>
+		<field>
+			<label>End Page :</label>
+			<type>number</type>
+			<defaut>0</defaut>
+		</field>
+	</fields>
+	
+</plugin>

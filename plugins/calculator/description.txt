@@ -1,0 +1,2 @@
+Calculator is a simple application to perform simple calculations.<br>
+You can perform addition, subtraction, division, and multiplication operations.

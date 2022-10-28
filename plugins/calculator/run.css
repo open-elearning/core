@@ -1,0 +1,98 @@
+﻿.calculatorBlock{
+	position : fixed;
+}
+.calculatorBlock{
+	border : solid 1px gray;
+	position : fixed;
+	bottom : 2px;
+	left : 0px;
+	width : 58px;
+	height : 58px;
+	border-radius:2px;
+	background: url("../data/CalculBlock.png") white no-repeat center center;
+	cursor : pointer;
+	overflow:hidden;
+	z-index:1000;
+}
+.openBlocCalcul{
+	position : absolute;
+	top : 0px;
+	left : 0px;
+	width : 58px;
+	height : 58px;
+	background: transparent;
+	cursor : pointer;
+	z-index:1000;
+}
+.crossBlocCalcul{
+	position : absolute;
+	top : 0px;
+	right : 1px;
+	width : 40px;
+	height : 40px;
+	background: url("../data/CalculBlockClose.png") transparent no-repeat 4px 4px;
+	cursor : pointer;
+	z-index:1000;
+	display:none;
+}
+
+.calculatrice{
+	position : absolute;
+	width : 300px;
+	height : 300px;
+	background-color : #eeeeee;
+	border : 2px solid #CCCCCC;
+	top : 3px;
+	left : 8px;
+	padding-left : 5px;
+	padding-bottom : 5px;
+	z-index : 5;
+	display : none;
+}
+
+.calculatrice td{
+	padding:2px;
+	width:70px;
+    height:40px;
+}
+
+.calculatrice td input{
+    cursor : pointer;
+}
+.calculatrice td input:focus{
+	background-color:#eeeeee;
+}
+.calculatrice td input:active{
+	background-color:#eeeeee;
+}
+
+
+.calc_td_resultat
+{
+        text-align:center;
+}
+.calc_resultat
+{
+        width:90%;
+        text-align:right;
+}
+.calc_td_calculs
+{
+        text-align:center;
+}
+.calc_calculs
+{
+        width:90%;
+        text-align:left;
+}
+.calc_td_btn
+{
+        width:25%;
+        height:100%;
+}
+.calc_btn
+{
+        width:90%;
+        height:90%;
+        font-size:20px;
+}

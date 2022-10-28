@@ -1,0 +1,1 @@
+Adding the Progress Bar block to the course shows users a view of their progress.
