@@ -27,12 +27,33 @@ body{
 	right : 30px;
 	top : 65px;	
 }
+
 .boutonGreen{
+	background-color:#44c767;
+	border-radius:7px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:16px;
+	width : 150px;
+	padding: 8px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+	text-align: center;
+    cursor :pointer;
+}
+.boutonGreen:hover {
+	background-color:#5cbf2a;
+}
+
+.boutonGreen-old{
     color: white!important;
     text-align: center;
     border-style: none;
     padding: 10px 15px;
-	border-radius: 20px;
+	border-radius: 10px;
 	width : 150px;
 	font-family : 'Open Sans', sans-serif;
     cursor :pointer;
@@ -40,6 +61,12 @@ body{
 	background-image:-webkit-linear-gradient(45deg, #00A538, #006F67);
 	background-image:-o-linear-gradient(45deg, #00A538, #006F67);
 	background-image:linear-gradient(45deg, #00A538, #006F67);
+}
+.boutonGreen-old:hover {
+	background-image:-moz-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+	background-image:-webkit-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+	background-image:-o-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
+	background-image:linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
 }
 
 .css-input{
@@ -56,14 +83,7 @@ body{
 	outline:none;
 }
 
-
-.boutonGreen:hover {
-	background-image:-moz-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
-	background-image:-webkit-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
-	background-image:-o-linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
-	background-image:linear-gradient(45deg, rgb(5, 145, 51), rgb(6, 107, 100));
-}
-
+/* 595 493 */
 .windowsbase{
 	position:fixed;
 	top:50%;
@@ -72,7 +92,7 @@ body{
 	height:493px;
 	margin-left:-298px;
 	margin-top:-247px;
-	background : url('../images/bgv2.jpg') center center no-repeat;
+	background : url('../images/bgv2.png') center center no-repeat;
 	z-index:9;
 }
 
@@ -101,12 +121,12 @@ body{
 }
 
 .scroolmodel{
-	position:absolute;
-	top:93px;
-	left:59px;
-	width:500px; 
-	height:390px;
-	border:solid 0px red;
+	position : absolute;
+	top : 93px;
+	left : 11px;
+	width : 610px; 
+	height : 390px;
+	border : solid 0px red;
 	overflow : auto;
 }
 
@@ -127,7 +147,7 @@ body{
 	background-image:linear-gradient(45deg, #00A538, #006F67);
 }
 
-#returnHouse .icon{
+#returnHouse .icon {
 	position : absolute;
 	width : 40px; 
 	height : 40px;
@@ -135,21 +155,25 @@ body{
 	background : url('../images/house.png') center center no-repeat;
 }
 
-.ludibtnactive{
+.ludibtnactive {
 	display: inline-block;
-	position:relative;
-	width:200px;
-	height:150px;
-	margin-left:30px;
-	margin-top:24px;
-	border:solid 1px gray;
+	position : relative;
+	width : 180px;
+	height : 140px;
+	margin-left : 11px;
+	margin-top : 24px;
+	border : solid 1px gray;
+	background-repeat: no-repeat;
+	background-size : cover;
 	cursor : pointer;
-
 }
 .ludibtnactive:hover {
-	transform: scale(0.99);
+	height : 142px;
+	margin-top : 22px;
+	width : 182px;
+	margin-left : 9px;
 }
-.ludibtnactive span{
+.ludibtnactive span {
 	position:absolute;
 	text-align: center;
 	border-radius:5px;
@@ -158,27 +182,39 @@ body{
 	padding-top:3px;
 	padding-bottom:3px;
 	bottom:-10px;
-	left:40px;
+	left:30px;
 	border:solid 1px gray;
 	background:#656578;
 	color:white;
 }
 
-.ludibtnmodel01{
-	background : url('../images/model01.jpg') top left no-repeat;	
-}
-.ludibtnmodel02{
-	background : url('../images/model02.jpg') top left no-repeat;	
-}
-.ludibtnmodel03{
-	background : url('../images/prof-fox.jpg') top left no-repeat;	
-}
-.ludibtnmodel04{
-	background : url('../images/gametemplate.jpg') top left no-repeat;	
+.ludibtnactive:hover > span {
+	width : 122px;
+	left : 29px;
+	height : 22px;
+	bottom : -11px;
 }
 
+.ludibtnmodel01 {
+	background-image : url('../images/model01.jpg');	
+}
+.ludibtnmodel02 {
+	background-image : url('../images/model02.jpg');	
+}
+.ludibtnmodel03 {
+	background-image : url('../images/prof-fox.jpg');	
+}
+.ludibtnmodel04 {
+	background-image : url('../images/gametemplate.jpg');	
+}
+.ludibtnmodel05 {
+	background-image : url('../images/meet-purple.jpg');	
+}
+.ludibtnmodel06 {
+	background-image : url('../images/prem-tpl.jpg');	
+}
 
-.windowsbaseextensions{
+.windowsbaseextensions {
 	position:fixed;
 	top:50%;
 	left:50%; 
@@ -190,7 +226,7 @@ body{
 	z-index:9;
 }
 
-.windowsexports{
+.windowsexports {
 	position:fixed;
 	top:50%;
 	left:50%; 
