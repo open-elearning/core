@@ -40,3 +40,8 @@ const settPO = document.querySelector('#lang-po');
 settPO.addEventListener('click', function () {
 	ipc.send('message',{key:'lang',val:'po'})
 });
+
+const settPOBR = document.querySelector('#lang-pobr');
+settPOBR.addEventListener('click', function () {
+	ipc.send('message',{key:'lang',val:'pobr'})
+});

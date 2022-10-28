@@ -44,6 +44,21 @@ settingsE4.addEventListener('click', function () {
 	
 });
 
+const settingsE5 = document.querySelector('#mod05');
+settingsE5.addEventListener('click', function () {
+	
+	var tabl = new Array();
+	tabl[0] = 'tpl-meet-purple';
+	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
+	ipc.send('ShowEditorWindow');
+	
+});
+
+const settingsopenelearninglink = document.querySelector('#mod06');
+settingsopenelearninglink.addEventListener('click', function () {
+shell.openExternal('https://www.openelearning.org/templates-assets-elearning')
+});
+
 const settingsReturnArrow = document.querySelector('#returnHouse');
 settingsReturnArrow.addEventListener('click', function () {
 	
