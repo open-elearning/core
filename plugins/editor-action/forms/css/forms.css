@@ -1,0 +1,241 @@
+
+.actionseditzone{
+    position : absolute;
+    border : dotted 1px purple;
+    margin-left : 75px;
+    margin-top : 20px;
+    width : 700px;
+    height : 580px;
+}
+
+.actionslistehelp{
+	position : absolute;
+	right : 40px;
+	top  : 55px;
+	width : 285px;
+	text-align : center;
+	z-index : 102;
+}
+
+.actionsThemes{
+	position : absolute;
+	left:15px;top:10px;
+	width : 320px;
+	height : 36px;
+}
+
+.tabBtn{
+	display: inline-block;
+	position : relative;
+	background-color: beige;
+	border : solid 1px transparent;
+	bottom: 0px;
+	margin-right: 5px;
+	width : 60px;
+	height : 28px;
+	line-height: 28px;
+	text-align: center;
+	border-bottom :none;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+.tabMain{
+	background-color: #BDBDBD;
+}
+.tabGame{
+	background-color: #A9E2F3;
+}
+.tabCondi{
+	background-color: #ffdeff;
+}
+.tabObject{
+	background-color: #E9F7EF;
+}
+
+.actionsliste{
+	float:left;
+	width : 320px;
+	height : 515px;
+	list-style-type: none; 
+	border-top:none;
+	padding : 0px;
+	margin : 0px;
+	margin-top  : 38px;
+	margin-left : 15px;
+	padding-top:5px;
+	z-index:103;
+}
+.actionsliste li{
+	width : 306px;
+	list-style-type: none; 
+	z-index : 104;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor : move;
+}
+.minAction{
+	width : 256px;
+	font-size : 16px;
+	padding : 4px;
+	margin : 2px;
+	margin-left : 50px;
+	background : #F8ECE0;
+	border : solid 1px gray;
+	border-radius : 10px;
+	text-align : center;
+}
+.minCondi{
+	width : 306px;
+	font-size : 16px;
+	padding : 4px;
+	margin : 2px;
+	border : solid 1px gray;
+	border-radius : 10px;
+	text-align : left;
+	background-image : url(../img/arrow.png);
+	background-position : right 10px center;
+	background-repeat : no-repeat;
+}
+
+.minFct{
+	background : white;
+	max-width : 150px;
+	padding : 2px;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+
+.numFct{
+	background : white;
+	max-width : 80px;
+	padding : 2px;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+
+.scoreFct {
+	background : white;
+	max-width : 80px;
+	padding : 2px;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+
+.selectIdFct {
+	background : white;
+	width : 110px;
+	padding : 0px;
+	font-size: 15px;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+.selectAnswer {
+	background : white;
+	width : 110px;
+	padding : 0px;
+	margin-top : 2px;
+	font-size: 15px;
+	text-align: center;
+	padding-left : 4px;
+	padding-right : 4px;
+	margin-left : 5px;
+	border-radius : 5px;
+	cursor : pointer;
+}
+
+.labelFctCond {
+	position : relative;
+	display: inline-block;
+	width : 110px;
+	text-align: right;
+}
+
+.windowSelectorIds {
+	position : absolute;
+	right : 60px;
+	top : 40px;
+	width : 210px;
+	height: 50px;
+	border : solid 1px rgb(8, 99, 31);
+	background : white;
+	z-index : 105;
+	padding-top : 6px;
+	overflow : auto;
+}
+.blockSelectorIds {
+	position : relative;
+	width : 170px;
+	height : 26px;
+	line-height : 17px;
+	font-size : 15px;
+	margin : 3px;
+	margin-left : 7px;
+	padding : 3px;
+	border-radius: 2px;
+	cursor : pointer;
+	background : white;
+	border : solid 1px rgb(8, 99, 31);
+	overflow : hidden;
+}
+.blockSelectorIds:hover {
+	background : #A3E4D7;
+}
+.windowLayer {
+	position : absolute;
+	left : 0%;
+	right : 0%;
+	top : 0%;
+	bottom : 0%;
+	background : gray;
+	opacity : 0.2;
+	z-index : 103;
+}
+
+.Pos{
+	background-color : #D0F5A9;
+}
+.Neg{
+	background-color : #F6CECE;
+}
+.ScoCondi{
+	background-color : #98d6fa;
+}
+.ScoCondi2{
+	background-color : #9bf3fb;
+}
+.ScoCondi3{
+	background-color : #FAD7A0;
+}
+.ScoCondi4{
+	background-color : #F9E79F;
+}
+.placeholder{
+	height: 15px !important;
+	border : solid 1px rgb(8, 99, 31);
+	background-color: rgb(8, 99, 31);
+	box-sizing:none;
+}
