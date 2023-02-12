@@ -142,6 +142,11 @@ function renderInput(ob,p){
 		fxml += '<bloc>';
 		fxml += '<type>input</type>';
 		fxml += '<id></id>';
+
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		}
+		
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
 
@@ -319,6 +324,135 @@ function renderobjframe(ob,p){
 }
 exports.renderobjframe = renderobjframe;
 
+function renderinfopoint(ob,p){
+
+	var fxml = '';
+
+	if (ob.type=='infopoint') {
+		fxml += '<bloc>';
+		fxml += '<type>panelcenter</type>';
+		fxml += '<id></id>';
+		fxml += "<x>" + parseInt(ob.x + (ob.w/2)) + "</x>";
+		fxml += "<y>" + parseInt(ob.y + (ob.h/2)) + "</y>";
+		fxml += "<w>" + ob.w + "</w>";
+		fxml += "<h>" + ob.h + "</h>";
+		
+		fxml += "<x2>" + parseInt(ob.x2 + (ob.w2/2)) + "</x2>";
+		fxml += "<y2>" + parseInt(ob.y2 + (ob.h2/2)) + "</y2>";
+		fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+
+		var txtEdit = strReplace("data-ref=","href=",ob.text);
+		
+		// Correction picture path
+		if (ob.type=='texthtml'){
+			if (ob.text6!='') {
+				txtEdit = txtEdit.replace(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/g,'url(\'images/'+ob.text6+'\')');
+			}
+		}
+		fxml += '<tx><![CDATA[Infos]]></tx>';
+		fxml += '<tx2><![CDATA[' + rJtext(txtEdit) +']]></tx2>';
+
+		fxml += "<align>LeftTop</align>";
+
+		fxml += "<fontsize>14</fontsize>";
+
+		if(ob.val==''||ob.val==0){
+			fxml += "<color><![CDATA[black]]></color>";
+		}
+		if(ob.val=='1'||ob.val==1){
+			fxml += "<color><![CDATA[white]]></color>";
+		}
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
+		
+		fxml += "<css><![CDATA[" + rJtext(ob.css) + "]]></css>"
+		fxml += "<page>" + p + "</page>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+	}
+	
+	return fxml;
+
+}
+exports.renderinfopoint = renderinfopoint;
+
+function renderMetaObject(ob,p){
+
+	var fxml = '';
+
+	if (ob.type=='metaobject') {
+
+		fxml += '<bloc>';
+		fxml += '<type>' + ob.text7 + '</type>';
+		fxml += '<id></id>';
+
+		if (ob.text7=='panelcenter') {
+			fxml += "<x>" + parseInt(ob.x + (ob.w/2)) + "</x>";
+			fxml += "<y>" + parseInt(ob.y + (ob.h/2)) + "</y>";
+			fxml += "<w>" + ob.w + "</w>";
+			fxml += "<h>" + ob.h + "</h>";
+			fxml += "<x2>" + parseInt(ob.x2 + (ob.w2/2)) + "</x2>";
+			fxml += "<y2>" + parseInt(ob.y2 + (ob.h2/2)) + "</y2>";
+			fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+		} else {
+			fxml += "<x>" + ob.x + "</x>";
+			fxml += "<y>" + ob.y + "</y>";
+			fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
+			fxml += "<x2>" + ob.x2+ "</x2>";
+			fxml += "<y2>" + ob.y2 + "</y2>";
+			fxml += "<w2>" + ob.w2 + "</w2><h2>" + ob.h2 + "</h2>";
+		}
+
+		if (ob.text7=='timer') {
+			fxml += "<boite>c</boite>";
+			fxml += calculActionObj(ob,p,true);
+			fxml += '<tx><![CDATA['+ parseInt((ob.text3)*1000) +']]></tx>';
+			fxml += '<o>0</o><o2>0</o2><acl>0</acl><pp>0</pp>';
+		}
+
+		if (ob.text7=='showstarfx') {
+			fxml += "<tx></tx><tx2></tx2><tx3></tx3>";
+			fxml += "<tx4><![CDATA["+parseInt(ob.text2)+";"+parseInt(ob.text3)+";"+parseInt(ob.text4)+";]]></tx4>";
+		}
+
+		var txtEdit = strReplace("data-ref=","href=",ob.text);
+		if (ob.type=='texthtml'){
+			if (ob.text6!='') {
+				txtEdit = txtEdit.replace(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/g,'url(\'images/'+ob.text6+'\')');
+			}
+		}
+
+		if (ob.text7!='timer') {
+			fxml += '<tx><![CDATA[Infos]]></tx>';
+		}
+		fxml += '<tx2><![CDATA[' + rJtext(txtEdit) +']]></tx2>';
+
+		if (ob.text7=='panelslide') {
+			fxml += '<contenu3><![CDATA[infopanelslide.png]]></contenu3>';
+			fxml += '<contenu5><![CDATA[400]]></contenu5>';
+		}
+
+		fxml += "<align>LeftTop</align>";
+		fxml += "<fontsize>14</fontsize>";
+
+		fxml += "<color><![CDATA[black]]></color>";
+		
+		if(ob.anim){
+			fxml += "<an>" + rJtext(ob.anim) + "</an><de>0</de>";
+		}
+		
+		fxml += "<css><![CDATA[" + rJtext(ob.css) + "]]></css>"
+		fxml += "<page>" + p + "</page>";
+		fxml += "<ind>2</ind>";
+		fxml += "</bloc>";
+	}
+	
+
+	return fxml;
+
+}
+exports.renderMetaObject = renderMetaObject;
 
 function renderText(ob,p){
 	
@@ -328,6 +462,9 @@ function renderText(ob,p){
 		fxml += '<bloc>';
 		fxml += '<type>text</type>';
 		fxml += '<id></id>';
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		}
 		fxml += "<x>" + ob.x + "</x>";
 		fxml += "<y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w>";
@@ -373,6 +510,9 @@ function renderText(ob,p){
 		fxml += '<bloc>';
 		fxml += '<type>text</type>';
 		fxml += '<id></id>';
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		}
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
 
@@ -423,6 +563,8 @@ function renderText(ob,p){
 		fxml = strReplaceX("valfieldtext",rJtext(ob.text),fxml);
 		fxml = strReplaceX("{typespeech}",rJtext(ob.val),fxml);
 		
+		fxml =  strReplaceX("<an>1</an>","<an>" + ob.anim + "</an>",fxml);
+
 		fxml =  strReplaceX("<page>2</page>","<page>" + p + "</page>",fxml);
 		
 	}
@@ -447,7 +589,12 @@ function renderQcm(ob,p,typePage){
 		fxml += '<remarque><![CDATA[' + rJtext(ob.remarque) + ']]></remarque>';
 		fxml += '<negnote>0</negnote>';
 
-		fxml += '<id></id><ids></ids>';
+		fxml += '<id></id>';
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		} else {
+			fxml += '<ids></ids>';
+		}
 		fxml += "<x>" + ob.x + "</x>";
 		fxml += "<y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w>";
@@ -575,7 +722,10 @@ function renderImages(ob,p){
 		fxml += '<id></id>';
 		if (ob.idString!='') {
 			fxml += '<ids>'+ ob.idString +'</ids>';
+		} else {
+			fxml += '<ids></ids>';
 		}
+
 		fxml += "<x>" + ob.x + "</x><y>" + ob.y + "</y>";
 		fxml += "<w>" + ob.w + "</w><h>" + ob.h + "</h>";
 		fxml += "<x2>" + ob.x2 + "</x2><y2>" + ob.y2 + "</y2>";
@@ -595,7 +745,7 @@ function renderImages(ob,p){
 		
 		fxml += "<src><![CDATA[images/" + filename + " ]]></src>";
 		
-		fxml += calculActionObj(ob,p);
+		fxml += calculActionObj(ob,p,true);
 
 		fxml += "<an>" + ob.anim + "</an><de>0</de>";
 		
@@ -675,6 +825,13 @@ function renderButton(ob,p,typePage){
 			}
 		}
 		fxml += '<id></id>';
+		
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		} else {
+			fxml += '<ids></ids>';
+		}
+
 		fxml += "<x>" + pInt(pInt(ob.x)+3) + "</x>";
 		fxml += "<y>" + pInt(pInt(ob.y)+3) + "</y>";
 		fxml += "<w>" + pInt(pInt(ob.w)-6) + "</w>";
@@ -722,7 +879,11 @@ function renderButton(ob,p,typePage){
 		
 		fxml += "<contenu5>1</contenu5>";
 		
-		fxml += calculActionObj(ob,p);
+		if(ob.type=='gamezoneaction'){
+			fxml += calculActionObj(ob,p,false);
+		} else {
+			fxml += calculActionObj(ob,p,true);
+		}
 		
 		fxml += "<an>" + pInt(ob.anim) + "</an><de>0</de>";
 		
@@ -749,7 +910,7 @@ function renderButton(ob,p,typePage){
 }
 exports.renderButton = renderButton;
 
-function calculActionObj(ob,p){
+function calculActionObj(ob,p,mouseevent){
 	
 	var fxml = "";
 
@@ -775,7 +936,11 @@ function calculActionObj(ob,p){
 	}
 	if(ob.actionVal=="AP"){
 		fxml += "<st>";
-		fxml += "<![CDATA[onMouseDown=\"" + rJtextScript(ob.actionData) + "\"]]>";
+		if (mouseevent) {
+			fxml += "<![CDATA[onMouseDown=\"" + rJtextScript(ob.actionData) + "\"]]>";
+		} else {
+			fxml += "<![CDATA[" + rJtextScript(ob.actionData) + "]]>";
+		}
 		fxml += "</st>";
 		fxml += "<data></data>";
 	}
@@ -832,6 +997,12 @@ function renderVideo(ob,p){
 		fxml += '<bloc>';
 		fxml += '<type>videodistante</type>';
 		fxml += '<id></id>';
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		} else {
+			fxml += '<ids></ids>';
+		}
+
 		fxml += '<an>1</an>';
 		fxml += "<x>" + parseInt(ob.x) + "</x>";
 		fxml += "<y>" + parseInt(ob.y) + "</y>";
@@ -1651,7 +1822,9 @@ function rJtextScript(s){
 	s = strReplace("u2019","'",s);
 	s = strReplace("ZaposA",'"',s);
 	s = strReplace("'",'&apos;',s);
-	
+	s = strReplace("(&apos;",'(\\\'',s);
+	s = strReplace("&apos;)",'\\\')',s);
+
 	return s;
 	
 }

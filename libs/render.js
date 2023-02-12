@@ -155,6 +155,7 @@ function generateHtmlSecondPass(){
 			Pitems[obj.pageId] = obj.index ;
 			PtypePage[obj.pageId] = obj.comicMode ;
 
+			//back
 			if(obj.back==''||obj.back=='white.jpg'){
 				fxml += '<fond><page>' + obj.index + '</page>';
 				fxml += '<data><![CDATA[images/fond-white.png]]></data></fond>';
@@ -170,6 +171,16 @@ function generateHtmlSecondPass(){
 				copyFileImg(pinit2,ptarget2);
 				Pback[obj.pageId] = 'images/' + obj.back;
 			}
+
+			//transition
+			if (typeof(obj.transition) == 'undefined'){
+				obj.transition = 'Direct';
+			}	
+			if(obj.transition==''){
+				obj.transition = 'Direct';
+			}
+			fxml += '<transition><page>' + obj.index + '</page>';
+			fxml += '<data>' + obj.transition + '</data></transition>';
 			
 			var extraScript = '';
 			
@@ -219,10 +230,18 @@ function generateHtmlSecondPass(){
 			
 			var typePage = parseInt(PtypePage[objLudi.pageId]);
 			
-			
 			fxml += renderobjs.renderText(objLudi,numPage);
 			fxml += renderobjs.renderQcm(objLudi,numPage,typePage);
 			fxml += renderobjs.renderImages(objLudi,numPage);
+
+			if (objLudi.type=='metaobject') {
+				if (objLudi.text7=='panelslide') {
+					var ipanelslide = easyfile.getfWf("assets") + 'infopanelslide.png';
+					var tpanelslide = pathFinalHtml + 'images' + fd + 'infopanelslide.png';
+					copyFileImg(ipanelslide,tpanelslide);
+				}
+				fxml += renderobjs.renderMetaObject(objLudi,numPage);
+			}
 			
 			renderbase.renderBaseProcess(objLudi,pathFinalHtml + 'data');
 			
@@ -694,7 +713,7 @@ function generateJs() {
 				}
 
 				if(memS.indexOf(idname + ";")==-1){
-					console.log('-- write js =>' + codeSP);
+					//console.log('-- write js =>' + codeSP);
 					dataJsFile = dataJsFile + "\r\n";
 					dataJsFile = dataJsFile + "//" + idname + "\r\n";
 					dataJsFile = dataJsFile + codeSP + "\r\n";
@@ -728,7 +747,7 @@ function generateJs() {
 					if (typeof(upjs) == 'undefined'){
 						upjs = "";
 					}
-					upjs = upjs.replace("undefined","");
+					//upjs = upjs.replace("undefined","");
 					
 					if(memS.indexOf(filename + ";")==-1){
 						dataJsFile = dataJsFile + upjs + "\r\n";
@@ -738,7 +757,6 @@ function generateJs() {
 					
 				}
 			}
-			
 			
 		});
 		
@@ -754,23 +772,27 @@ function generateCss() {
 	var fd = global.fd;
 	var easyfile =  require('./easyfile')
 	var fs = require('fs');
-	var dataCssFile = '';
+	var dataCssFile = '/* Custom CSS OeL */'+"\n";
+	var nowDT = new Date();
+	dataCssFile += nowDT + "\n";
 	var renderPath = easyfile.getfWf("finalHtml") + 'css/open.css';
 	var pathFinalHtml = easyfile.getfWf("finalHtml");
 
 	var i = 0;
 	var mem = '';
 	
-	var a = global.plugins.allData;
-	a.forEach(function(idname) {
-		
-		if (mem.indexOf(idname + ';')==-1) {
-			mem = idname + ';';
-			var codeCSS = global.plugins.cssData[i];
-			dataCssFile += codeCSS;
-			i++;
+	//Compil all css files
+	var a = global.plugins.cssData;
+	a.forEach(function(basecss) {
+		if (basecss.indexOf('renderfileprocessoel')!=-1) {
+			var codeCSS = basecss;
+			codeCSS = ratioTxt(codeCSS);
+			console.log('-- render css => ' + i + ' (' + codeCSS.length + ')');
+			if (codeCSS!='') {
+				dataCssFile += codeCSS;
+			}
 		}
-		
+		i++;
 	});
 
 	var ae = global.embeddedFiles.split(';')
@@ -778,6 +800,7 @@ function generateCss() {
 		if (filename!='') {
 			if (filename.indexOf(".css")!=-1) {
 				var pthEf = easyfile.getfWf("plugins") + filename;
+				console.log('-- Plugins css =>' + pthEf);
 				dataCssFile += '/*' + filename + '*/';
 				dataCssFile += fileGetContents(pthEf,filename);
 			}
@@ -785,12 +808,12 @@ function generateCss() {
 	});
 	
 	if (typeof(global.sharedObj.extracodecss) != 'undefined') {
-		dataCssFile += '/*extracodecss*/';
+		dataCssFile += '/* extracodecss */';
 		dataCssFile += global.sharedObj.extracodecss;
 	}
 	
 	if (typeof(global.sharedObj.contentcodecss) != 'undefined') {
-		dataCssFile += '/*contentcodecss*/';
+		dataCssFile += '/* contentcodecss */';
 		dataCssFile += global.sharedObj.contentcodecss;
 	}
 
@@ -886,3 +909,24 @@ function fileGetContents(path,idFile){
 	
 }
 
+function ratioTxt(s){
+	
+	if(typeof s==="undefined"){
+		s = '';
+	}
+	if(typeof s==='number'){
+		s = s.toString();
+	}
+	if(typeof s!=='number'){
+		if(typeof s!=='string'){
+			s = s.toString('utf8');
+		}
+	}
+	if(typeof s===" "){
+		s = '';
+	}
+
+	return s;
+	
+}
+exports.ratioTxt = ratioTxt;

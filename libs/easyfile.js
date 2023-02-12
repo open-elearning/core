@@ -555,9 +555,21 @@ function loadOnePlug(dir,item){
 						}
 
 						fcss = parseText(fcss);
-						global.plugins.cssData.push(fcss);
-						GlobalLogScreen('loadOnePlug ==>' + item + ' run.css');
+						if (fcss.length==0) {
+							global.plugins.cssData.push('');
+							GlobalLogScreen('loadOnePlug ==>' + item + ' run.css (empty)');
+						} else {
+							if (item.indexOf('ui-interface')==-1
+							||item.indexOf('editor-action')==-1) {
+								fcss = "\n" + '/*' + item +  ' renderfileprocessoel '  + '*/' + "\n" + fcss;
+							}
+							global.plugins.cssData.push(fcss);
+							GlobalLogScreen('loadOnePlug ==>' + item + ' run.css (' + fcss.length + ')');
+							
+						}
+						
 						global.plugins.nbload++;
+						
 					});//readFile
 					
 				} else { global.plugins.nbload = 3; }//fileRunCss
@@ -570,7 +582,7 @@ function loadOnePlug(dir,item){
 
 function GlobalLogScreen(mess){
 	global.sharedLogs.logs += mess+ '<br>';
-	//console.log(mess);
+	// console.log(mess);
 }
 
 function processCopyAlterFilesOfPlugins(dir,item,xml){
