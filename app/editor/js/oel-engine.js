@@ -286,7 +286,7 @@ if(getQcmH==false){
 closePan();
 var iCtn = CLudisGetNumber('helper')+CLudisGetNumber('input')
 + CLudisGetNumber('qcm')+CLudisGetNumber('bilan')+CLudisGetNumber('objframe')
-+ CLudisGetNumber('img')+CLudisGetNumber('lcm')
++ CLudisGetNumber('img')+CLudisGetNumber('lcm')+CLudisGetNumber('metaobject')
 + CLudisGetNumber('text')+CLudisGetNumber('video') + CLudisGetNumber('audio')
 + CLudisGetNumber('tcm')+CLudisGetNumber('plugin')+ CLudisGetNumber('texthtml')
 + CLudisGetNumber('speech')+CLudisGetNumber('videomp4')+CLudisGetNumber('buttonarea')
@@ -560,7 +560,8 @@ var lastUniKid = "";
 function ajoutLudiIMG(){
 closePan();
 var objTemp = LudiBase();
-objTemp.type= "img";
+objTemp.type = "img";
+objTemp.idString = "img" + guid();
 objTemp.x = 450 + imgx;
 objTemp.y = 170;
 objTemp.width  = 400;
@@ -590,7 +591,8 @@ launchImageEditZone();
 function ajoutLudiIMGprocess(){
 closePan();
 var objTemp = LudiBase();
-objTemp.type= "img";
+objTemp.type = "img";
+objTemp.idString = "img" + guid();
 objTemp.x = 250 + imgx;
 objTemp.y = 170;
 objTemp.width  = 150;
@@ -615,7 +617,8 @@ deleteLudiHELPER();
 function ajoutLudiIMGpng(im,six,siy,rix,riy){
 closePan();
 var objTemp = LudiBase();
-objTemp.type= "img";
+objTemp.type = "img";
+objTemp.idString = "img" + guid();
 objTemp.x = 250 + imgx;
 objTemp.y = 170;
 objTemp.width  = six;
@@ -642,7 +645,8 @@ launchImageEditZone();
 function ajoutLudiIMGsvg(im,six,siy,rix,riy){
 closePan();
 var objTemp = LudiBase();
-objTemp.type= "img";
+objTemp.type = "img";
+objTemp.idString = "img" + guid();
 objTemp.x = 250 + imgx;
 objTemp.y = 170;
 objTemp.width  = six;
@@ -668,6 +672,7 @@ function ajoutLudiIMGsvgReal(im,six,siy,rix,riy){
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "img";
+objTemp.idString = "img" + guid();
 objTemp.x = 250 + imgx;
 objTemp.y = 170;
 objTemp.width  = six;
@@ -698,7 +703,8 @@ closePan();
 return false;
 }
 var objTemp2 = LudiBase();
-objTemp2.type= "qcm";
+objTemp2.type = "qcm";
+objTemp2.idString = "mcq" + guid4();
 objTemp2.x = 50 + qcmx;
 objTemp2.y = 260 + qcmx;
 objTemp2.width  = 453;
@@ -732,6 +738,7 @@ return false;
 }
 var objTemp2 = LudiBase();
 objTemp2.type= "tcm";
+objTemp2.idString = "tcm" + guid4();
 objTemp2.x = 50;
 objTemp2.y = 160;
 objTemp2.width  = 400;
@@ -760,6 +767,7 @@ return false;
 }
 var objTemp2 = LudiBase();
 objTemp2.type= "lcm";
+objTemp2.idString = "lcm" + guid4();
 objTemp2.x = 240;
 objTemp2.y = 200;
 objTemp2.width  = 480;
@@ -792,6 +800,7 @@ deleteLudiHELPER();
 function ajoutLudiInput(){
 var objInput = LudiBase();
 objInput.type= "input";
+objInput.idString = "input" + guid4();
 objInput.x = 240 + imgx;
 objInput.y = 200;
 objInput.width  = 200;
@@ -858,6 +867,7 @@ return false;
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "video";
+objTemp.idString = "video" + guid4();
 objTemp.x = 450;
 objTemp.y = 170;
 objTemp.width  = 448;
@@ -883,6 +893,7 @@ return false;
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "videomp4";
+objTemp.idString = "mp4" + guid4();
 objTemp.text = "....";
 objTemp.x = 250;
 objTemp.y = 170;
@@ -902,6 +913,7 @@ function ajoutLudiAUDIOMP3(){
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "audio";
+objTemp.idString = "audio" + guid4();
 objTemp.text = "....";
 objTemp.x = 450;
 objTemp.y = 420;
@@ -923,6 +935,7 @@ if(iCtn>0){closePan();return false;}
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "bilan";
+objTemp.idString = "bil" + guid4();
 objTemp.x = 245;
 objTemp.y = 230;
 objTemp.width  = 450;
@@ -943,6 +956,7 @@ if(iCtn>0){closePan();return false;}
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "life";
+objTemp.idString = "life" + guid4();
 objTemp.x = 830;
 objTemp.y = 20;
 objTemp.width  = 114;
@@ -1049,6 +1063,7 @@ deleteLudiHELPER();
 function ajoutLudiQUEST(){
 var objTemp = LudiBase();
 objTemp.type= "text";
+objTemp.idString = "txt" + guid4();
 objTemp.x = 50 + qcmx;
 objTemp.y = 160 + qcmx;
 objTemp.width  = 350;
@@ -1074,6 +1089,7 @@ return false;
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "text";
+objTemp.idString = "txt" + guid4();
 objTemp.x = 30;
 objTemp.y = 170;
 objTemp.width  = 400;
@@ -1098,6 +1114,7 @@ function ajoutLudiLABEL(){
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "label";
+objTemp.idString = "txt" + guid4();
 objTemp.x = 30;
 objTemp.y = 160 + imgx;
 objTemp.width = 200;
@@ -1118,6 +1135,7 @@ deleteLudiHELPER();
 function ajoutLudiSPEECH(){
 var objTemp = LudiBase();
 objTemp.type= "speech";
+objTemp.idString = "speech" + guid4();
 objTemp.x = 320 + imgx;
 objTemp.y = 10;
 objTemp.width  = 300;
@@ -1153,6 +1171,7 @@ var iCtn = CLudisGetNumber('button');
 var objTemp = LudiBase();
 objTemp.text6 = 1;
 objTemp.type = 'button';
+objTemp.idString = "btn" + guid4();
 objTemp.y = 650;
 if(iCtn==0){
 objTemp.x = 760;
@@ -1209,6 +1228,7 @@ function ajoutLudiActiveZone(){
 var objTemp = LudiBase();
 objTemp.text6 = 1;
 objTemp.type = 'buttonarea';
+objTemp.idString = "btn" + guid4();
 objTemp.y = 550 + qcmx ;
 objTemp.x = 560 + qcmx;
 objTemp.width = 80;
@@ -1342,6 +1362,7 @@ function ajoutLudiDOM() {
 closePan();
 var objTemp = LudiBase();
 objTemp.type= "dom";
+objTemp.idString = "dom" + guid4();
 objTemp.x = 50 + domx;
 objTemp.y = 200 + domx;
 objTemp.width  = 200;
@@ -1371,6 +1392,56 @@ objTemp.realwidth = objTemp.width;
 objTemp.realheight = objTemp.height;
 objTemp.pageId = GPageId;
 objTemp.text = "";
+objTemp.fontSize = 18;
+CLudisAdd(objTemp);
+lastUniKid = objTemp.unikid;
+domx = domx + 4;
+CLudisPaint();
+eventObjects = true;
+createRenderJSON();
+deleteLudiHELPER();
+}
+function launchMetaObject(typ,mtyp) {
+closePan();
+var objTemp = LudiBase();
+objTemp.type= "metaobject";
+objTemp.x = 120 + domx;
+objTemp.y = 220 + domx;
+objTemp.width  = 50;
+objTemp.height = 50;
+objTemp.realwidth = objTemp.width;
+objTemp.realheight = objTemp.height;
+if (typ=='showstarfx') {
+objTemp.data = "img/startline-view.png";
+objTemp.width  = 456;
+objTemp.height = 182;
+objTemp.realwidth = objTemp.width;
+objTemp.realheight = objTemp.height;
+objTemp.text2 = 0;
+objTemp.text3 = 50;
+objTemp.text4 = 90;
+}
+if (typ=='infopoint') {
+objTemp.data = "img/infopoint.png";
+}
+if (typ=='panelslide') {
+objTemp.x = 920;
+objTemp.x2 = 440;
+objTemp.data = "assets/infopanelslide.png";
+}
+if (typ=='timer') {
+objTemp.data = "img/timec14.png";
+objTemp.text3 = 20;
+objTemp.width  = 100;
+objTemp.height = 100;
+objTemp.realwidth = objTemp.width;
+objTemp.realheight = objTemp.height;
+objTemp.actionVal = "DS";
+}
+objTemp.pageId = GPageId;
+objTemp.text = "";
+objTemp.text7 = mtyp;
+objTemp.text8 = typ; //"infopoint"
 objTemp.fontSize = 18;
 CLudisAdd(objTemp);
 lastUniKid = objTemp.unikid;
@@ -2399,13 +2470,14 @@ return imgassets;
 }
 function imageEditZone(){
 var p = '<div id="editImage" class="editImage pan ' + TYPEWIND + 'osBorder" >';
-p += barEditWind('Images')
+p += barEditWind('Images');
+p += imageMenuSystem();
 p += '<div id="listzoneload" class="listzoneload" >.</div>';
 p += '<div id="listzone" class="listzone" >';
 p +=  openelearning.cthl(imgUzl);
 p += "</div>";
 p += '<div class="listzoneboutons" >';
-p += '<a style="float:left;" onclick="closeEdit();" ';
+p += '<a style="float:left;display:none;" onclick="closeEdit();" ';
 p += 'class="validation" >'+getTrdU("cancel")+'</a>';
 p += '<a id="imgactionbtn" ';
 p += ' style="float:left;margin-left:10px;padding:5px;cursor:pointer;" ';
@@ -2414,11 +2486,19 @@ p += ' ><img src="img/call_to_action.png" /></a>';
 p += '<a style="float:right;margin-right:10px;width:150px;" ';
 p += 'onclick="imageInsert();" ';
 p += 'class="btnSave" >'+getTrdU("save")+'</a>';
-p += '<a id="btnImgUpload" style="float:right;margin-right:10px;" ';
-p += 'onclick="imageUpload();" ';
-p += 'class="validation" >'+getTrdU("upload")+'</a>';
 p += '</div></div>';
 return p;
+}
+function imageMenuSystem(){
+var men = '<div class="media-frame-menu">';
+men += '<div class="media-menu">';
+men += '<a class="media-menu-item menu-insert media-menu-active">Project files</a>';
+men += '<div class="separator"></div>';
+men += '<a class="media-menu-item menu-clipart" >Image library</a>';
+men += '<a onclick="imageUpload();" class="media-menu-item menu-direct" >'+getTrdU("upload")+'</a>';
+men += '</div>';
+men += '</div>';
+return men;
 }
 function imageActions(){
 if(targetImg==0){
@@ -2905,6 +2985,8 @@ var ow = parseInt(refLudi.getW());
 var oh = parseInt(refLudi.getH());
 var rw = parseInt(refLudi.getRW());
 var rh = parseInt(refLudi.getRH());
+if (isNaN(ow)) {ow = rw;}
+if (isNaN(oh)) {oh = rh;}
 var uid = parseInt(refLudi.id);
 if ("undefined"===typeof refLudi.type) {
 return false;
@@ -3458,6 +3540,47 @@ text.id = uid;
 OptsHandles(text,refLudi);
 canvas.add(text);
 }
+if(refLudi.type=="infopoint"){
+var infopointsrc = refLudi.data;
+fabric.util.loadImage(infopointsrc,function(img){
+var legimg = new fabric.Image(img,{
+left : ol,top  : ot,
+scaleX : ow / img.width,
+scaleY : oh / img.height
+});
+legimg.id = uid;
+legimg.lockRotation = true;
+legimg.lockScalingY = true;
+legimg.lockScalingX = true;
+legimg.lockMovementX = false;
+legimg.hasRotatingPoint = false;
+legimg.hasControls = false;
+OptsHandles(legimg,refLudi);
+canvas.add(legimg);
+});
+}
+if(refLudi.type=="metaobject"){
+var infopointsrc = refLudi.data;
+fabric.util.loadImage(infopointsrc,function(img){
+var legimg = new fabric.Image(img,{
+left : ol,top  : ot,
+scaleX : ow / img.width,
+scaleY : oh / img.height
+});
+legimg.id = uid;
+legimg.lockRotation = true;
+legimg.lockScalingY = true;
+legimg.lockScalingX = true;
+legimg.lockMovementX = false;
+if (refLudi.text7=='panelslide') {
+legimg.lockMovementX = true;
+}
+legimg.hasRotatingPoint = false;
+legimg.hasControls = false;
+OptsHandles(legimg,refLudi);
+canvas.add(legimg);
+});
+}
 if(refLudi.type=="buttonarea"){
 refLudi.realwidth = refLudi.width;
 refLudi.realheight = refLudi.height;
@@ -3715,8 +3838,12 @@ imgsrc = "";
 if(imgsrc.indexOf("assets")==-1){
 imgsrc = folderAllImages + imgsrc;
 }
+if(imgsrc.indexOf("ssets/aaoel")!=-1){
+imgsrc = folderAllImages + findNameOfFile(imgsrc);
+} else {
 if(imgsrc.indexOf("/assets/")!=-1){
 imgsrc = folderAllImages + findNameOfFile(imgsrc);
+}
 }
 if(imgsrc.indexOf("img")!=-1&&imgsrc.indexOf("playvideo.png")!=-1){
 imgsrc = folderAllImages + "playvideo.png";
@@ -3757,12 +3884,12 @@ imgsrc = imgsrc.substring(imgsrc.lastIndexOf('plugins\\')+8);
 }
 return imgsrc;
 }
-function drwImageDataMini(processId,ctx){
+function drwImageDataMini(processId,ctx,index){
 for (var i = 0; i < CLudisCount; i++){
 var obj = CLudis[i];
-if(obj.supp==0){
-if(obj.pageId==processId){
-if(obj.type=='barre'){
+if (obj.supp==0) {
+if (obj.pageId==processId) {
+if (obj.type=='barre') {
 var rx = parseInt(obj.x * 0.16);
 var ry = parseInt(obj.y * 0.16);
 var rw = parseInt(obj.width * 0.16);
@@ -3870,6 +3997,19 @@ ctx.drawImage(img3, qcmx, qcmy, qcmdw, qcmdh);
 };
 img3.src = 'img/littlelcm.png';
 }
+if(obj.type=='metaobject') {
+if (obj.text8=='showstarfx') {
+var qcmx = parseInt(obj.x * 0.16);
+var qcmy = parseInt(obj.y * 0.16);
+var qcmdw = parseInt(obj.width * 0.16);
+var qcmdh = parseInt(obj.height * 0.16);
+var imgmeta = new Image();
+imgmeta.onload = function() {
+ctx.drawImage(imgmeta, qcmx, qcmy, qcmdw, qcmdh);
+};
+imgmeta.src = obj.data;
+}
+}
 if(obj.type=='texthtml'){
 var qcmx = parseInt(obj.x * 0.16);
 var qcmy = parseInt(obj.y * 0.16);
@@ -3898,6 +4038,7 @@ rectangledText(ctx,xt,yt,dwt,cleanText(obj.text),4,'Helvetica','white');
 }
 }
 }
+rectangleNumPage(ctx,index);
 }
 function getImageDataMini(processId){
 if(!openelearning.gebi('page' + processId)){
@@ -3917,12 +4058,12 @@ if(pa.back!=''&&pa.back!='white.jpg'){
 var imgBack = new Image();
 imgBack.onload = function(){
 ctx.drawImage(imgBack,0,0,153,115);
-drwImageDataMini(processId,ctx);
+drwImageDataMini(processId,ctx,pa.index);
 getImageDataMiniV2(processId,pa,ctx);
 };
 imgBack.src = folderAllImages + pa.back;
 }else{
-drwImageDataMini(processId,ctx);
+drwImageDataMini(processId,ctx,pa.index);
 getImageDataMiniV2(processId,pa,ctx);
 }
 }
@@ -3946,6 +4087,24 @@ pa.havemin = 1;
 }
 function unloadImageData(){
 $('#page' + GPageId).attr("src","img/empty.png");
+}
+function rectangleNumPage(ctx,index) {
+ctx.fillStyle = 'black';
+ctx.fillRect(-1,88,25,25);
+ctx.fill();
+ctx.fillStyle = 'white';
+ctx.fillRect(0,89,23,23);
+ctx.fill();
+index = parseInt(index);
+ctx.font = "14px Arial";
+ctx.fillStyle = 'black';
+ctx.textBaseline = 'middle';
+ctx.textAlign = "center";
+if (index<10) {
+ctx.fillText(index,9,101);
+} else {
+ctx.fillText(index,8,101);
+}
 }
 function ludiInit(){
 var h = '';
@@ -4091,6 +4250,39 @@ loadPage(GPageId,1);
 finishLoadData = true;
 $("#initgeneration,.opacedit,.forceload").css("display","none");
 CPagesPaint();
+}
+function isMetaObjectHaveText(obj) {
+var b = false;
+if (obj.type=='metaobject') {
+if (obj.text7=='panelcenter') {
+b = true;
+}
+if (obj.text7=='panelslide') {
+b = true;
+}
+}
+return b;
+}
+function showEditMetaObject(obj){
+if (obj.type=='metaobject') {
+if (obj.text7=='timer') {
+var objWind = new CWindow();
+objWind.id = obj.type + obj.text7;
+objWind.name = getTrd("edition") +  ' timer';
+objWind.addControl("double:Time&nbsp;(sec)=>text3|number");
+objWind.addControl("actionsel:Action=>text2|");
+objWind.showDialog('');
+}
+if (obj.text7=='showstarfx') {
+var objWind = new CWindow();
+objWind.id = obj.type + obj.text7;
+objWind.name = getTrd("edition") +  ' Golden stars';
+objWind.addControl("double:Star&nbsp;1=>text2|number");
+objWind.addControl("double:Star&nbsp;2=>text3|number");
+objWind.addControl("double:Star&nbsp;2=>text4|number");
+objWind.showDialog('');
+}
+}
 }
 var folderAllAudio = "";
 function launchAudioMp3Zone(obj){
@@ -4360,6 +4552,9 @@ this.back;
 this.screen;
 this.script;
 this.havemin;
+this.transition;
+this.title;
+this.komessage;
 this.isCreate;
 this.supp;
 this.comicMode;
@@ -4561,7 +4756,7 @@ return false;
 }
 }
 setTimeout(function(){processPagesMini();},1000);
-}else{
+} else {
 setTimeout(function(){processPagesMini();},1000);
 }
 }
@@ -4578,6 +4773,8 @@ objTemp.index = 0;
 objTemp.back = 'white.jpg';
 objTemp.screen = getApplikScreen();
 objTemp.comicMode = 0;
+objTemp.transition = 'Direct';
+objTemp.title = '';
 if(isNonePage()){
 objTemp.comicMode = 4;
 }
@@ -4591,7 +4788,7 @@ ajoutLudiBARRE();
 }
 eventPages = true;
 }
-function loadPage(UidPage,helperAdd){
+function loadPage(UidPage,helperAdd) {
 var pa = GetPageById(UidPage);
 if(typeof pa === "undefined"){
 UidPage = GetNewPage();
@@ -4723,6 +4920,31 @@ nombres= nombres + tirage[i] + c ;
 }
 return nombres;
 }
+function guid4(){
+var tirage = new Array;
+var lettre = new Array;
+var nombres = "";
+nb = 3;
+for (i=1 ;i<nb ;i++)
+{
+nb_aleatoire(20);
+tirage[i]= nombre;
+for (t=1 ; t<i ;t++){
+if (tirage[t]==nombre)
+{
+i=i-1;
+}
+}
+}
+var characts = 'abcdefghijklmnopqrstuvwzabcdefghijklmnopqrstuvwz';
+for (i=1 ;i<nb;i++)
+{
+nb_aleatoire(26);
+c = characts.substr(nombre,1)
+nombres = nombres + tirage[i] + c ;
+}
+return nombres;
+}
 function isNonePage(){
 var b = false;
 for(var i=0;i<CPagesCount;i++){
@@ -4747,7 +4969,9 @@ function exec_params(){
 function showEditZoneText(obj){
 if (obj.type=='text'
 ||obj.type=='title'
+||obj.type=='infopoint'
 ||obj.type=='speech'
+||isMetaObjectHaveText(obj)
 ||obj.type=='label') {
 $('.editZoneTexteV2').css("display","block");
 $('.opacedit').css("display","block");
@@ -4950,6 +5174,7 @@ if(obj.type=='input'){
 LaunchInputEdit(obj);
 }
 showEditZoneText(obj);
+showEditMetaObject(obj);
 showEditZoneTextHtml(obj);
 if(obj.type=='button'||obj.type=='buttonarea'||obj.type=='gamezoneaction'){
 loadEdit = true;
@@ -5670,10 +5895,15 @@ if(GlobalUid==-1){
 return false;
 }
 var obj = CLudis[GlobalUid];
-if (obj.type=='button'||obj.type=='buttonarea'||obj.type=='gamezoneaction') {
+if (obj.type=='button'
+||obj.type=='buttonarea'
+||obj.type=='img'
+||obj.type=='gamezoneaction') {
 var txt = $('#actionedittext').val();
 obj.text = txt;
+if (obj.type!='img') {
 obj.val = $('#actioneditpage').val();
+}
 obj.actionData = $('#actioneditpage').val();
 eventObjects = true;
 if(obj.text6==4||obj.text6==5||obj.text6==6){
@@ -7076,6 +7306,13 @@ $('#typePageScreen').html("-");
 }else{
 $('#typePageScreen').html(get14Letter(obj.screen));
 }
+if(typeof obj.transition === "undefined") {
+obj.transition = 'Direct'
+}
+if(obj.transition == "") {
+obj.transition = 'Direct'
+}
+$('#transition-select').val(obj.transition);
 switch(obj.comicMode) {
 case 0:
 $('#typePageSelect').html('Classic');
@@ -7115,41 +7352,53 @@ p += '<div onClick="selChType(1);" class="actionSelect" >Comics01</div>';
 p += '<div onClick="selChType(2);" class="actionSelect" >Comics02</div>';
 p += '<div onClick="selChType(3);" class="actionSelect" >Comics03</div>';
 p += '</div>';
-p += '<p style="margin-top:20px;" >Page&nbsp;title&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-p += '<input id="actionEditBack" type="text" style="width:190px;" ';
-p += ' class="css-input" onchange="setSourceButton();"  ';
+p += '<div class="ligneParams" style="margin-top:30px;" >';
+p += '<div class="ligneParamsLabel nosel" >Page&nbsp;title&nbsp;:&nbsp;</div>';
+p += '<input class="ligneParamsInput css-input" id="actionEditBack" ';
+p += ' type="text" onchange="setSourceButton();" ';
 p += ' onkeyup="setSourceButton();" value="" />';
-p += '</p>';
-p += '<p>';
-p += 'Page&nbsp;script&nbsp;:&nbsp;&nbsp;&nbsp;';
+p += '</div>';
+p += '<div class="ligneParams" >';
+p += '<div class="ligneParamsLabel nosel" >Page&nbsp;script&nbsp;:&nbsp;</div>';
 p += '<span onClick="showScriptEdit(1);" class="fakeSelect" >...</span>';
-p += '</p>';
-p += '<a onClick="showScriptEdit(1);" class="actionSelectPerso" ';
-p += 'style="display:block!important;top:95px!important;right:32px!important;margin-left:-5px;margin-top:5px;" ></a>';
-p += '<p>';
-p += 'Background&nbsp;page&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;';
+p += '</div>';
+p += '<div class="ligneParams" >';
+p += '<div class="ligneParamsLabel nosel" >Background&nbsp;page&nbsp;:&nbsp;</div>';
 p += '<span id="BackEditSelect" onClick="showChoiceBackground();" ';
 p += ' class="fakeSelect" >-</span>';
-p += '</p>';
-p += '<p>';
-p += 'Type&nbsp;page&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;';
+p += '</div>';
+p += '<div class="ligneParams" >';
+p += '<div class="ligneParamsLabel nosel" >Transition&nbsp;:&nbsp;</div>';
+p += '<select name="transition-select" id="transition-select" class="ligneParamsSelect css-input nosel" >';
+p += '<option value="Direct">Direct</option>';
+p += '<option value="Explose">Explose</option>';
+p += '<option value="FlipSlide">FlipSlide</option>';
+p += '</select>';
+p += '</div>';
+p += '<div class="ligneParams" >';
+p += '<div class="ligneParamsLabel nosel" >Type&nbsp;page&nbsp;:&nbsp;</div>';
 p += '<span id="typePageSelect" onClick="showTypePageSelect();" ';
 p += ' class="fakeSelect" >-</span>';
-p += '</p>';
-p += '<p>';
-p += 'Background&nbsp;screen&nbsp;:&nbsp;&nbsp;';
+p += '</div>';
+p += '<div class="ligneParams" >';
+p += '<div class="ligneParamsLabel nosel" >Background&nbsp;screen&nbsp;:&nbsp;</div>';
 p += '<span id="typePageScreen" onClick="showChoiceBackScreen();" ';
 p += ' class="fakeSelect" >-</span>';
-p += '</p>';
-p += '<a onClick="deleteImageBackScreen();" class="actionDeleteBack" style="display:block!important;margin-top:9px;" ></a>';
+p += '<a onClick="deleteImageBackScreen();" class="actionDeleteBack" style="display:block!important;float:right;" ></a>';
+p += '</div>';
 p += '<a style="position:absolute;left:15px;bottom:15px;" ';
 p += ' onclick="closeEdit();" ';
 p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 p += '<a style="position:absolute;right:15px;bottom:15px;" ';
-p += 'onclick="closeEdit();" ';
+p += 'onclick="savePageElements();" ';
 p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 p += '</div>';
 return p;
+}
+function savePageElements(){
+var objPage = GetPageById(GPageId);
+objPage.transition = $('#transition-select').val();
+closeEdit();
 }
 function showTypePageSelect(){
 $('#selectTypePageSelect').css("display","block");
@@ -7709,13 +7958,21 @@ var movingObject = evt.target;
 closePan();
 if(typeof movingObject==="undefined"){
 }else{
-if(movingObject.id=='Move'){
+if (movingObject.id=='Move') {
 var LudiObj = CLudis[GlobalUid];
 var LinkObjectl = parseInt(movingObject.get('left')) + 29 ;
 var LinkObjectt = parseInt(movingObject.get('top')) + 29;
 if(haveGridPlace(LudiObj)){
 LinkObjectl = Math.round(LinkObjectl/10) * 10;
 LinkObjectt = Math.round(LinkObjectt/10) * 10;
+}
+if (LudiObj.text7=='panelslide') {
+if (EDITORMODE==0) {
+LinkObjectl = 920;
+}
+if (EDITORMODE==1) {
+LinkObjectt = 440;
+}
 }
 canvas.forEachObject(function(obj){
 if (obj.id&&obj.id===GlobalUid){
