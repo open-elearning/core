@@ -1,7 +1,7 @@
 {
   "name": "openelearning",
   "productName": "OpenElearning",
-  "version": "1.5.9",
+  "version": "1.6.3",
   "description": "OpenElearning Authoring Tools For eLearning",
   "main": "main.js",
   "private": true,
@@ -12,10 +12,14 @@
     "OpenElearning"
   ],
   "author": "OpenElearning",
+  "license": "GPL V3",
   "devDependencies": {
-    "electron": "^8.2.5"
+    "electron": "^8.2.5",
+    "electron-packager": "^14.2.1",
+    "electron-rebuild": "^1.10.1"
   },
   "dependencies": {
+    "asar": "^0.14.3",
     "extract-zip": "^1.6.7",
     "node-zip": "^1.1.1"
   }
