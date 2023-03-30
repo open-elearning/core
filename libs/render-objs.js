@@ -428,6 +428,15 @@ function renderMetaObject(ob,p){
 		}
 		fxml += '<tx2><![CDATA[' + rJtext(txtEdit) +']]></tx2>';
 
+		if (ob.text7=='learningcoins') {
+			if (ob.idString!='') {
+				fxml += '<ids>'+ ob.idString +'</ids>';
+			} else {
+				fxml += '<ids>idno</ids>';
+			}
+			fxml += '<tx><![CDATA[Infos]]></tx>';
+		}
+
 		if (ob.text7=='panelslide') {
 			fxml += '<contenu3><![CDATA[infopanelslide.png]]></contenu3>';
 			fxml += '<contenu5><![CDATA[400]]></contenu5>';
