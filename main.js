@@ -69,7 +69,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.5.8";
+global.appVersion = "1.6.2";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
