@@ -6,6 +6,7 @@ const dialog = electron.dialog;
 
 // Module to control application life.
 // date 13/04/2022
+// date 10/09/2023
 // @author Damien Renou <LudiscapeXApi> BatisseursNumeriques
 // https://twitter.com/0peneLearning
 //
@@ -69,7 +70,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.6.2";
+global.appVersion = "1.6.5";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
@@ -121,7 +122,7 @@ function createWindow(){
 	//Create the browser window.,maximize: true 496,500
 	if(process.platform=='linux'||process.platform=='darwin'){
 		mainWindow = new BrowserWindow({
-			width: 620 + 0,
+			width: 640 + 0,
 			height: 510,
 			icon: __dirname + '/assets/icons/1024x1024.png',
 			title: 'Open-eLearning',
@@ -131,7 +132,7 @@ function createWindow(){
 		})
 	}else{
 		mainWindow = new BrowserWindow({
-			width: 620 + 0,
+			width: 640 + 0,
 			height: 510,
 			icon: __dirname + '/app/images/ico64.ico',
 			title: 'Open-eLearning',
