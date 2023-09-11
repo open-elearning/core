@@ -3,6 +3,9 @@
 
 var globalSortable;
 
+var globalActionTab = 0;
+var globalObjT = '';
+
 //init
 function actionspersoShow(){
 	
@@ -10,7 +13,7 @@ function actionspersoShow(){
 	
 	globalSortable = 'list' + guid();
 	
-	var h = fctInnerActionsEdit(obj.text3,obj.text5);
+	var h = fctInnerActionsEdit(obj.actionLine1,obj.actionLine2);
 	
 	$('#actionseditzone').html(h);
 	$('.actionslistehelp').css("display","block");
@@ -55,11 +58,12 @@ function actionspersoShow(){
 	$("." + globalSortable).sortable('enable');
 	
 	saveActionsPerso();
+	setTimeout(function(){ controlDualActions() }, 500);
 
 }
 actionspersoShow();
 
-function fctInnerActionsEdit(lst,lst2){
+function fctInnerActionsEdit(lst,lst2) {
 	
 	var p = '';
 	
@@ -69,21 +73,56 @@ function fctInnerActionsEdit(lst,lst2){
 	p += '<div class="actionsThemes" >';
 	p += '<a class="tabMain tabBtn" onClick="showTabMain();" >Main</a>';
 	p += '<a class="tabGame tabBtn" onClick="showTabGame();" >Game</a>';
+	p += '<a class="tabCondi tabBtn" onClick="showTabCondi();" >Condi</a>';
+	p += '<a class="tabObject tabBtn" onClick="showTabObj();" >Object</a>';
 	p += '</div>';
 
 	p += '<ul id="listactions2" style="background-color:#BDBDBD;" ';
 	p += ' class="actionsliste '+ globalSortable +'" >';
 	
 	if(lst.indexOf("cod1",'',1)==-1){p += lineActionsEdit("cod1",'',1);}
-	if(lst.indexOf("cod2",'',1)==-1){p += lineActionsEdit("cod2"),'',1;}
+	if(lst.indexOf("cod2",'',1)==-1){p += lineActionsEdit("cod2",'',1);}
+	if(lst.indexOf("cod3",'',1)==-1){
+		p += lineActionsEdit("cod3",'75',0);
+	}
+	if(lst.indexOf("cod4",'',1)==-1){
+		p += lineActionsEdit("cod4",'75',0);
+	}
+	if(lst.indexOf("cod5",'',0)==-1){p += lineActionsEdit("cod5",'',0);}
+	if(lst.indexOf("cod100",'',0)==-1){p += lineActionsEdit("cod100",'',0);}
 
+	if(lst.indexOf("cod6",'',0)==-1){
+		p += lineActionsEdit("cod6",'',0);
+	}
+	if(lst.indexOf("cod6B",'',0)==-1){
+		p += lineActionsEdit("cod6B",'',0);
+	}
+	if(lst.indexOf("cod6C",'',0)==-1){
+		p += lineActionsEdit("cod6C",'',0);
+	}
+	if(lst.indexOf("cod6D",'',0)==-1){
+		p += lineActionsEdit("cod6D",'',0);
+	}
+	if(lst.indexOf("cod6E",'',0)==-1){
+		p += lineActionsEdit("cod6E",'',0);
+	}
+
+	if(lst.indexOf("cod7",'',0)==-1){
+		p += lineActionsEdit("cod7",'',0);
+	}
+	
 	p += lineActionsEdit("act3",'',1);
 	p += lineActionsEdit("act4",'',1);
 	p += lineActionsEdit("act5",'',1);
 	p += lineActionsEdit("act6",'',1);
-	p += lineActionsEdit("act8",'',1);
+	p += lineActionsEdit("act8",'0',1);
 	p += lineActionsEdit("act7",'',1);
 	p += lineActionsEdit("cor3",'',1);
+
+	p += lineActionsEdit("meta1",'',1);
+
+	p += lineActionsEdit("fx1",'',0);
+	p += lineActionsEdit("fx2",'',0);
 
 	if(lst.indexOf("act1",'',1)==-1){p += lineActionsEdit("act1",'',0);}
 	if(lst.indexOf("act2",'',1)==-1){p += lineActionsEdit("act2",'',0);}
@@ -106,11 +145,97 @@ function fctInnerActionsEdit(lst,lst2){
 		
 }
 
+function lauchSelectorIds(typ,objId) {
+	
+	var allIdBlock = '';
+	if (WORKINGOBJ.idsDico!='') {
+		if (WORKINGOBJ.idsDico.indexOf(';')!=-1) {
+			var ids = WORKINGOBJ.idsDico.split(';');
+			for (i=0;i<ids.length;i++) {
+				if (ids[i]!=''&&ids[i].indexOf(typ)!=-1) {
+					allIdBlock += '<div class="blockSelectorIds" onClick="putIdToImput(\'' + ids[i] + '\')" >';
+					allIdBlock +=  ids[i] + '</div>';
+				}
+			}
+			for (i=0;i<ids.length;i++) {
+				if (ids[i]!=''&&ids[i].indexOf(typ)==-1) {
+					allIdBlock += '<div class="blockSelectorIds" onClick="putIdToImput(\'' + ids[i] + '\')" >';
+					allIdBlock +=  ids[i] + '</div>';
+				}
+			}
+		}
+	}
+
+	if (allIdBlock!='') {
+
+		globalObjT = objId;
+		
+		if (!document.getElementById('windowSelectorIds')) {
+			var h = '';
+			h += '<div class="windowLayer" onClick="closeSelectorIds()" ></div>';
+			h += '<div id="windowSelectorIds" class="windowSelectorIds" >';
+			h += '</div>';
+			$('#actionseditzone').append(h);
+		}
+		$('#windowSelectorIds').html(allIdBlock);
+		$('.windowSelectorIds').css('margin-top','100px');
+		$('.windowSelectorIds').css('height','10px');
+		$('.windowLayer').css('display','block');
+		$('.windowSelectorIds').css('display','block');
+
+		$('.windowSelectorIds').animate({
+			height : '200px',
+			marginTop : '0px'
+		},250,function(){
+
+		});
+			
+	}
+
+}
+
+function putIdToImput(idsel) {
+	if (globalObjT!='') {
+		$('#'+globalObjT).find('.valFct').val(idsel);
+	}
+	closeSelectorIds();
+}
+
+function closeSelectorIds() {
+	$('.windowSelectorIds').animate({
+		height : '10px',
+		marginTop : '100px'
+	},250,function(){
+		$('.windowLayer').css('display','none');
+		$('.windowSelectorIds').css('display','none');
+	});
+}
+
+function findBetterId(typ) {
+
+	var selectIdBlock = '';
+	if (WORKINGOBJ.idsDico!='') {
+		if (WORKINGOBJ.idsDico.indexOf(';')!=-1) {
+			var ids = WORKINGOBJ.idsDico.split(';');
+			for (i=0;i<ids.length;i++) {
+				if (ids[i]!=''&&ids[i].indexOf(typ)!=-1) {
+					selectIdBlock =  ids[i];
+				}
+			}
+
+		}
+	}
+	return selectIdBlock;
+
+}
 
 function noneTabM(){
 
+	$("#listactions2 .meta1").css("display","none");
+
 	$("#listactions2 .cod1").css("display","none");
 	$("#listactions2 .cod2").css("display","none");
+	
 	$("#listactions2 .act1").css("display","none");
 	$("#listactions2 .act2").css("display","none");
 	$("#listactions2 .act3").css("display","none");
@@ -120,9 +245,31 @@ function noneTabM(){
 	$("#listactions2 .act7").css("display","none");
 	$("#listactions2 .act8").css("display","none");
 	$("#listactions2 .cor3").css("display","none");
+
+	$("#listactions2 .cod3").css("display","none");
+	$("#listactions2 .cod4").css("display","none");
+	$("#listactions2 .cod5").css("display","none");
+
+	$("#listactions2 .cod6").css("display","none");
+	$("#listactions2 .cod6B").css("display","none");
+	$("#listactions2 .cod6C").css("display","none");
+	$("#listactions2 .cod6D").css("display","none");
+	$("#listactions2 .cod6E").css("display","none");
+
+	$("#listactions2 .cod100").css("display","none");
+
+	$("#listactions2 .fx1").css("display","none");
+	$("#listactions2 .fx2").css("display","none");
+
 }
 
 function showTabMain(){
+
+	globalActionTab = 0;
+
+	$(".tabBtn").css("border","solid 1px transparent");
+	$(".tabMain").css("border","solid 1px gray");
+	$(".tabBtn").css("border-bottom","none");
 
 	$("#listactions2").css("background-color","#BDBDBD");
 
@@ -137,10 +284,17 @@ function showTabMain(){
 	$("#listactions2 .act7").css("display","block");
 	$("#listactions2 .act8").css("display","block");
 	$("#listactions2 .cor3").css("display","block");
+	$("#listactions2 .meta1").css("display","block");
 
 }
 
 function showTabGame(){
+
+	globalActionTab = 1;
+
+	$(".tabBtn").css("border","solid 1px transparent");
+	$(".tabGame").css("border","solid 1px gray");
+	$(".tabBtn").css("border-bottom","none");
 
 	$("#listactions2").css("background-color","#A9E2F3");
 
@@ -151,20 +305,79 @@ function showTabGame(){
 
 }
 
+function showTabCondi(){
+
+	globalActionTab = 2;
+
+	$(".tabBtn").css("border","solid 1px transparent");
+	$(".tabCondi").css("border","solid 1px gray");
+	$(".tabBtn").css("border-bottom","none");
+
+	$("#listactions2").css("background-color","#ffdeff");
+	noneTabM();
+	$("#listactions2 .cod3").css("display","block");
+	$("#listactions2 .cod4").css("display","block");
+	$("#listactions2 .cod5").css("display","block");
+	$("#listactions2 #cod6").css("display","block");
+	$("#listactions2 #cod7").css("display","block");
+	$("#listactions2 .cod100").css("display","block");
+
+}
+
+function showTabObj(){
+
+	globalActionTab = 3;
+
+	$(".tabBtn").css("border","solid 1px transparent");
+	$(".tabObject").css("border","solid 1px gray");
+	$(".tabBtn").css("border-bottom","none");
+
+	$("#listactions2").css("background-color","#E9F7EF");
+	noneTabM();
+	$("#listactions2 .fx1").css("display","block");
+	$("#listactions2 .fx2").css("display","block");
+
+}
+
 function lineActionsEdit(id,pa,vi){
 
 	var sty = '';
-	if(vi==0){
+	if (vi==0) {
 		sty = 'style="display:none;" ';
 	}
 	var p = '';
 	
-	switch(id){
+	switch(id) {
+		case "meta1":
+			p = '<li ' + sty + ' id="meta1" class="meta1" ><div class="minAction" >&nbsp;Back to CheckPoint</div></li>';
+			break;
 		case "cod1":
 			p = '<li ' + sty + ' id="cod1" class="cod1" ><div class="minCondi Pos" >&nbsp;If the question objects are OK</div></li>';
 			break;
 		case "cod2":
 			p = '<li ' + sty + ' id="cod2" class="cod2" ><div class="minCondi Neg" >&nbsp;If the question objects are KO</div></li>';
+			break;
+		case "cod3":
+			var pasc = parseFctTxt(pa);
+			if (pasc=='') {
+				pasc = 0;
+			}
+			p = '<li ' + sty + ' id="cod3" class="cod3" ><div class="minCondi ScoCondi" >&nbsp;If the score is ';
+			p += '<input type="number" min=0 max=100 class="scoreFct valFct" value="'+pasc+'" /> min</div></li>';
+			break;
+		case "cod4":
+			var pasc = parseFctTxt(pa);
+			if (pasc=='') {
+				pasc = 0;
+			}
+			p = '<li ' + sty + ' id="cod4" class="cod4" ><div class="minCondi ScoCondi2" >&nbsp;If the score is ';
+			p += '<input type="number" min=0 max=100 class="scoreFct valFct" value="'+pasc+'" /> max</div></li>';
+			break;
+		case "cod5":
+			p = '<li ' + sty + ' id="cod5" class="cod5" ><div class="minCondi ScoCondi" >&nbsp;If questions have been filled in</div></li>';
+			break;
+		case "cod100":
+			p = '<li ' + sty + ' id="cod100" class="cod100" ><div class="minCondi ScoCondi" >&nbsp;ELSE</div></li>';
 			break;
 		case "act1":
 			p = '<li ' + sty + ' id="act1" class="act1" ><div class="minAction" >Delete&nbsp;life&nbsp;<img src="img/life.png" /></div></li>';
@@ -184,7 +397,6 @@ function lineActionsEdit(id,pa,vi){
 		case "act6":
 			p = '<li ' + sty + ' id="act6" class="act6" ><div class="minAction" >Reset</div></li>';
 			break;
-		
 		case "act7":
 			var pasc = parseFctTxt(pa);
 			p = '<li ' + sty + ' id="act7" class="act7" ><div class="minAction" >F:&nbsp;';
@@ -198,39 +410,180 @@ function lineActionsEdit(id,pa,vi){
 		case "cor3":
 			p = '<li ' + sty + ' id="cor3" class="cor3" ><div class="minAction" >&nbsp;Correction&nbsp;+&nbsp;Next</div></li>';
 			break;
+		case "fx1":
+			var pasc = parseFctTxt(pa);
+			p = '<li ' + sty + ' id="fx1" class="fx1" ><div class="minAction ScoCondi3" >&nbsp;Display&nbsp;';
+			p += '<input type="text" class="minFct valFct" value="'+pasc+'" /></div></li>';
+			break;
+		case "fx2":
+			var pasc = parseFctTxt(pa);
+			p = '<li ' + sty + ' id="fx1" class="fx1" ><div class="minAction ScoCondi3" >&nbsp;&nbsp;Hide&nbsp;';
+			p += '<input type="text" class="minFct valFct" value="'+pasc+'" /></div></li>';
+			break;
 	}
 	
+	if (id=="cod6"||id=="cod6B"
+	||id=="cod6C"||id=="cod6D"||id=="cod6E") {
+		var pasc = parseFctTxtIds(pa);
+		if (pasc=='') { pasc = '*0'; }
+		var params  = (pasc+'*0').split('*');
+		if (params[0]=='') {
+			params[0] = findBetterId('mcq');
+		}
+		p = '<li ' + sty + ' id="' + id + '" class="cod6" ><div class="minCondi ScoCondi4" >';
+		p += '<div class="labelFctCond" >&nbsp;If question&nbsp;</div>';
+		p += '<input type="text" class="selectIdFct valFct" value="' + params[0] + '" />';
+		p += '&nbsp;<img onClick="lauchSelectorIds(\'mcq\',\''+ id +'\');" src="img/listview.png" style="cursor:pointer;" />';
+		p += '</br><div class="labelFctCond" >&nbsp;have answer&nbsp;</div>';
+		p += '<input type="text" class="selectAnswer valFct2" value="' + params[1] + '" />';
+		p += '</div></li>';
+	}
+
+	if (id=="cod7"||id=="cod7B") {
+		var pasc = parseFctTxtIds(pa);
+		if (pasc=='') { pasc = '*0*0*0'; }
+		var params  = (pasc+'*0*0*0').split('*');
+		if (params[0]=='') {
+			params[0] = findBetterId('input');
+		}
+		
+		var expend = false;
+
+		if (params[1]!=''&&params[2]!='') {
+			if (parseFlo(params[2])>parseFlo(params[1])) {
+				expend = true;
+			}
+		}
+		p = '<li ' + sty + ' id="' + id + '" class="cod6" >';
+		p += '<div class="minCondi ScoCondi4" >';
+		p += '<div class="labelFctCond" >&nbsp;If input&nbsp;</div>';
+		p += '<input type="text" class="selectIdFct valFct" value="' + params[0] + '" />';
+		p += '&nbsp;<img onClick="lauchSelectorIds(\'input\',\''+ id +'\');" ';
+		p += ' src="img/listview.png" style="cursor:pointer;" /></br>';
+
+		if (expend==true) {
+			p += '<div class="labelFctCondCod7 operatorCodA7-'+ id +'" >=></div>';
+		} else {
+			p += '<div class="labelFctCondCod7 operatorCodA7-'+ id +'" >=</div>';
+		}
+
+		p += '<input type="text" class="selectAnswerMin valFct2 valFct2-'+ id +'" value="' + params[1] + '" />';
+		p += '&nbsp;';
+		
+		if (expend==true) {
+			p += '<div ';
+		} else {
+			p += '<div style="display:none;" ';
+		}
+		p +=  'class="labelFctBetween7 operatorCodB7 labelFctBetween7-'+ id +'"" ><=</div>';
+
+		if (expend==false) {
+			p += '<img src="img/add-plus.png" class="addplus-'+ id +'" onClick="expandCod7(\''+ id +'\');" style="cursor:pointer;" />';
+			p += '<input type="text" style="display:none;" class="selectAnswerMin valFct3 valFct3-'+ id +'" value="' + params[2] + '" />';
+			p += '<img src="img/del-plus.png" class="delplus-'+ id +'" onClick="scretchCod7(\''+ id +'\');" style="cursor:pointer;display:none;" />';
+		} else {
+			p += '<img src="img/add-plus.png" style="display:none;" class="addplus-'+ id +'" onClick="expandCod7(\''+ id +'\');" style="cursor:pointer;" />';
+			p += '<input type="text"  class="selectAnswerMin valFct3 valFct3-'+ id +'" value="' + params[2] + '" />';
+			p += '<img src="img/del-plus.png" class="delplus-'+ id +'" onClick="scretchCod7(\''+ id +'\');" style="cursor:pointer;" />';
+		}
+		p += '</div>';
+		p += '</li>';
+
+	}
+
 	return p;
 	
+}
+
+function expandCod7(id){
+
+	$('.operatorCodA7-'+ id).html('=>');
+	$('.valFct2-'+ id).removeClass('selectAnswerMin');
+	$('.valFct3-'+ id).removeClass('selectAnswerMin');
+	$('.valFct2-'+ id).addClass('selectAnswerMin2');
+	$('.valFct3-'+ id).addClass('selectAnswerMin2');
+	$('.valFct3-'+ id).css('display','inline-block');
+	$('.labelFctBetween7-'+ id).css('display','inline-block');
+	$('.operatorCodA7-'+ id).css('width','75px');
+	$('.addplus-'+ id).css('display','none');
+	$('.delplus-'+ id).css('display','inline-block');
+
+}
+
+function scretchCod7(id){
+
+	$('.operatorCodA7-'+ id).html('=');
+	$('.valFct2-'+ id).removeClass('selectAnswerMin2');
+	$('.valFct3-'+ id).removeClass('selectAnswerMin2');
+	$('.valFct2-'+ id).addClass('selectAnswerMin');
+	$('.valFct3-'+ id).addClass('selectAnswerMin');
+	$('.valFct3-'+ id).css('display','none');
+	$('.labelFctBetween7-'+ id).css('display','none');
+	$('.operatorCodA7-'+ id).css('width','105px');
+	$('.addplus-'+ id).css('display','inline-block');
+	$('.delplus-'+ id).css('display','none');
+
 }
 
 function scActionsEdit(id,pa){
 	
 	var p = '';
 	
+	if(id=="cod6"||id=="cod6B"||id=="cod6C"||id=="cod6D"||id=="cod6E") {
+		pa = parseFctTxtIds(pa);
+		if(pa==''){pa = '*0';}
+		var params  = pa.split('*');
+		p = "if(OpEl.QcmControl('" + params[0] + "','" + params[1] + "')){";
+	}
+
+	if(id=="cod7"||id=="cod7B") {
+		pa = parseFctTxtIds(pa);
+		if(pa==''){pa = '*0*0';}
+		var params  = pa.split('*');
+		if (parseFlo(params[2])<parseFlo(params[1])) {
+			params[2] = params[1];
+		}
+		p = "if(OpEl.inputControl('" + params[0] + "','" + params[1] + "','" + params[2] + "')){";
+	}
+
 	pa = parseFctTxt(pa);
-	
+
 	switch(id){
+		case "meta1":
+			p = 'OpEl.lastCheckPoint();';
+			break;
 		case "cod1":
-			p = 'if(LUDI.pageIsOk()){';
+			p = 'if(OpEl.pageIsOk()){';
 			break;
 		case "cod2":
-			p = 'if(!LUDI.pageIsOk()){';
+			p = 'if(!OpEl.pageIsOk()){';
+			break;
+		case "cod3":
+			p = 'if(OpEl.scoreIsMin(' + parseInt(pa) + ')){';
+			break;
+		case "cod4":
+			p = 'if(OpEl.scoreIsMax(' + parseInt(pa) + ')){';
+			break;
+		case "cod5":
+			p = 'if(OpEl.questionAreCompleted()){';
+			break;
+		case "cod100":
+			p = 'else{';
 			break;
 		case "act1":
-			p = 'LUDI.deleteLife();';
+			p = 'OpEl.deleteLife();';
 			break;
 		case "act2":
-			p = 'LUDI.addLife();';
+			p = 'OpEl.addLife();';
 			break;
 		case "act3":
-			p = 'LUDI.nextPage();';
+			p = 'OpEl.nextPage();';
 			break;
 		case "act4":
-			p = 'LUDI.nextPageAnd1();';
+			p = 'OpEl.nextPageAnd1();';
 			break;
 		case "act5":
-			p = 'LUDI.wait(2000);';
+			p = 'OpEl.wait(2000);';
 			break;
 		case "act6":
 			p = 'window.location.reload();';
@@ -242,11 +595,21 @@ function scActionsEdit(id,pa){
 			break;
 		case "act8":
 			if(pa!=''){
-				p = 'LUDI.goPage(' + parseInt(pa) + ');';
+				p = 'OpEl.goPage(' + parseInt(pa) + ');';
 			}
 			break;
 		case "cor3":
 			p = "openCorrection('','');";
+			break;
+		case "fx1":
+			if(pa!=''){
+				p = "OpEl.fadeIn('" + parseFctTxt(pa) + "');";
+			}
+			break;
+		case "fx2":
+			if(pa!=''){
+				p = "OpEl.fadeOut('" + parseFctTxt(pa) + "');";
+			}
 			break;
 	}
 	
@@ -261,11 +624,11 @@ function saveActionsPerso(){
 	
 	var lst = recupActionsPerso();
 	//blocks
-	obj.text3 = lst;
+	obj.actionLine1 = lst;
 	
 	//blocks
 	var lst2 = recupParamsPerso();
-	obj.text5 = lst2;
+	obj.actionLine2 = lst2;
 	
 	var actions = lst.split('|');
 	var params  = lst2.split('|');
@@ -291,7 +654,7 @@ function saveActionsPerso(){
 	sc += 'LUDI.waitReset();';
 	
 	//final script
-	obj.text4 = sc;
+	obj.actionData = sc;
 	objetSendToString();
 	
 	setTimeout(function(){ saveActionsPerso() }, 300);
@@ -301,13 +664,10 @@ function saveActionsPerso(){
 function recupActionsPerso(){
 	
 	var r = '';
-	
 	var idul = '#listactions1 li';
-	
 	$(idul).each(function(n){
         r = r + $(this).attr('id') + "|";
     });
-	
     return r;
     
 }
@@ -319,10 +679,58 @@ function recupParamsPerso(){
 	var idul = '#listactions1 li';
 	
 	$(idul).each(function(n){
-        r += parseFctTxt($(this).find('.valFct').val()) + "|";
+		
+		var secondV = '';
+	
+		if ($(this).find('.valFct2').length==1) {
+			
+			secondV = '*' + $(this).find('.valFct2').val();
+
+			if ($(this).find('.valFct3').length==1) {
+				if(!$(this).find('.valFct3').is(":visible")) {
+					$(this).find('.valFct3').val($(this).find('.valFct2').val());
+				}
+				var second3V  = '*' + $(this).find('.valFct3').val();
+				r += parseFctTxtIds($(this).find('.valFct').val() + secondV + second3V) + "|";
+			} else {
+				r += parseFctTxtIds($(this).find('.valFct').val()+secondV) + "|";
+			}
+			
+		} else {
+	
+			r += parseFctTxt($(this).find('.valFct').val()) + "|";
+	
+		}
+
     });
 	
 	return r;
+
+}
+
+function controlDualActions(){
+
+	if (globalActionTab==2) {
+		var idul = '#listactions1 li';
+		$(idul).each(function(n){
+			var objId = $(this).attr('id');
+			if (objId=='cod6') {
+				$("#listactions2 #cod6B").css("display","block");
+			}
+			if (objId=='cod6B') {
+				$("#listactions2 #cod6C").css("display","block");
+			}
+			if (objId=='cod6C') {
+				$("#listactions2 #cod6D").css("display","block");
+			}
+			if (objId=='cod6D') {
+				$("#listactions2 #cod6E").css("display","block");
+			}
+		});
+	}
+
+	setTimeout(function(){ controlDualActions() },2000);
+
 }
 
 function parseFctTxt(str) {
@@ -339,6 +747,25 @@ function parseFctTxt(str) {
 	str = str.replace("(",'');
 	str = str.replace(")",'');
 	str = str.replace(";",'');
+	str = str.replace("|",'');
+	if(str==null){str = "";}
+	
+	return (str);
+}
+
+function parseFctTxtIds(str) {
+	
+	if(typeof(str)=='undefined'){
+		return "";
+	}
+	if(str=='undefined'){
+		return "";
+	}
+	str = str.replace("...",'');
+	str = str.replace(" ",'');
+	str = str.replace(" ",'');
+	str = str.replace("(",'');
+	str = str.replace(")",'');
 	str = str.replace("|",'');
 	if(str==null){str = "";}
 	
@@ -379,4 +806,19 @@ function guid(){
 
 function nb_random(nb){
 	return Math.floor(Math.random() * nb)+1;
+}
+
+function parseFlo(str) {
+	
+	if (typeof(str) == 'undefined'){str = 0;}
+
+	if (str == null){str = 0;}
+	
+	if(str==''){str=0;}
+
+	if(typeof str == "string"){
+		str = str.replace(",",".");
+	}
+	
+	return parseFloat(str);
 }
