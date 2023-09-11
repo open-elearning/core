@@ -355,7 +355,7 @@ if(haveLudiHelperBtn("button")==false){
 if(getButtonH==false){
 var pa = GetPageById(GPageId);
 if(typeof pa==="undefined"){return false;}
-var iCtn = CLudisGetNumber('button') + CLudisGetNumber('dom');
+var iCtn = CLudisGetNumber('button') + CLudisGetNumber('dom') + CLudisGetNumber('buttonarea');
 if(iCtn>0){
 closePan();
 return false;
@@ -1429,6 +1429,13 @@ objTemp.x = 920;
 objTemp.x2 = 440;
 objTemp.data = "assets/infopanelslide.png";
 }
+if (typ=='checkpoint') {
+objTemp.x = 520;
+objTemp.x2 = 140;
+objTemp.width  = 60;
+objTemp.height = 60;
+objTemp.data = "assets/iconcheckpoint.jpg";
+}
 if (typ=='timer') {
 objTemp.data = "img/timec14.png";
 objTemp.text3 = 20;
@@ -1437,6 +1444,15 @@ objTemp.height = 100;
 objTemp.realwidth = objTemp.width;
 objTemp.realheight = objTemp.height;
 objTemp.actionVal = "DS";
+}
+if (typ=='learningcoin') {
+objTemp.idString = guid4() + guid4();
+objTemp.data = "assets/lc-flat.png";
+objTemp.width  = 60;
+objTemp.height = 60;
+objTemp.realwidth = objTemp.width;
+objTemp.realheight = objTemp.height;
+mtyp= 'learningcoins';
 }
 objTemp.pageId = GPageId;
 objTemp.text = "";
@@ -1755,9 +1771,18 @@ p += colorChoiceC('#AEB6BF');
 p += colorChoiceC('#610B21');
 p += colorChoiceC('#0B614B');
 p += colorChoiceC('#D98880');
+p += colorChoiceC('#633974');
+p += colorChoiceC('#4D5656');
+p += colorChoiceC('#B03A2E');
+p += colorChoiceC('#B7950B');
+p += colorChoiceC('#FF00FF');
+p += colorChoiceC('#D98880');
+p += colorChoiceC('#24445C');
+p += colorChoiceC('transparent');
 p += '<input id="textBarreColorEdit" ';
 p += ' type="text" class="css-input" ';
-p += ' style="width:90px;margin-top:20px;margin-left:102px;" />';
+p += ' style="width:90px;margin-top:15px;margin-left:102px;';
+p += 'font-size:15px;padding:7px;" />';
 p += '</div>';
 p += '<a style="position:absolute;right:15px;bottom:15px;" ';
 p += 'onClick="saveChoiceColorProcess();" class="btnSave">' + getTrd('save') + '</a>';
@@ -1767,8 +1792,11 @@ return p;
 function colorChoiceC(col){
 var idCol = col.replace('#','col');
 var p = '<div id="'+ idCol +'" class="colorCircle colorCircleRound" ';
-p += ' style="background-color:'+ col +';" ';
-p += ' onClick="colorChoiceProcess(\''+ col +'\',\'' + idCol + '\');" >';
+p += ' style="background-color:'+ col +';';
+if (col=='transparent') {
+p += 'background-image:url(\'img/colortransparent.png\');';
+}
+p += '" onClick="colorChoiceProcess(\''+ col +'\',\'' + idCol + '\');" >';
 p += '</div>';
 return p;
 }
@@ -2564,6 +2592,16 @@ launchImageEditZone();
 function filterImagesSys(name){
 $('#btnImgUpload').css("display","");
 var r = true;
+if (targetImg==1||targetImg==12) {
+if (name.indexOf('.svg')!=-1) {
+r = false;
+}
+}
+if (targetImg==11||targetImg==13) {
+if (name.indexOf('.svg')==-1) {
+r = false;
+}
+}
 if (name.indexOf('uibase-')!=-1) {
 $('#btnImgUpload').css("display","none");
 r = false;
@@ -2819,7 +2857,7 @@ $('.pan').css("display","none");
 img.src = urlImage;
 }
 }
-if(targetImg==1){
+if (targetImg==1) {
 $('.editImage').css("display","none");
 var obj = GetPageById(GPageId,1);
 var img = new Image();
@@ -2830,7 +2868,36 @@ loadImgBackCanvas(filebackload);
 $('.pan').css("display","none");
 loadPage(GPageId,0);
 }
-if(targetImg==2){
+if (targetImg==11) {
+$('.editImage').css("display","none");
+var obj = GetPageById(GPageId,1);
+var filename = urlImage.replace(/^.*[\\\/]/, '')
+obj.backsvg = filename;
+$('.pan').css("display","none");
+$('#BackEditSelectSVG').html(get17Letter(obj.backsvg));
+$('#pageeditbtn').css("display","block");
+}
+if (targetImg==12) {
+$('.editImage').css("display","none");
+var obj = GetPageById(GPageId,1);
+var img = new Image();
+var filename = urlImage.replace(/^.*[\\\/]/, '')
+obj.back2 = filename;
+var filebackload = folderAllImages + obj.back;
+loadImgBackCanvas(filebackload);
+$('.pan').css("display","none");
+loadPage(GPageId,0);
+}
+if (targetImg==13) {
+$('.editImage').css("display","none");
+var obj = GetPageById(GPageId,1);
+var filename = urlImage.replace(/^.*[\\\/]/, '')
+obj.back2svg = filename;
+$('.pan').css("display","none");
+$('#Back2EditSelectSVG').html(get17Letter(obj.back2svg));
+$('#pageeditbtn').css("display","block");
+}
+if (targetImg==2) {
 $('.editImage').css("display","none");
 var filename = urlImage.replace(/^.*[\\\/]/, '')
 PageApplikScreen(filename);
@@ -4260,6 +4327,9 @@ b = true;
 if (obj.text7=='panelslide') {
 b = true;
 }
+if (obj.text7=='checkpoint') {
+b = true;
+}
 }
 return b;
 }
@@ -4549,6 +4619,9 @@ this.pageId;
 this.index;
 this.data;
 this.back;
+this.backsvg;
+this.back2;
+this.back2svg;
 this.screen;
 this.script;
 this.havemin;
@@ -4820,9 +4893,17 @@ pa.back='white.jpg';
 if(typeof pa.back === "undefined"){
 pa.back = 'white.jpg';
 }
+if(pa.back2==''){
+pa.back2='white.jpg';
+}else if(pa.back2=='undefined'){
+pa.back2='white.jpg';
+}
+if(typeof pa.back2 === "undefined"){
+pa.back2 = 'white.jpg';
+}
 var pathPath = folderAllImages + pa.back;
 if (EDITORMODE==1) {
-pathPath = folderAllImages + 'white.jpg';
+pathPath = folderAllImages + pa.back2;
 }
 loadImgBackCanvas(pathPath);
 if(pa.comicMode>0){
@@ -6174,6 +6255,9 @@ p += '</div>';
 $('body').append(p);
 }
 var col='white';
+if (obj.val == 'transparent') {
+col = 'black';
+}
 $('#barrezone'+i).html(cleanTextForTitle(obj.text));
 $('#barrezone'+i).css("left",showL + 'px').css("top",showT+'px');
 $('#barrezone'+i).css("max-width",showW+'px').css("height",showH+'px');
@@ -7296,15 +7380,30 @@ function pageEditDom(){
 function pageEditShow(){
 targetImg = 1;
 var obj = GetPageById(GPageId);
-if(obj.back==''){
+if (obj.back=='') {
 $('#BackEditSelect').html("-");
-}else{
-$('#BackEditSelect').html(get14Letter(obj.back));
+} else {
+$('#BackEditSelect').html(get17Letter(obj.back));
 }
-if(obj.screen==''){
+if(obj.backsvg=='') {
+$('#BackEditSelectSVG').html("-");
+}else{
+$('#BackEditSelectSVG').html(get17Letter(obj.backsvg));
+}
+if (obj.back2=='') {
+$('#Back2EditSelect').html("-");
+} else {
+$('#Back2EditSelect').html(get17Letter(obj.back2));
+}
+if (obj.back2svg=='') {
+$('#Back2EditSelectSVG').html("-");
+} else {
+$('#Back2EditSelectSVG').html(get17Letter(obj.back2svg));
+}
+if (obj.screen=='') {
 $('#typePageScreen').html("-");
 }else{
-$('#typePageScreen').html(get14Letter(obj.screen));
+$('#typePageScreen').html(get17Letter(obj.screen));
 }
 if(typeof obj.transition === "undefined") {
 obj.transition = 'Direct'
@@ -7341,33 +7440,35 @@ res = str.substring(0,15);
 }
 return res;
 }
+function get17Letter(str){
+var res = "";
+if (typeof str === "undefined"){
+res  = "-";
+}else{
+res = str.substring(0,20);
+}
+return res;
+}
 function pageEditOptions(){
 var p = '';
 p += '<div id="pageeditbtn" class="editbackground pageeditbtn pan ' + TYPEWIND + 'osBorder" >';
 p += barreEdit();
-p += '<div id="selectTypePageSelect" class="selectChoiceTypePage pan" >';
-p += '<div onClick="selChType(0);" class="actionSelect" >Classic</div>';
-p += '<div onClick="selChType(4);" class="actionSelect" >None</div>';
-p += '<div onClick="selChType(1);" class="actionSelect" >Comics01</div>';
-p += '<div onClick="selChType(2);" class="actionSelect" >Comics02</div>';
-p += '<div onClick="selChType(3);" class="actionSelect" >Comics03</div>';
+p += '<div class="containtablist" >';
+p += '<a class="monotablist monotablist1 trd monotablistselect noselect" onclick="displayParamsTab1();" >General</a>';
+p += '<a class="monotablist monotablist2 trd noselect" onclick="displayParamsTab2();" >Background</a>';
+p += '<a class="monotablist monotablist3 trd noselect" onclick="displayParamsTab3();" >Options</a>';
 p += '</div>';
-p += '<div class="ligneParams" style="margin-top:30px;" >';
+p += '<div class="ligneParams typpagetab1" style="margin-top:30px;" >';
 p += '<div class="ligneParamsLabel nosel" >Page&nbsp;title&nbsp;:&nbsp;</div>';
 p += '<input class="ligneParamsInput css-input" id="actionEditBack" ';
 p += ' type="text" onchange="setSourceButton();" ';
 p += ' onkeyup="setSourceButton();" value="" />';
 p += '</div>';
-p += '<div class="ligneParams" >';
+p += '<div class="ligneParams typpagetab1" >';
 p += '<div class="ligneParamsLabel nosel" >Page&nbsp;script&nbsp;:&nbsp;</div>';
 p += '<span onClick="showScriptEdit(1);" class="fakeSelect" >...</span>';
 p += '</div>';
-p += '<div class="ligneParams" >';
-p += '<div class="ligneParamsLabel nosel" >Background&nbsp;page&nbsp;:&nbsp;</div>';
-p += '<span id="BackEditSelect" onClick="showChoiceBackground();" ';
-p += ' class="fakeSelect" >-</span>';
-p += '</div>';
-p += '<div class="ligneParams" >';
+p += '<div class="ligneParams typpagetab1" >';
 p += '<div class="ligneParamsLabel nosel" >Transition&nbsp;:&nbsp;</div>';
 p += '<select name="transition-select" id="transition-select" class="ligneParamsSelect css-input nosel" >';
 p += '<option value="Direct">Direct</option>';
@@ -7375,16 +7476,43 @@ p += '<option value="Explose">Explose</option>';
 p += '<option value="FlipSlide">FlipSlide</option>';
 p += '</select>';
 p += '</div>';
-p += '<div class="ligneParams" >';
+p += '<div id="selectTypePageSelect" class="selectChoiceTypePage pan" >';
+p += '<div onClick="selChType(0);" class="actionSelect" >Classic</div>';
+p += '<div onClick="selChType(4);" class="actionSelect" >None</div>';
+p += '<div onClick="selChType(1);" class="actionSelect" >Comics01</div>';
+p += '<div onClick="selChType(2);" class="actionSelect" >Comics02</div>';
+p += '<div onClick="selChType(3);" class="actionSelect" >Comics03</div>';
+p += '</div>';
+p += '<div class="ligneParams typpagetab1" >';
 p += '<div class="ligneParamsLabel nosel" >Type&nbsp;page&nbsp;:&nbsp;</div>';
 p += '<span id="typePageSelect" onClick="showTypePageSelect();" ';
 p += ' class="fakeSelect" >-</span>';
 p += '</div>';
-p += '<div class="ligneParams" >';
+p += '<div class="ligneParams typpagetab2" style="display:none;margin-top:30px;" >';
+p += '<div class="ligneParamsLabel nosel" >Background&nbsp;page&nbsp;:&nbsp;</div>';
+p += '<span id="BackEditSelect" onClick="showChoiceBackground();" ';
+p += ' class="fakeSelectBack" >-</span>';
+p += '</div>';
+p += '<div class="ligneParams typpagetab2" style="display:none;" >';
+p += '<div class="ligneParamsLabel nosel" >Background&nbsp;SVG&nbsp;:&nbsp;</div>';
+p += '<span id="BackEditSelectSVG" onClick="showChoiceBackground11();" ';
+p += ' class="fakeSelectBack" >-</span>';
+p += '</div>';
+p += '<div class="ligneParams typpagetab2" style="display:none;" >';
+p += '<div class="ligneParamsLabel nosel" >Background&nbsp;Smart&nbsp;:&nbsp;</div>';
+p += '<span id="Back2EditSelect" onClick="showChoiceBackground12();" ';
+p += ' class="fakeSelectBack" >-</span>';
+p += '</div>';
+p += '<div class="ligneParams typpagetab2" style="display:none;" >';
+p += '<div class="ligneParamsLabel nosel" >Background&nbsp;Smart&nbsp;SVG&nbsp;:&nbsp;</div>';
+p += '<span id="Back2EditSelectSVG" onClick="showChoiceBackground13();" ';
+p += ' class="fakeSelectBack" >-</span>';
+p += '</div>';
+p += '<div class="ligneParams typpagetab2" style="display:none;position:relative;" >';
 p += '<div class="ligneParamsLabel nosel" >Background&nbsp;screen&nbsp;:&nbsp;</div>';
 p += '<span id="typePageScreen" onClick="showChoiceBackScreen();" ';
-p += ' class="fakeSelect" >-</span>';
-p += '<a onClick="deleteImageBackScreen();" class="actionDeleteBack" style="display:block!important;float:right;" ></a>';
+p += ' class="fakeSelectBack" >-</span>';
+p += '<a onClick="deleteImageBackScreen();" class="actionDeleteBackRel" style="display:block!important;float:right;" ></a>';
 p += '</div>';
 p += '<a style="position:absolute;left:15px;bottom:15px;" ';
 p += ' onclick="closeEdit();" ';
@@ -7394,6 +7522,29 @@ p += 'onclick="savePageElements();" ';
 p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 p += '</div>';
 return p;
+}
+function removeAllClassTabs(){
+$(".monotablist1").removeClass("monotablistselect");
+$(".monotablist2").removeClass("monotablistselect");
+$(".monotablist3").removeClass("monotablistselect");
+$('.typpagetab1').css("display","none");
+$('.typpagetab2').css("display","none");
+$('.typpagetab3').css("display","none");
+}
+function displayParamsTab1(){
+removeAllClassTabs()
+$(".monotablist1").addClass("monotablistselect");
+$('.typpagetab1').css("display","block");
+}
+function displayParamsTab2(){
+removeAllClassTabs();
+$(".monotablist2").addClass("monotablistselect");
+$('.typpagetab2').css("display","block");
+}
+function displayParamsTab3(){
+removeAllClassTabs();
+$(".monotablist3").addClass("monotablistselect");
+$('.typpagetab3').css("display","block");
 }
 function savePageElements(){
 var objPage = GetPageById(GPageId);
@@ -7405,6 +7556,21 @@ $('#selectTypePageSelect').css("display","block");
 }
 function showChoiceBackground(){
 targetImg = 1;
+$('#pageeditbtn').css("display","none");
+launchImageEditZone();
+}
+function showChoiceBackground11(){
+targetImg = 11;
+$('#pageeditbtn').css("display","none");
+launchImageEditZone();
+}
+function showChoiceBackground12(){
+targetImg = 12;
+$('#pageeditbtn').css("display","none");
+launchImageEditZone();
+}
+function showChoiceBackground13(){
+targetImg = 13;
 $('#pageeditbtn').css("display","none");
 launchImageEditZone();
 }
