@@ -290,6 +290,18 @@
 							<span id="labelActiveZone" class="caption">&nbsp;Isometric&nbsp;</span>
 						</button>
 
+						<div class="group-divider"></div>
+						
+						<button onClick="launchMetaObject('learningcoin','learningcoin');" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/lc-flat.png" />
+							</span>
+							<span id="labelActiveZone" class="caption">&nbsp;Learning&nbsp;coin&nbsp;</span>
+						</button>
+
+				
+						
+
 						<div id="addPluginsGame" class="group-divider"></div>
 					
 						<span class="title"><span class="menuGame" >Game</span> tools</span>
@@ -303,18 +315,29 @@
 				
 					<div class="group">
 
+						<button onClick="launchMetaObject('timer','timer');" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/timer.png" >
+							</span>
+							<span id="labelTimer" class="caption">&nbsp;&nbsp;Timer&nbsp;&nbsp;</span>
+						</button>
+
+						<div class="group-divider"></div>
+						
 						<button onClick="ajoutLudiBILAN();" class="ribbon-button" >
 							<span class="icon">
 								<img src="editor/metro/img/bilan-score.png" >
 							</span>
 							<span id="labelScore" class="caption">&nbsp;&nbsp;&nbsp;Score&nbsp;&nbsp;&nbsp;</span>
 						</button>
+
+						<div class="group-divider"></div>
 						
-						<button onClick="ajoutLudiTABLESCORE();" class="ribbon-button" >
+						<button onClick="launchMetaObject('showstarfx','showstarfx');" class="ribbon-button" >
 							<span class="icon">
-								<img src="editor/metro/img/linktablescore.png" >
+								<img src="editor/metro/img/startlineicone.png" >
 							</span>
-							<span id="labelScoreTable" class="caption">&nbsp;Score&nbsp;table&nbsp;</span>
+							<span id="labelStars" class="caption">&nbsp;Golden&nbsp;stars&nbsp;</span>
 						</button>
 						
 						<button onClick="ajoutLudiDATATABLE();" class="ribbon-button" >
@@ -324,6 +347,8 @@
 							<span id="labelBase" class="caption">&nbsp;&nbsp;&nbsp;Base&nbsp;&nbsp;&nbsp;</span>
 						</button>
 						
+						<div class="group-divider"></div>
+
 						<button onClick="launchCustomIframe();" class="ribbon-button" >
 							<span class="icon">
 								<img src="editor/metro/img/iframe.png" >
@@ -331,11 +356,36 @@
 							<span id="labelBase" class="caption">&nbsp;&nbsp;iframe&nbsp;&nbsp;</span>
 						</button>
 						
+						<button onClick="launchMetaObject('infopoint','panelcenter');" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/pointpanelcenter.png" >
+							</span>
+							<span id="labelBase" class="caption">InfoPoint</span>
+						</button>
+
+						<button onClick="launchMetaObject('panelslide','panelslide');" class="ribbon-button" >
+							<span class="icon">
+								<img src="editor/metro/img/panelside.png" >
+							</span>
+							<span id="labelBase" class="caption">PanelSlide</span>
+						</button>
+						
+						<div class="group-divider"></div>
+						
 						<button onClick="launchCustomFilesEditZone();" class="ribbon-button" >
 							<span class="icon">
 								<img src="editor/metro/img/icon-files-embeded.png" >
 							</span>
-							<span id="labelBase" class="caption">&nbsp;&nbsp;Embedded&nbsp;files&nbsp;&nbsp;</span>
+							<span id="labelBase" class="caption">Embedded&nbsp;files</span>
+						</button>
+
+						<div class="group-divider"></div>
+						
+						<button onClick="launchMetaObject('checkpoint','checkpoint');" class="ribbon-button">
+							<span class="icon">
+								<img src="editor/metro/img/checkpoint.png" />
+							</span>
+							<span id="labelActiveZone" class="caption">&nbsp;checkpoint&nbsp;</span>
 						</button>
 						
 						<span class="title">
@@ -512,8 +562,16 @@
 			<a id="exportBtnExportFolder" 
 			onMouseUp="closePan();launchRapidRender(-2);" >Export to folder</a>
 		</li>
+		<li class="mv-item" >
+			<a id="exportBtnProjectPdf"
+			onMouseUp="closePan();typeFullexport=0;createFileProcess();" >Export to PDF</a>
+		</li>
+		<li class="mv-item" >
+			<a id="exportBtnProjectPdf"
+			onMouseUp="closePan();typeFullexport=1;createFileProcess();" >Export to a single HTML</a>
+		</li>
 	</ul>
-
+	
 	<ul class="menu-options pan noselectmouse" >
 		<li class="mv-item" >
 			<a id="SettingsBtnProject" 
@@ -686,7 +744,8 @@
 	<script src="editor/js/process/oel-lauchextensions.js" ></script>
 	<script src="editor/js/process/oel-editor-extensions.js" ></script>
 	<script src="editor/js/process/oel-elect-exportscorm.js" ></script>
-	
+
+
 	<link href="editor/metro/css/metro-all.css?ver=@@b-version" rel="stylesheet">
   	<script src="editor/metro/js/metro.js?ver=@@b-version"></script>
 	
@@ -729,6 +788,9 @@
 	</script>
 
 	<link rel="stylesheet" href="editor/css/a-table.css" />
+
+	<script src="editor/js/process/oel-exportfile.js" type="text/javascript"  ></script>
+	<script src="editor/js/process/jspdf.min.js" type="text/javascript"  ></script>
 
 </body>
   	
