@@ -6,7 +6,7 @@ const dialog = electron.dialog;
 
 // Module to control application life.
 // date 13/04/2022
-// date 10/09/2023
+// date 05/11/2023
 // @author Damien Renou <LudiscapeXApi> BatisseursNumeriques
 // https://twitter.com/0peneLearning
 //
@@ -70,7 +70,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.6.5";
+global.appVersion = "1.7.0";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
@@ -98,6 +98,7 @@ global.dataLudiParamsData;
 global.editorWindReloadPlugins = 0;
 global.sharedLogs = {logs:''};
 global.EDITORMODE = 0;
+global.prolink = 0;
 
 let mainWindow;
 let editorWindow;
@@ -109,18 +110,18 @@ let littleLogWindow;
 
 function createWindow(){
 	
-	if(process.platform=='linux'){
+	if (process.platform=='linux') {
 		global.fd = "/"
 		global.sharedObj.activeOS = 'linux';
 	}
 	
-	if(process.platform=='darwin'){
+	if (process.platform=='darwin') {
 		global.fd = "/"
 		global.sharedObj.activeOS = 'darwin';
 	}
 	
 	//Create the browser window.,maximize: true 496,500
-	if(process.platform=='linux'||process.platform=='darwin'){
+	if (process.platform=='linux'||process.platform=='darwin') {
 		mainWindow = new BrowserWindow({
 			width: 640 + 0,
 			height: 510,
@@ -130,7 +131,7 @@ function createWindow(){
 				nodeIntegration: true
 			}
 		})
-	}else{
+	} else {
 		mainWindow = new BrowserWindow({
 			width: 640 + 0,
 			height: 510,
@@ -145,14 +146,28 @@ function createWindow(){
 	easyfile =  require('./libs/easyfile');
 	
 	var urlLaunch = path.join(__dirname, 'app/launch.html');
-	var langfile = easyfile.getfWf("params") + "lang.txt";
-	var fs = require('fs');
 	
-	if(!fs.existsSync(langfile)){
+	var langfile = easyfile.getfWf("params") + "lang.txt";
+
+	var prolink = easyfile.getfWf("params") + "prolink.txt";
+
+	if (global.prolink==1) {
+		easyfile.writeText(prolink,'1');
+		console.log("path prolink : " + prolink);
+	}
+
+	var fs = require('fs');
+
+	if (fs.existsSync(prolink)) {
+		global.prolink = 1;
+		console.log("global.prolink : " + global.prolink);
+	}
+
+	if (!fs.existsSync(langfile)) {
 	
 		urlLaunch = path.join(__dirname,'app/launchlang.html');
 		
-	}else{
+	} else {
 		
 		fs.readFile(langfile,function read(err, data) {
 			if(err){
@@ -793,7 +808,7 @@ ipcMain.on('debugMode',function(event,data){
 
 });
 
-ipcMain.on('editextensions',function(event,data){
+ipcMain.on('editextensions',function(event,data) {
 	
 	if(global.exitprocess){return false;}
 	
@@ -805,7 +820,7 @@ ipcMain.on('editextensions',function(event,data){
 	
 });
 
-ipcMain.on('index',function(event,data){
+ipcMain.on('index',function(event,data) {
 	
 	if(global.exitprocess){return false;}
 	
@@ -816,7 +831,7 @@ ipcMain.on('index',function(event,data){
 	}))
 });
 
-ipcMain.on('exports',function(event,data){
+ipcMain.on('exports',function(event,data) {
 	
 	exportsWindow = new BrowserWindow({
 		width: 610,
@@ -837,14 +852,14 @@ ipcMain.on('exports',function(event,data){
 	
 });
 
-app.on('ready',createWindow)
+app.on('ready',createWindow);
 
-app.on('window-all-closed', function(){
+app.on('window-all-closed', function() {
 	if(global.exitprocess){return false;}
 	killWindows();
 })
 
-function killWindows(){
+function killWindows() {
 	global.exitprocess = true;
 	try {
 		app.quit();
