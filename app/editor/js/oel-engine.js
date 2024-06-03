@@ -1533,6 +1533,83 @@ objTemp2.isCreate = false;
 objTemp2.supp = 0;
 return objTemp2;
 }
+function showObjFxPann() {
+if ($('#pann-objectfx').is(":visible")) {
+$('#pann-objectfx').hide();
+} else {
+if ($('#pann-objectfx').children().length == 4) {
+$('#pann-objectfx').css("width","219px");
+$('#pann-objectfx').css("height","204px");
+}
+if ($('#pann-objectfx').children().length > 4) {
+$('#pann-objectfx').css("width","329px");
+$('#pann-objectfx').css("height","204px");
+}
+$('#pann-objectfx').show();
+$('#pann-extensions').hide();
+}
+}
+function hideObjExtPann() {
+$('#pann-objectfx').hide();
+$('#pann-extensions').hide();
+}
+function addObjFxBlueBox() {
+closePan();
+var objTemp = LudiBase();
+objTemp.type= "dom";
+objTemp.idString = "objfx" + guid4();
+objTemp.x = 50 + domx;
+objTemp.y = 200 + domx;
+objTemp.width  = 400;
+objTemp.height = 100;
+objTemp.realwidth = objTemp.width;
+objTemp.realheight = objTemp.height;
+objTemp.pageId = GPageId;
+objTemp.text = "This is a blue box with an arrow";
+objTemp.fontSize = 18;
+var ObjCss = "background-image:url(images/arrowblue.png);";
+ObjCss += "background-repeat:no-repeat;";
+ObjCss += "text-align:center;";
+ObjCss += "background-position:left bottom;";
+ObjCss += "-webkit-box-shadow: inset 0px 0px 0px 6px #3366cc;";
+ObjCss += "box-shadow: inset 0px 0px 0px 6px #3366cc;";
+objTemp.text6 = ObjCss;
+CLudisAdd(objTemp);
+lastUniKid = objTemp.unikid;
+domx = domx + 4;
+CLudisPaint();
+eventObjects = true;
+createRenderJSON();
+deleteLudiHELPER();
+}
+function addObjFxBlueBoard() {
+closePan();
+var objTemp = LudiBase();
+objTemp.type= "dom";
+objTemp.idString = "objfx" + guid4();
+objTemp.x = 50 + domx;
+objTemp.y = 200 + domx;
+objTemp.width  = 420;
+objTemp.height = 250;
+objTemp.realwidth = objTemp.width;
+objTemp.realheight = objTemp.height;
+objTemp.pageId = GPageId;
+objTemp.text = "CHAPTER 1";
+objTemp.fontSize = 28;
+var ObjCss = "background-image:url(images/little-presentation.svg);";
+ObjCss += "background-repeat:no-repeat;";
+ObjCss += "background-size:cover;";
+ObjCss += "text-align:center;";
+ObjCss += "background-position:center center;";
+objTemp.text6 = ObjCss;
+CLudisAdd(objTemp);
+lastUniKid = objTemp.unikid;
+domx = domx + 4;
+CLudisPaint();
+eventObjects = true;
+createRenderJSON();
+deleteLudiHELPER();
+}
 var globalAnimChoice = 0;
 function showEditAnim(){
 if(GlobalUid==-1){
@@ -4280,6 +4357,7 @@ function closePan(){
 var pan = $('.pan');
 pan.css("display","none");
 $('.opacedit').css("left","0px");
+$('#pann-objectfx').hide();
 optHideAll();
 typeCodeEdit = -1;
 }
@@ -4290,8 +4368,8 @@ MoveObjectLudi.set('left',-50);
 }
 function listeEcransEdit(){
 var p = '<div id="g-block" class="global-block" data-force="30" >';
-p += '<div class="block-reordonne" onClick="reOrdonne();" ></div>';
-p += '<div class="block-stopedit" onClick="endOrdonne();" ></div>';
+p += '<div id="g-block-ordo" class="block-reordonne" onClick="reOrdonne();" ></div>';
+p += '<div id="g-block-ordo-stop" class="block-stopedit" onClick="endOrdonne();" ></div>';
 p += '<ol id="listecrans" class="listecrans" >';
 p += '</ol>';
 p += '<div id="addecrans" onClick="pageAdd();" ></div>';
@@ -4374,7 +4452,7 @@ function editAudioMp3Zone(){
 var p = '<div id="editAudioMp3" class="editAudioMp3 pan ' + TYPEWIND + 'osBorder" >';
 p += barEditWind('Audio Mp3');
 p += '<p style="margin-top:25px;" >&nbsp;&nbsp;&nbsp;&nbsp;Audio&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-p += '<span id="Mp3EditSelect" style="width:240px;" ';
+p += '<span id="Mp3EditSelect" style="width:260px;" ';
 p += 'onclick="audioUpload();" ';
 p += ' class="fakeSelect" >...</span></p>';
 p += '<div id="overviewaudiomp3" class="overviewaudio" ><audio>';
@@ -4946,8 +5024,8 @@ noSizeCanvas = 0;
 var GlobalSortable;
 function reOrdonne(){
 $(".mparamspage").css("display","block");
-$(".block-reordonne").css("display","none");
-$(".block-stopedit").css("display","block");
+$("#g-block-ordo").css("display","none");
+$("#g-block-ordo-stop").css("display","block");
 $(".pagedeleteb").css("display","block");
 $(".pageduplica").css("display","block");
 $("#listecrans").sortable({
@@ -4964,8 +5042,8 @@ $("#listecrans").sortable('enable');
 function endOrdonne(){
 $(".mparamspage").css("display","none");
 $("#listecrans").sortable('disable');
-$(".block-reordonne").css("display","block");
-$(".block-stopedit").css("display","none");
+$("#g-block-ordo").css("display","block");
+$("#g-block-ordo-stop").css("display","none");
 $(".pagedeleteb").css("display","none");
 $(".pageduplica").css("display","none");
 reordonnePages();
@@ -8671,13 +8749,21 @@ $(".editImage").css("left",(((widthcanv - 700)/2) + decxCanv) + "px");
 document.body.style.paddingLeft = decxCanv + "px";
 document.body.style.paddingTop = decYMarg  + "px";
 zoomCanv = zoomCanvas;
-if(menuWidth<180){
+if (menuWidth<180) {
 $("#g-block").removeClass("global-block");
 $("#g-block").addClass("global-block-little");
+$("#g-block-ordo").removeClass("block-reordonne");
+$("#g-block-ordo").addClass("block-reordonne-little");
+$("#g-block-ordo-stop").removeClass("block-stopedit");
+$("#g-block-ordo-stop").addClass("block-stopedit-little");
 $(".snaplogin2").css('right','125px');
-}else{
+} else {
 $("#g-block").addClass("global-block");
 $("#g-block").removeClass("global-block-little");
+$("#g-block-ordo").removeClass("block-reordonne-little");
+$("#g-block-ordo").addClass("block-reordonne");
+$("#g-block-ordo-stop").removeClass("block-stopedit-little");
+$("#g-block-ordo-stop").addClass("block-stopedit");
 $(".snaplogin2").css('right','200px');
 }
 showWiziZone();
