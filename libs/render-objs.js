@@ -20,11 +20,15 @@ function renderBarre(ob,p){
 		fxml += "<text></text>";
 		fxml += "<align>LeftCenter</align>";
 		fxml += "<fontsize>14</fontsize>";
-		fxml += "<color><![CDATA[white]]></color>";
 		fxml += "<page>" + p + "</page>";
 		fxml += "<ind>1</ind>";
 		fxml += "<an>1</an>";
 		fxml += "<css>background-color:" + ob.val + ";</css>";
+		if (ob.val=='transparent') {
+			fxml += "<color><![CDATA[black]]></color>";
+		} else {
+			fxml += "<color><![CDATA[white]]></color>";
+		}
 		fxml += "</bloc>";
 
 		
@@ -42,7 +46,11 @@ function renderBarre(ob,p){
 		if(ob.fontSize){
 			fxml += "<fontsize>" + ob.fontSize + "</fontsize>";
 		}
-		fxml += "<color><![CDATA[white]]></color>";
+		if (ob.val=='transparent') {
+			fxml += "<color><![CDATA[black]]></color>";
+		} else {
+			fxml += "<color><![CDATA[white]]></color>";
+		}
 		fxml += "<page>" + p + "</page>";
 		fxml += "<ind>2</ind>";
 		fxml += "</bloc>";
@@ -85,7 +93,11 @@ function renderBarre2(ob,p){
 		if(ob.fontSize){
 			fxml += "<fontsize>" + ob.fontSize + "</fontsize>";
 		}
-		fxml += "<color><![CDATA[white]]></color>";
+		if (ob.val=='transparent') {
+			fxml += "<color><![CDATA[black]]></color>";
+		} else {
+			fxml += "<color><![CDATA[white]]></color>";
+		}
 		if (ob.val2==1) {
 			var filename = ob.val3.replace(/^.*[\\\/]/,'');
 			filename = filename.replace(' ','');
@@ -384,7 +396,11 @@ function renderMetaObject(ob,p){
 	if (ob.type=='metaobject') {
 
 		fxml += '<bloc>';
-		fxml += '<type>' + ob.text7 + '</type>';
+		if (ob.text7=='checkpoint') {
+			fxml += '<type>scriptEvents</type>';
+		} else {
+			fxml += '<type>' + ob.text7 + '</type>';
+		}
 		fxml += '<id></id>';
 
 		if (ob.text7=='panelcenter') {
@@ -422,8 +438,11 @@ function renderMetaObject(ob,p){
 				txtEdit = txtEdit.replace(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/g,'url(\'images/'+ob.text6+'\')');
 			}
 		}
-
-		if (ob.text7!='timer') {
+		if (ob.text7=='checkpoint') {
+			fxml += '<tx><![CDATA[saveProgressionOneCP()]]></tx>';
+			fxml += '<data>4</data>';
+		}
+		if (ob.text7!='timer'&&ob.text7!='checkpoint') {
 			fxml += '<tx><![CDATA[Infos]]></tx>';
 		}
 		fxml += '<tx2><![CDATA[' + rJtext(txtEdit) +']]></tx2>';
@@ -587,7 +606,7 @@ function renderQcm(ob,p,typePage){
 	
 	var fxml = '';
 	
-	if(ob.type=='qcm'){
+	if (ob.type=='qcm') {
 	
 		fxml += '<bloc>';
 		fxml += '<type>qcm</type>';

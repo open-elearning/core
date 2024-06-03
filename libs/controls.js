@@ -258,7 +258,7 @@ function exec(event,data){
 		if(!fs.existsSync(path)){
 		    if (path === undefined) return;
 			var path2 = path[0];
-			var nvideo = findNameMp4(path2);
+			var nvideo = findNameMp4Random(path2);
 			var ptarget = easyfile.getfWf("assets") + nvideo;
 			if(nvideo.indexOf(".mp4")!=-1){
 				
@@ -277,7 +277,7 @@ function exec(event,data){
 		
 	}
 
-	if(data.key=='uploadaudio'){
+	if (data.key=='uploadaudio') {
 		
 		global.sharedObj.dataAudio = "";
 		
@@ -285,10 +285,9 @@ function exec(event,data){
 		if(!fs.existsSync(path)){
 		    if (path === undefined) return;
 			var path2 = path[0];
-			var naudio = findNameMp3(path2);
+			var naudio = findNameMp3Random(path2);
 			var ptarget = easyfile.getfWf("assets") + naudio;
 			if(naudio.indexOf(".mp3")!=-1){
-				
 				if(!fs.existsSync(ptarget)){
 					copyFileImg(path2,ptarget);
 					console.log("copy:" + ptarget);
@@ -408,6 +407,44 @@ function saveAll(filename){
 				}
 			}
 
+		}
+
+		if(rStext(obj.backsvg)!='') {
+			var fnamsvg2 = obj.backsvg.trim();
+			var pathsvg2 = srcAssets + fnamsvg2;
+			if (listfile.indexOf(fnamsvg2 + ';')==-1) {
+				if(fs.existsSync(pathsvg2)){
+					var srcDataBacksvg = fs.readFileSync(pathsvg2);
+					console.log('inc:' + fnamsvg2);
+					listfile = listfile + fnamsvg2 + ';';
+					zip.file(fnamsvg2.trim(),srcDataBacksvg);
+				}
+			}
+		}
+
+		if(rStext(obj.back2)!='') {
+			var fnamBack2 = obj.back2.trim();
+			var pathBack2 = srcAssets + fnamBack2;
+			if (listfile.indexOf(fnamBack2 + ';')==-1) {
+				if(fs.existsSync(pathBack2)){
+					var srcDataBack2 = fs.readFileSync(pathBack2);
+					console.log('inc:' + fnamBack2);
+					listfile = listfile + fnamBack2 + ';';
+					zip.file(fnamBack2.trim(),srcDataBack2);
+				}
+			}
+		}
+		if(rStext(obj.back2svg)!='') {
+			var fnamBack2svg = obj.back2svg.trim();
+			var pathBack2svg = srcAssets + fnamBack2svg;
+			if (listfile.indexOf(fnamBack2svg + ';')==-1) {
+				if(fs.existsSync(pathBack2svg)){
+					var srcDataBack2 = fs.readFileSync(pathBack2svg);
+					console.log('inc:' + fnamBack2svg);
+					listfile = listfile + fnamBack2svg + ';';
+					zip.file(fnamBack2svg.trim(),srcDataBack2);
+				}
+			}
 		}
 
 		if(oneScreen){
@@ -880,6 +917,17 @@ function findNameMp4(source){
 	return nam;
 }
 
+function findNameMp4Random(source){
+	
+	source = cleanString(source);
+	source = cleanNameParasits(source);
+	
+	var namsource = source.replace(/^.*[\\\/]/, '');
+	var nam = 'aaoel' + getGuid5() + namsource;
+	
+	return nam;
+}
+
 function findNameMp3(source){
 	
 	source = cleanString(source);
@@ -887,6 +935,17 @@ function findNameMp3(source){
 	
 	var namsource = source.replace(/^.*[\\\/]/, '');
 	var nam = 'aaoel' + namsource;
+	
+	return nam;
+}
+
+function findNameMp3Random(source){
+	
+	source = cleanString(source);
+	source = cleanNameParasits(source);
+	
+	var namsource = source.replace(/^.*[\\\/]/, '');
+	var nam = 'aaoel' + getGuid5() + namsource;
 	
 	return nam;
 }
@@ -967,6 +1026,22 @@ function copyFileImg(src,dest){
     
 }
 
+function deleteFileSrc(dest){
+	
+	var easyfile =  require('./easyfile');
+	easyfile.deleteFileDeleteLink(dest);
+    
+}
+
+function getGuid5(){
+	function s5() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+		  .toString(16)
+		  .substring(1);
+	}
+	return s5()+s5();
+}
+
 function replaceAll(src, str1, str2, ignore){
 	if(typeof(src)=='undefined'){
 		return "";
@@ -980,3 +1055,42 @@ function replaceAll(src, str1, str2, ignore){
 		return src.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
 	}
 } 
+
+function rStext(s) {
+	
+	if(typeof s==="undefined"){
+		s = '';
+	}
+	if(typeof s==='number'){
+		s = s.toString();
+	}
+	if(typeof s!=='number'){
+		if(typeof s!=='string'){
+			s = s.toString('utf8');
+		}
+	}
+	s = sReplace("u00f4","ô",s);
+	s = sReplace("u00e9","é",s);
+	s = sReplace("u00e8","è",s);
+	s = sReplace("u00e2","â",s);
+	s = sReplace("u2019","'",s);
+	s = sReplace("ZaposA",'"',s);
+	s = sReplace("'",'&apos;',s);
+	s = sReplace("!",'ZexclaA',s);
+	s = sReplace("\\",'ZslashA',s);
+	s = sReplace("/",'ZdeslashA',s);
+	s = sReplace("{",'ZbrakA',s);
+	s = sReplace("}",'ZdebrakA',s);
+	return s;
+	
+}
+exports.rStext = rStext;
+
+function sReplace(s1,par,str) {
+	str = str.replace(s1,par);
+	if(str.indexOf(s1)!=-1){
+		str = sReplace(s1,par,str);
+	}
+	return str;
+}
+exports.sReplace = sReplace;

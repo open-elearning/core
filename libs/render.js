@@ -155,16 +155,37 @@ function generateHtmlSecondPass(){
 			Pitems[obj.pageId] = obj.index ;
 			PtypePage[obj.pageId] = obj.comicMode ;
 
-			//back
-			if(obj.back==''||obj.back=='white.jpg'){
+			// back
+			if (obj.back==''||obj.back=='white.jpg') {
 				fxml += '<fond><page>' + obj.index + '</page>';
 				fxml += '<data><![CDATA[images/fond-white.png]]></data></fond>';
 				Pback[obj.pageId] = '';
-			}else{
+			} else {
 				fxml += '<fond><page>' + obj.index + '</page>';
-				fxml += '<data><![CDATA[images/' + obj.back + ']]></data></fond>';
-				fxml += '<fond2><page>' + obj.index + '</page>';
-				fxml += '<data><![CDATA[images/fond-white.png]]></data></fond2>';
+				fxml += '<data><![CDATA[images/' + obj.back + ']]></data>';
+				if (renderobjs.rJtext(obj.backsvg)!='') {
+					fxml += '<svg><![CDATA[images/' + obj.backsvg + ']]></svg>';
+					copyImageToRender(obj.backsvg,pathFinalHtml);
+				}
+				fxml += '</fond>';
+
+				if(obj.back2==''||obj.back2=='white.jpg'){
+
+					fxml += '<fond2><page>' + obj.index + '</page>';
+					fxml += '<data><![CDATA[images/fond-white.png]]></data></fond2>';
+
+				} else {
+
+					fxml += '<fond2><page>' + obj.index + '</page>';
+					fxml += '<data><![CDATA[images/' + obj.back2 + ']]></data>';
+					if (renderobjs.rJtext(obj.back2svg)!='') {
+						fxml += '<svg><![CDATA[images/' + obj.back2svg + ']]></svg>';
+						copyImageToRender(obj.back2svg,pathFinalHtml);
+					}
+					fxml += '</fond2>';
+
+				}
+
 				var fnam2 = obj.back;
 				var pinit2 = easyfile.getfWf("assets") + fnam2.trim();
 				var ptarget2 = pathFinalHtml + 'images' + fd + fnam2.trim();
@@ -172,7 +193,7 @@ function generateHtmlSecondPass(){
 				Pback[obj.pageId] = 'images/' + obj.back;
 			}
 
-			//transition
+			// transition
 			if (typeof(obj.transition) == 'undefined'){
 				obj.transition = 'Direct';
 			}	
@@ -773,8 +794,6 @@ function generateCss() {
 	var easyfile =  require('./easyfile')
 	var fs = require('fs');
 	var dataCssFile = '/* Custom CSS OeL */'+"\n";
-	var nowDT = new Date();
-	dataCssFile += nowDT + "\n";
 	var renderPath = easyfile.getfWf("finalHtml") + 'css/open.css';
 	var pathFinalHtml = easyfile.getfWf("finalHtml");
 
