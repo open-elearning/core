@@ -580,8 +580,9 @@ function isFileZip(srcF) {
 }
 function isFileData(srcF) {
 	var b = false;
-	if(srcF.indexOf('.pdf')!=-1
-	||srcF.indexOf('.PDF')!=-1){
+	srcF = srcF.toLowerCase();
+	if (srcF.indexOf('.pdf')!=-1
+		||srcF.indexOf('.mp3')!=-1) {
 		b = true;
 	}
 	return b;
@@ -783,8 +784,101 @@ function generateJs() {
 		
 		easyfile.writeText(renderPath,dataJsFile);
 		generateCss();
+		
+	});
+
+}
+
+function generateBaseJs() {
+
+	var fd = global.fd;
+	var easyfile =  require('./easyfile');
+	var fs = require('fs');
+	
+	var path = easyfile.getfWf("temp") + "cludis.json";
+	
+	var dataJsFile = '';
+
+	fs.openSync(path,'r+');
+	fs.readFile(path,function read(err,dataLudi){
+		
+		var dataLudiFile = JSON.parse(dataLudi);
+		dataJsFile += 'basedataoff["BASEQUIZZ"] = "<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>';
+		dataJsFile += '<d>';
+		var renderPath = easyfile.getfWf("finalHtml") + 'javascript/base-oel.js';
+		var i = 0;
+		
+		for(var i = 0; i < dataLudiFile.length; i++){
+			var objLudi = dataLudiFile[i];
+			if(objLudi.type=='database'&&objLudi.text!=''){
+				var dataBaseTxt = objLudi.text;
+				// split @ and for each
+				var dataBaseRow = dataBaseTxt.split("@");
+				for(var j = 0; j < dataBaseRow.length; j++){
+					var dataBaseRowItem = dataBaseRow[j];
+
+					if(dataBaseRowItem!=''){
+
+						var dataBaseRowItemSplit = dataBaseRowItem.split("|");
+
+						if(dataBaseRowItemSplit.length>1){
+
+							var namA = ratioData(dataBaseRowItemSplit[0]);
+
+							if (namA!=''&&namA!=' ') {
+							
+								var namB = ratioData(dataBaseRowItemSplit[1]);
+								var namC = ratioData(dataBaseRowItemSplit[2]);
+								var namD = ratioData(dataBaseRowItemSplit[3]);
+								var namE = ratioData(dataBaseRowItemSplit[4]);
+								var namF = ratioData(dataBaseRowItemSplit[5]);
+							
+								dataJsFile += '<data>';
+								dataJsFile += '<value><![CDATA[' + namA + ']]></value>';
+								if (namB!='') {
+									dataJsFile += '<value><![CDATA[' + namB + ']]></value>';
+								} else {
+									dataJsFile += '<value></value>';
+								}
+								if (namC!='') {
+									dataJsFile += '<value><![CDATA[' + namC + ']]></value>';
+								} else {
+									dataJsFile += '<value></value>';
+								}
+								if (namD!='') {
+									dataJsFile += '<value><![CDATA[' + namD + ']]></value>';
+								} else {
+									dataJsFile += '<value></value>';
+								}
+								if (namE!='') {
+									dataJsFile += '<value><![CDATA[' + namE + ']]></value>';
+								} else {
+									dataJsFile += '<value></value>';
+								}
+								if (namF!='') {
+									dataJsFile += '<value><![CDATA[' + namF + ']]></value>';
+								} else {
+									dataJsFile += '<value></value>';
+								}
+								dataJsFile += '</data>';
+
+								console.log('-- render data base => ' + i + ' (' + namA + ')');
+
+							}
+						}
+					}
+				}
+			}
+		}
+
+		dataJsFile = dataJsFile + '</d>";';
+
+		easyfile.writeText(renderPath,dataJsFile);
 
 	});
+
+	//var basedataoff = new Array();
+	//basedataoff["BASEQUIZZ"] = "";
 
 }
 
@@ -796,7 +890,7 @@ function generateCss() {
 	var dataCssFile = '/* Custom CSS OeL */'+"\n";
 	var renderPath = easyfile.getfWf("finalHtml") + 'css/open.css';
 	var pathFinalHtml = easyfile.getfWf("finalHtml");
-
+	
 	var i = 0;
 	var mem = '';
 	
@@ -840,7 +934,7 @@ function generateCss() {
 	copyImageToRender('oel-man-working.jpg',pathFinalHtml);
 	
 	easyfile.writeText(renderPath,dataCssFile);
-	
+	generateBaseJs();
 }
 
 function copyFileImg(src,dest) {
@@ -944,8 +1038,40 @@ function ratioTxt(s){
 	if(typeof s===" "){
 		s = '';
 	}
-
+	s = s.replace(/^\uFEFF/gm, "");
+	s = s.replace(/^\u00BB\u00BF/gm,"");
+	s = s.replace(/^\u00EF\u00BB\u00BF/gm,"");
 	return s;
 	
 }
 exports.ratioTxt = ratioTxt;
+
+function ratioData(s){
+	
+	if(typeof s==="undefined"){
+		s = '';
+	}
+	if(typeof s==='number'){
+		s = s.toString();
+	}
+	if(typeof s!=='number'){
+		if(typeof s!=='string'){
+			s = s.toString('utf8');
+		}
+	}
+	if(typeof s===" "){s = '';}
+	if(s=='  '){s = '';}
+	if(s==' '){s = '';}
+	
+	// delete ┬á on JS
+	if(s=='┬á'){s = '';}
+	s = s.replace(/"/g, "\\\"");
+	s = s.replace(/^\uFEFF/gm, "");
+	s = s.replace(/[\u00A0\u202F]/g, '');
+	s = s.replace(/^\u00BB\u00BF/gm,"");
+	s = s.replace(/^\u00EF\u00BB\u00BF/gm,"");
+
+	return s;
+	
+}
+exports.ratioData = ratioData;

@@ -15,6 +15,7 @@ const appName = "openelearning";
 //getWorkingFolder
 //getFolderInWorkingFolder
 //writeText
+//aaoelpdfimgpg
 
 function init(nameVersion){
 	
@@ -25,7 +26,8 @@ function init(nameVersion){
 	global.sharedLogs.logs += 'init:' + appName + '<br>';
 	
 	var haveNewVersion = false;
-	var fileversion = getfWf("params") + nameVersion + "v.txt";
+	
+	var fileversion = getfWf("params") + nameVersion + "." + global.prolink + "v.txt";
 	
 	console.log('fileversion ' + fileversion);
 
@@ -38,6 +40,7 @@ function init(nameVersion){
 	createFolderInWorkingFolder(appName,"dataFiles");
 	createFolderInWorkingFolder(appName,"temp");
 	createFolderInWorkingFolder(appName,"tpl");
+	createFolderInWorkingFolder(appName,"pre");
 	createFolderInWorkingFolder(appName,"store");
 	createFolderInWorkingFolder(appName,"extract");
 	createFolderInWorkingFolder(appName,"params");
@@ -151,6 +154,14 @@ function init(nameVersion){
 				console.log('tpl init done !');
 				global.sharedLogs.logs += 'tpl init done !<br>';
 			});
+			ncp(serv + "assets/pre", getfWf("pre"),function (err) {
+				if(err){
+					global.sharedLogs.logs += 'pre error:' + err + '<br>';
+					return console.error(err);
+				}
+				console.log('pre init done !');
+				global.sharedLogs.logs += 'pre init done !<br>';
+			});
 		}
 		listOfStore();
 		listOfInterface();
@@ -222,8 +233,8 @@ function cleanImages(){
 	
 	var fd = global.fd;
 	var fs = require('fs');
+
 	var dir = getfWf("finalHtml") + "images" + fd;
-	
 	fs.readdir(dir, function (err, items) {
 		if(err) {
 			return console.log(err);
@@ -239,7 +250,6 @@ function cleanImages(){
 	});
 	
 	var dir2 = getfWf("finalHtml") + "data" + fd;
-	
 	fs.readdir(dir2, function (err, items) {
 		if(err) {
 			return console.log(err);
@@ -257,6 +267,19 @@ function cleanImages(){
 				console.log('deleteFolder ' + folderPath);
 			}
 			
+		});	  
+	});
+	
+	var dir3 = getfWf("assets");
+	fs.readdir(dir3, function (err, items) {
+		if(err) {
+			return console.log(err);
+		}
+		items.forEach(function (item) {
+			if(item.indexOf('aaoelpdfimgpg')!=-1){
+				var filepath3 = dir3 + item;
+				deleteFileDeleteLink(filepath3);
+			}
 		});	  
 	});
 	

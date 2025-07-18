@@ -35,31 +35,21 @@ const Menu = electron.Menu;
 var shouldQuit = app.requestSingleInstanceLock();
 
 if(!shouldQuit) {
-
 	app.quit()
-
 }else{
-
 	app.on('second-instance',(event, commandLine, workingDirectory) => {
-
 		try {
-
 			if(mainWindow){
 				mainWindow.show();
 				if(mainWindow.isMinimized()){
 					mainWindow.restore();
 				}
 				mainWindow.focus();
-			}
-				
+			}	
 		} catch (error) {
-
 			console.log(error);
-		
 		}
-		  
 	});
-	
 }
 
 const BrowserWindow = electron.BrowserWindow;
@@ -70,13 +60,13 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.7.0";
+global.appVersion = "1.8.0";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
 gpath:'',listassets:'',imgassets:''
 ,activeTitle:'OPEN ELEARNING',extracode:'',
-extracodecss:'',contentcodecss:'',stockfiles:'',stockmaj:0,
+extracodecss:'',contentcodecss:'',stockfiles:'',filesolo:'',stockmaj:0,
 activeOS:'',datascorm:''};
 
 global.sharedScorm = {scormlmschamilo:'',scormlmsmoodle:'',scormlmsclaroline:''};
@@ -124,7 +114,7 @@ function createWindow(){
 	if (process.platform=='linux'||process.platform=='darwin') {
 		mainWindow = new BrowserWindow({
 			width: 640 + 0,
-			height: 510,
+			height: 530,
 			icon: __dirname + '/assets/icons/1024x1024.png',
 			title: 'Open-eLearning',
 			webPreferences: {
@@ -134,7 +124,7 @@ function createWindow(){
 	} else {
 		mainWindow = new BrowserWindow({
 			width: 640 + 0,
-			height: 510,
+			height: 530,
 			icon: __dirname + '/app/images/ico64.ico',
 			title: 'Open-eLearning',
 			webPreferences: {
@@ -162,6 +152,8 @@ function createWindow(){
 		global.prolink = 1;
 		console.log("global.prolink : " + global.prolink);
 	}
+	
+	console.log(process.versions.node);
 
 	if (!fs.existsSync(langfile)) {
 	
@@ -538,9 +530,10 @@ function createStoreWindow(){
 
 function createWindowLaunch(){
 	
-	if(global.exitprocess){return false;}
+	if (global.exitprocess){return false;}
 	
-	if(process.platform=='linux'||process.platform=='darwin'){
+	if (process.platform=='linux'||process.platform=='darwin') {
+
 		launchWindow = new BrowserWindow({
 			width: 1300, height: 810,
 			icon: __dirname + '/assets/icons/1024x1024.png',
@@ -549,7 +542,7 @@ function createWindowLaunch(){
 				nodeIntegration: true
 			}
 		});
-	}else{
+	} else {
 		launchWindow = new BrowserWindow({
 			width: 1300, height: 810,
 			icon: __dirname + '/app/images/ico64.ico',
@@ -590,6 +583,18 @@ ipcMain.on('ShowModelsWindow',() => {
 	
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'app/launchmodel.html'),
+		protocol: 'file:',
+		slashes : true
+	}))
+	
+})
+
+ipcMain.on('ShowTplsWindow',() => {
+	
+	if(global.exitprocess){return false;}
+	
+	mainWindow.loadURL(url.format({
+		pathname: path.join(__dirname, 'app/launchtemplates.html'),
 		protocol: 'file:',
 		slashes : true
 	}))

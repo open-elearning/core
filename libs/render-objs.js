@@ -209,9 +209,16 @@ function renderDom(ob,p){
 
 		var actJs = calculActionJs(ob,p);
 
+		if (ob.idString!='') {
+			fxml += '<ids>'+ ob.idString +'</ids>';
+		}
+		
 		fxml += '<text><![CDATA[<div ' + actJs;
 		fxml += 'style="position:absolute;top:50%;margin-top:-15px;';
 		fxml += 'line-height:30px;height:30px;left:0%;right:0%;" ';
+		if (ob.idString!='') {
+			fxml += ' class="'+ ob.idString +'" ';
+		}
 		fxml += ' >';
 		fxml += rJtext(ob.text);
 		fxml += '</div>]]></text>';

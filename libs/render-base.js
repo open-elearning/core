@@ -11,6 +11,7 @@ function renderBaseProcess(ob,path){
 		var dataTxt = ob.text;
 		
 		var dataTxta = dataTxt.split("@");
+
 		var i = 0;
 		var r = 0;
 		
@@ -18,14 +19,18 @@ function renderBaseProcess(ob,path){
 			var lineRow = dataTxta[i];
 			if(lineRow!=''){
 				r++;
-				endout += '<data>';
 				var rowTxta = lineRow.split("|");
-				var j = 0;
-				for (j=0;j<rowTxta.length;j++) {
-					var tdTxt = rowTxta[j];
-					endout += '<value><![CDATA[' + tdTxt + ']]></value>';
+				var CtrA = rowTxta[0];
+				var CtrB = rowTxta[1];
+				if (CtrA!=''&&CtrB!='') {
+					endout += '<data>';
+					var j = 0;
+					for (j=0;j<rowTxta.length;j++) {
+						var tdTxt = rowTxta[j];
+						endout += '<value><![CDATA[' + tdTxt + ']]></value>';
+					}
+					endout += '</data>';
 				}
-				endout += '</data>';
 			}
 		}
 		

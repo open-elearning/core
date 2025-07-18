@@ -190,11 +190,31 @@ function exec(event,data){
 		
 	}
 	
-	if(data.key=='uploadfile'){
+	if (data.key=='uploadfile') {
 		ctrimport.uplfiles(event,data);
 	}
 
-	if(data.key=='uploadfilebyplugin'){
+	if (data.key=='uploadfilesolo') {
+		ctrimport.uplfileSolo(event,data);
+	}
+
+	if (data.key=='pdftoimg') {
+		console.log("pdftoimg:1");
+		var pdftoimage = require('./import/pdftoimage');
+		pdftoimage.createImages(event,data);
+	}
+
+	if (data.key=='exportimgtotemp') {
+		const base64Str = data.imagedata;
+		const pageNumInt = data.pagenum;
+		const outputFilePath = easyfile.getfWf("temp") + `aaoelpg${pageNumInt}.jpg`;
+		// base64ToJpeg(base64Str, outputFilePath);
+		console.log("base64ToJpeg:" + outputFilePath);
+		const outputFilePath2 = easyfile.getfWf("assets") + `aaoelpdfimgpg${pageNumInt}.jpg`;
+		base64ToJpeg(base64Str, outputFilePath2);
+	}
+
+	if (data.key=='uploadfilebyplugin') {
 
 		var path = data.filenam;
 		
@@ -303,35 +323,185 @@ function exec(event,data){
 		
 	}
 
-	if(data.key=='addplugin'){
-	
+	if (data.key=='addplugin') {
+		
 		global.sharedObj.dataZip = "";
 		
 		var path = openDialogOpenExtensions();
-		if(!fs.existsSync(path)){
-		    if (path === undefined) return;
-			var path2 = path[0];
-			var nZip = findNameZIP(path2);
-			var ptarget = easyfile.getfWf("plugins") + nZip;
-			if(nZip.indexOf(".zip")!=-1){
-				
-				if(!fs.existsSync(ptarget)){
-					copyFileImg(path2,ptarget);
-					console.log("copy:" + ptarget);
-				}else{
-					console.log("allready exists:" + ptarget);
-				}
-				
-				global.sharedObj.dataZip = nZip;
-				
-				electron.shell.openItem(easyfile.getfWf("plugins"))
-				
-			}
 		
+		if (path && path.length > 0) {
+			var path2 = path[0];
+			
+			if (fs.existsSync(path2)) {
+				var nZip = findNameZIbrut(path2);
+				var ptarget = easyfile.getfWf("plugins") + nZip;
+
+				if(nZip.indexOf(".zip") !== -1){
+
+					if (fs.existsSync(ptarget)) {
+						console.log("already exists:" + ptarget);
+						fs.unlinkSync(ptarget);
+					}
+
+					if (!fs.existsSync(ptarget)) {
+						
+						fs.copyFileSync(path2, ptarget);
+						console.log("copy:" + ptarget);
+
+						if (fs.existsSync(ptarget)) {
+
+							try {
+								var NodeZip = require('node-zip');
+								var zipData = fs.readFileSync(ptarget);
+								var zip = new NodeZip(zipData, { base64: false });
+								
+								var pathModule = require('path');
+								var pluginsPath = easyfile.getfWf("plugins");
+								
+								console.log("=== ÉTAPE 1 : Création des dossiers ===");
+								var directories = [];
+								
+								Object.keys(zip.files).forEach(function (filename) {
+
+									var normalizedFilename = filename.replace(/\//g, pathModule.sep);
+									var outputPath = pathModule.join(pluginsPath, normalizedFilename);
+									
+									if (filename.endsWith('/')) {
+
+										directories.push(outputPath);
+										console.log('Found directory: ' + filename);
+									} else {
+										
+										var dirname = pathModule.dirname(outputPath);
+										if (directories.indexOf(dirname) === -1 && dirname !== pluginsPath) {
+											directories.push(dirname);
+											console.log('Found parent directory for file ' + filename + ': ' + dirname);
+										}
+									}
+								});
+								
+								directories.sort(function(a, b) {
+									var depthA = a.split(pathModule.sep).length;
+									var depthB = b.split(pathModule.sep).length;
+									return depthA - depthB;
+								});
+								
+								for (var i = 0; i < directories.length; i++) {
+									var dirPath = directories[i];
+									if (!fs.existsSync(dirPath)) {
+										try {
+											fs.mkdirSync(dirPath);
+											console.log('Created directory: ' + dirPath);
+										} catch(dirErr) {
+											console.log('Error creating directory ' + dirPath + ':', dirErr);
+											try {
+												fs.mkdirSync(dirPath, { recursive: true });
+												console.log('Created directory (recursive): ' + dirPath);
+											} catch(recursiveErr) {
+												console.log('Recursive creation failed for ' + dirPath + ':', recursiveErr);
+											}
+										}
+									} else {
+										console.log('Directory already exists: ' + dirPath);
+									}
+								}
+								
+								console.log("=== ÉTAPE 2 : Copie des fichiers ===");
+								var fileCount = 0;
+								var successCount = 0;
+								
+								Object.keys(zip.files).forEach(function (filename) {
+									try {
+
+										if (!filename.endsWith('/')) {
+											fileCount++;
+											
+											var zipEntry = zip.files[filename];
+											var normalizedFilename = filename.replace(/\//g, pathModule.sep);
+											var outputPath = pathModule.join(pluginsPath, normalizedFilename);
+											
+											console.log('Processing: ' + filename);
+											
+											var dirname = pathModule.dirname(outputPath);
+											if (!fs.existsSync(dirname)) {
+												console.log('Warning: Parent directory missing for ' + filename + ', creating: ' + dirname);
+												try {
+													fs.mkdirSync(dirname, { recursive: true });
+												} catch(lastResortErr) {
+													console.log('Error: Failed to create directory for file:', lastResortErr);
+													return;
+												}
+											}
+											
+											var dataToWrite = null;
+											var fileSize = 0;
+											
+											try {
+												if (typeof zipEntry.asNodeBuffer === 'function') {
+													dataToWrite = zipEntry.asNodeBuffer();
+													fileSize = dataToWrite.length;
+													console.log('Extracted using asNodeBuffer: ' + fileSize + ' bytes');
+												}
+												else if (typeof zipEntry.asBinary === 'function') {
+													var binaryData = zipEntry.asBinary();
+													dataToWrite = Buffer.from(binaryData, 'binary');
+													fileSize = dataToWrite.length;
+													console.log('Extracted using asBinary: ' + fileSize + ' bytes');
+												}
+												else if (typeof zipEntry.asText === 'function') {
+													var textData = zipEntry.asText();
+													dataToWrite = Buffer.from(textData, 'utf8');
+													fileSize = dataToWrite.length;
+													console.log('Extracted using asText: ' + fileSize + ' bytes');
+												}
+												else if (zipEntry._data) {
+													dataToWrite = zipEntry._data;
+													fileSize = dataToWrite.length || 0;
+													console.log('Extracted using _data: ' + fileSize + ' bytes');
+												}
+											} catch(extractErr) {
+												console.log('Error extracting data for ' + filename + ':', extractErr);
+											}
+											
+											if (dataToWrite !== null && dataToWrite !== undefined) {
+												fs.writeFileSync(outputPath, dataToWrite);
+												successCount++;
+												console.log('Success: Copied file (' + successCount + '/' + fileCount + '): ' + filename + ' (' + fileSize + ' bytes)');
+											} else {
+												console.log('Error: Could not extract data for: ' + filename);
+												console.log('Available methods:', Object.getOwnPropertyNames(zipEntry).filter(function(prop) {
+													return typeof zipEntry[prop] === 'function';
+												}));
+											}
+										}
+										
+									} catch(err) {
+										console.log('Error copying file ' + filename + ':', err);
+									}
+								});
+								
+								console.log('Extraction completed!');
+								console.log('Summary: ' + successCount + '/' + fileCount + ' files extracted successfully');
+								
+								global.sharedObj.dataZip = nZip;
+								
+							} catch(err) {
+								console.log("Error processing ZIP file: ", err);
+								return;
+							}
+						} else {
+							console.log("File copy failed:" + ptarget);
+						}
+
+					} else {
+						console.log("Target file already exists:" + ptarget);
+					}
+				}
+			} 
 		}
-	
+
 	}
-	
+
 	if(data.key=='copyFileProcess'){
 		
 		var path = data.filenam;
@@ -352,6 +522,15 @@ function exec(event,data){
 	
 }
 exports.exec = exec;
+
+function base64ToJpeg(base64String, outputFilePath) {
+    const data = base64String.split(',')[1];
+    const buffer = Buffer.from(data, 'base64');
+    const fs = require('fs');
+    fs.writeFileSync(outputFilePath, buffer);
+    return outputFilePath;
+}
+
 
 function saveAll(filename){
 	
@@ -959,6 +1138,19 @@ function findNameZIP(source){
 	
 	var namsource = source.replace(/^.*[\\\/]/, '');
 	var nam = 'aaoel' + namsource;
+	
+	return nam;
+}
+
+function findNameZIbrut(source){
+	
+	source = cleanString(source);
+	
+	source = replaceAll(source,'-','o');
+	source = replaceAll(source,' ','o');
+	
+	var namsource = source.replace(/^.*[\\\/]/, '');
+	var nam = namsource;
 	
 	return nam;
 }

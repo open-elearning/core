@@ -20,6 +20,13 @@ function openFileProcess(filename,tpl) {
 		filename = recentTpl + filename + ".openelearning";
 		isTpl = true;
 	}
+
+	if(filename.indexOf("pre-")!=-1&&tpl){	
+		var recentTpl = easyfile.getfWf("pre");
+		filename = filename.replace("pre-","");
+		filename = recentTpl + filename + ".openelearning";
+		isTpl = true;
+	}
 	
 	if(fs.existsSync(filename)){
 		
@@ -107,14 +114,27 @@ function openFileProcess(filename,tpl) {
 				}
 			}
 
+			// Stock Files database
+			var extraStockFiles = zip.files['stockfiles.txt'];
 
+			if(typeof extraStockFiles === "undefined"){
+				global.sharedObj.stockfiles = '';
+			}else{
+				var extraPath = easyfile.getfWf("extract") + "stockfiles.txt";
+				if(typeof extraStockFiles !== 'string'){
+					extraStockFiles = extraStockFiles._data;
+				}
+				extraStockFiles = decodeURIComponent(escape(extraStockFiles));
+				
+				global.sharedObj.stockfiles = extraStockFiles;
+
+			}
+			
 			// EXTRACODE
 			var extraCodeData = zip.files['extracode.txt'];
 			
 			if(typeof extraCodeData === "undefined"){
-				
 				global.sharedObj.extracode = '';
-				
 			}else{
 
 				var extraPath = easyfile.getfWf("extract") + "extracode.txt";
@@ -151,7 +171,6 @@ function openFileProcess(filename,tpl) {
 				global.sharedObj.extracodecss = extraCodeDataCss;
 
 			}
-
 
 			if(isTpl==false){
 				global.sharedObj.dataFile = filename;
@@ -228,7 +247,6 @@ function getDependFiles(zip,datafile){
 	
 	var easyfile =  require('./../easyfile');
 	var util = require('util');
-	
 	if (typeof datafile === "undefined") {
 		datafile = '';
 	}
@@ -236,6 +254,14 @@ function getDependFiles(zip,datafile){
 		datafile = datafile.toString('utf8');
 	}
 	
+	var	stockFiles = global.sharedObj.stockfiles;
+	if (typeof stockFiles === "undefined") {
+		stockFiles = '';
+	}
+	if(typeof stockFiles !== 'string'){
+		stockFiles = stockFiles.toString('utf8');
+	}
+
 	var arrayOfStrings = datafile.split(';');
 		
 	for (var i=0; i < arrayOfStrings.length; i++){
@@ -243,7 +269,13 @@ function getDependFiles(zip,datafile){
 		if(fnam!=''){
 			
 			var path2 = easyfile.getfWf("assets")+fnam;
+			
+			if (stockFiles.indexOf(fnam+"|")!=-1) {
+				path2 = easyfile.getfWf("stockfiles")+fnam;
+			}
+			
 			console.log('-- fnam:' + fnam);
+
 			if(fs.existsSync(path2)){
 				
 				console.log('-- exist:' + fnam);

@@ -35,6 +35,59 @@ function uplfiles(event,data){
 }
 exports.uplfiles = uplfiles;
 
+
+function uplfileSolo(event,data){
+	
+	var easyfile = require('./../easyfile');
+	var path = openDialogOpenOneFileSolo();
+    
+    global.sharedObj.stockmaj = 0;
+    
+	if(!fs.existsSync(path)){
+		if (path === undefined) return;
+		var path2 = path[0];
+		if(path2 === undefined){
+			path2 = '';
+		}
+		if(path2!=''){
+			var nameImg2 = findNameFromFile(path2);
+			var ptarget = easyfile.getfWf("temp") + nameImg2;
+			global.sharedObj.filesolo = ptarget;
+            easyfile.copyFilePromise(path2,ptarget);
+            global.sharedObj.stockmaj = 1;
+		}
+		
+	}
+
+}
+exports.uplfileSolo = uplfileSolo;
+
+
+function openDialogOpenOneFileSolo(){
+	
+	if(global.editorWind){
+		global.editorWind.hide();
+    }
+	var dlgResult = dialog.showOpenDialogSync(window,{
+		defaultPath: 'c:/',
+		filters:[{
+			name:'file',
+			extensions:['pdf']
+		}]
+	,properties:['openFile']});
+
+	if(global.editorWind){
+		global.editorWind.show();
+	}
+	if(typeof dlgResult === "undefined") {
+		dlgResult = '';
+	}
+	return dlgResult;
+
+}
+exports.openDialogOpenOneFileSolo = openDialogOpenOneFileSolo;
+
+
 function openDialogOpenOneFile(){
 	
 	if(global.editorWind){
@@ -58,6 +111,7 @@ function openDialogOpenOneFile(){
 
 }
 exports.openDialogOpenOneFile = openDialogOpenOneFile;
+
 
 function findNameFromFile(source){
 	
@@ -83,6 +137,7 @@ function findNameFromFile(source){
 
 }
 exports.findNameFromFile = findNameFromFile;
+
 
 function strReplace(s1,par,str){
 	str = str.replace(s1,par);

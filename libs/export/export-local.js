@@ -81,6 +81,12 @@ function haveRightFileCopy(filename){
 	if(filename.indexOf('scormlmsmoodle.js')!=-1){
 		return false;
 	}
+	if(filename.indexOf('scormlmsclaroline.js')!=-1){
+		return false;
+	}
+	if(filename.indexOf('scormclaroline.js')!=-1){
+		return false;
+	}
 	if(filename.indexOf('scormmoodle-v1.js')!=-1){
 		return false;
 	}
