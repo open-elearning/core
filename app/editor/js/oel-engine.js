@@ -1537,6 +1537,21 @@ function showObjFxPann() {
 if ($('#pann-objectfx').is(":visible")) {
 $('#pann-objectfx').hide();
 } else {
+redimObjFxPann();
+$('#pann-objectfx').show();
+$('#pann-extensions').hide();
+setTimeout(() => {
+redimObjFxPann();
+setTimeout(() => {
+redimObjFxPann();
+setTimeout(() => {
+redimObjFxPann();
+}, 800);
+}, 700);
+}, 700);
+}
+}
+function redimObjFxPann() {
 if ($('#pann-objectfx').children().length == 4) {
 $('#pann-objectfx').css("width","219px");
 $('#pann-objectfx').css("height","204px");
@@ -1545,8 +1560,13 @@ if ($('#pann-objectfx').children().length > 4) {
 $('#pann-objectfx').css("width","329px");
 $('#pann-objectfx').css("height","204px");
 }
-$('#pann-objectfx').show();
-$('#pann-extensions').hide();
+if ($('#pann-objectfx').children().length > 6) {
+$('#pann-objectfx').css("width","329px");
+$('#pann-objectfx').css("height","306px");
+}
+if ($('#pann-objectfx').children().length > 9) {
+$('#pann-objectfx').css("width","329px");
+$('#pann-objectfx').css("height","408px");
 }
 }
 function hideObjExtPann() {
@@ -1855,10 +1875,11 @@ p += colorChoiceC('#B7950B');
 p += colorChoiceC('#FF00FF');
 p += colorChoiceC('#D98880');
 p += colorChoiceC('#24445C');
+p += colorChoiceC('#7cb7d8');
 p += colorChoiceC('transparent');
 p += '<input id="textBarreColorEdit" ';
 p += ' type="text" class="css-input" ';
-p += ' style="width:90px;margin-top:15px;margin-left:102px;';
+p += ' style="width:90px;margin-top:4px;margin-left:6px;';
 p += 'font-size:15px;padding:7px;" />';
 p += '</div>';
 p += '<a style="position:absolute;right:15px;bottom:15px;" ';
@@ -3059,6 +3080,59 @@ gscreen = obj.screen;
 }
 return gscreen;
 }
+function lauchImportPDF(){
+closeMove();
+$('.barreProgress').css("width","0%");
+eventPages = true;
+eventObjects = true;
+$('.opacedit').css("display","block");
+$('.renderPdfArea').css("display","block");
+console.log('import pdf');
+let obj = {type:"import_pdf"};
+}
+function exec_importpdf(){
+var filename = $('#'+actualIdInput).val();
+if (filename == '') { return; }
+$('.renderPdfArea').css("display","block");
+loadpdfprocess();
+}
+function renderPdfAreaZone(){
+var p = '<div id="renderPdfArea" class="renderPdfArea pan ' + TYPEWIND + 'osBorder" >';
+p += barEditWind('Prepare');
+p += '<div id="listPdfArea" class="listPdfArea" >';
+p += '<input type="file" class="pdf_file" name="pdf_file" id="pdf_file" accept=".pdf" />';
+p += '</br>';
+p += '<p style="text-align:center;" >';
+p += '<button id="btn_import" class="btnSave2" onclick="loadpdfprocess2()">Import</button>';
+p += '</p>';
+p += '<div id="renderPdfAreaRoot" ></div>';
+p += '<canvas id="previewPdfArea" class="previewPdfArea"  ></canvas>';
+p += '</div>';
+p += '</div>';
+return p;
+}
+var actualIdInput = '';
+function showSelFileGen(idInput){
+actualIdInput = idInput;
+var remote = require('electron');
+var ipc = remote.ipcRenderer;
+ipc.send('message',{key:'uploadfilesolo'});
+setTimeout(function() {
+refreshFileUpload();
+},500);
+}
+function refreshFileUpload(){
+var remote = require('electron').remote;
+var stockmaj = remote.getGlobal('sharedObj').stockmaj;
+if (stockmaj==1&&stockmaj=='1') {
+var filesolo = remote.getGlobal('sharedObj').filesolo;
+$('#'+actualIdInput).val(filesolo);
+} else {
+setTimeout(function(){
+refreshFileUpload()
+},1000);
+}
+}
 function loadLocalJSON(name){
 var remote = require('electron').remote;
 var gPath = remote.getGlobal('sharedObj').gpath;
@@ -4045,25 +4119,20 @@ ctx.stroke();
 }
 }
 }
+var indexImg = 0;
 for (var i = 0; i < CLudisCount; i++){
 var obj = CLudis[i];
-if(obj.supp==0){
-if(obj.pageId==processId){
-if(obj.type=='img'||obj.type=='bilan'||obj.type=='plugin'){
-var img = new Image();
-img.onload = function() {
-var objIm = CLudis[img.id];
-var x = parseInt(objIm.x * 0.16);
-var y = parseInt(objIm.y * 0.16);
-var dw = parseInt(objIm.width * 0.16);
-var dh = parseInt(objIm.height * 0.16);
-ctx.drawImage(img, x, y, dw, dh);
-};
-var srcimg = correctUrlImg(obj.data);
-img.id = i;
-img.src = srcimg;
+if (obj.supp==0) {
+if (obj.pageId==processId) {
+if (obj.type=='img'||obj.type=='bilan'||obj.type=='plugin') {
+var x = parseInt(obj.x * 0.16);
+var y = parseInt(obj.y * 0.16);
+var dw = parseInt(obj.width * 0.16);
+var dh = parseInt(obj.height * 0.16);
+drwImgLittle(ctx,indexImg,correctUrlImg(obj.data),x,y,dw,dh);
+indexImg++;
 }
-if(obj.type=='plugme'){
+if (obj.type=='plugme') {
 var img = new Image();
 img.onload = function() {
 var objIm = CLudis[img.id];
@@ -4077,21 +4146,33 @@ var srcimg = correctLocalUrlImg(obj.data);
 img.id = i;
 img.src = srcimg;
 }
-if(obj.type=='video'){
-var img = new Image();
-img.onload = function() {
-var objIm = CLudis[img.id];
+if (obj.type=='video'||obj.type=='videomp4') {
+var axt = parseInt(obj.x * 0.16);
+var ayt = parseInt(obj.y * 0.16);
+var awt = parseInt(obj.width * 0.16);
+var aht = parseInt(obj.height * 0.16);
+ctx.beginPath();
+ctx.lineWidth = 0.5;
+ctx.strokeStyle = 'gray';
+ctx.fillStyle = 'black';
+ctx.fillRect(axt, ayt, awt, aht);
+ctx.stroke();
+if (obj.type=='video') {
+var imgVid = new Image();
+imgVid.onload = function() {
+var objIm = CLudis[imgVid.id];
 var x = parseInt(objIm.x * 0.16);
 var y = parseInt(objIm.y * 0.16);
 var dw = parseInt(objIm.width * 0.16);
 var dh = parseInt(objIm.height * 0.16);
-ctx.drawImage(img, x, y, dw, dh);
+ctx.drawImage(imgVid, x, y, dw, dh);
 };
 var srcimg = correctUrlImg(obj.data);
-img.id = i;
-img.src = srcimg;
+imgVid.id = i;
+imgVid.src = srcimg;
 }
-if(obj.type=='speech'){
+}
+if (obj.type=='speech') {
 var imgSpeech = new Image();
 imgSpeech.onload = function() {
 var objIm = CLudis[imgSpeech.id];
@@ -4179,10 +4260,71 @@ var dwt = parseInt(obj.width * 0.16);
 var dht = parseInt(obj.height * 0.16);
 rectangledText(ctx,xt,yt,dwt,cleanText(obj.text),4,'Helvetica','white');
 }
+if(obj.type=='label'){
+var xt = parseInt(obj.x * 0.16);
+var yt = parseInt(obj.y * 0.16);
+var dwt = parseInt(obj.width * 0.16);
+var dht = parseInt(obj.height * 0.16);
+ctx.beginPath();
+ctx.lineWidth = 0.5;
+ctx.strokeStyle = 'black';
+ctx.rect(xt, yt, dwt, dht);
+ctx.stroke();
+}
 }
 }
 }
 rectangleNumPage(ctx,index);
+}
+function drwImgLittle(ctx,indImg,src,x,y,dw,dh){
+if (indImg==0) {
+var img = new Image();
+img.onload = function() {
+ctx.drawImage(img, x, y, dw, dh);
+};
+img.id = indImg;
+img.src = src;
+}
+if (indImg==1) {
+var img1 = new Image();
+img1.onload = function() {
+ctx.drawImage(img1, x, y, dw, dh);
+};
+img1.id = indImg;
+img1.src = src;
+}
+if (indImg==2) {
+var img2 = new Image();
+img2.onload = function() {
+ctx.drawImage(img2, x, y, dw, dh);
+};
+img2.id = indImg;
+img2.src = src;
+}
+if (indImg==3) {
+var img3 = new Image();
+img3.onload = function() {
+ctx.drawImage(img3, x, y, dw, dh);
+};
+img3.id = indImg;
+img3.src = src;
+}
+if (indImg==4) {
+var img4 = new Image();
+img4.onload = function() {
+ctx.drawImage(img4, x, y, dw, dh);
+};
+img4.id = indImg;
+img4.src = src;
+}
+if (indImg==5) {
+var img5 = new Image();
+img5.onload = function() {
+ctx.drawImage(img5, x, y, dw, dh);
+};
+img5.id = indImg;
+img5.src = src;
+}
 }
 function getImageDataMini(processId){
 if(!openelearning.gebi('page' + processId)){
@@ -4268,7 +4410,7 @@ p += colorChoiceZone() + pageEditOptions() + formatButtonObject();
 p += exceptionExtraWindows() + databaseEditZone();
 p += animEditObject()+ propertiesObject();
 p += extraCustomFilesEditZone();
-p += editIframeZone();
+p += editIframeZone() + renderPdfAreaZone();
 $('body').append(p);
 var be = barreEdit();
 $('.toolbarZoneTexteDiv').html(be);
@@ -4340,12 +4482,17 @@ function optExport(){
 optHideAll();
 $('.menu-export').css("display","block");
 }
+function optImport(){
+optHideAll();
+$('.menu-import').css("display","block");
+}
 function optHideAll(){
 $('#editExtraCustomFiles').css("display","none");
 $('#editExtraCode').css("display","none");
 $('.menu-options').css("display","none");
 $('.menu-custom').css("display","none");
 $('.menu-export').css("display","none");
+$('.menu-import').css("display","none");
 }
 function showLogsInfos(){
 const electron = require('electron');
@@ -4868,6 +5015,23 @@ var obj = CPages[i];
 return CPages[i];
 }
 }
+}
+function GetPageByNum(pageNum){
+var obj = -1;
+var b = 0;
+for(var i=0;i<CPagesCount;i++){
+if(CPages[i].supp==0){
+if(b==pageNum){
+obj = CPages[i];
+}
+b = b + 1;
+}
+}
+if (obj==-1){
+pageAdd();
+obj = GetPageById(GPageId);
+}
+return obj;
 }
 function PageExist(pageId){
 for(var i=0;i<CPagesCount;i++){
@@ -6490,14 +6654,16 @@ var speW = parseInt(obj.width * zoomCanv)-20;
 var speH = parseInt(obj.height * zoomCanv)-90;
 var col='black';
 if(!openelearning.gebi('textzone' + i)){
+var idTmpObj =  "wizitxt" + guid();
 var p = '<table id="textzone'+i+'" ';
 p += ' onClick="SelectWorkingI('+i+');" ';
-p += ' class="tmpshow tabletext noselectmouse" ><tbody>';
+p += ' class="tmpshow tabletext '+idTmpObj+' noselectmouse" ><tbody>';
 p += '<tr class=nosel >';
 p += '<td id="textzoneinn'+i+'" valign="center" class=nosel >';
 p += '<span class="noselectmouse" >' + obj.text + '</span>';
 p += '</td></tr></tbody></table>';
 $('body').append(p);
+contextInstall($('.'+idTmpObj));
 }
 $('#textzoneinn'+i).html(obj.text);
 $('#textzoneinn'+i).css("width",speW+'px').css("height",(speH - 5)+'px');
@@ -6583,12 +6749,14 @@ var txtEdit = replaceAll(obj.text,"data-ref="," style='pointer-events:none;' hre
 var col='black';
 if(parseInteger(obj.val)==1){col='white';}
 if(!openelearning.gebi('textzone' + i)){
-var p = '<div id="textzone'+i+'" ';
+var idTmpObj =  "wizitxt" + guid();
+var p = '<div id="textzone' + i + '" ';
 p += ' onMouseUp="hookMouseUp();" ';
 p += ' onClick="SelectWorkingI('+i+');" ';
-p += ' class="tmpshow showtext noselectmouse" >';
+p += ' class="tmpshow showtext ' + idTmpObj + ' noselectmouse" >';
 p += txtEdit + '</div>';
 $('body').append(p);
+contextInstall($('.'+idTmpObj));
 }
 if(obj.css!=''){
 $('#textzone'+i).attr("style",obj.css);
@@ -8194,7 +8362,7 @@ var editor;
 var EDITORMODE = 0;
 var SCREEN_0_W = 960;
 var SCREEN_0_H = 720;
-(function(){
+(function() {
 canvas = new fabric.Canvas('ecran');
 canvas.hoverCursor = 'pointer';
 var moveHandler = function (evt){
@@ -8256,9 +8424,9 @@ movingObject.set('top',ot);
 if(obj.type=='button'){
 if(obj.text6==4||obj.text6==5||obj.text6==6){
 if(EDITORMODE==0){
-if(ol>870){
-ol = 870;
-movingObject.set('left',870);
+if(ol>SCREEN_0_W-90){
+ol = SCREEN_0_W-90;
+movingObject.set('left',ol);
 }
 }
 if(EDITORMODE==1){
@@ -8396,8 +8564,8 @@ rectangledText(ctx,-this.width/2 + 5,-this.height/2 + 20,this.width,cleanText(th
 });
 canvasIsOK = true;
 })();
-$(function(){
-contextInstall($('body'));
+$(function() {
+contextInstall($('.backScreenDiv'));
 contextInstall($('.canvas-container'));
 $('#g-block').contextPopup({
 title: 'Open eLearning',
@@ -8416,7 +8584,12 @@ deletePagesG();
 });
 });
 setTimeout(function(){
+if ($('.global-block').length>0) {
 contextScreenInstall($('.global-block'));
+}
+if ($('.global-block-little').length>0) {
+contextScreenInstall($('.global-block-little'));
+}
 },1000);
 function contextInstall(objMenu){
 objMenu.contextPopup({
