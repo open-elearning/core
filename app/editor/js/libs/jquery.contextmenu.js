@@ -38,19 +38,78 @@ jQuery.fn.contextPopup = function(menuData) {
 	$.extend(settings, menuData);
 
   // Build popup menu HTML
-  function createMenu(e) {
+  function createMenu(e, parentMenu) {
     var menu = $('<ul class="' + settings.contextMenuClass + '"><div class="' + settings.gutterLineClass + '"></div></ul>')
       .appendTo(document.body);
-    if (settings.title) {
+    if (settings.title && !parentMenu) {
       $('<li class="' + settings.headerClass + '"></li>').text(settings.title).appendTo(menu);
     }
     settings.items.forEach(function(item) {
       if (item) {
-        var rowCode = '<li><a href="#" class="'+settings.linkClickerClass+'"><span class="itemTitle"></span></a></li>';
-        // if(item.icon)
-        //   rowCode += '<img>';
-        // rowCode +=  '<span></span></a></li>';
+        var hasSubmenu = item.items && Object.keys(item.items).length > 0;
+        var rowCode = '<li><a href="#" class="'+settings.linkClickerClass+'"><span class="itemTitle"></span>' + 
+                      (hasSubmenu ? '<span class="submenu-arrow">►</span>' : '') + '</a></li>';
         var row = $(rowCode).appendTo(menu);
+        
+        if(item.icon){
+          var icon = $('<img>');
+          icon.attr('src', item.icon);
+          icon.insertBefore(row.find('.itemTitle'));
+        }
+        row.find('.itemTitle').text(item.label);
+        
+        if (hasSubmenu) {
+          row.addClass('has-submenu');
+          // Create submenu
+          var submenu = createSubmenu(item.items, row);
+          row.append(submenu);
+          
+          // Handle submenu show/hide on hover
+          row.on('mouseenter', function() {
+            $('.contextMenuPlugin .submenu').hide();
+            submenu.show();
+            positionSubmenu(submenu, row);
+          });
+          
+          row.on('mouseleave', function(e) {
+            var relatedTarget = e.relatedTarget;
+            if (!submenu.is(relatedTarget) && !submenu.has(relatedTarget).length) {
+              submenu.hide();
+            }
+          });
+          
+          submenu.on('mouseleave', function(e) {
+            var relatedTarget = e.relatedTarget;
+            if (!row.is(relatedTarget) && !row.has(relatedTarget).length) {
+              submenu.hide();
+            }
+          });
+        }
+          
+        if (item.isEnabled != undefined && !item.isEnabled()) {
+            row.addClass('disabled');
+        } else if (item.action && !hasSubmenu) {
+            row.find('.'+settings.linkClickerClass).click(function () { item.action(e); });
+        }
+
+      } else {
+        $('<li class="' + settings.seperatorClass + '"></li>').appendTo(menu);
+      }
+    });
+    menu.find('.' + settings.headerClass ).text(settings.title);
+    return menu;
+  }
+
+  // Create submenu
+  function createSubmenu(items, parentRow) {
+    var submenu = $('<ul class="' + settings.contextMenuClass + ' submenu"><div class="' + settings.gutterLineClass + '"></div></ul>');
+    
+    Object.keys(items).forEach(function(key) {
+      var item = items[key];
+      if (item) {
+        var rowCode = '<li><a href="#" class="'+settings.linkClickerClass+'"><span class="itemTitle"></span></a></li>';
+        var row = $(rowCode).appendTo(submenu);
+        
         if(item.icon){
           var icon = $('<img>');
           icon.attr('src', item.icon);
@@ -61,15 +120,43 @@ jQuery.fn.contextPopup = function(menuData) {
         if (item.isEnabled != undefined && !item.isEnabled()) {
             row.addClass('disabled');
         } else if (item.action) {
-            row.find('.'+settings.linkClickerClass).click(function () { item.action(e); });
+            row.find('.'+settings.linkClickerClass).click(function (e) { 
+              item.action(e); 
+              // Close all menus when submenu item is clicked
+              $('.contextMenuPlugin').remove();
+              $('.contextMenuPlugin-bg').remove();
+            });
         }
-
       } else {
-        $('<li class="' + settings.seperatorClass + '"></li>').appendTo(menu);
+        $('<li class="' + settings.seperatorClass + '"></li>').appendTo(submenu);
       }
     });
-    menu.find('.' + settings.headerClass ).text(settings.title);
-    return menu;
+    
+    return submenu;
+  }
+  
+  // Position submenu relative to parent item
+  function positionSubmenu(submenu, parentRow) {
+    var parentWidth = parentRow.outerWidth();
+    var submenuWidth = submenu.outerWidth();
+    var windowWidth = $(window).width();
+    var parentOffset = parentRow.offset();
+    
+    // Default position: to the right of parent
+    var left = '100%';
+    var top = '0';
+    
+    // Check if submenu would go off right edge of screen
+    if (parentOffset.left + parentWidth + submenuWidth > windowWidth) {
+      left = '-100%'; // Position to the left instead
+    }
+    
+    submenu.css({
+      position: 'absolute',
+      left: left,
+      top: top,
+      zIndex: 1000002
+    });
   }
 
   // On contextmenu event (right click)
@@ -94,20 +181,20 @@ jQuery.fn.contextPopup = function(menuData) {
       .on('contextmenu', function() { return false; });
 
     // Cover rest of page with invisible div that when clicked will cancel the popup.
-    var bg = $('<div></div>')
+    var bg = $('<div class="contextMenuPlugin-bg"></div>')
       .css({left:0, top:0, width:'100%', height:'100%', position:'absolute', zIndex:1000000})
       .appendTo(document.body)
       .on('contextmenu click', function() {
         // If click or right click anywhere else on page: remove clean up.
         bg.remove();
-        menu.remove();
+        $('.contextMenuPlugin').remove();
         return false;
       });
 
     // When clicking on a link in menu: clean up (in addition to handlers on link already)
     menu.find('a').click(function() {
       bg.remove();
-      menu.remove();
+      $('.contextMenuPlugin').remove();
     });
 
     // Cancel event, so real browser popup doesn't appear.

@@ -110,7 +110,7 @@ function rJtext(s){
 	s = decodeURIComponent(escape(s));
 	
 	s = replaceAll(s,';nLUDI',";\nLUDI");
-	s = replaceAll(s,';n',";\n");
+	//s = replaceAll(s,';n',";\n");
 	
 	s = replaceAll(s,'u00f4','ô');
 	s = replaceAll(s,'u00e9','é');
@@ -243,6 +243,7 @@ var PageGlobaleRender = 0;
 
 var progressTranquil = 0;
 
+// -2 : Export to folder
 function launchRapidRender(np){
 	
 	closeMove();
@@ -250,7 +251,6 @@ function launchRapidRender(np){
 	PageGlobaleRender = np;
 	
 	$('.barreProgress').css("width","0%");
-	
 	$('.opacedit').css("display","block");
 	$("#barreGeneration").css("display","block");
 	
@@ -275,13 +275,17 @@ function launchRapidRender(np){
 			$('.barreProgress').css("width", progressTranquil + "%");
 			finalRenderProcess();
 		}else{
-			setTimeout(function(){
-				$('.barreProgress').css("width", "60%");
+			if (np==-2) {
+				renderExportToFolder()
+			} else {
 				setTimeout(function(){
-					$('.opacedit').css("display","none");
-					$("#barreGeneration").css("display","none");
-				},1000);
-			},3000);
+					$('.barreProgress').css("width", "60%");
+					setTimeout(function(){
+						$('.opacedit').css("display","none");
+						$("#barreGeneration").css("display","none");
+					},1000);
+				},3000);
+			}
 		}
 	},2000);
 	
@@ -326,6 +330,42 @@ function finalRenderProcess(){
 	}
 	
 }
+
+function renderExportToFolder(){
+	
+	if(haveRenderProcess()){
+
+		if(progressTranquil<90){
+			progressTranquil = progressTranquil + 5;
+		}else if(progressTranquil<96){
+			progressTranquil = progressTranquil + 1;
+		}
+		
+		$('.barreProgress').css("width", progressTranquil + "%");
+		
+		setTimeout(function(){
+			renderExportToFolder();
+		},500);
+	
+	}else{
+		
+		if(!haveError()){
+			
+			$('.barreProgress').css("width","100%");
+			var ipc = require('electron').ipcRenderer;
+			ipc.send('message',{key:'exportlocal'})
+			
+		}
+		
+		setTimeout(function(){
+			$('.opacedit').css("display","none");
+			$("#barreGeneration").css("display","none");
+			$('.barreProgress').css("width","0%");
+		},3500);
+	}
+
+}
+
 
 function modifProcessLaunch(){
 	
@@ -386,6 +426,9 @@ function parseTxt(str) {
 	
 	if(typeof(str)=='undefined'){
 		return "";
+	}
+	if(str=='undefined'){
+		str =  "";
 	}
 	str = str.replace(" ", "");
 	str = str.replace(" ", "");

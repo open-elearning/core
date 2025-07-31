@@ -21,11 +21,41 @@ function objetSendToString(id){
     str += Tobj.val4 + '@';
     str += Tobj.val5 + '@';
     str += Tobj.val6 + '@';
+	str += Tobj.actionVal + '@';
+    str += Tobj.actionData + '@';
+    str += Tobj.actionLine1 + '@';
+    str += Tobj.actionLine2 + '@';
+	Tobj.idsDico = getIdsLst();
+	str += Tobj.idsDico + '@';
+
 	return str;
+}
+
+function getIdsLst(){
+
+	var str = "";
+
+	if(GPageId!=''){
+		for (var i = 0; i < CLudisCount; i++) {
+			if (CLudis[i].supp==0) {
+				if (CLudis[i].pageId==GPageId) {
+					var idctr = parseTxt(CLudis[i].idString);
+					if (idctr!='') {
+						str = str + idctr + ';';
+					}
+				}
+			}
+		}
+	}
+
+	return  str;
+
 }
 
 function oeEditorShow(idName){
     
+	var bodyHeight = $('#opacedit').height() -30;
+	
     var pathAllPlugins = folderAllPlugins.replace(/\\/g, "/");
 	
 	if(typeof pathAllPlugins ==='undefined'){
@@ -45,6 +75,11 @@ function oeEditorShow(idName){
 		pb += '</div>';
 		$('body').append(pb);
 	}
+	if (bodyHeight>700) {
+		$('#editEditorForms').css("top","30px");
+	} else {
+		$('#editEditorForms').css("top","10px");
+	}
 
 	$('.opacedit').css("display","block");
 	
@@ -54,7 +89,14 @@ function oeEditorShow(idName){
 	
 	p += '<iframe data="' + objetSendToString(GlobalUid) + '" ';
 	p += ' id="editEditorFrame" name="editEditorFrame" ';
-	p += ' src="' + wbpath + '" width="827px" height="650px" ';
+	p += ' src="' + wbpath + '" width="827px" ';
+	
+	if (bodyHeight>700) {
+		p += ' height="650px" ';
+	} else {
+		p += ' height="' + parseInt(bodyHeight-90) + 'px" ';
+	}
+
 	p += ' style="position:absolute;left:2px;top:35px;display:none;" ';
 	p += ' frameBorder="0" >';
 	p += '</iframe>';
@@ -62,17 +104,21 @@ function oeEditorShow(idName){
 	p += '<div class="listzonepuglin" >';
 	
 	p += '<a style="float:left;" onclick="closeEdit();" ';
-	p += 'class="validation noselectmouse" >Cancel</a>';
+	p += 'class="validation noselectmouse" >' + getTrd('cancel') + '</a>';
 
 	p += '<a style="float:right;margin-right:10px;" ';
 	p += 'onclick="validEditorInsert();" ';
-	p += 'class="btnSave noselectmouse" >Save</a>';
+	p += 'class="btnSave noselectmouse" >' + getTrd('save') + '</a>';
 	
 	p += '</div>';
-
+	
 	$('.editEditorForms').html(p);
-
-    $('.editEditorForms').css("height","700px").css("display","block");
+	if (bodyHeight>700) {
+		$('.editEditorForms').css("height","700px").css("display","block");
+	} else {
+		$('.editEditorForms').css("height",parseInt(bodyHeight-30) + "px").css("display","block");
+	}
+  
 
     setTimeout(function(){ 
 		$('#editEditorFrame').css("display","block");
@@ -116,6 +162,10 @@ function validEditorInsert(){
 			Tobj.val4 = getObjD[15];
 			Tobj.val5 = getObjD[16];
 			Tobj.val6 = getObjD[17];
+			Tobj.actionVal = getObjD[18];
+			Tobj.actionData = getObjD[19];
+			Tobj.actionLine1 = getObjD[20];
+			Tobj.actionLine2 = getObjD[21];
 
 			if(parseInt(obj.id)==parseInt(Tobj.id)){
 				obj.text = Tobj.text;
@@ -128,6 +178,11 @@ function validEditorInsert(){
 				obj.val3 = Tobj.val3;
 				obj.val4 = Tobj.val4;
 				obj.val5 = Tobj.val5;
+				obj.val6 = Tobj.val6;
+				obj.actionVal = Tobj.actionVal;
+				obj.actionData = Tobj.actionData;
+				obj.actionLine1 = Tobj.actionLine1;
+				obj.actionLine2 = Tobj.actionLine2;
 			}
 
 			$('.opacedit').css("display","none");

@@ -45,7 +45,7 @@ function CWindow(){
             if(typ=='Cludi'){
                 p += 'onclick="setSourceWind(\'' + this.id + '\');';
                 p += 'hideSplitElements(\'' + this.idSplt + '\',\'' + this.id + '\');" ';
-                p += 'class="btnSave2" >Save</a>';
+                p += 'class="btnSave2" >' + getTrd('save') + '</a>';
             }else{
                 p += 'onclick="setParamsWind(\'' + this.id + '\',\'' + typ + '\');';
                 p += 'hideSplitElements(\'' + this.idSplt + '\',\'' + this.id + '\');" ';
@@ -76,6 +76,7 @@ function CWindow(){
         }
 
         $('.opacedit,#' + 'win' + this.id).css("display","block");
+
     }
     
     //text:Answer=>text
@@ -232,6 +233,10 @@ function CWindow(){
             p += ' class="actionSlctPerso actionSlctPerso' + idAct ;
             p += ' actionSelectPersoBtn' + idAct + '" ></a>';
             
+            p += '<a onClick="showSelImgDisplayImg();" ';
+            p += ' class="actionSlctFileImg actionSlctFileImg' + idAct ;
+            p += ' actionSelectFileImage' + idAct + '" ></a>';
+            
             loadEdit = false;
 
             this.wh = this.wh + 60;
@@ -295,6 +300,35 @@ function CWindow(){
             this.ind++;
         }
         
+        if(typ=='textfile'){
+
+            var idAct = letter + this.id;
+
+            p = '<p ';
+            if(this.isSplit){
+                p += 'class="noselectmouse splitershow' + this.idSplt + '" ';
+            }
+            p += ' style="' + dno + '" id="label' + letter + this.id + '" >&nbsp;' + lbl + '&nbsp;:&nbsp;&nbsp;';
+            p += '<input id="field' + letter + this.id + '" ';
+            p += ' target="' + target + '" ';
+            p += ' rules="' + rules + '" ';
+            p += 'type="text" style="width:80px;" ';
+            p += 'class="css-input" value="" />';
+            
+            p += '<a onClick="showSelFileGen(\'field' + letter + this.id + '\');" ';
+            p += ' class="actionSlctFileGen actionSlctFileGen' + idAct ;
+            p += ' actionSelectFileImage' + idAct + '" ></a>';
+
+            p += '</p>';
+
+            if(this.isSplit==false){
+                this.wh = this.wh + 60;
+            }
+            this.fwh = this.fwh + 60;
+            this.ind++;
+        }
+
+
         this.body += p;
 
     }
@@ -333,7 +367,7 @@ function showSplitElements(idSplt,idWind){
     var nh = getWindowsByID(idWind).fwh;
 
     $('#win' + idWind).css("display","block");
-
+    
     $('#win' + idWind).animate({
         marginTop : '-' + (nh/2) + 'px',
         height: nh + 'px'
@@ -364,6 +398,7 @@ function GetActionSel(id,left,top,actId){
 	p += '<div onClick="selChAct(3,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[3])+ '</div>';
     p += '<div onClick="selChAct(5,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[5])+ '</div>';
     p += '<div onClick="selChAct(4,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[4])+ '</div>';
+    p += '<div onClick="selChAct(6,\'' + actId + '\');" class="actionSelect" >' + getTrd(refActs[6])+ '</div>';
     p += '<div onClick="selChAct(-1,\'' + actId + '\');" class="actionSelect" >-&nbsp;</div>';
 
     p += '</div>';
@@ -384,27 +419,31 @@ function selChAct(i,actId){
 	
 	$('#actioneditpage'+ actId).css('display','none');
     $('.actionSelectPersoBtn'+ actId).css('display','none');
+    $('.actionSelectFileImage'+ actId).css('display','none');
     $('.actionSlctPerso'+ actId).css('display','none');
 
 	var obj = CLudis[GlobalUid];
     
     if(i==-1){
-        obj.data = '';
+        obj.actionVal = '';
         $('#actioneditselect'+ actId).html('- &nbsp;');
         $('#selectChoiceAction'+ actId).css("display","none");
         return false;
     }
 
-	obj.data = refAct[i];
+    obj.actionVal = refAct[i];
 	
-	if(obj.data=='GO'){
+	if(obj.actionVal=='GO'){
 		$('#actioneditpage'+ actId).css('display','inline-block');
 	}
-	if(obj.data=='AP'){
+	if(obj.actionVal=='AP'){
         $('.actionSelectPersoBtn'+ actId).css('display','block');
         $('.actionSlctPerso'+ actId).css('display','inline-block');
 	}
-	
+	if(obj.actionVal=='AI'){
+        $('.actionSelectFileImage'+ actId).css('display','block');
+        $('.actionSlctFileImg'+ actId).css('display','inline-block');
+	}
 	$('#actioneditselect'+ actId).html(getTrd(refActs[i]) + '&nbsp;');
 	
 	$('#selectChoiceAction'+ actId).css("display","none");
@@ -432,7 +471,7 @@ function getTypeInput(rule){
 function setValuesWind(letter,id,obj){
 
     if(typeof obj === 'undefined'){
-        obj = {data:'',text:''};
+        obj = {data:'',text:'',actionVal:'',actionData:''};
     }
     var idwind = id;
     if(openelearning.gebi('actioneditselect'+ letter + id)){
@@ -442,8 +481,24 @@ function setValuesWind(letter,id,obj){
         
         $('#actioneditpage' + actId).css('display','none');
         $('.actionSlctPerso' + actId).css('display','none');
+        $('.actionSlctFileImg' + actId).css('display','none');
 
-        switch(obj.data){
+        //Compatibility < 1.5 24042021
+        if (obj.actionVal==''){
+            if (obj.data==refAct[0]||obj.data==refAct[1] ||obj.data==refAct[2]
+            ||obj.data==refAct[3]||obj.data==refAct[4]
+            ||obj.data==refAct[5]||obj.data==refAct[6]){
+                obj.actionVal = obj.data;
+            }
+        }
+        if (obj.actionData==''){
+            if (obj.actionVal==refAct[3]){
+                obj.actionData = obj.val;
+            }
+        }
+		//End Compatibility
+
+        switch(obj.actionVal){
             case refAct[0]:
                 targetObj.html(getTrd(refActs[0]));
                 break;
@@ -456,7 +511,7 @@ function setValuesWind(letter,id,obj){
             case refAct[3]:
                 targetObj.html(getTrd(refActs[3]));
                 $('#actioneditpage' + actId).css('display','inline-block');
-                $('#actioneditpage' + actId).val(parseInteger(obj.val));
+                $('#actioneditpage' + actId).val(parseInteger(obj.actionData));
                 break;
             case refAct[4]:
                 targetObj.html(getTrd(refActs[4]));
@@ -464,6 +519,10 @@ function setValuesWind(letter,id,obj){
                 break;
             case refAct[5]:
                 targetObj.html(getTrd(refActs[5]));
+                break;
+            case refAct[6]:
+                targetObj.html(getTrd(refActs[6]));
+                $('.actionSlctFileImg' + actId).css('display','inline-block');
                 break;
             default:
                 targetObj.html('-');
@@ -517,8 +576,6 @@ function setValuesWind(letter,id,obj){
     
     }
 
-
-
 }
 
 function barEditWind(name){
@@ -531,7 +588,6 @@ function barEditWind(name){
 	return p;
 	
 }
-
 
 var CWindows = new Array();
 var CWindowsCount = 0;
@@ -589,8 +645,9 @@ function constructWindEdit(obj){
 
         var myData = new Array();
         myData["chamilo"] = "interface for Chamilo";
+        myData["claroline"] = "interface for Claroline";
         myData["moodle"] = "interface for Moodle";
-
+        
         objWind.addControl("select:Interface=>selectScorm|",myData);
         objWind.addControl("double:Matery&nbsp;Score&nbsp;=>scoreMasterScorm|pourcent");
         objWind.addControl("boolean:Send&nbsp;the&nbsp;status&nbsp;completed=>statusScorm|");
@@ -616,7 +673,18 @@ function constructWindEdit(obj){
         objWind.addControl("text:Title=>titleScorm|");
         objWind.addControl("boolean:Send&nbsp;the&nbsp;status&nbsp;completed=>statusScorm|");
         objWind.addControl("boolean:Responsive <b>(Beta)</b>=>responsiveProject|");
+        objWind.addControl("boolean:Large slide=>classiquelarge|");
         objWind.showDialog('process_params');
+        
+    }
+
+    if(obj.type=='import_pdf'){
+            
+        var objWind = new CWindow();
+        objWind.id = obj.type;
+        objWind.name = getTrd("Settings");
+        objWind.addControl("textfile:Fichier=>pathFichier|");
+        objWind.showDialog('process_importpdf');
         
     }
 

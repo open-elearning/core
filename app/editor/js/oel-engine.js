@@ -5485,6 +5485,9 @@ return false;
 }
 eventObjects = true;
 var obj = CLudis[GlobalUid];
+if (obj.lock) {
+return false;
+}
 if(obj.type=='qcm'){
 var panLeft = parseInt((SCREEN_0_W/2) * zoomCanv) + decxCanv - 200;
 $('.questionqcmedit').css("left",panLeft + 'px');
@@ -5749,11 +5752,16 @@ if(typeof(transfertTextPlugins) == 'undefined'){
 transfertTextPlugins = "";
 }
 var pathAllPlugins = folderAllPlugins.replace(/\\/g, "/");
+var remote = require('electron').remote;
+var lang = remote.getGlobal('sharedObj').lang || 'en';
+localStorage.setItem('pluginlang', lang);
 var wbpath = 'file:///' + pathAllPlugins + obj.val + '/forms/index.html';
 wbpath = wbpath.replace(/\\/g, "/");
 wbpath = wbpath.replace('\\', "/");
 if(!openelearning.gebi('editpluginForms')){
-var p = '<div id="editpluginForms"  class="editpluginForms pan ' + TYPEWIND + 'osBorder" style="background:white!important;" >';
+var p = '<div id="editpluginForms" ';
+p += ' class="editpluginForms pan ' + TYPEWIND + 'osBorder" ';
+p += ' style="background:white!important;" >';
 p += barreEdit();
 p += '<div class="zonePluginLogo" ></div>';
 p += '<iframe id="editPluginFrame" name="editPluginFrame" ';
@@ -5770,7 +5778,7 @@ p += 'class="btnSave" >' + getTrd('save') + '</a>';
 p += '</div>';
 p += '</div>';
 $('body').append(p);
-}else{
+} else {
 $('#editPluginFrame').css("display","none");
 $('.zonePluginLogo').css("display","block");
 loadIframe('editPluginFrame',wbpath);
@@ -5781,12 +5789,12 @@ if(transfertTextPlugins==''){
 transfertTextPlugins = '|||||';
 }
 $('#editPluginFrame').contents().find('#finalcode').val(transfertTextPlugins);
-},400);
+},350);
 setTimeout(function(){
 $('#editPluginFrame').css("display","block");
 $('.zonePluginLogo').css("display","none");
 pleaseWaitPlugin = true;
-},700);
+},750);
 }
 function validPluginInsert(){
 if(pleaseWaitPlugin){
@@ -5938,7 +5946,7 @@ return parseInt(str);
 function addPlugProcess(name){
 var objPlug = getCPlugById(name);
 if(typeof(objPlug)=='undefined'){
-alert('Error plugin data !');
+alert('Error plugin ' + name + ' data !');
 return false;
 }
 closePan();
@@ -6036,11 +6044,32 @@ MoveObjectLudi.set('top' ,-100);
 canvas.deactivateAll();
 loadPage(GPageId,1);
 }
+function setObZ(i) {
+if(GlobalUid==-1){
+return false;
+}
+var obj = CLudis[GlobalUid];
+if (obj.lock) {
+return false;
+}
+if (i==1) {
+obj.zindex = 1;
+} else if (i==2) {
+obj.zindex = 2;
+} else {
+obj.zindex = 3;
+}
+eventObjects = true;
+loadPage(GPageId,1);
+}
 function showProperties(){
 if(GlobalUid==-1){
 return false;
 }
 var obj = CLudis[GlobalUid];
+if (obj.lock) {
+return false;
+}
 $('.opacedit').css("display","block");
 $('#editFormatproperties').css("display","block");
 $('#propertiesObjectX').val(obj.getX());
@@ -6091,6 +6120,9 @@ if(GlobalUid==-1){
 return false;
 }
 var obj = CLudis[GlobalUid];
+if (obj.lock) {
+return false;
+}
 obj.setX($('#propertiesObjectX').val());
 obj.setY($('#propertiesObjectY').val());
 obj.setW($('#propertiesObjectW').val());
@@ -8592,6 +8624,28 @@ contextScreenInstall($('.global-block-little'));
 }
 },1000);
 function contextInstall(objMenu){
+var plan_back = "Background";
+var plan_normal = "Normal";
+var plan_front = "Front";
+var copy = "Copy";
+var paste = "Paste";
+var lock = "Lock";
+if (globalLang=="fr") {
+plan_back = "Arriere plan";
+plan_normal = "Plan normal";
+plan_front = "Avant plan";
+copy = "Copier";
+paste = "Coller";
+lock = "Verrouiller";
+}
+if (globalLang=="de") {
+plan_back = "Hintergrund";
+plan_normal = "Normal";
+plan_front = "Vordergrund";
+copy = "Kopieren";
+paste = "Einfügen";
+lock = "Sperren";
+}
 objMenu.contextPopup({
 title: 'Open eLearning',
 items: [
@@ -8600,12 +8654,12 @@ icon:'img/icons/edit.png',
 action:function(){
 showEditZone();
 }},
-{label:'Copy Ctr + C',
+{label: copy+' Ctr + C',
 icon:'img/icons/copy.png',
 action:function(){
 copyCLudi();
 }},
-{label:'Paste Ctr + V',
+{label: paste + ' Ctr + V',
 icon:'img/icons/paste.png',
 action:function(){
 pasteCLudi();
@@ -8625,7 +8679,14 @@ icon:'img/icons/check.gif',
 action:function(){
 showProperties();
 }},
-{label:'Lock',
+{label:'Position',
+icon:'img/icons/position.png',
+items: {
+"plan-back": {label: plan_back,icon:'img/icons/posi-chg.png', action: function() { setObZ(1); }},
+"plan-normal": {label: plan_normal, icon:'img/icons/posi-chg.png', action: function() { setObZ(2); }},
+"plan-front": {label: plan_front,icon:'img/icons/posi-chg.png', action: function() { setObZ(3); }},
+}},
+{label: lock,
 icon:'img/icons/lock.gif',
 action:function(){
 processLockObjLudi();

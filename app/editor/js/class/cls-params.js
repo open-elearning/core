@@ -16,6 +16,16 @@ function CParam(){
 var CParams = new Array();
 var CParamsCount = 0;
 
+function getParamsValue(key){
+	if (CParamExists(key)==false) {
+		return 0;
+	} else {
+		var ret = getParamByKey(key).value;
+		if (ret=='1') {ret = parseInt(ret);}
+		return ret;
+	}
+}
+
 function getParamsGlobal(key,typ){
 	
 	if(CParamExists(key)==false){
@@ -53,4 +63,3 @@ function CParamExists(key){
 	return false;
 	
 }
-

@@ -13,7 +13,7 @@ const ctrimport = require('./import/uploadfiles');
 const ctrexports = require('./export/export-scorm');
 const ctrexportlocal = require('./export/export-local');
 const ctropenfile = require('./open/open-file');
-const ctrdownloadfile = require('./download/download-file')
+const ctrdownloadfile = require('./download/download-file');
 
 function exec(event,data){
 	
@@ -482,7 +482,7 @@ function exec(event,data){
 								
 								console.log('Extraction completed!');
 								console.log('Summary: ' + successCount + '/' + fileCount + ' files extracted successfully');
-								
+								global.plugins.neoloading = successCount + '/' + fileCount + ' files extracted successfully';
 								global.sharedObj.dataZip = nZip;
 								
 							} catch(err) {
@@ -530,7 +530,6 @@ function base64ToJpeg(base64String, outputFilePath) {
     fs.writeFileSync(outputFilePath, buffer);
     return outputFilePath;
 }
-
 
 function saveAll(filename){
 	

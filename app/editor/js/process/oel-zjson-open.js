@@ -12,6 +12,10 @@ function ludisInitCreation(){
 		lessonid = 'electronfile';
 	}
 	
+	if(typeof folderAllImages === 'undefined'){
+		folderAllImages = '';
+	}
+	
 	if(folderAllImages==''){
 		refreshImagesZones();
 		var l = getAssetsList();
@@ -52,7 +56,7 @@ function ludisInitCreation(){
 		plogs("CPagesPaint");
 		
 		CPagesPaint();
-		loadPage(GPageId);
+		loadPage(GPageId,1);
 		
 		addMoveCursor();
 		
@@ -80,6 +84,8 @@ function createRenderJSON(){
 		return false;
 	}
 	
+	var classiquelarge = getParamsValue('classiquelarge');
+
 	$('.micro-save').css("display","block");
 	
 	jArrayCLudis = new Array();
@@ -91,135 +97,175 @@ function createRenderJSON(){
 		
 		if(PageExist(Tobj.pageId)){
 		
-		var decsupp = parseInt(Tobj.supp);
-		
-		if(decsupp==0){
-			var ti = Tobj.type;
-			if(ti=='img'||ti=='text'||ti=='label'
-			||ti=='database'||ti=='variable'||ti=='dom'
-			||ti=='title'||ti=='qcm'||ti=='button'
-			||ti=='tcm'||ti=='lcm'||ti=='video'||ti=='audio'
-			||ti=='videomp4'||ti=='bilan'||ti=='barre'
-			||ti=='speech'||ti=='plugme'||ti=='fluxPts'
-			||ti=='plugin'||ti=='life'||ti=='input'){
+			var decsupp = parseInt(Tobj.supp);
 			
-				var block = new Object();
-				block.type = Tobj.type;
-				block.subtype = Tobj.subtype;
+			if (decsupp==0) {
+				var ti = Tobj.type;
+				if (ti=='img'||ti=='text'||ti=='label'
+				||ti=='database'||ti=='variable'||ti=='dom'||ti=='objframe'
+				||ti=='title'||ti=='qcm'||ti=='button'
+				||ti=='tcm'||ti=='lcm'||ti=='video'||ti=='audio'
+				||ti=='videomp4'||ti=='bilan'||ti=='barre'||ti=='metaobject'
+				||ti=='speech'||ti=='plugme'||ti=='fluxPts'
+				||ti=='gamezoneaction'||ti=='texthtml'||ti=='plugin'
+				||ti=='life'||ti=='input'||ti=='buttonarea') {
+				
+					var block = new Object();
+					block.type = Tobj.type;
+					block.subtype = Tobj.subtype;
 
-				block.x = Tobj.x;
-				block.y = Tobj.y;
-				block.w = Tobj.width;
-				block.h = Tobj.height;
-				
-				block.x2 = Tobj.x2;
-				block.y2 = Tobj.y2;
-				block.w2 = Tobj.width2;
-				block.h2 = Tobj.height2;
+					block.x = Tobj.x;
+					block.y = Tobj.y;
+					block.w = Tobj.width;
+					block.h = Tobj.height;
+					
+					block.x2 = Tobj.x2;
+					block.y2 = Tobj.y2;
+					block.w2 = Tobj.width2;
+					block.h2 = Tobj.height2;
 
-				block.rw = Tobj.realwidth;
-				block.rh = Tobj.realheight;
-				block.anim = Tobj.anim;
-				block.css = Tobj.css;
-				block.fontSize = Tobj.fontSize;
-				block.lock = Tobj.lock;
+					block.rw = Tobj.realwidth;
+					block.rh = Tobj.realheight;
+					block.anim = Tobj.anim;
+					block.css = Tobj.css;
+					block.fontSize = Tobj.fontSize;
+					block.lock = Tobj.lock;
 
-				if(typeof(Tobj.zindex)=='undefined'){
-					Tobj.zindex = 1;
-				}
-				
-				block.zindex = Tobj.zindex;
-				
-				block.idString = Tobj.idString;
-				
-				block.pageId = Tobj.pageId;
-				
-				block.text = sJtext(Tobj.text);
-				
-				if(Tobj.text2!=''){
-					block.text2 = sJtext(Tobj.text2);
-				}
-				if(Tobj.text3!=''){
-				block.text3 = sJtext(Tobj.text3);
-				}
-				if(Tobj.text4!=''){
-				block.text4 = sJtext(Tobj.text4);
-				}
-				if(Tobj.text5!=''){
-				block.text5 = sJtext(Tobj.text5);
-				}
-				
-				block.val = Tobj.val;
-				
-				if(Tobj.number!=''){
-					block.number = Tobj.number;
-				}
-				
-				if(Tobj.val2!=''){
-					block.val2 = Tobj.val2;
-				}else{
-					block.val2 = '';
-				}
-				if(Tobj.val3!=''){
-					block.val3 = Tobj.val3;
-				}else{
-					block.val3 = '';
-				}
-				if(Tobj.val4!=''){
-					block.val4 = Tobj.val4;
-				}else{
-					block.val4 = '';
-				}
-				if(Tobj.val5!=''){
-					block.val5 = Tobj.val5;
-				}else{
-					block.val5 = '';
-				}
-				if(Tobj.val6!=''){
-					block.val6 = Tobj.val6;
-				}else{
-					block.val6 = '';
-				}
-				
-				if(Tobj.data!=''){
-					if(Tobj.type=='img'){
-						var nur = Tobj.data;
-						if(nur.indexOf("worker/assets")!=-1){
-							nur = nur.substring(nur.indexOf("worker/assets"));
-							nur = nur.replace("worker/assets/", "assets/");
-						}else{
-							if(nur.indexOf("file-upload/")!=-1){
-								nur = nur.substring(nur.indexOf("worker/assets"));
-								nur = nur.replace("//", "/");
-							}
-						}
-						Tobj.text6 = nur;
-						block.data = Tobj.text6;
-					}else{
-						block.data = Tobj.data;
+					if(typeof(Tobj.zindex)=='undefined'){
+						Tobj.zindex = 1;
 					}
+					
+					block.zindex = Tobj.zindex;
+					
+					block.idString = Tobj.idString;
+					
+					block.pageId = Tobj.pageId;
+					
+					block.text = sJtext(Tobj.text);
+					
+					if(Tobj.text2!=''){
+						block.text2 = sJtext(Tobj.text2);
+					}
+					if(Tobj.text3!=''){
+						block.text3 = sJtext(Tobj.text3);
+					}
+					if(Tobj.text4!=''){
+						block.text4 = sJtext(Tobj.text4);
+					}
+					if(Tobj.text5!=''){
+						block.text5 = sJtext(Tobj.text5);
+					}
+					if(Tobj.text6!=''){
+						block.text6 = sJtext(Tobj.text6);
+					}
+					if(Tobj.text7!=''){
+						block.text7 = sJtext(Tobj.text7);
+					}
+					if(Tobj.text8!=''){
+						block.text8 = sJtext(Tobj.text8);
+					}
+					
+					block.val = Tobj.val;
+					
+					if(Tobj.number!=''){
+						block.number = Tobj.number;
+					}
+					if(Tobj.val2!=''){
+						block.val2 = Tobj.val2;
+					}else{
+						block.val2 = '';
+					}
+					if(Tobj.val3!=''){
+						
+						if (Tobj.type=="barre") {
+							var nurval3 = correctImgSrc(Tobj.val3);
+							block.val3 = nurval3;
+						} else {
+							block.val3 = Tobj.val3;
+						}
+						
+					}else{
+						block.val3 = '';
+					}
+
+					if(Tobj.val4!=''){
+						block.val4 = Tobj.val4;
+					}else{
+						block.val4 = '';
+					}
+					if(Tobj.val5!=''){
+						block.val5 = Tobj.val5;
+					}else{
+						block.val5 = '';
+					}
+					if(Tobj.val6!=''){
+						block.val6 = Tobj.val6;
+					}else{
+						block.val6 = '';
+					}
+					if(Tobj.val7!=''){
+						block.val7 = Tobj.val7;
+					}else{
+						block.val7 = '';
+					}
+					if(Tobj.val8!=''){
+						block.val8 = Tobj.val8;
+					}else{
+						block.val8 = '';
+					}
+					
+					if(Tobj.actionVal!=''){
+						block.actionVal = Tobj.actionVal;
+					}else{
+						block.actionVal = '';
+					}
+					if(Tobj.actionData!=''){
+						block.actionData = correctImgSrc(Tobj.actionData);
+					}else{
+						block.actionData = '';
+					}
+
+					if(Tobj.actionLine1!=''){
+						block.actionLine1 = Tobj.actionLine1;
+					}else{
+						block.actionLine1 = '';
+					}			
+					if(Tobj.actionLine2!=''){
+						block.actionLine2 = Tobj.actionLine2;
+					}else{
+						block.actionLine2 = '';
+					}
+
+					if(Tobj.data!=''){
+						if(Tobj.type=='img'){
+							var nur = correctImgSrc(Tobj.data);
+							Tobj.text6 = nur;
+							block.data = Tobj.text6;
+						}else{
+							block.data = Tobj.data;
+						}
+					}
+					
+					if(Tobj.text6!=''){
+						block.text6 = sJtext(Tobj.text6);
+					}
+					
+					if(Tobj.type=='qcm'||Tobj.type=='input'
+					||Tobj.type=='lcm'||Tobj.type=='tcm'){
+						block.note = Tobj.note;
+						block.remarque = Tobj.remarque;
+					}
+					
+					block.fontSize = Tobj.fontSize;
+					block.lock = Tobj.lock;
+					var jsonBlock = JSON.stringify(block);
+					
+					jArrayCLudis.push(jsonBlock);
+					jsonCLudis.push(block);
+					
 				}
-				
-				if(Tobj.text6!=''){
-					block.text6 = sJtext(Tobj.text6);
-				}
-				
-				if(Tobj.type=='qcm'||Tobj.type=='input'
-				||Tobj.type=='lcm'||Tobj.type=='tcm'){
-					block.note = Tobj.note;
-					block.remarque = Tobj.remarque;
-				}
-				
-				block.fontSize = Tobj.fontSize;
-				block.lock = Tobj.lock;
-				var jsonBlock = JSON.stringify(block);
-				
-				jArrayCLudis.push(jsonBlock);
-				jsonCLudis.push(block);
 				
 			}
-			
-		}
 		
 		}
 		
@@ -233,6 +279,39 @@ function createRenderJSON(){
 	
 	modifProcessLaunch();
 	
+}
+
+function correctImgSrc(data){
+
+	if(typeof data === "undefined") {
+		data = '';
+	}
+	
+	var nur = data;
+	if(nur.indexOf(".jpg")!=-1
+	||nur.indexOf(".png")!=-1
+	||nur.indexOf(".gif")!=-1
+	||nur.indexOf(".jpeg")!=-1
+	||nur.indexOf(".svg")!=-1
+	){
+		if(nur.indexOf("worker/assets")!=-1){
+			nur = nur.substring(nur.indexOf("worker/assets"));
+			nur = nur.replace("worker/assets/", "assets/");
+		}else{
+			if(nur.indexOf("file-upload/")!=-1){
+				nur = nur.substring(nur.indexOf("worker/assets"));
+				nur = nur.replace("//", "/");
+			}
+		}
+
+		if (nur.indexOf("/assets/")!=-1) {
+			nur = nur.substring(nur.indexOf("/assets/"));
+			nur = nur.replace("/assets/", "assets/");
+			nur = nur.replace("//", "/");
+		}
+
+	}
+	return nur;
 }
 
 //Create Render JSON PAGES
@@ -260,9 +339,27 @@ function createRenderPagesJSON(){
 				block.index = ind;
 				block.data = Tobj.data;
 				block.back = Tobj.back;
+				block.backsvg = Tobj.backsvg;
+				block.back2 = Tobj.back2;
+				block.back2svg = Tobj.back2svg;
 				block.screen = Tobj.screen;
 				block.comicMode = Tobj.comicMode;
 				block.script = sJtext(Tobj.script);
+
+				if(typeof Tobj.transition === "undefined") {
+					Tobj.transition = 'Direct'
+				}
+				block.transition = Tobj.transition;
+			
+				if(typeof Tobj.title === "undefined") {
+					Tobj.title = ''
+				}
+				block.title = Tobj.title;
+				if(typeof Tobj.komessage === "undefined") {
+					Tobj.komessage = ''
+				}
+				block.komessage = Tobj.komessage;
+
 				ind = ind + 1;
 				
 				var jsonBlock = JSON.stringify(block);
@@ -345,21 +442,17 @@ function loadRenderJSON(){
 
 	GPageId = Sit(amplify.store('actualPageId' + lessonid));
 	
-
 	actualCPages = loadLocalJSON('pages.json');
 	amplify.store('actualCPages' + lessonid,actualCPages);
 	plogs(actualCPages.length  + ' Pages load ...');
 	
-
 	actualCLudis = loadLocalJSON('cludis.json');
 	amplify.store('actualCLudis' + lessonid,actualCLudis);
 	plogs(actualCLudis.length  + ' Objects load ...');
 	
-
 	actualCparams = loadLocalJSON('params.json');
 	amplify.store('actualCparams' + lessonid,actualCparams);
 	plogs(actualCparams.length  + ' Params load ...');
-
 
 	plogs('loadRenderJSON OK');
 	
@@ -398,7 +491,24 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 	var memPage = "";
 	var indexPage = 0;
 	
-	for(var i=0;i<actualCPages.length;i++){
+	CParamsCount = 0;
+
+	for(var i=0;i<actualCparams.length;i++){
+		
+		var elemObj = actualCparams[i];
+		var elemP = new CParam();
+		elemP.id = CParamsCount;
+		elemP.key = elemObj.key;
+		elemP.type = elemObj.type;
+		elemP.value = elemObj.value;
+		CParams.push(elemP);
+		CParamsCount = CParamsCount + 1;
+
+	}
+	
+	var classiquelarge = getParamsValue('classiquelarge');
+
+	for (var i=0;i<actualCPages.length;i++) {
 		
 		if(actualCPages[i]){
 			
@@ -417,9 +527,26 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 			}
 			objTemp.script = rJtext(objPage.script);
 			objTemp.back = rJtext(objPage.back);
+			objTemp.backsvg = rJtext(objPage.backsvg);
+			objTemp.back2 = rJtext(objPage.back2);
+			objTemp.back2svg = rJtext(objPage.back2svg);
+
 			objTemp.screen = rJtext(objPage.screen);
 			objTemp.comicMode = parseInteger(objPage.comicMode);
 			objTemp.pageId = objPage.pageId;
+			
+			if(typeof objPage.transition === "undefined") {
+				objPage.transition = 'Direct'
+			}
+			if(typeof objPage.title === "undefined") {
+				objPage.title = ''
+			}
+			if(typeof objPage.komessage === "undefined") {
+				objPage.komessage = ''
+			}
+			objTemp.transition = rJtext(objPage.transition);
+			objTemp.title = rJtext(objPage.title);
+			objTemp.komessage = rJtext(objPage.komessage);
 			
 			memPage = memPage + objPage.pageId + ";";
 			
@@ -459,10 +586,31 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 			objTemp2.subtype = objLudi.subtype;
 			objTemp2.x = objLudi.x;
 			objTemp2.y = objLudi.y;
+
+			objTemp2.x2 =parseInteger( objLudi.x2);
+			objTemp2.y2 = parseInteger(objLudi.y2);
+
 			objTemp2.width = objLudi.w;
+			objTemp2.width2 = parseInteger(objLudi.w2);
+
+			if (classiquelarge==1) {
+				if (objTemp2.type=='barre') {
+					objTemp2.width = 1281;
+				}
+			}
+
 			objTemp2.height = objLudi.h;
+			objTemp2.height2 = parseInteger(objLudi.h2);
+
 			objTemp2.realwidth = objLudi.rw;
 			objTemp2.realheight = objLudi.rh;
+			objTemp2.realwidth2 = parseInteger(objLudi.rw2);
+			objTemp2.realheight2 = parseInteger(objLudi.rh2);
+			
+			objTemp2.lock = objLudi.lock;
+			if(typeof(objTemp2.lock)=='undefined'){
+				objTemp2.lock = false;
+			}
 			
 			objTemp2.zindex = objLudi.zindex;
 			if(typeof(objTemp2.zindex)=='undefined'){
@@ -470,7 +618,7 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 			}
 			
 			objTemp2.anim = objLudi.anim;
-
+			
 			objTemp2.css = objLudi.css;
 			if(typeof(objTemp2.css)=='undefined'){
 				objTemp2.css = '';
@@ -485,16 +633,25 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 			objTemp2.text4 = rJtext(Sit(objLudi.text4));
 			objTemp2.text5 = rJtext(Sit(objLudi.text5));
 			objTemp2.text6 = rJtext(Sit(objLudi.text6));
-			
+			objTemp2.text7 = rJtext(Sit(objLudi.text7));
+			objTemp2.text8 = rJtext(Sit(objLudi.text8));
+
 			objTemp2.val = objLudi.val;
 			objTemp2.val2 = Sit(objLudi.val2);
 			objTemp2.val3 = Sit(objLudi.val3);
 			objTemp2.val4 = Sit(objLudi.val4);
 			objTemp2.val5 = Sit(objLudi.val5);
 			objTemp2.val6 = Sit(objLudi.val6);
-			
+			objTemp2.val7 = Sit(objLudi.val7);
+			objTemp2.val8 = Sit(objLudi.val8);
+
 			objTemp2.data = Sit(objLudi.data);
 			objTemp2.number = Sit(objLudi.number);
+			
+			objTemp2.actionVal = Sit(objLudi.actionVal);
+			objTemp2.actionData = Sit(objLudi.actionData);
+			objTemp2.actionLine1 = Sit(objLudi.actionLine1);
+			objTemp2.actionLine2 = Sit(objLudi.actionLine2);
 			
 			objTemp2.fontSize = parseInteger(objLudi.fontSize);
 			if(objTemp2.fontSize==0){
@@ -503,20 +660,23 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 			
 			objTemp2.lock = objLudi.lock;
 
-			if(typeof this.lock === 'undefined'){
+			if(objTemp2.lock === 'undefined'){
 				objTemp2.lock = false;
 			}
-
+			
 			objTemp2.note = parseInteger(objLudi.note);
 			objTemp2.remarque = rJtext(Sit(objLudi.remarque));
 			
 			CLudisAdd(objTemp2);
 			
-			if(memPage.indexOf(objTemp2.pageId)==-1){
+			if (memPage.indexOf(objTemp2.pageId)==-1) {
 				alert("Ho !");
 				var objPageRecover = new CPage();;
 				objPageRecover.script = "";
 				objPageRecover.back = "";
+				objPageRecover.backsvg = "";
+				objPageRecover.back2 = "";
+				objPageRecover.backsvg2 = "";
 				objPageRecover.screen = "";
 				objPageRecover.pageId = objTemp2.pageId;
 				memPage = memPage + objTemp2.pageId + ";";
@@ -528,21 +688,6 @@ function loadRenderJsonByData(actualCPages,actualCLudis,actualCparams){
 	
 	}
 	
-	CParamsCount = 0;
-
-	for(var i=0;i<actualCparams.length;i++){
-		
-		var elemObj = actualCparams[i];
-		var elemP = new CParam();
-		elemP.id = CParamsCount;
-		elemP.key = elemObj.key;
-		elemP.type = elemObj.type;
-		elemP.value = elemObj.value;
-		CParams.push(elemP);
-		CParamsCount = CParamsCount + 1;
-
-	}
-
 	createRenderJSON();
 	
 }

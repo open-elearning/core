@@ -1,6 +1,6 @@
 ﻿"use strict";
 // Module to load css smartbloc.
-// date 18/07/2025
+// date 30/07/2025
 // @author Damien Renou <LudiscapeXApi> BatisseursNumeriques
 // https://twitter.com/0peneLearning
 //

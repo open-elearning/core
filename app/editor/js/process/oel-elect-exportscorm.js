@@ -48,6 +48,7 @@ function exportToScormSecond(lms,msc,autc,title){
 
 			ipc.send('message',{key:'export',path:filepath,typlms:lms,ms:msc,acpl:autc,title:title})
 			
+			
 			$('.barreProgress').css("width",'99%');
 
 			setTimeout(function(){
@@ -78,6 +79,21 @@ function exportToScormSecond(lms,msc,autc,title){
 					c += '3. Click on "Upload"<br></p>';
 					$("#htmlinfos").html(c);
 				}
+				if(lms=='claroline'){
+
+					var c = '<p><span style="font-weight:bold;">Next&nbsp;step&nbsp;:&nbsp;';
+					c += '</span>Import the package to Claroline<br>';
+					c += '<br>';
+					c += '1.&nbsp;Open "resources" in a course,<br>';
+					c += '<img src="images/claroline-add-ressources.png" /><br><br>';
+					c += '2.&nbsp;Select "add" button" .<br>';
+					c += '<img src="images/add-claro-button.png" /><br>';
+					c += '3. Select "Scorm" and Upload<br>';
+					c += '<img src="images/add-claro-sco-button.png" /><br>';
+					c += '</p>';
+					$("#htmlinfos").html(c);
+				}
+
 			},500);
 
 		}

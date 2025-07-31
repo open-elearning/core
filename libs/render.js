@@ -138,6 +138,7 @@ function generateHtmlSecondPass(){
 		fxml += '<transition><data><![CDATA[Direct]]></data></transition>';
 		fxml += '<pq><d>1</d></pq>';
 		fxml += '<param><d>flatright</d></param>';
+		fxml += '<lang><d>'+global.sharedObj.lang+'</d></lang>';
 		
 		var PtypePage = new Array();
 		var Pitems = new Array();

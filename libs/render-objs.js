@@ -31,7 +31,6 @@ function renderBarre(ob,p){
 		}
 		fxml += "</bloc>";
 
-		
 		fxml += '<bloc>';
 		fxml += '<type>text</type>';
 		fxml += '<id></id>';
@@ -537,7 +536,7 @@ function renderText(ob,p){
 		
 		fxml += "<css><![CDATA[" + rJtext(ob.css) + "]]></css>"
 		fxml += "<page>" + p + "</page>";
-		fxml += "<ind>2</ind>";
+		fxml += "<ind>" +  rJtext(ob.zindex) + "</ind>";
 		fxml += "</bloc>";
 	}
 	
@@ -564,7 +563,7 @@ function renderText(ob,p){
 		fxml += "<color><![CDATA[white]]></color>";
 	
 		fxml += "<page>" + p + "</page>";
-		fxml += "<ind>2</ind>";
+		fxml += "<ind>" +  rJtext(ob.zindex) + "</ind>";
 		fxml += "</bloc>";
 	}
 	
@@ -787,7 +786,7 @@ function renderImages(ob,p){
 		fxml += "<fontsize>20</fontsize>";
 		fxml += "<color><![CDATA[black]]></color>";
 		fxml += "<page>" + p + "</page>";
-		fxml += "<ind>2</ind>";
+		fxml += "<ind>" +  rJtext(ob.zindex) + "</ind>";
 		fxml += "</bloc>";
 	
 	}

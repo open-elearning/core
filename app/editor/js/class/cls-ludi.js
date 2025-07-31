@@ -31,11 +31,20 @@ function CLudi(){
 	this.realheight2 = -1;
 
 	this.fontSize;this.pageId;this.data;
+
 	this.text;this.text2;this.text3;
 	this.text4;this.text5;this.text6;
+	this.text7;this.text8;
+
 	this.val;this.val2;this.val3;
 	this.val4;this.val5;this.val6;
-	
+	this.val7;this.val8;
+
+	this.actionVal;
+	this.actionData;
+	this.actionLine1;
+	this.actionLine2;
+
 	this.number;
 	this.anim;
 	this.lock = false;
@@ -43,11 +52,12 @@ function CLudi(){
 	
 	this.note;this.remarque;
 	this.isCreate;this.supp;
-		
+	
+	this.idsDico;
+	
 	this.showElement = function(){
 		CLudiRender(this);
 	}
-
 	this.haveEditElement = function(){
 		var b = true;
 		if(this.type=='bilan'){b = false};
@@ -56,7 +66,6 @@ function CLudi(){
 		if(this.subtype=='tablescore'){b = false};
 		return b;
 	}
-
 	this.setX = function(v){
 		if(EDITORMODE==1){
 			this.x2 = v;
@@ -102,7 +111,7 @@ function CLudi(){
 
 	this.getX = function(){
 		if(EDITORMODE==1){
-			if(this.x2==-1){
+			if (this.x2<1) {
 				this.x2=this.x;
 				if(this.x2>470){
 					this.x2 = 300;
@@ -115,39 +124,49 @@ function CLudi(){
 	}
 	this.getY = function(){
 		if(EDITORMODE==1){
-			if(this.y2==-1){this.y2=this.y;}
+			if (this.y2<1) {
+				this.y2=this.y;
+			}
 			return parseInt(this.y2);
 		}else{
 			return parseInt(this.y);
 		}
 	}
 	this.getW = function(){
-		if(EDITORMODE==1){
-			if(this.width2==-1){this.width2=this.width;}
+		if (EDITORMODE==1) {
+			if (this.width2<1) {
+				this.width2=this.width;
+			}
 			return parseInt(this.width2);
 		}else{
 			return parseInt(this.width);
 		}
 	}
-	this.getH = function(){
-		if(EDITORMODE==1){
-			if(this.height2==-1){this.height2=this.height;}
+	this.getH = function() {
+		if (EDITORMODE==1) {
+			if(this.height2<1){
+				this.height2=this.height;
+			}
 			return parseInt(this.height2);
 		}else{
 			return parseInt(this.height);
 		}
 	}
-	this.getRW = function(){
-		if(EDITORMODE==1){
-			if(this.realwidth2==-1){this.realwidth2=this.realwidth;}
+	this.getRW = function() {
+		if (EDITORMODE==1) {
+			if (this.realwidth2<1) {
+				this.realwidth2 = this.realwidth;
+			}
 			return parseInt(this.realwidth2);
 		}else{
 			return parseInt(this.realwidth);
 		}
 	}
-	this.getRH = function(){
-		if(EDITORMODE==1){
-			if(this.realheight2==-1){this.realheight2=this.realheight;}
+	this.getRH = function() {
+		if (EDITORMODE==1) {
+			if (this.realheight2<1) {
+				this.realheight2 = this.realheight;
+			}
 			return parseInt(this.realheight2);
 		}else{
 			return parseInt(this.realheight);
@@ -164,6 +183,7 @@ function cloneObj(i){
 	
 	obj2.type = obj1.type;
 	obj2.subtype = obj1.subtype;
+	obj2.idString = obj1.idString;
 	
 	obj2.x = obj1.x;
 	obj2.y = obj1.y;
@@ -193,6 +213,8 @@ function cloneObj(i){
 	obj2.text4 = obj1.text4;
 	obj2.text5 = obj1.text5;
 	obj2.text6 = obj1.text6;
+	obj2.text7 = obj1.text7;
+	obj2.text8 = obj1.text8;
 	
 	obj2.val = obj1.val;
 	obj2.val2 = obj1.val2;
@@ -200,10 +222,18 @@ function cloneObj(i){
 	obj2.val4 = obj1.val4;
 	obj2.val5 = obj1.val5;
 	obj2.val6 = obj1.val6;
+	obj2.val7 = obj1.val7;
+	obj2.val8 = obj1.val8;
+
+	obj2.actionVal = obj1.actionVal;
+	obj2.actionData = obj1.actionData;
+	obj2.actionLine1 = obj1.actionLine1;
+	obj2.actionLine2 = obj1.actionLine2;
+	
 	obj2.number = obj1.number;
 	obj2.note = obj1.note;
 	obj2.remarque = obj1.remarque;
-	
+
 	return obj2;
 		
 }
@@ -277,7 +307,7 @@ function ludisUnlock(){
 		}
 	}
 	$("#lockopenludi").css("display","none");
-	loadPage(GPageId);
+	loadPage(GPageId,1);
 }
 
 var stockLudis = null;
@@ -326,6 +356,11 @@ function copyCLudi(){
 	obj2.text4 = obj1.text4;
 	obj2.text5 = obj1.text5;
 	obj2.text6 = obj1.text6;
+	
+	obj2.actionVal = obj1.actionVal;
+	obj2.actionData = obj1.actionData;
+	obj2.actionLine1 = obj1.actionLine1;
+	obj2.actionLine2 = obj1.actionLine2;
 	
 	obj2.val = obj1.val;
 	obj2.val2 = obj1.val2;

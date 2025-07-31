@@ -60,7 +60,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.8.0";
+global.appVersion = "1.8.5";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
@@ -73,7 +73,7 @@ global.sharedScorm = {scormlmschamilo:'',scormlmsmoodle:'',scormlmsclaroline:''}
 
 global.sharedLibs = {lcm3:'',lcm4:'',lcm5:'',lcm6:'',life:'',speech:'',bilan:'',plugin:'',basetxt:''};
 global.sharedFiles = {nofile:'',distData:'',allData:'',recent1:'',recent2:'',recent3:'',recent4:''};
-global.plugins = {allData:'',xData:'',jsData:'',cssData:'',filesData:'',store:'',pathStore:'',deleteStore:'',nbload:0};
+global.plugins = {allData:'',xData:'',jsData:'',cssData:'',filesData:'',store:'',pathStore:'',deleteStore:'',nbload:0,neoloading:''};
 global.embeddedFiles = '';
 global.listPluginsRender = '';
 global.errornb = 0;
