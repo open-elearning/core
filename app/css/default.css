@@ -1,51 +1,72 @@
-body{
+body {
 	background : white;
 }
-.miniimg{
-	position:fixed;
-	bottom:0;
-	left:0;
-	width:5px; 
-	height:5px;	
+.miniimg {
+	position : fixed;
+	bottom : 0;
+	left : 0;
+	width : 5px; 
+	height : 5px;	
 }
-#logoTypo{
+#logoTypo {
 	position : absolute;
 	right : 30px;
 	top : 25px;
 	width : 220px; 
-  height : 35px;
+	height : 35px;
 }
-.lang-title{
+.lang-title {
 	position : absolute;
 	left : 30px;
 	top : 160px;
 	font-family : 'Open Sans', sans-serif;
 	font-size : 16px;
 }
-#openelearningversion{
+#openelearningversion {
 	position : absolute;
 	right : 30px;
 	top : 65px;	
 }
 
-.boutonGreen{
-	background-color:#44c767;
-	border-radius:7px;
-	border:1px solid #18ab29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:16px;
+.boutonGreen {
+	background-color : #44c767;
+	border-radius : 7px;
+	border : 1px solid #18ab29;
+	display : inline-block;
+	cursor : pointer;
+	color : #ffffff;
+	font-family : Arial;
+	font-size : 16px;
 	width : 150px;
-	padding: 8px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
-	text-align: center;
-    cursor :pointer;
+	padding : 8px;
+	text-decoration : none;
+	text-shadow : 0px 1px 0px #2f6627;
+	text-align : center;
+    cursor : pointer;
 }
 .boutonGreen:hover {
-	background-color:#5cbf2a;
+	background-color : #5cbf2a;
+}
+
+.boutonGold {
+	background : #ffe6be;
+	border-radius : 7px;
+	border : 1px solid #F8C471;
+	display : inline-block;
+	cursor : pointer;
+	color : #585858;
+	font-family : Arial;
+	font-size : 16px;
+	width : 150px;
+	padding : 8px;
+	text-decoration : none;
+	text-shadow : 0px 1px 0px #2f6627;
+	text-align : center;
+    cursor : pointer;
+}
+.boutonGold:hover {
+	background : #ffe6be;
+	color : black;
 }
 
 .boutonGreen-old{
@@ -85,15 +106,16 @@ body{
 
 /* 595 493 */
 .windowsbase{
-	position:fixed;
-	top:50%;
-	left:50%; 
-	width:596px; 
-	height:493px;
-	margin-left:-298px;
-	margin-top:-247px;
-	background : url('../images/bgv2.png') center center no-repeat;
-	z-index:9;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 640px;
+	height: 493px;
+	margin-left: -320px;
+	margin-top: -247px;
+	background: url('../images/bgv7.jpg') center center no-repeat;
+	background-position: center center;
+	z-index: 9;
 }
 
 .windowsbaselang{
@@ -122,10 +144,10 @@ body{
 
 .scroolmodel{
 	position : absolute;
-	top : 93px;
+	top : 48px;
 	left : 11px;
 	width : 610px; 
-	height : 390px;
+	height : 468px;
 	border : solid 0px red;
 	overflow : auto;
 }
@@ -133,20 +155,19 @@ body{
 #returnHouse{
 	position : absolute;
 	left : 24px;
-	top : 36px;
+	top : 16px;
 	width : 40px; 
 	height : 40px;
 	line-height: 40px;
 	text-align: center;
 	border-style: none;
 	border-radius: 50%;
-	cursor :pointer;
+	cursor : pointer;
 	background-image:-moz-linear-gradient(45deg, #00A538, #006F67);
 	background-image:-webkit-linear-gradient(45deg, #00A538, #006F67);
 	background-image:-o-linear-gradient(45deg, #00A538, #006F67);
 	background-image:linear-gradient(45deg, #00A538, #006F67);
 }
-
 #returnHouse .icon {
 	position : absolute;
 	width : 40px; 
@@ -155,46 +176,74 @@ body{
 	background : url('../images/house.png') center center no-repeat;
 }
 
+.ludibtnseparator {
+	display: inline-block;
+	position : relative;
+	width : 48px;
+	height : 132px;
+	margin-left : 11px;
+	margin-top : 10px;
+	border : solid 0px gray;
+}
+
 .ludibtnactive {
 	display: inline-block;
 	position : relative;
 	width : 180px;
-	height : 140px;
+	height : 132px;
 	margin-left : 11px;
-	margin-top : 24px;
+	margin-top : 10px;
 	border : solid 1px gray;
 	background-repeat: no-repeat;
 	background-size : cover;
 	cursor : pointer;
 }
+.ludibtnactivewide {
+	width : 240px;
+}
 .ludibtnactive:hover {
-	height : 142px;
-	margin-top : 22px;
+	height : 134px;
+	margin-top : 8px;
 	width : 182px;
 	margin-left : 9px;
 }
+.ludibtnactivewide:hover {
+	width : 242px;
+}
+
 .ludibtnactive span {
-	position:absolute;
+	position: absolute;
 	text-align: center;
-	border-radius:5px;
-	width:120px; 
-	height:20px;
-	padding-top:3px;
-	padding-bottom:3px;
-	bottom:-10px;
-	left:30px;
+	border-radius: 5px;
+	width: 120px; 
+	height: 20px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	bottom: -6px;
+	left: 30px;
 	border:solid 1px gray;
 	background:#656578;
 	color:white;
 }
-
 .ludibtnactive:hover > span {
 	width : 122px;
 	left : 29px;
 	height : 22px;
-	bottom : -11px;
+	bottom : -5px;
 }
 
+.ludibtnactivewide span {
+	width : 130px;
+	left : 54px;
+}
+.ludibtnactivewide:hover > span {
+	width : 132px;
+	left : 53px;
+}
+
+.ludibtnmodel01w {
+	background-image : url('../images/blue-students-tpl.jpg');	
+}
 .ludibtnmodel01 {
 	background-image : url('../images/model01.jpg');	
 }
@@ -202,7 +251,7 @@ body{
 	background-image : url('../images/model02.jpg');	
 }
 .ludibtnmodel03 {
-	background-image : url('../images/prof-fox.jpg');	
+	background-image : url('../images/prof-owl.jpg');	
 }
 .ludibtnmodel04 {
 	background-image : url('../images/gametemplate.jpg');	
@@ -441,28 +490,27 @@ body{
 	margin-top:1px;
 }
 
-#divrecent{
+#divrecent {
 	position : absolute;
-	right : 20px;
+	right : 14px;
 	bottom : 18px;
-	width : 310px;
+	width : 312px;
 	height : auto;
 	border-right : 0px solid gray;
 }
-
-.linerecent{
+.linerecent {
 	position : relative;
-	margin : 10px;
+	margin : 7px;
 	width : 290px;
-	height : 22px;
+	height : 18px;
 	font-size : 14px;
-	line-height :22px;
+	line-height : 18px;
 	overflow : hidden;
 	text-decoration : underline;
 	color : #6E6E6E;
 	cursor : pointer;
 }
-.linerecent:hover{
+.linerecent:hover {
 	color : #298A08;
 }
 
@@ -473,7 +521,7 @@ body{
 	width : 400px;
 	border-bottom : dotted 0px gray;
 	text-align : right;
-	height : 20px;
+	height : 18px;
 }
 
 .divopenfiles{
@@ -693,10 +741,10 @@ body{
 
 .control-title{
 	position : absolute;
-  top : 165px;
+  	top : 165px;
 	font-size : 16px;
 	text-align : center;
-  left : -1px;
+  	left : -1px;
 	right : -1px;
 	height : 19px;
 	font-family : 'Open Sans', sans-serif;
@@ -710,7 +758,7 @@ body{
 }
 .control-title-model{
 	position : absolute;
-  top : 22px;
+  	top : 22px;
 	font-size : 18px;
 	text-align : center;
 	font-family : 'Open Sans', sans-serif;
@@ -785,8 +833,8 @@ body{
 	background-color: #00A538;
 	border-radius: 6px;
 	animation-name: progressBar;
-  animation-iteration-count: 1;
-  animation-duration: 4s;
+	animation-iteration-count: 1;
+	animation-duration: 3s;
 }
 @keyframes progressBar {
   0% {
@@ -875,12 +923,9 @@ body{
   box-shadow: none;
   background: transparent;
   background-image: none;
-  -webkit-appearance: none;
   outline: none;
   cursor: pointer;
-
   /* Hide arrow on FF */
-  -moz-appearance: none;
   text-indent: 0.01px;
   text-overflow: ellipsis;
 }
@@ -892,7 +937,7 @@ body{
   color: inherit;
   font: inherit;
 }
-/* IE9: To hide select arrow we make the select overflow on the right side there is not another way :( */
+/* IE9 */
 @media screen and (min-width:0\0) {
   .pure-css-select-style select {
     width: calc( 100% + 58px );
@@ -996,4 +1041,35 @@ body{
   font: 700 14px/1 'Open Sans', sans-serif;
   letter-spacing: 2px;
   color: #666;
+}
+
+.oel-message-fixed {
+	position: fixed;
+	top: 30px;
+	right: 20px;
+	z-index: 1000;
+	max-width: 500px;
+	min-width: 280px;
+	padding: 16px 20px;
+	border-radius: 2%;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 16px;
+	font-weight: 500;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	border-left: 4px solid;
+	display:none;
+}
+
+.oel-message-success {
+	background-color: #d4edda;
+	color: #155724;
+	border-left-color: #28a745;
+}
+
+.oel-message-error {
+	background-color: #f8d7da;
+	color: #721c24;
+	border-left-color: #dc3545;
 }
