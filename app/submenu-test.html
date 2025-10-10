@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Context Menu Submenu Test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="app/editor/js/libs/jquery.contextmenu.js"></script>
+    <link rel="stylesheet" href="app/editor/css/jquery.contextmenu.css">
+    <style>
+        body { padding: 50px; font-family: Arial, sans-serif; }
+        .test-area { 
+            width: 300px; 
+            height: 200px; 
+            background: #f0f0f0; 
+            border: 2px dashed #ccc; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Context Menu with Submenu Test</h1>
+    <p>Right-click on the test area below to see the context menu with submenu support:</p>
+    
+    <div class="test-area" id="testArea">
+        Right-click me!
+    </div>
+
+    <script>
+        function showProperties() {
+            alert('Properties clicked!');
+        }
+        
+        function processLockObjLudi() {
+            alert('Lock clicked!');
+        }
+        
+        function logAction(action, area) {
+            console.log('Action: ' + action + ' in ' + area);
+            alert('Action: ' + action + ' in ' + area);
+        }
+
+        $('#testArea').contextPopup({
+            title: 'Context Menu',
+            items: [
+                {
+                    label: 'Properties',
+                    icon: 'app/editor/img/icons/check.gif',
+                    action: function() {
+                        showProperties();
+                    }
+                },
+                {
+                    label: 'Link',
+                    icon: 'app/editor/img/icons/windows.png',
+                    items: {
+                        "new-file": {
+                            label: "File",
+                            icon: 'app/editor/img/icons/edit.png', 
+                            action: function() { 
+                                logAction("New File", "File Area"); 
+                            }
+                        },
+                        "new-folder": {
+                            label: "Folder",
+                            icon: 'app/editor/img/icons/copy.png', 
+                            action: function() { 
+                                logAction("New Folder", "File Area"); 
+                            }
+                        }
+                    }
+                },
+                {
+                    label: 'Lock',
+                    icon: 'app/editor/img/icons/lock.gif',
+                    action: function() {
+                        processLockObjLudi();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+</html>

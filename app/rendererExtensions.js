@@ -25,6 +25,12 @@ settingslogs.addEventListener('click',function(event){
 	ipc.send('message',{key:'logs',path:'logs'})
 });
 
+const settingscleancache = document.getElementById('extensions-cleancache')
+settingscleancache.addEventListener('click',function(event){
+	document.getElementById('extensions-cleancache').style.visibility = 'hidden';
+	ipc.send('message',{key:'cleancache',path:'logs'})
+});
+
 const settingscancel = document.getElementById('returnHouse')
 settingscancel.addEventListener('click',function(event){
 	ipc.send('index');

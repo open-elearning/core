@@ -6,8 +6,27 @@ const ipc = require('electron').ipcRenderer;
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const nodeConsole = require('console');
+
 var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 var easyfile =  require('../libs/easyfile');
+
+const settingsEl0 = document.querySelector('#mod00');
+settingsEl0.addEventListener('click', function () {
+	
+	ipc.send('message',{key:'activeFile',val:'1'})
+	ipc.send('ShowEditorWindow');
+	
+});
+
+const settingsEl1w = document.querySelector('#mod01w');
+settingsEl1w.addEventListener('click', function () {
+	
+	var tabl = new Array();
+	tabl[0] = 'tpl-large-slide';
+	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
+	ipc.send('ShowEditorWindow');
+	
+});
 
 const settingsEl = document.querySelector('#mod01');
 settingsEl.addEventListener('click', function () {
@@ -29,29 +48,26 @@ const settingsE3 = document.querySelector('#mod03');
 settingsE3.addEventListener('click', function () {
 	
 	var tabl = new Array();
-	tabl[0] = 'tpl-prof-fox';
-	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
-	ipc.send('ShowEditorWindow');
-	
-});
-const settingsE4 = document.querySelector('#mod04');
-settingsE4.addEventListener('click', function () {
-	
-	var tabl = new Array();
-	tabl[0] = 'tpl-gameboard';
+	tabl[0] = 'tpl-prof-owl';
 	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
 	ipc.send('ShowEditorWindow');
 	
 });
 
+const settingsE4 = document.querySelector('#mod04');
+settingsE4.addEventListener('click', function () {	
+	var tabl = new Array();
+	tabl[0] = 'tpl-gameboard';
+	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
+	ipc.send('ShowEditorWindow');
+});
+
 const settingsE5 = document.querySelector('#mod05');
 settingsE5.addEventListener('click', function () {
-	
 	var tabl = new Array();
 	tabl[0] = 'tpl-meet-purple';
 	ipc.send('message',{key:'openfile',val:tabl,tpl:true});
 	ipc.send('ShowEditorWindow');
-	
 });
 
 const settingsopenelearninglink = document.querySelector('#mod06');

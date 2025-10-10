@@ -11,15 +11,27 @@ var easyfile =  require('../libs/easyfile');
 
 const settingsEl = document.querySelector('#newProject');
 settingsEl.addEventListener('click', function(){
-	ipc.send('ShowModelsWindow');
+	if (!inwaitmode) {
+		ipc.send('ShowModelsWindow');
+	}
+});
+
+//newProject2
+const settingsEl2 = document.querySelector('#newProject2');
+settingsEl2.addEventListener('click', function(){
+	if (!inwaitmode) {
+		ipc.send('ShowModelsWindow');
+	}
 });
 
 const fileManagerBtn = document.getElementById('openProject')
 fileManagerBtn.addEventListener('click',function(event){
-	var path = openDialogOpenEL();
-	if(path){
-		ipc.send('message',{key:'openfile',val:path,tpl:false});
-		ipc.send('ShowEditorWindow');
+	if (!inwaitmode) {
+		var path = openDialogOpenEL();
+		if(path){
+			ipc.send('message',{key:'openfile',val:path,tpl:false});
+			ipc.send('ShowEditorWindow');
+		}
 	}
 });
 
@@ -30,13 +42,22 @@ choicelangBtn.addEventListener('click', function (event) {
 
 const choiceExtensionsBtn = document.getElementById('extensions')
 choiceExtensionsBtn.addEventListener('click', function (event) {
-	ipc.send('extensions');
+	if (!inwaitmode) {
+		ipc.send('extensions');
+	}
 });
 
 const settingsopenelearninglink = document.querySelector('#openelearninglink');
 settingsopenelearninglink.addEventListener('click', function () {
-shell.openExternal('http://www.openelearning.org/')
+	shell.openExternal('http://www.openelearning.org/');
 });
+
+const settingsopenpremiumlink = document.querySelector('#premium');
+	if (settingsopenpremiumlink) {
+		settingsopenpremiumlink.addEventListener('click', function () {
+		ipc.send('ShowTplsWindow');
+	});
+}
 
 const settingsdebugBtn = document.querySelector('#debugBtn');
 settingsdebugBtn.addEventListener('click', function () {
