@@ -60,7 +60,7 @@ const url = require('url');
 const urlFile = "";
 var easyfile;
 
-global.appVersion = "1.8.5";
+global.appVersion = "1.8.6";
 
 global.sharedObj = {lang:'fr',dataElectronXml:'',dataUpload:''
 ,dataZip:'',dataVideo:'',dataAudio:'',dataFile:'',activeFile:'0',
@@ -110,10 +110,10 @@ function createWindow(){
 		global.sharedObj.activeOS = 'darwin';
 	}
 	
-	//Create the browser window.,maximize: true 496,500
+	// Create the browser window.,maximize: true 496,500
 	if (process.platform=='linux'||process.platform=='darwin') {
 		mainWindow = new BrowserWindow({
-			width: 640 + 0,
+			width: 640 + 70,
 			height: 530,
 			icon: __dirname + '/assets/icons/1024x1024.png',
 			title: 'Open-eLearning',
@@ -123,7 +123,7 @@ function createWindow(){
 		})
 	} else {
 		mainWindow = new BrowserWindow({
-			width: 640 + 0,
+			width: 640 + 70,
 			height: 530,
 			icon: __dirname + '/app/images/ico64.ico',
 			title: 'Open-eLearning',
@@ -135,7 +135,7 @@ function createWindow(){
 	
 	easyfile =  require('./libs/easyfile');
 	
-	var urlLaunch = path.join(__dirname, 'app/launch.html');
+	var urlLaunch = path.join(__dirname, 'app/launch0825.html');
 	
 	var langfile = easyfile.getfWf("params") + "lang.txt";
 
@@ -218,6 +218,8 @@ function createWindow(){
 	},200);
 	setTimeout(function(){
 		initLaunch();
+	},500);
+	setTimeout(function(){
 		easyfile.loadDataDist();
 	},3000);
 
@@ -696,7 +698,7 @@ ipcMain.on('message',function(event,data){
 	if(data.key=='lang'){
 		
 		mainWindow.loadURL(url.format({
-			pathname: path.join(__dirname, 'app/launch.html'),
+			pathname: path.join(__dirname, 'app/launch0825.html'),
 			protocol: 'file:',
 			slashes : true
 		}))
@@ -830,7 +832,7 @@ ipcMain.on('index',function(event,data) {
 	if(global.exitprocess){return false;}
 	
 	mainWindow.loadURL(url.format({
-		pathname: path.join(__dirname, 'app/launch.html'),
+		pathname: path.join(__dirname, 'app/launch0825.html'),
 		protocol: 'file:',
 		slashes : true
 	}))
