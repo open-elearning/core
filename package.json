@@ -16,7 +16,7 @@
   "devDependencies": {
     "electron": "^8.2.5",
     "electron-packager": "^14.2.1",
-    "electron-rebuild": "^1.10.1"
+    "electron-rebuild": "^3.2.9"
   },
   "dependencies": {
     "asar": "^0.14.3",
