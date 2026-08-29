@@ -47,7 +47,7 @@ let tradData = [
 		"fr": 'Ajouter un logo',
 		"de": 'Logo hinzufügen',
 		"es": 'Add a logo',
-		"it": 'Add a logo',
+		"it": 'Aggiungi un logo',
 		"ne": 'Add a logo',
 		"po": 'Add a logo',
 		"pobr": 'Add a logo'
@@ -147,7 +147,7 @@ let tradData = [
 		"fr": 'Auto page suivante',
 		"de": 'Automatisch umblättern',
 		"es": 'Auto pagina siguiente',
-		"it": 'Auto pagina successiva',
+		"it": 'Avanzamento automatico alla pagina successiva',
 		"ne": 'Auto volgende pagina',
 		"po": 'Auto następna strona',
 		"pobr": 'Página seguinte automática'
@@ -217,7 +217,7 @@ let tradData = [
 		"fr": 'Bandes dessinées',
 		"de": 'Comics',
 		"es": 'Historietas',
-		"it": 'Comics',
+		"it": 'Storie a fumetti',
 		"ne": 'Strips',
 		"po": 'Komiks',
 		"pobr": 'Histórias em quadrinhos'
@@ -268,7 +268,7 @@ let tradData = [
 		"fr": 'réponse',
 		"de": 'Antworten',
 		"es": 'respuesta',
-		"it": 'ritorno',
+		"it": 'rispondi',
 		"ne": 'Antwoord',
 		"po": 'ponów',
 		"pobr": 'responder'
@@ -358,7 +358,7 @@ let tradData = [
 		"fr": 'Choisir un template',
 		"de": 'Eine Vorlage auswählen.',
 		"es": 'Elegir una plantilla.',
-		"it": 'Scegliere un modello.',
+		"it": 'Scegli un modello.',
 		"ne": 'Kies een model',
 		"po": 'Wybierz tryb',
 		"pobr": 'Escolher um modo'
@@ -698,7 +698,7 @@ let tradData = [
 		"fr": 'Annuler',
 		"de": 'Stornieren',
 		"es": 'Cancelar',
-		"it": 'Cancella',
+		"it": 'Annulla',
 		"ne": 'Annuleren',
 		"po": 'Anuluj',
 		"pobr": 'Cancelar'
@@ -708,7 +708,7 @@ let tradData = [
 		"fr": 'Annuler',
 		"de": 'Stornieren',
 		"es": 'Cancelar',
-		"it": 'Cancella',
+		"it": 'Annulla',
 		"ne": 'Annuleren',
 		"po": 'Anuluj',
 		"pobr": 'Cancelar'
